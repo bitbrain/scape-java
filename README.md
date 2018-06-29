@@ -1,3 +1,3 @@
-![scape][scape.png]
+![scape](scape.png)
 
 A fast-paced running platformer
