@@ -4,23 +4,25 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer name="Tile Layer 2" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzt1cEJADAIADHdf+mOoCAtFRLw5/k1AmCHLKa7N20m3e3bL1qAbfyPP1qgdgDM9ACt
+   eJzt1TEOACAIBEH4/6cp1QTFxEKRnYSG644CEWSi3Xj7aIf3zG66m1dCF3/hlvfQPXBu9ZM0yDGiL6AxJS8AIA==
   </data>
  </layer>
  <objectgroup name="bounds">
   <object id="6" name="event" x="-18" y="-40" width="3288" height="62">
    <properties>
+    <property name="collision" value="false"/>
     <property name="gameover" value="true"/>
    </properties>
   </object>
   <object id="10" name="event" x="-38" y="295" width="3288" height="62">
    <properties>
+    <property name="collision" value="false"/>
     <property name="gameover" value="true"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="spawn">
-  <object id="1" type="spawn" x="15.8333" y="151.833">
+  <object id="1" type="spawn" x="13.8333" y="156.5">
    <point/>
   </object>
   <object id="4" type="event" x="3118" y="103" width="73" height="132">

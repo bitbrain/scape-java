@@ -16,6 +16,8 @@ public class PlayerMovement extends BehaviorAdapter {
 
    private boolean flipping = false;
 
+   private boolean locked = false;
+
    private final CollisionDetector collisionDetector;
 
    public PlayerMovement(CollisionDetector collisionDetector) {
@@ -28,10 +30,8 @@ public class PlayerMovement extends BehaviorAdapter {
          flip(source);
       }
 
-      if (flipping) {
+      if (this.direction != null) {
          velocity.y = GameConfig.PLAYER_START_SPEED * this.direction.getMultiplier();
-      } else {
-         velocity.y = 0;
       }
 
       // 1. When moving up, get collision on the top
@@ -45,26 +45,28 @@ public class PlayerMovement extends BehaviorAdapter {
       source.setPosition(
             source.getLeft() + velocity.x * delta,
             source.getTop() + velocity.y * delta);
-
-      if (flipping) {
          Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
          Vector2 verticalCollision = Direction.UP.equals(this.direction) ?
                collisionDetector.getCollisionAbove(source) :
                collisionDetector.getCollisionBelow(source);
-         if (verticalCollision != null) {
-            flipping = false;
+      if (horizontalCollision != null && verticalCollision == null) {
+         flip(source);
+         source.setPosition(horizontalCollision.x, horizontalCollision.y);
+         locked = true;
+      } else if (verticalCollision != null) {
             source.setAttribute(Direction.class, this.direction);
-            velocity.y = 0;
             source.setPosition(verticalCollision.x, verticalCollision.y);
-         } else
-         if (horizontalCollision != null) {
-            source.setPosition(horizontalCollision.x, horizontalCollision.y);
-         }
+            flipping = false;
+            locked = false;
+      } else if (flipping) {
+         locked = true;
+      } else {
+         locked = false;
       }
    }
 
    private void flip(GameObject source) {
-      if (flipping) {
+      if (flipping || locked) {
          return;
       }
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
