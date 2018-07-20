@@ -33,7 +33,7 @@ public class PlayerMovement extends BehaviorAdapter {
          upAgain = true;
       }
 
-      Direction direction = ((Direction)source.getAttribute(Direction.class));
+      Direction direction = ((Direction) source.getAttribute(Direction.class));
 
       velocity.x = GameConfig.PLAYER_START_SPEED;
       velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier();
@@ -50,19 +50,19 @@ public class PlayerMovement extends BehaviorAdapter {
       source.setPosition(
             source.getLeft() + velocity.x * delta,
             source.getTop() + velocity.y * delta);
-         Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
-         Vector2 verticalCollision = Direction.UP.equals(direction) ?
-               collisionDetector.getCollisionAbove(source) :
-               collisionDetector.getCollisionBelow(source);
-         if (verticalCollision != null) {
-            flipping  = false;
-            source.setPosition(source.getLeft(), verticalCollision.y);
-         } else if (horizontalCollision != null) {
-            flipping = true;
-            source.setPosition(horizontalCollision.x, source.getTop());
-         } else {
-            flipping = true;
-         }
+      Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
+      Vector2 verticalCollision = Direction.UP.equals(direction) ?
+            collisionDetector.getCollisionAbove(source) :
+            collisionDetector.getCollisionBelow(source);
+      if (verticalCollision != null) {
+         flipping = false;
+         source.setPosition(source.getLeft(), verticalCollision.y);
+      } else if (horizontalCollision != null) {
+         flipping = true;
+         source.setPosition(horizontalCollision.x, source.getTop());
+      } else {
+         flipping = true;
+      }
 
    }
 
