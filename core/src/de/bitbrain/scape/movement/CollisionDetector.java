@@ -18,11 +18,11 @@ public class CollisionDetector {
       boolean collisionLeft = api.isCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       boolean collisionRight = api.isCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       if (collisionLeft) {
-         float correction = (float)Math.floor((object.getTop())/ api.getCellWidth()) * api.getCellWidth();
+         float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
       if (collisionRight) {
-         float correction = (float)Math.floor((object.getTop())/ api.getCellWidth()) * api.getCellWidth();
+         float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
       return null;
@@ -30,7 +30,7 @@ public class CollisionDetector {
 
    public Vector2 getCollisionBelow(GameObject object) {
       TiledMapAPI api = context.getTiledMapManager().getAPI();
-      boolean collisionLeft = api.isCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
+      boolean collisionLeft = api.isCollision(object.getLeft() - object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
       boolean collisionRight = api.isCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
       if (collisionLeft) {
          float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
