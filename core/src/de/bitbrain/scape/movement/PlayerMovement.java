@@ -38,32 +38,22 @@ public class PlayerMovement extends BehaviorAdapter {
       velocity.x = GameConfig.PLAYER_START_SPEED;
       velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier();
 
-      // 1. When moving up, get collision on the top
-      //    When moving down, get collision on the bottom
-      //    Get collision on the right
-      // 2. when distance to horizontal collision > distance to vertical collision -> horizontal collision
-      // 3. for horizontal collision -> set back right side to horizontal left point
-      //    for vertical collision -> - if moving up, set up side to vertical down point
-      //                              - if moving down, set down side to vertical up point
-      //                              - set flipping to false
+      source.setPosition(source.getLeft() + velocity.x * delta, source.getTop() + velocity.y * delta);
 
-      source.setPosition(
-            source.getLeft() + velocity.x * delta,
-            source.getTop() + velocity.y * delta);
       Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
       Vector2 verticalCollision = Direction.UP.equals(direction) ?
             collisionDetector.getCollisionAbove(source) :
             collisionDetector.getCollisionBelow(source);
+
       if (verticalCollision != null) {
          flipping = false;
          source.setPosition(source.getLeft(), verticalCollision.y);
-      } else if (horizontalCollision != null) {
-         flipping = true;
+      }
+      if (horizontalCollision != null) {
          source.setPosition(horizontalCollision.x, source.getTop());
-      } else {
+      } else if (verticalCollision == null) {
          flipping = true;
       }
-
    }
 
    private void flip(GameObject source) {

@@ -4,20 +4,22 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer name="Tile Layer 2" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJztlsEOgDAIQ/X/f9qrF5G+lmUmNtlJYAW6xuN4x1kcJZegm9/lRrl38miP1d3qt05NuhMy4ypena3C2dXdU63kjh04b3I1khxdH/qxByr9Ov6UxBfeVhLJXdzrJbF6F12dTnnx7h5P/gWSd7r7IPMlsRREWwp/ykHhqfZA9EL7IZjSNOXQjXP8atp3XA/dwRsn7r4AR4EA9A==
+   eJzt1UEKACAIRFG9/6XbS2CKZsF/EEELF46hSA9tqoscNTdmkUeOFh5bVzbvOOf1LtJbcniL93+A3zHT91Xu88i+xwxyiFnKWwBA
   </data>
  </layer>
  <objectgroup name="bounds">
-  <object id="6" name="event" x="-18" y="-40" width="3288" height="62">
+  <object id="6" name="game_over_event" type="game_over_event" x="-1.33333" y="0.666667" width="3288.67" height="36.6667">
    <properties>
     <property name="collision" value="false"/>
-    <property name="gameover" value="true"/>
+    <property name="producer" value="spawn"/>
+    <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="10" name="event" x="-38" y="295" width="3288" height="62">
+  <object id="10" name="game_over_event" type="game_over_event" x="2.4869e-14" y="297" width="3276.67" height="24">
    <properties>
     <property name="collision" value="false"/>
-    <property name="gameover" value="true"/>
+    <property name="producer" value="spawn"/>
+    <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
