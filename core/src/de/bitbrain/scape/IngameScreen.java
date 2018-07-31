@@ -35,7 +35,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       context.getTiledMapManager().load(SharedAssetManager.getInstance().get(Assets.TiledMaps.LEVEL_1, TiledMap.class), context.getGameCamera().getInternal(), TiledMapType.ORTHOGONAL);
       context.getEventManager().register(new GameOverEventListener(this), GameOverEvent.class);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
-      context.getTiledMapManager().getAPI().setDebug(true);
+      context.getTiledMapManager().getAPI().setDebug(false);
       for (GameObject o : context.getGameWorld()) {
          if ("spawn".equals(o.getType())) {
             o.setDimensions(32f, 32f);
