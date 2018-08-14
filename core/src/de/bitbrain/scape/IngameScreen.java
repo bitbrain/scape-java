@@ -54,7 +54,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), this, context),
+            new LevelCompleteEventListener(getGame(), context),
             LevelCompleteEvent.class
       );
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
