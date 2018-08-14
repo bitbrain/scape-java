@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="32" tileheight="32" infinite="0" nextobjectid="11">
- <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="1" source="../tileset.tsx"/>
  <layer name="Tile Layer 2" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIx0womFs4vjU0xIT62Z62j2UASF/occ/re0jx7zRuB86YCiH5VB2+3AA9MzD9CwTRtPVwAFa1xOk6iNVfCiA0XqWPDAaXqMAHQAA8zsAsA==
+   eJzt1aERAAAIAzHYf2kmwGCoSO46wYtWAZteRg49suiRRY8//gOAiwGbjAAQ
   </data>
  </layer>
  <objectgroup name="bounds">

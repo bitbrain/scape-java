@@ -8,6 +8,7 @@ public interface Assets {
    }
 
    interface TiledMaps {
-      String LEVEL_1 = "level-1.tmx";
+      String LEVEL_1 = "maps/1_intro.tmx";
+      String LEVEL_2 = "maps/2_city.tmx";
    }
 }

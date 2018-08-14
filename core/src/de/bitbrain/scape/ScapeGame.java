@@ -15,6 +15,6 @@ public class ScapeGame extends BrainGdxGame {
 
    @Override
    protected AbstractScreen<?> getInitialScreen() {
-      return new IngameScreen(this);
+      return new IngameScreen(this, Assets.TiledMaps.LEVEL_1);
    }
 }
