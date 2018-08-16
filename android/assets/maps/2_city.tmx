@@ -4,7 +4,7 @@
  <tileset firstgid="1" source="../tileset.tsx"/>
  <layer name="Tile Layer 2" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJztlEEKACAIBPX/n+4aYWlBscQMCJnQYQdzM/Ogembz6H5VkFPJDh/vwIcW+NDnNDsyh9/gf9Hitg+87pH5mPXjOXuLnauBDy0ahrsAnA==
+   eJzdlksKwzAMRN1lU9zc/7ZVFgVlsCrZI9PEDwQRTvyZwVJKOfOU2CReRv74Q0Rg52DW9tAaop6/3j2oEm+J3cjv6Mfo9wxaV60h6ol440i2pt65WT+iMHeoFb26RtcsxjPjBeNPFHaezHqVhaUley8y6tSMOm+tkzkXe4dn1/070DqTdVavX3uMfJ+h9Up+aXTfGNE2q+/00luPevvTFe6x5Q0+6xz3hmNRj7PPtYIfGuuft0KOe/uOYd56d2Z/Wc2PKB8iOAUn
   </data>
  </layer>
  <objectgroup name="bounds">
@@ -27,9 +27,9 @@
   <object id="1" type="spawn" x="13.8333" y="156.5">
    <point/>
   </object>
-  <object id="4" type="level_complete_even" x="3118" y="103" width="73" height="132">
+  <object id="4" type="level_complete_even" x="3124" y="41" width="73" height="184">
    <properties>
-    <property name="next" value="2_city.tmx"/>
+    <property name="next" value="maps/2_city.tmx"/>
    </properties>
   </object>
  </objectgroup>

@@ -35,11 +35,10 @@ public class PlayerMovement extends BehaviorAdapter {
 
       Direction direction = ((Direction) source.getAttribute(Direction.class));
 
-      velocity.x = GameConfig.PLAYER_START_SPEED;
-      velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier();
+      velocity.x = GameConfig.PLAYER_START_SPEED * delta;
+      velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier() * delta;
 
-      source.setPosition(source.getLeft() + velocity.x * delta, source.getTop() + velocity.y * delta);
-
+      source.setPosition(source.getLeft() + velocity.x, source.getTop() + velocity.y);
       Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
       Vector2 verticalCollision = Direction.UP.equals(direction) ?
             collisionDetector.getCollisionAbove(source) :

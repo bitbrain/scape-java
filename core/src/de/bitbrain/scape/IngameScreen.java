@@ -65,7 +65,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setStickToWorldBounds(true);
             context.getGameCamera().setDefaultZoomFactor(0.4f);
             context.getGameCamera().setTrackingTarget(o);
-            context.getGameCamera().setTargetTrackingSpeed(0.5f);
+            context.getGameCamera().setTargetTrackingSpeed(0.1f);
             CollisionDetector collisionDetector = new CollisionDetector(context);
             context.getBehaviorManager().apply(new PlayerMovement(collisionDetector), o);
             o.setAttribute(Direction.class, Direction.UP);
