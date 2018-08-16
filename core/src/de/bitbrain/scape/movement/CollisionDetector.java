@@ -5,6 +5,8 @@ import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.world.GameObject;
 
+import static java.lang.String.format;
+
 public class CollisionDetector {
 
    private final GameContext context;
@@ -29,10 +31,11 @@ public class CollisionDetector {
          float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
-      if (collisionTopRight) {
-         float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
-         return new Vector2(object.getLeft(), correction);
-      }
+      // we wanna slide off the edge so do not do this!
+      //if (collisionTopRight) {
+      //   float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
+      //   return new Vector2(object.getLeft(), correction);
+      //}
       return null;
    }
 
@@ -52,10 +55,11 @@ public class CollisionDetector {
          float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
-      if (collisionBottomRight) {
-         float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
-         return new Vector2(object.getLeft(), correction);
-      }
+      // we wanna slide off the edge so do not do this!
+      //if (collisionBottomRight) {
+         //float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
+         //return new Vector2(object.getLeft(), correction);
+      //}
       return null;
    }
 
