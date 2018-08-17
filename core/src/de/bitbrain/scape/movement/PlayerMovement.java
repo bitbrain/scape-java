@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
+import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.model.Direction;
 
-public class PlayerMovement extends BehaviorAdapter {
+public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
 
@@ -20,6 +21,10 @@ public class PlayerMovement extends BehaviorAdapter {
 
    public PlayerMovement(CollisionDetector collisionDetector) {
       this.collisionDetector = collisionDetector;
+   }
+
+   public boolean isFlipping() {
+      return flipping;
    }
 
    @Override
@@ -65,5 +70,15 @@ public class PlayerMovement extends BehaviorAdapter {
          source.setAttribute(Direction.class, Direction.DOWN);
       }
       flipping = true;
+   }
+
+   @Override
+   public void move(Integer influencer) {
+
+   }
+
+   @Override
+   public boolean isMoving() {
+      return !flipping;
    }
 }
