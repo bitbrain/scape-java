@@ -14,9 +14,7 @@ public class DirectionAnimationRenderer extends AnimationRenderer {
 
    @Override
    public void render(GameObject object, Batch batch, float delta) {
-      object.getScale().y = Direction.DOWN.equals(object.getAttribute(Direction.class)) ?
-            1 : -1;
-      System.out.println(object.getScale().y);
+      object.getScale().y = Direction.DOWN.equals(object.getAttribute(Direction.class)) ? 1 : -1;
       super.render(object, batch, delta);
    }
 }

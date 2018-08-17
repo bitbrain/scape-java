@@ -18,6 +18,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    private boolean upAgain = false;
 
    private final CollisionDetector collisionDetector;
+   private Vector2 horizontalCollision, verticalCollision;
 
    public PlayerMovement(CollisionDetector collisionDetector) {
       this.collisionDetector = collisionDetector;
@@ -44,18 +45,18 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier() * delta;
 
       source.setPosition(source.getLeft() + velocity.x, source.getTop() + velocity.y);
-      Vector2 horizontalCollision = collisionDetector.getCollisionInFront(source);
-      Vector2 verticalCollision = Direction.UP.equals(direction) ?
+      horizontalCollision = collisionDetector.getCollisionInFront(source);
+      verticalCollision = Direction.UP.equals(direction) ?
             collisionDetector.getCollisionAbove(source) :
             collisionDetector.getCollisionBelow(source);
 
-      if (verticalCollision != null) {
+      if (hasVerticalCollision()) {
          flipping = false;
          source.setPosition(source.getLeft(), verticalCollision.y);
       }
-      if (horizontalCollision != null) {
+      if (hasHorizontalCollision()) {
          source.setPosition(horizontalCollision.x, source.getTop());
-      } else if (verticalCollision == null) {
+      } else if (!hasVerticalCollision()) {
          flipping = true;
       }
    }
@@ -80,5 +81,13 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    @Override
    public boolean isMoving() {
       return !flipping;
+   }
+
+   public boolean hasVerticalCollision() {
+      return verticalCollision != null;
+   }
+
+   public boolean hasHorizontalCollision() {
+      return horizontalCollision != null;
    }
 }

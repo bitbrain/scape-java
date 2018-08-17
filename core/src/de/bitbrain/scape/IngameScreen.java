@@ -11,7 +11,8 @@ import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheetAnimation;
+import de.bitbrain.braingdx.graphics.particles.ParticleManagerRenderLayer;
+import de.bitbrain.braingdx.graphics.pipeline.RenderPipe;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.postprocessing.effects.Vignette;
@@ -28,6 +29,7 @@ import de.bitbrain.scape.event.LevelCompleteEvent;
 import de.bitbrain.scape.event.ScopeEventFactory;
 import de.bitbrain.scape.graphics.CharacterInitializer;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.graphics.PlayerParticleSpawner;
 import de.bitbrain.scape.model.Direction;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
@@ -68,8 +70,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 1);
-      final SpriteSheetAnimation animation = CharacterInitializer.createAnimations(context, sheet, CharacterType.PLAYER);
-
+      CharacterInitializer.createAnimations(context, sheet, CharacterType.PLAYER);
       for (GameObject o : context.getGameWorld()) {
          if ("PLAYER".equals(o.getType())) {
             o.setDimensions(8f, 8f);
@@ -83,6 +84,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             o.setAttribute(Movement.class, movement);
             o.setAttribute(Direction.class, Direction.UP);
             o.setAttribute(Orientation.class, Orientation.RIGHT);
+            context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), o);
             PlayerAdjustment.adjust(o, context);
             player = o;
             this.resetPosition.x = player.getLeft();

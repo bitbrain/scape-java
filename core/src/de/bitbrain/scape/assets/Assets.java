@@ -11,4 +11,9 @@ public interface Assets {
       String LEVEL_1 = "maps/1_intro.tmx";
       String LEVEL_2 = "maps/2_city.tmx";
    }
+
+   interface Particles {
+      String TOUCH_TOP = "particles/touch-top.p";
+      String TOUCH_BOTTOM = "particles/touch-bottom.p";
+   }
 }
