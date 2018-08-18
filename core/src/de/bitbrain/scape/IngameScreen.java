@@ -1,6 +1,7 @@
 package de.bitbrain.scape;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -11,29 +12,24 @@ import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.particles.ParticleManagerRenderLayer;
-import de.bitbrain.braingdx.graphics.pipeline.RenderPipe;
+import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
-import de.bitbrain.braingdx.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
-import de.bitbrain.scape.event.LevelCompleteEventListener;
+import de.bitbrain.scape.event.*;
 import de.bitbrain.scape.camera.LevelScrollingBounds;
-import de.bitbrain.scape.event.GameOverEvent;
-import de.bitbrain.scape.event.GameOverEventListener;
-import de.bitbrain.scape.event.LevelCompleteEvent;
-import de.bitbrain.scape.event.ScopeEventFactory;
-import de.bitbrain.scape.graphics.CharacterInitializer;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.graphics.PlayerParticleSpawner;
 import de.bitbrain.scape.model.Direction;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
+
+import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
@@ -51,7 +47,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      setBackgroundColor(Color.valueOf("140a1b"));
+      setBackgroundColor(Color.valueOf("0d0711"));
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(tiledMapPath, TiledMap.class),
             context.getGameCamera().getInternalCamera(),
@@ -65,12 +61,23 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             new LevelCompleteEventListener(getGame(), context),
             LevelCompleteEvent.class
       );
+      context.getEventManager().register(
+            new ByteCollector(context.getGameWorld(), context.getParticleManager()),
+            ByteCollectedEvent.class
+      );
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
 
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
-      SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 1);
-      CharacterInitializer.createAnimations(context, sheet, CharacterType.PLAYER);
+      SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
+      createAnimations(context, sheet, CharacterType.PLAYER, AnimationTypes.FORWARD)
+            .origin(0, 0)
+            .frames(8)
+            .interval(0.05f);
+      createAnimations(context, sheet, CharacterType.BYTE, AnimationTypes.FORWARD)
+            .origin(0, 1)
+            .frames(8)
+            .interval(0.05f);
       for (GameObject o : context.getGameWorld()) {
          if ("PLAYER".equals(o.getType())) {
             o.setDimensions(8f, 8f);
@@ -90,6 +97,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
          }
+         if ("BYTE".equals(o.getType())) {
+            o.setDimensions(8f, 8f);
+            context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
+         }
       }
       levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI());
       context.getGameWorld().setBounds(levelScroller);
@@ -100,6 +111,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onUpdate(float delta) {
+      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+         Gdx.app.exit();
+      }
       super.onUpdate(delta);
       levelScroller.update(delta);
       outOfBoundsManager.update();
@@ -112,12 +126,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private void setupShaders(GameContext context) {
       Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-      Vignette vignette = new Vignette(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, false);
-      vignette.setIntensity(0.6f);
       bloom.setBlurAmount(5f);
-      bloom.setBloomIntesity(0.8f);
+      bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
-      context.getRenderPipeline().getPipe(RenderPipeIds.WORLD).addEffects(vignette, bloom);
+      context.getRenderPipeline().getPipe(RenderPipeIds.PARTICLES).addEffects(bloom);
    }
 }

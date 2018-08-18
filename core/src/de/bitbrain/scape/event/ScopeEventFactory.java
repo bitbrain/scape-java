@@ -16,11 +16,14 @@ public class ScopeEventFactory implements GameEventFactory {
          MapProperties properties = (MapProperties)eventObject.getAttribute(MapProperties.class);
          return new LevelCompleteEvent((String)properties.get("next"));
       }
+      if (eventObject.getType().equals("BYTE")) {
+         return new ByteCollectedEvent(eventObject);
+      }
       return null;
    }
 
    @Override
    public Object[] identifiers() {
-      return new Object[]{"game_over_event", "level_complete_event"};
+      return new Object[]{"game_over_event", "level_complete_event", "BYTE"};
    }
 }

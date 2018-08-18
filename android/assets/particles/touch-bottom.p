@@ -2,16 +2,16 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 1500.0
-lowMax: 1500.0
+lowMin: 800.0
+lowMax: 800.0
 - Count - 
 min: 25
-max: 25
+max: 8
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 25.0
-highMax: 25.0
+highMin: 8.0
+highMax: 8.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -20,8 +20,8 @@ timeline0: 0.0
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 1400.0
-highMax: 1400.0
+highMin: 800.0
+highMax: 800.0
 relative: false
 scalingCount: 3
 scaling0: 1.0
@@ -60,10 +60,10 @@ scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - X Scale - 
-lowMin: 1.2
-lowMax: 0.1
-highMin: 1.2
-highMax: 0.1
+lowMin: 0.5
+lowMax: 0.0
+highMin: 1.0
+highMax: 0.0
 relative: false
 scalingCount: 4
 scaling0: 1.0
@@ -79,9 +79,9 @@ timeline3: 1.0
 active: false
 - Velocity - 
 active: true
-lowMin: -20.0
+lowMin: -35.0
 lowMax: 0.0
-highMin: -20.0
+highMin: -35.0
 highMax: -10.0
 relative: false
 scalingCount: 4
@@ -134,20 +134,20 @@ timeline5: 0.9109589
 colorsCount: 12
 colors0: 0.0
 colors1: 1.0
-colors2: 0.7529412
+colors2: 0.7490196
 colors3: 0.0
 colors4: 1.0
 colors5: 0.52156866
 colors6: 0.0
-colors7: 1.0
-colors8: 0.2627451
-colors9: 0.85882354
-colors10: 1.0
-colors11: 0.9372549
+colors7: 0.84313726
+colors8: 1.0
+colors9: 0.41568628
+colors10: 0.0
+colors11: 1.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.6454389
-timeline2: 0.87435454
+timeline1: 0.45438898
+timeline2: 0.77452666
 timeline3: 1.0
 - Transparency - 
 lowMin: 0.0
@@ -155,18 +155,24 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 5
+scalingCount: 8
 scaling0: 1.0
-scaling1: 0.3859649
+scaling1: 0.36842105
 scaling2: 0.15789473
-scaling3: 0.07017544
-scaling4: 0.0
-timelineCount: 5
+scaling3: 0.2631579
+scaling4: 0.54385966
+scaling5: 0.21052632
+scaling6: 0.07017544
+scaling7: 0.0
+timelineCount: 8
 timeline0: 0.0
-timeline1: 0.29452056
-timeline2: 0.5410959
-timeline3: 0.80136985
-timeline4: 1.0
+timeline1: 0.19863014
+timeline2: 0.37671232
+timeline3: 0.5273973
+timeline4: 0.5890411
+timeline5: 0.6643836
+timeline6: 0.80136985
+timeline7: 1.0
 - Options - 
 attached: true
 continuous: false

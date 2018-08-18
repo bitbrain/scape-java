@@ -15,5 +15,7 @@ public interface Assets {
    interface Particles {
       String TOUCH_TOP = "particles/touch-top.p";
       String TOUCH_BOTTOM = "particles/touch-bottom.p";
+      String COLLECT = "particles/collect.p";
+      String BYTE = "particles/byte.p";
    }
 }

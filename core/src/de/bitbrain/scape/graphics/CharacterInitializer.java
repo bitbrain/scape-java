@@ -2,19 +2,15 @@ package de.bitbrain.scape.graphics;
 
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheetAnimation;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheetAnimationFactory;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheetAnimationSupplier;
+import de.bitbrain.braingdx.graphics.animation.*;
 import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
-import de.bitbrain.braingdx.graphics.renderer.AnimationRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CharacterInitializer {
 
-   public static SpriteSheetAnimation createAnimations(GameContext context, SpriteSheet sheet, CharacterType type) {
+   public static SpriteSheetAnimation createAnimations(GameContext context, SpriteSheet sheet, CharacterType type, AnimationType animationType) {
       Map<Integer, SpriteSheetAnimationFactory.Index> indices = createSpriteIndices(type);
       SpriteSheetAnimationFactory animationFactory = new SpriteSheetAnimationFactory(sheet, indices);
       SpriteSheetAnimation animation = null;
@@ -24,12 +20,12 @@ public class CharacterInitializer {
                .base(0)
                .frames(8)
                .interval(0.05f)
-               .type(AnimationTypes.FORWARD)
+               .type(animationType)
                .direction(SpriteSheetAnimation.Direction.HORIZONTAL)
                .origin(entry.getValue().x, entry.getValue().y)
                .source(sheet);
          SpriteSheetAnimationSupplier supplier = new SpriteSheetAnimationSupplier(orientations(), animation,
-               AnimationTypes.FORWARD);
+               animationType);
          context.getBehaviorManager().apply(supplier);
          context.getRenderManager().register(CharacterType.values()[entry.getKey()].name(), new DirectionAnimationRenderer(supplier));
       }

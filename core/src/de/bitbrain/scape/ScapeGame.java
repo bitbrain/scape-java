@@ -1,5 +1,6 @@
 package de.bitbrain.scape;
 
+import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
 import de.bitbrain.braingdx.assets.SmartAssetLoader;
@@ -15,6 +16,8 @@ public class ScapeGame extends BrainGdxGame {
 
    @Override
    protected AbstractScreen<?> getInitialScreen() {
+      Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
+      Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       return new IngameScreen(this, Assets.TiledMaps.LEVEL_1);
    }
 }
