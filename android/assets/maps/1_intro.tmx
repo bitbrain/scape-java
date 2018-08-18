@@ -4,7 +4,7 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJztluEKwCAIhC2o93/k1Y+Do0VDyNjYfSCW9SNO1MzEG8nNSrP6ECsnH/VDuuZdb+ieyc9iI8pPLMlxl/M0y5WIYVUDdXEm/HBfYo819tzXRCzQ2siXIW6mWvgCqK9k97+YOAfmOOa/5x8g4tFc2cMFiswA8g==
+   eJxjYCAMOKikhhR11DSDXDvJ0UdPu0YBfcBAxs1ouhgFowABRvMD/cFIDHNa+Jma7ShKwEiMz+EIRuNx6IKhGncD0X8brICa/sBlFgAY2gCx
   </data>
  </layer>
  <objectgroup name="bounds">
