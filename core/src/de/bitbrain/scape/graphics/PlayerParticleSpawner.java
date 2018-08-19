@@ -9,7 +9,7 @@ import de.bitbrain.scape.movement.PlayerMovement;
 
 public class PlayerParticleSpawner extends BehaviorAdapter {
 
-   private static final int HORIZONTAL_OFFSET = 0;
+   private static final int HORIZONTAL_OFFSET = 8;
 
    private final ParticleManager particleManager;
    private final PlayerMovement playerMovement;
@@ -34,7 +34,7 @@ public class PlayerParticleSpawner extends BehaviorAdapter {
       if (firstTouch) {
          Direction direction = (Direction)source.getAttribute(Direction.class);
          String effect = direction == Direction.UP ? Assets.Particles.TOUCH_TOP : Assets.Particles.TOUCH_BOTTOM;
-         final float x = source.getLeft() - HORIZONTAL_OFFSET;
+         final float x = source.getLeft() + HORIZONTAL_OFFSET;
          final float y = direction == Direction.UP ? source.getTop() + source.getHeight() : source.getTop();
          particleManager.spawnEffect(effect, x, y);
       }
