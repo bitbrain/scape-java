@@ -18,4 +18,8 @@ public interface Assets {
       String COLLECT = "particles/collect.p";
       String BYTE = "particles/byte.p";
    }
+
+   interface Fonts {
+      String EIGHT_BIT_WONDER = "fonts/8bitwonder.ttf";
+   }
 }

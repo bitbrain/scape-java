@@ -2,7 +2,6 @@ package de.bitbrain.scape;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
@@ -47,12 +46,39 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      setBackgroundColor(Color.valueOf("0d0711"));
+      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
+      context.getTiledMapManager().getAPI().setDebug(false);
+
+      setupEvents(context);
+
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(tiledMapPath, TiledMap.class),
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
+
+
+      setupWorld(context);
+      setupShaders(context);
+   }
+
+   @Override
+   protected void onUpdate(float delta) {
+      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+         Gdx.app.exit();
+      }
+      super.onUpdate(delta);
+      levelScroller.update(delta);
+      outOfBoundsManager.update();
+   }
+
+   public void resetLevel() {
+      player.setPosition(resetPosition.x, resetPosition.y);
+      levelScroller.reset();
+   }
+
+   private void setupEvents(GameContext context) {
       context.getEventManager().register(
             new GameOverEventListener(this),
             GameOverEvent.class
@@ -65,9 +91,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             new ByteCollector(context.getGameWorld(), context.getParticleManager()),
             ByteCollectedEvent.class
       );
-      context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
-      context.getTiledMapManager().getAPI().setDebug(false);
+   }
 
+   private void setupWorld(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
       createAnimations(context, sheet, CharacterType.PLAYER, AnimationTypes.FORWARD)
@@ -105,23 +131,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI());
       context.getGameWorld().setBounds(levelScroller);
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);
-
-      setupShaders(context);
-   }
-
-   @Override
-   protected void onUpdate(float delta) {
-      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-         Gdx.app.exit();
-      }
-      super.onUpdate(delta);
-      levelScroller.update(delta);
-      outOfBoundsManager.update();
-   }
-
-   public void resetLevel() {
-      player.setPosition(resetPosition.x, resetPosition.y);
-      levelScroller.reset();
    }
 
    private void setupShaders(GameContext context) {
