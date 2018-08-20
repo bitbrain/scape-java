@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="29">
- <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
    eJztljEOACAIAxn9/4vdHRTSWsB4iYsRaTEQh5kNx6qKR3snXyrNaN0i2qL7apA6sz0geavUE4Hdlzf6JjN+d6+ypz15MzXf9n3yEoljwvCznq0yVxjvVImdh86+uqOaGVkg/zH1XH2ZX8PPiQkiUQbZ

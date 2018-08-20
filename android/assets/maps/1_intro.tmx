@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="30">
- <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzdVUEOgCAM47j/v9grIerW0ZJqEyOJjnXdKGPkiOI/1WcX6B7dnJ04JCYe1mwgven2UNlvNd54IvUo5v8L+jFxp1E2dw7Y4eF0dnZ94AS/7Lsbb7X3qrHeUwqObneFgktlz5jeqL7VGKQ2t1mcwciP1OemAcMLq3k6/qT2MqdeoKiec2ZdLM0ZPP4Ahf+suABZ5gdJ
+   eJzVl0sOwCAIRF26dNn7n7SrJoSADj9DX2JqaxXEKdoxZBapz03bIu+gxcIjPDuNsdi91SbSj9vw2JpKXUKKg9SmxSu7WGzsfM8iYmOnS4t+K/Tv1e5fkWJ00l0HIn5kaSWDaB644d+pvZvf1bm3Gr5PeX3U9kw6bhcqfEHGnOSKxhc9g3EbyJ7ZTYuUDPuW+aExuHHe+fyhSOfejPXz5qfsXIbMrxM7HaDfeWReWrwi0P5enXdbJy/WeSD/ZpwXeWcI8Q==
   </data>
  </layer>
  <objectgroup name="spawn">
