@@ -6,7 +6,7 @@ import static com.badlogic.gdx.graphics.Color.valueOf;
 
 public interface Colors {
 
-   Color PRIMARY_RED = valueOf("120179");
+   Color PRIMARY_RED = valueOf("f20179");
 
    Color PRIMARY_BLUE = valueOf("05fecf");
 

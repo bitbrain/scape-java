@@ -20,6 +20,6 @@ public interface Assets {
    }
 
    interface Fonts {
-      String EIGHT_BIT_WONDER = "fonts/8bitwonder.ttf";
+      String PIXEL_MADNESS = "fonts/pixelmadness.ttf";
    }
 }

@@ -2,9 +2,12 @@ package de.bitbrain.scape;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
@@ -27,6 +30,7 @@ import de.bitbrain.scape.model.Direction;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
+import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
@@ -60,6 +64,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
 
       setupWorld(context);
+      setupUI(context);
       setupShaders(context);
    }
 
@@ -133,12 +138,20 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);
    }
 
+   private void setupUI(GameContext context) {
+      Table layout = new Table();
+      layout.setFillParent(true);
+      Label points = new Label("0", Styles.LABEL_INGAME_POINTS);
+      layout.left().bottom().padLeft(90).padBottom(50).add(points);
+      context.getStage().addActor(layout);
+   }
+
    private void setupShaders(GameContext context) {
       Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
       bloom.setBlurAmount(5f);
       bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
-      context.getRenderPipeline().getPipe(RenderPipeIds.PARTICLES).addEffects(bloom);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom);
    }
 }
