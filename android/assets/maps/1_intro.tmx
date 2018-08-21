@@ -2,9 +2,10 @@
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="30">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
+ <tileset firstgid="65" source="tileset-horizontal.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzVl0sOwCAIRF26dNn7n7SrJoSADj9DX2JqaxXEKdoxZBapz03bIu+gxcIjPDuNsdi91SbSj9vw2JpKXUKKg9SmxSu7WGzsfM8iYmOnS4t+K/Tv1e5fkWJ00l0HIn5kaSWDaB644d+pvZvf1bm3Gr5PeX3U9kw6bhcqfEHGnOSKxhc9g3EbyJ7ZTYuUDPuW+aExuHHe+fyhSOfejPXz5qfsXIbMrxM7HaDfeWReWrwi0P5enXdbJy/WeSD/ZpwXeWcI8Q==
+   eJxjYBjeoBKIq4C4eqAdMogBtcNouIX5cPPPKBgFpAB6pP/RPDYKRsEooBfgwCJGizIImz2kAHQ3UWoeMqCmWZSGnQCZ+kj1A7n20MM8mFnkhCU14xIEJMjUR2p4kGsPtczDF26UuI3UcMDlDgCZUw9N
   </data>
  </layer>
  <objectgroup name="spawn">

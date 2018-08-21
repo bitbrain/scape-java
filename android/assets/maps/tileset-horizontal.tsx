@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<tileset name="tileset-vertical" tilewidth="8" tileheight="8" tilecount="64" columns="8">
- <image source="tileset-vertical.png" width="64" height="64"/>
+<tileset name="tileset-horizontal" tilewidth="8" tileheight="8" tilecount="64" columns="8">
+ <image source="tileset-horizontal.png" width="64" height="64"/>
  <tile id="0">
   <properties>
    <property name="collision" type="bool" value="true"/>
@@ -16,41 +16,6 @@
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
- </tile>
- <tile id="3">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="4">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="5">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="6">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="7">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
-  <animation>
-   <frame tileid="0" duration="100"/>
-   <frame tileid="1" duration="100"/>
-   <frame tileid="2" duration="100"/>
-   <frame tileid="3" duration="100"/>
-   <frame tileid="4" duration="100"/>
-   <frame tileid="5" duration="100"/>
-   <frame tileid="6" duration="100"/>
-   <frame tileid="7" duration="100"/>
-  </animation>
  </tile>
  <tile id="8">
   <properties>
@@ -67,41 +32,6 @@
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="11">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="12">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="13">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="14">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="15">
-  <properties>
-   <property name="collision" type="bool" value="true"/>
-  </properties>
-  <animation>
-   <frame tileid="8" duration="100"/>
-   <frame tileid="9" duration="100"/>
-   <frame tileid="10" duration="100"/>
-   <frame tileid="11" duration="100"/>
-   <frame tileid="12" duration="100"/>
-   <frame tileid="13" duration="100"/>
-   <frame tileid="14" duration="100"/>
-   <frame tileid="15" duration="100"/>
-  </animation>
- </tile>
  <tile id="16">
   <properties>
    <property name="collision" type="bool" value="true"/>
@@ -117,39 +47,109 @@
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="19">
+ <tile id="24">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="20">
+ <tile id="25">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="21">
+ <tile id="26">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="22">
+ <tile id="32">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="23">
+ <tile id="33">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="34">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="40">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="41">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="48">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="50">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="56">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
   <animation>
+   <frame tileid="0" duration="100"/>
+   <frame tileid="8" duration="100"/>
    <frame tileid="16" duration="100"/>
+   <frame tileid="24" duration="100"/>
+   <frame tileid="32" duration="100"/>
+   <frame tileid="40" duration="100"/>
+   <frame tileid="48" duration="100"/>
+   <frame tileid="56" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+  <animation>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="9" duration="100"/>
    <frame tileid="17" duration="100"/>
+   <frame tileid="25" duration="100"/>
+   <frame tileid="33" duration="100"/>
+   <frame tileid="41" duration="100"/>
+   <frame tileid="49" duration="100"/>
+   <frame tileid="57" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+  <animation>
+   <frame tileid="2" duration="100"/>
+   <frame tileid="10" duration="100"/>
    <frame tileid="18" duration="100"/>
-   <frame tileid="19" duration="100"/>
-   <frame tileid="20" duration="100"/>
-   <frame tileid="21" duration="100"/>
-   <frame tileid="22" duration="100"/>
-   <frame tileid="23" duration="100"/>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="34" duration="100"/>
+   <frame tileid="42" duration="100"/>
+   <frame tileid="50" duration="100"/>
+   <frame tileid="58" duration="100"/>
   </animation>
  </tile>
 </tileset>
