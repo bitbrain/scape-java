@@ -1,4 +1,4 @@
-package de.bitbrain.scape;
+package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -25,6 +25,8 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
+import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.PlayerContext;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
 import de.bitbrain.scape.event.*;
@@ -43,7 +45,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private final String tiledMapPath;
 
-   private  PlayerContext playerContext;
+   private PlayerContext playerContext;
 
    private Vector2 resetPosition = new Vector2();
    private GameObject player;

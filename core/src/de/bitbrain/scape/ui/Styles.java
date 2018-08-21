@@ -16,6 +16,8 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_INGAME_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_INTERACTION = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_INTRO_COMMAND = new Label.LabelStyle();
+
    public static void init() {
       LABEL_INGAME_POINTS.font = BitmapFontBaker.bake(Assets.Fonts.UI_NUMBER, (Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / 2000));
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
@@ -28,5 +30,8 @@ public final class Styles {
 
       LABEL_INGAME_INTERACTION.font = BitmapFontBaker.bake(Assets.Fonts.UI_NUMBER, (Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / 6000));
       LABEL_INGAME_INTERACTION.fontColor = Colors.PRIMARY_BLUE;
+
+      LABEL_INTRO_COMMAND.font = BitmapFontBaker.bake(Assets.Fonts.UI_NUMBER, (Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / 8000));
+      LABEL_INTRO_COMMAND.fontColor = Colors.PRIMARY_BLUE;
    }
 }

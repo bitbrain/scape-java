@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.event.GameEventListener;
-import de.bitbrain.scape.IngameScreen;
+import de.bitbrain.scape.screens.IngameScreen;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
 
