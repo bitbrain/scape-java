@@ -9,7 +9,7 @@ import de.bitbrain.scape.movement.PlayerMovement;
 
 public class PlayerParticleSpawner extends BehaviorAdapter {
 
-   private static final int HORIZONTAL_OFFSET = 8;
+   private static final int HORIZONTAL_OFFSET = 3;
 
    private final ParticleManager particleManager;
    private final PlayerMovement playerMovement;
