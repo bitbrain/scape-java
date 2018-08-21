@@ -1,5 +1,8 @@
 package de.bitbrain.scape;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +22,8 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
+import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
@@ -29,8 +34,8 @@ import de.bitbrain.scape.graphics.PlayerParticleSpawner;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
+import de.bitbrain.scape.ui.LevelDescriptionUI;
 import de.bitbrain.scape.ui.PointsLabel;
-import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
@@ -45,6 +50,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private LevelScrollingBounds levelScroller;
    private OutOfBoundsManager outOfBoundsManager;
    private GameContext context;
+
+   private boolean anyKeyPressedToStartlevel = false;
+
+   private LevelDescriptionUI descriptionUI;
 
    public IngameScreen(BrainGdxGame game, String tiledMapPath) {
       super(game);
@@ -76,6 +85,21 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    protected void onUpdate(float delta) {
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          Gdx.app.exit();
+         return;
+      }
+      if (!anyKeyPressedToStartlevel && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+         anyKeyPressedToStartlevel = true;
+         descriptionUI.hide(1f);
+         Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.6f)
+               .target(0f)
+               .setCallbackTriggers(TweenCallback.COMPLETE)
+               .setCallback(new TweenCallback() {
+                  @Override
+                  public void onEvent(int type, BaseTween<?> source) {
+                     context.getStage().getActors().removeValue(descriptionUI, false);
+                  }
+               })
+               .start(SharedTweenManager.getInstance());
       }
       super.onUpdate(delta);
       levelScroller.update(delta);
@@ -154,6 +178,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       layout.setFillParent(true);
       layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
       context.getStage().addActor(layout);
+
+      descriptionUI = new LevelDescriptionUI();
+      context.getStage().addActor(descriptionUI);
    }
 
    private void setupShaders(GameContext context) {
