@@ -6,11 +6,11 @@
  <tileset firstgid="193" source="tileset-virus.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzVV80OwiAM5uCB446+jw87Pfoz3d5OFtfks2lpCRDnlzQpGy39gVJCsLGw8TXRLdE90WsbrxQTPRJNiZ4wP4JcDoPyneSPhrz0H20tWfNXIFspjhgzjC3yk6JrDp/cUZ7m7Tv3GWOkrYEYMv+4Pgt8rpVjDvIxp7sGFLclfMeQ4PHRAvmMa1m2cHnLTn72ZkUGeUlPDSz/9oIa+zwx6x2H1nkrOc81KF0jV4N6o7au7A1aLcD/XvkVvXIj3U3Eazn5l7rTAgc2xvvUGwdv7lDfmOic6BL63R8tEYG39jZhdM7D+EVjLpfj4LW3RF9rtOr5JFBPqvWfGh8NOQLZZfX7nvhiLyXZrc3tidb7AuvGCXipp8b3xyDMze0J3u9zP0rfZ6TP86aRzqd3/1kotVvL3xskfJR0
+   eJzNlzsOwjAMhjswdOzY+3BYYOTd3oCRI5EIfunHsmMH2sInWaTNw45dO6FpfEbxvE9ySHJMcn09Z2mTnJKck1xofEvzSnTGe8zvnflaP9taozNKq7yz7LwLnTfxm4Gt8CP7jH3L7bOhb2iesUOcBqEfsI8sHUxX6JPrecixXowl2CPbpq1fAjrvSh/8NjbvPgSRPXpAP+vSsPr7gJ0y9wZjDre1dWrZJtkl2VC7tM8pdH6L5f8IEfu9OH9LjQ+93FiSaM0ApRo0N1P6zTsXl8CqBdwfnZ+ZKzba2YS2FRMv3/gctdb+xTf2CSvxzOdptO5E98zrafV9qlru1QXYq71DDCV8b/O+bbAJjmPd2v3QmqPZKe9H0fXmpvae5t3DcG+zcs9qt848AP959/2If7lea3ZbY/+NUk5xfNfU1uLIudcpY6N6MtL/tf/PsF7kP42Wn9Hvbyke0aOnQw==
   </data>
  </layer>
  <objectgroup name="spawn">
-  <object id="1" type="PLAYER" x="379.932" y="44.4247">
+  <object id="1" type="PLAYER" x="12.5984" y="30.4247">
    <point/>
   </object>
   <object id="15" type="BYTE" x="155.625" y="21.25">
@@ -69,21 +69,21 @@
    </properties>
    <point/>
   </object>
-  <object id="24" type="BYTE" x="691.455" y="52.3636">
+  <object id="24" type="BYTE" x="658.955" y="36.3636">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="25" type="BYTE" x="755.455" y="37.6364">
+  <object id="25" type="BYTE" x="747.637" y="28.5455">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="26" type="BYTE" x="739.818" y="53.6364">
+  <object id="26" type="BYTE" x="691.818" y="30.1364">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
