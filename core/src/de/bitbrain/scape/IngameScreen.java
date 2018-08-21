@@ -42,6 +42,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private GameObject player;
    private LevelScrollingBounds levelScroller;
    private OutOfBoundsManager outOfBoundsManager;
+   private GameContext context;
 
    public IngameScreen(BrainGdxGame game, String tiledMapPath) {
       super(game);
@@ -81,6 +82,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    public void resetLevel() {
       player.setPosition(resetPosition.x, resetPosition.y);
       levelScroller.reset();
+      PlayerAdjustment.adjust(player, context);
    }
 
    private void setupEvents(GameContext context) {
@@ -99,6 +101,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupWorld(GameContext context) {
+      this.context = context;
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
       createAnimations(context, sheet, CharacterType.PLAYER, AnimationTypes.FORWARD)
@@ -112,6 +115,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       for (GameObject o : context.getGameWorld()) {
          if ("PLAYER".equals(o.getType())) {
             o.setDimensions(8f, 8f);
+            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
             context.getGameCamera().setDefaultZoomFactor(0.15f);
             context.getGameCamera().setTrackingTarget(o);
@@ -120,7 +126,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             PlayerMovement movement = new PlayerMovement(collisionDetector);
             context.getBehaviorManager().apply(movement, o);
             o.setAttribute(Movement.class, movement);
-            o.setAttribute(Direction.class, Direction.UP);
             o.setAttribute(Orientation.class, Orientation.RIGHT);
             context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), o);
             PlayerAdjustment.adjust(o, context);
@@ -131,6 +136,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          if ("BYTE".equals(o.getType())) {
             o.setDimensions(8f, 8f);
             context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
+            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            o.setPosition(correctX, correctY);
          }
       }
       levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI());
