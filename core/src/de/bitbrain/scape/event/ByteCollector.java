@@ -10,20 +10,24 @@ import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
+import de.bitbrain.scape.PlayerContext;
 import de.bitbrain.scape.assets.Assets;
 
 public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
 
    private final GameWorld gameWorld;
    private final ParticleManager particleManager;
+   private final PlayerContext playerContext;
 
-   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager) {
+   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager, PlayerContext playerContext) {
       this.gameWorld = gameWorld;
       this.particleManager = particleManager;
+      this.playerContext = playerContext;
    }
 
    @Override
    public void onEvent(final ByteCollectedEvent event) {
+      playerContext.addPoint();
       final GameObject object = event.getByteObject();
       event.getByteObject().setActive(false);
       float centerX = object.getLeft() + object.getWidth() / 2f;

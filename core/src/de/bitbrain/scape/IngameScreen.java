@@ -26,10 +26,10 @@ import de.bitbrain.scape.event.*;
 import de.bitbrain.scape.camera.LevelScrollingBounds;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.graphics.PlayerParticleSpawner;
-import de.bitbrain.scape.model.Direction;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
+import de.bitbrain.scape.ui.PointsLabel;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
@@ -37,6 +37,8 @@ import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private final String tiledMapPath;
+
+   private  PlayerContext playerContext;
 
    private Vector2 resetPosition = new Vector2();
    private GameObject player;
@@ -51,6 +53,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
+      playerContext = new PlayerContext();
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
@@ -95,7 +98,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
-            new ByteCollector(context.getGameWorld(), context.getParticleManager()),
+            new ByteCollector(context.getGameWorld(), context.getParticleManager(), playerContext),
             ByteCollectedEvent.class
       );
    }
@@ -149,8 +152,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupUI(GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
-      Label points = new Label("0", Styles.LABEL_INGAME_POINTS);
-      layout.left().bottom().padLeft(90).padBottom(50).add(points);
+      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
       context.getStage().addActor(layout);
    }
 

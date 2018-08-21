@@ -19,6 +19,6 @@ public interface Assets {
    }
 
    interface Fonts {
-      String PIXEL_MADNESS = "fonts/pixelmadness.ttf";
+      String UI_NUMBER = "fonts/visitor.ttf";
    }
 }

@@ -15,7 +15,7 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_INGAME_POINTS = new Label.LabelStyle();
 
    public static void init() {
-      LABEL_INGAME_POINTS.font = BitmapFontBaker.bake(Assets.Fonts.PIXEL_MADNESS, (Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / 2500));
+      LABEL_INGAME_POINTS.font = BitmapFontBaker.bake(Assets.Fonts.UI_NUMBER, (Gdx.graphics.getWidth() * Gdx.graphics.getHeight() / 2000));
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
    }
 }
