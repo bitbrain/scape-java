@@ -89,8 +89,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       }
       if (!anyKeyPressedToStartlevel && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
          anyKeyPressedToStartlevel = true;
-         descriptionUI.hide(1f);
-         Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.6f)
+         descriptionUI.hide(2f);
+         Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.5f)
                .target(0f)
                .setCallbackTriggers(TweenCallback.COMPLETE)
                .setCallback(new TweenCallback() {
@@ -100,10 +100,13 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                   }
                })
                .start(SharedTweenManager.getInstance());
+         setupPlayer();
       }
-      super.onUpdate(delta);
-      levelScroller.update(delta);
-      outOfBoundsManager.update();
+      if (anyKeyPressedToStartlevel) {
+         super.onUpdate(delta);
+         levelScroller.update(delta);
+
+      }
    }
 
    public void resetLevel() {
@@ -149,13 +152,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setDefaultZoomFactor(0.15f);
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.05f);
-            CollisionDetector collisionDetector = new CollisionDetector(context);
-            PlayerMovement movement = new PlayerMovement(collisionDetector);
-            context.getBehaviorManager().apply(movement, o);
-            o.setAttribute(Movement.class, movement);
-            o.setAttribute(Orientation.class, Orientation.RIGHT);
-            context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), o);
-            PlayerAdjustment.adjust(o, context);
             player = o;
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
@@ -179,8 +175,21 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
       context.getStage().addActor(layout);
 
-      descriptionUI = new LevelDescriptionUI();
+      descriptionUI = new LevelDescriptionUI(extractLevelNameFromFileName(), Integer.valueOf(extractLevelNumberFromFileName()));
       context.getStage().addActor(descriptionUI);
+      descriptionUI.show(2f);
+   }
+
+   private String extractLevelNameFromFileName() {
+      String numberString = extractLevelNumberFromFileName();
+      String name = tiledMapPath
+            .replaceAll(".*" + numberString, "")
+            .replace(".tmx", "");
+      return name.substring(1).replace("_", " ");
+   }
+
+   private String extractLevelNumberFromFileName() {
+      return tiledMapPath.replaceAll("\\D+","");
    }
 
    private void setupShaders(GameContext context) {
@@ -190,5 +199,15 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom);
+   }
+
+   private void setupPlayer() {
+      CollisionDetector collisionDetector = new CollisionDetector(context);
+      PlayerMovement movement = new PlayerMovement(collisionDetector);
+      context.getBehaviorManager().apply(movement, player);
+      player.setAttribute(Movement.class, movement);
+      player.setAttribute(Orientation.class, Orientation.RIGHT);
+      context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), player);
+      PlayerAdjustment.adjust(player, context);
    }
 }
