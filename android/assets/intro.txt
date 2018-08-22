@@ -1,0 +1,25 @@
+> scp load-scape.sh robot@cluster.ecorp.com:/home/robot/
+> ssh robot@cluster.ecorp.com
+
+Enter password:
+> **********
+
+Login successful!
+
+EVIL CORP. SYSTEMS, 1984-2003 ALL RIGHTS RESERVED.
+VERSION 1.1
+
+robot@cluster.ecorp.com> ./load-scape.sh
+Downloading VIRUS.PK...
+Downloading CORRUPT.PK...
+Downloading SCAPE.EXE...
+All attack sectors loaded!
+Preparing corruption of main frame...
+20%
+40%
+60%
+80%
+100%
+COMPLETE!
+
+Press any key to continue...

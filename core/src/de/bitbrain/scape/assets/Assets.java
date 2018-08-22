@@ -21,4 +21,8 @@ public interface Assets {
    interface Fonts {
       String UI_NUMBER = "fonts/visitor.ttf";
    }
+
+   interface Sounds {
+      String BEEP = "sounds/beep.ogg";
+   }
 }
