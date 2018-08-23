@@ -48,7 +48,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    protected void onUpdate(float delta) {
       if (!exiting && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          exiting = true;
-         context.getScreenTransitions().out(new IngameScreen(getGame(), Assets.TiledMaps.LEVEL_1), 1f);
+         context.getScreenTransitions().out(new LevelSelectionScreen(getGame()), 1f);
       } else if (!bootSequence && commands != null && commands.isEmpty() && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
          bootSequence = true;
       }
@@ -57,7 +57,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       }
       if (!exiting && bootTimer.reached(BOOT_SEQUENCE_DURATION)) {
          exiting = true;
-         context.getScreenTransitions().out(new IngameScreen(getGame(), Assets.TiledMaps.LEVEL_1), 1f);
+         context.getScreenTransitions().out(new LevelSelectionScreen(getGame()), 1f);
       }
    }
 

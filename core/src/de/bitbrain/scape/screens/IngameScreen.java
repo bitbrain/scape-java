@@ -26,6 +26,7 @@ import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.PlayerContext;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
@@ -43,7 +44,7 @@ import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
-   private final String tiledMapPath;
+   private final LevelMetaData levelMetaData;
 
    private PlayerContext playerContext;
 
@@ -57,9 +58,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private LevelDescriptionUI descriptionUI;
 
-   public IngameScreen(BrainGdxGame game, String tiledMapPath) {
+   public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
       super(game);
-      this.tiledMapPath = tiledMapPath;
+      this.levelMetaData = levelMetaData;
    }
 
    @Override
@@ -72,7 +73,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       setupEvents(context);
 
       context.getTiledMapManager().load(
-            SharedAssetManager.getInstance().get(tiledMapPath, TiledMap.class),
+            SharedAssetManager.getInstance().get(levelMetaData.getPath(), TiledMap.class),
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
@@ -177,21 +178,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
       context.getStage().addActor(layout);
 
-      descriptionUI = new LevelDescriptionUI(extractLevelNameFromFileName(), Integer.valueOf(extractLevelNumberFromFileName()));
+      descriptionUI = new LevelDescriptionUI(levelMetaData.getName(), levelMetaData.getNumber());
       context.getStage().addActor(descriptionUI);
       descriptionUI.show(2f);
-   }
-
-   private String extractLevelNameFromFileName() {
-      String numberString = extractLevelNumberFromFileName();
-      String name = tiledMapPath
-            .replaceAll(".*" + numberString, "")
-            .replace(".tmx", "");
-      return name.substring(1).replace("_", " ");
-   }
-
-   private String extractLevelNumberFromFileName() {
-      return tiledMapPath.replaceAll("\\D+","");
    }
 
    private void setupShaders(GameContext context) {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="8" tileheight="8" infinite="0" nextobjectid="4">
+ <tileset firstgid="1" source="worldmap.tsx"/>
+ <tileset firstgid="257" source="tileset-virus.tsx"/>
+ <tileset firstgid="321" source="tileset-horizontal.tsx"/>
+ <tileset firstgid="449" source="tileset-vertical.tsx"/>
+ <layer name="base" width="16" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrlRMPiBMhCzAzEHheaIDjH9QkiYGYg1CKg/gZbOhdEwCGwBqtkKxNuw5IkLaGIgLhMSTQjcQNMvCHU7jMYFNgL1bQLizVD9ALriCl4=
+  </data>
+ </layer>
+ <objectgroup name="levels">
+  <object id="1" type="LEVEL" x="30.5455" y="116.545">
+   <properties>
+    <property name="description" value="Enter the grid. You have to reach the end of the data bus."/>
+    <property name="level" value="1"/>
+    <property name="name" value="Data Bus"/>
+    <property name="path" value="maps/001_databus.tmx"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="3" type="LEVEL" x="36.25" y="67.25">
+   <properties>
+    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="level" value="2"/>
+    <property name="name" value="Kernel I/O"/>
+    <property name="path" value="maps/001_kernelio.tmx"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>
