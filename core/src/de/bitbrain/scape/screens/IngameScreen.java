@@ -5,11 +5,9 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
@@ -37,7 +35,7 @@ import de.bitbrain.scape.graphics.PlayerParticleSpawner;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
-import de.bitbrain.scape.ui.LevelDescriptionUI;
+import de.bitbrain.scape.ui.IngameLevelDescriptionUI;
 import de.bitbrain.scape.ui.PointsLabel;
 
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
@@ -56,7 +54,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean anyKeyPressedToStartlevel = false;
 
-   private LevelDescriptionUI descriptionUI;
+   private IngameLevelDescriptionUI descriptionUI;
 
    public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
       super(game);
@@ -178,7 +176,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
       context.getStage().addActor(layout);
 
-      descriptionUI = new LevelDescriptionUI(levelMetaData.getName(), levelMetaData.getNumber());
+      descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getNumber());
       context.getStage().addActor(descriptionUI);
       descriptionUI.show(2f);
    }

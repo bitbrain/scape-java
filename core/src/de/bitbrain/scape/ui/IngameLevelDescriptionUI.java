@@ -13,13 +13,13 @@ import de.bitbrain.braingdx.graphics.GraphicsFactory;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 
-public class LevelDescriptionUI extends Table {
+public class IngameLevelDescriptionUI extends Table {
 
    private final float TRANSPARENCY = 0.8f;
 
    private final Label caption, description, pressAnyKey;
 
-   public LevelDescriptionUI(String levelName, int levelNumber) {
+   public IngameLevelDescriptionUI(String levelName, int levelNumber) {
       setFillParent(true);
       caption = new Label(levelName, Styles.LABEL_INGAME_CAPTION);
       description = new Label("Level " + levelNumber, Styles.LABEL_INGAME_DESCRIPTION);

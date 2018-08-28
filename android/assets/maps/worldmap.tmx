@@ -7,7 +7,12 @@
  <tileset firstgid="449" source="tileset-vertical.tsx"/>
  <layer name="base" width="16" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrlRMPiBMhCzAzEHheaIDjH9QkiYGYg1CKg/gZbOhdEwCGwBqtkKxNuw5IkLaGIgLhMSTQjcQNMvCHU7jMYFNgL1bQLizVD9ALriCl4=
+   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrlRQBhsBIbfJiDeTGY4EhNH+IAyELMDMQd52uGAXPdvguoTJVEfur9h+jczIszEB4SQMDMQa0DFmaAYHZxgxOQLMyAwCGwBim0F4m1Y7L+AJsYItQdGw8AOHG6/gSYuCHUDyP9C2LWAAXr6AgDLpBZZ
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="16" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DgATMQs6BhVgrNFB1g/UMBAABQ5ABD
   </data>
  </layer>
  <objectgroup name="levels">
