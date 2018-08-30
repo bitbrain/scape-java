@@ -91,7 +91,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
-      camera.setDefaultZoomFactor(initialScreen ? 0.5f : 0.0001f);
+      camera.setDefaultZoomFactor(0.0001f);
       camera.setZoomScalingFactor(0f);
       camera.setTrackingTarget(selector, true);
       setupShaders(context);

@@ -55,6 +55,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean anyKeyPressedToStartlevel = false;
 
+   private boolean exiting = false;
+
    private IngameLevelDescriptionUI descriptionUI;
 
    public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
@@ -89,8 +91,12 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onUpdate(float delta) {
+      if (exiting) {
+         return;
+      }
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-         Gdx.app.exit();
+         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+         exiting = true;
          return;
       }
       if (!anyKeyPressedToStartlevel && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
