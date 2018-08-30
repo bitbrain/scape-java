@@ -21,6 +21,7 @@ import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
@@ -80,6 +81,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       setupWorld(context);
       setupUI(context);
       setupShaders(context);
+
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
+            .target(0.0001f)
+            .start(SharedTweenManager.getInstance());
    }
 
    @Override

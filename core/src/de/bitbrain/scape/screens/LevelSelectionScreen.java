@@ -1,6 +1,8 @@
 package de.bitbrain.scape.screens;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
@@ -10,12 +12,15 @@ import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.graphics.GameCamera;
+import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.GameCameraTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.LevelMetaData;
@@ -58,9 +63,15 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean exiting = false;
    private GameContext context;
+   private boolean initialScreen;
+
+   public LevelSelectionScreen(BrainGdxGame game, boolean initialScreen) {
+      super(game);
+      this.initialScreen = initialScreen;
+   }
 
    public LevelSelectionScreen(BrainGdxGame game) {
-      super(game);
+      this(game, false);
    }
 
    @Override
@@ -77,12 +88,34 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       GameObject currentlySelected = getLevel(currentlySelectedLevel).getWorldObject();
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
       GameCamera camera = context.getGameCamera();
+      Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       camera.setStickToWorldBounds(false);
-      camera.setTargetTrackingSpeed(0.2f);
-      camera.setDefaultZoomFactor(0.07f);
+      camera.setTargetTrackingSpeed(0.1f);
+      camera.setDefaultZoomFactor(initialScreen ? 0.5f : 0.0001f);
       camera.setZoomScalingFactor(0f);
       camera.setTrackingTarget(selector, true);
       setupShaders(context);
+      Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
+            .target(0.07f)
+            .start(SharedTweenManager.getInstance());
+      if (!initialScreen) {
+         exiting = true;
+         Tween.call(new TweenCallback() {
+            @Override
+            public void onEvent(int type, BaseTween<?> source) {
+               selectNextLevel();
+            }
+         }).delay(1.5f)
+               .start(context.getTweenManager());
+         Tween.call(new TweenCallback() {
+            @Override
+            public void onEvent(int type, BaseTween<?> source) {
+               enterLevel();
+            }
+         }).delay(3.5f)
+               .start(context.getTweenManager());
+
+      }
    }
 
    @Override
@@ -92,8 +125,10 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       }
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          Gdx.app.exit();
+         exiting = true;
       } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isTouched()) {
-         context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
+         enterLevel();
+         exiting = true;
       } else if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
          selectNextLevel();
       }
@@ -161,5 +196,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private LevelMetaData getCurrentMetaData() {
       return levelMapping.get(currentlySelectedLevel).getMetadata();
+   }
+
+   private void enterLevel() {
+      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
+            .target(0.0001f)
+            .start(SharedTweenManager.getInstance());
    }
 }
