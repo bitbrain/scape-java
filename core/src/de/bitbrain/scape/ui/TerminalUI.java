@@ -36,6 +36,8 @@ public class TerminalUI extends Table {
 
    private float randomLineInterval = 0.4f;
 
+   private boolean paused = false;
+
    public TerminalUI(List<String> commands) {
       this.commands = commands;
       terminal = new Label(CURSOR, Styles.LABEL_INTRO_COMMAND);
@@ -44,8 +46,24 @@ public class TerminalUI extends Table {
       left().top().padLeft(30f).padTop(30f).add(terminal);
    }
 
+   public String getText() {
+      return existingtext;
+   }
+
+   public void setText(String text) {
+      this.existingtext = text;
+   }
+
+   public void setPaused(boolean paused) {
+      this.paused = paused;
+   }
+
    @Override
    public void act(float delta) {
+      if (paused) {
+         terminal.setText(existingtext);
+         return;
+      }
       cursorTimer.update(delta);
       revealTimer.update(delta);
       if (cursorTimer.reached(BLINK_INTERVAL)) {
@@ -79,8 +97,6 @@ public class TerminalUI extends Table {
       } else if (!commands.isEmpty()) {
          text = commands.get(0).substring(0, cursorPosition);
       }
-
       terminal.setText(existingtext + text + cursor);
-
    }
 }

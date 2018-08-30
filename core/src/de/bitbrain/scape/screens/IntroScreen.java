@@ -12,6 +12,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.ui.TerminalUI;
+import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    private boolean exiting = false;
 
    private final DeltaTimer bootTimer = new DeltaTimer();
+   private TextGlitchRandomizer randomizer;
+   private TerminalUI ui;
 
    public IntroScreen(BrainGdxGame game) {
       super(game);
@@ -38,8 +41,10 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    protected void onCreate(GameContext context) {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
-      context.getStage().addActor(new TerminalUI(commands));
       this.context  = context;
+      ui = new TerminalUI(commands);
+      context.getStage().addActor(ui);
+      randomizer = new TextGlitchRandomizer(ui);
       setupShaders(context);
    }
 
@@ -50,13 +55,16 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
       } else if (!bootSequence && commands != null && commands.isEmpty() && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
          bootSequence = true;
+         ui.setPaused(true);
+         randomizer.start();
       }
       if (bootSequence) {
          bootTimer.update(delta);
+         randomizer.update(delta);
       }
       if (!exiting && bootTimer.reached(GameConfig.BOOT_SEQUENCE_DURATION)) {
          exiting = true;
-         context.getScreenTransitions().out(new LevelSelectionScreen(getGame()), 1f);
+         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
       }
    }
 
