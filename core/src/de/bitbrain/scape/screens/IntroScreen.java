@@ -9,6 +9,7 @@ import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.ui.TerminalUI;
 
@@ -20,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IntroScreen extends AbstractScreen<BrainGdxGame> {
-
-   private static final float BOOT_SEQUENCE_DURATION = 5f;
 
    private GameContext context;
    private List<String> commands;
@@ -55,7 +54,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       if (bootSequence) {
          bootTimer.update(delta);
       }
-      if (!exiting && bootTimer.reached(BOOT_SEQUENCE_DURATION)) {
+      if (!exiting && bootTimer.reached(GameConfig.BOOT_SEQUENCE_DURATION)) {
          exiting = true;
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame()), 1f);
       }
