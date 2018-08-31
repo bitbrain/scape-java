@@ -11,7 +11,7 @@ public class LevelSelectionUI extends VerticalGroup {
 
    public LevelSelectionUI(LevelMetaData metadata) {
       this.metadata = metadata;
-      caption = new Label(metadata.getName(), Styles.LABEL_INGAME_CAPTION);
+      caption = new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION);
       addActor(caption);
    }
 
