@@ -1,5 +1,6 @@
 package de.bitbrain.scape;
 
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
@@ -22,7 +23,7 @@ public class ScapeGame extends BrainGdxGame {
       Styles.init();
       Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
       Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-      //return new LevelSelectionScreen(this, true);
-      return new IntroScreen(this);
+      return new LevelSelectionScreen(this, true);
+      //return new IntroScreen(this);
    }
 }

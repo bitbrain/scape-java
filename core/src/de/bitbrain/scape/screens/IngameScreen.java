@@ -18,6 +18,7 @@ import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
 import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
+import de.bitbrain.braingdx.postprocessing.effects.MotionBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
@@ -198,6 +199,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
+
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom);
    }
 

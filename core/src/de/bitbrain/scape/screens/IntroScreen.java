@@ -1,12 +1,17 @@
 package de.bitbrain.scape.screens;
 
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screens.ColorTransition;
+import de.bitbrain.braingdx.tweens.BloomShaderTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -29,9 +34,9 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    private boolean bootSequence = false;
    private boolean exiting = false;
 
-   private final DeltaTimer bootTimer = new DeltaTimer();
    private TextGlitchRandomizer randomizer;
    private TerminalUI ui;
+   private Bloom bloom;
 
    public IntroScreen(BrainGdxGame game) {
       super(game);
@@ -57,19 +62,26 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
+         Tween.to(bloom, BloomShaderTween.BLOOM_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+               .target(20f)
+               .start(SharedTweenManager.getInstance());
+         Tween.to(bloom, BloomShaderTween.BASE_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+               .target(0.3f)
+               .start(SharedTweenManager.getInstance());
+         context.getScreenTransitions().out(
+               new ColorTransition(Colors.PRIMARY_BLUE),
+               new LevelSelectionScreen(getGame(), true),
+               GameConfig.BOOT_SEQUENCE_DURATION
+         );
+         exiting = true;
       }
       if (bootSequence) {
-         bootTimer.update(delta);
          randomizer.update(delta);
-      }
-      if (!exiting && bootTimer.reached(GameConfig.BOOT_SEQUENCE_DURATION)) {
-         exiting = true;
-         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
       }
    }
 
    private void setupShaders(GameContext context) {
-      Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
       bloom.setBlurAmount(5f);
       bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);

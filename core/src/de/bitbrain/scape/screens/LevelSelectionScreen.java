@@ -15,12 +15,17 @@ import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
+import de.bitbrain.braingdx.postprocessing.effects.MotionBlur;
 import de.bitbrain.braingdx.postprocessing.effects.Vignette;
+import de.bitbrain.braingdx.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.LevelMetaData;
@@ -31,6 +36,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
+
+   private Zoomer zoomer;
 
    private class Level {
 
@@ -170,7 +177,11 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, bloom);
+      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
+      zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+      zoomer.setZoom(1f);
+      zoomer.setBlurStrength(0f);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, bloom, zoomer);
    }
 
    private void selectNextLevel() {
@@ -199,9 +210,15 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void enterLevel() {
-      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
-      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
+      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1.5f);
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1.5f)
             .target(0.0001f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1.5f)
+            .target(1.1f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1.5f)
+            .target(5f)
             .start(SharedTweenManager.getInstance());
    }
 }
