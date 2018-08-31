@@ -1,6 +1,7 @@
 package de.bitbrain.scape.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
@@ -10,13 +11,19 @@ public class LevelScrollingBounds implements GameWorld.WorldBounds {
 
    private float levelProgress;
    private TiledMapAPI tiledMapAPI;
+   private final GameCamera gameCamera;
 
-   public LevelScrollingBounds(TiledMapAPI api) {
+   public LevelScrollingBounds(TiledMapAPI api, GameCamera gameCamera) {
       this.tiledMapAPI = api;
+      this.gameCamera = gameCamera;
    }
 
    public void update(float delta) {
       levelProgress += GameConfig.LEVEL_START_SCROLLING_SPEED * delta;
+      float cameraLeft = gameCamera.getInternalCamera().position.x - gameCamera.getScaledCameraWidth() / 2f;
+      if (cameraLeft > levelProgress) {
+         levelProgress = cameraLeft;
+      }
    }
 
    public void reset() {

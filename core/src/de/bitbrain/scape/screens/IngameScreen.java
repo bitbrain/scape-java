@@ -118,7 +118,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       if (anyKeyPressedToStartlevel) {
          super.onUpdate(delta);
          levelScroller.update(delta);
-
+         outOfBoundsManager.update();
       }
    }
 
@@ -177,7 +177,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             o.setPosition(correctX, correctY);
          }
       }
-      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI());
+      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
       context.getGameWorld().setBounds(levelScroller);
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);
    }
