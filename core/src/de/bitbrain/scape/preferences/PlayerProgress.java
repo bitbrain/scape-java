@@ -1,11 +1,10 @@
-package de.bitbrain.scape;
+package de.bitbrain.scape.preferences;
 
-public class PlayerContext {
+public class PlayerProgress {
 
    private int points;
 
-   public PlayerContext() {
-
+   public PlayerProgress() {
    }
 
    public void addPoint() {

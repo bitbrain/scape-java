@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
 import de.bitbrain.braingdx.assets.SmartAssetLoader;
+import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.IntroScreen;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
 import de.bitbrain.scape.ui.Styles;
 
 public class ScapeGame extends BrainGdxGame {
@@ -21,9 +23,11 @@ public class ScapeGame extends BrainGdxGame {
    @Override
    protected AbstractScreen<?> getInitialScreen() {
       Styles.init();
-      //Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
-      //Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-     // return new LevelSelectionScreen(this, true);
+      Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
+      Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
+      Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+      //return new LevelSelectionScreen(this, true);
       return new IntroScreen(this);
+      //return new IngameScreen(this, new LevelMetaData(1, "maps/001_databus.tmx", "test", "test"));
    }
 }

@@ -10,16 +10,16 @@ import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
-import de.bitbrain.scape.PlayerContext;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 
 public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
 
    private final GameWorld gameWorld;
    private final ParticleManager particleManager;
-   private final PlayerContext playerContext;
+   private final PlayerProgress playerContext;
 
-   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager, PlayerContext playerContext) {
+   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager, PlayerProgress playerContext) {
       this.gameWorld = gameWorld;
       this.particleManager = particleManager;
       this.playerContext = playerContext;

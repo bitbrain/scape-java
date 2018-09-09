@@ -181,7 +181,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
       zoomer.setZoom(1f);
       zoomer.setBlurStrength(0f);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, bloom, zoomer);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
    }
 
    private void selectNextLevel() {

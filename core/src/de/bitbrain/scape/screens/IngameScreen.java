@@ -18,7 +18,6 @@ import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
 import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
-import de.bitbrain.braingdx.postprocessing.effects.MotionBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
@@ -27,7 +26,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.LevelMetaData;
-import de.bitbrain.scape.PlayerContext;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
 import de.bitbrain.scape.event.*;
@@ -46,7 +45,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private final LevelMetaData levelMetaData;
 
-   private PlayerContext playerContext;
+   private PlayerProgress playerContext;
 
    private Vector2 resetPosition = new Vector2();
    private GameObject player;
@@ -67,7 +66,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      playerContext = new PlayerContext();
+      playerContext = new PlayerProgress();
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
