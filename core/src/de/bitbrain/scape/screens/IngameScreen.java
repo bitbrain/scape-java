@@ -49,7 +49,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private final LevelMetaData levelMetaData;
 
-   private PlayerProgress playerContext;
+   private PlayerProgress progress;
 
    private Vector2 resetPosition = new Vector2();
    private GameObject player;
@@ -72,7 +72,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      playerContext = new PlayerProgress();
+      progress = new PlayerProgress(levelMetaData);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
@@ -93,6 +93,12 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.0001f)
             .start(SharedTweenManager.getInstance());
+   }
+
+   @Override
+   public void dispose() {
+      super.dispose();
+      progress.save();
    }
 
    @Override
@@ -147,11 +153,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), context),
+            new LevelCompleteEventListener(getGame(), context, levelMetaData),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
-            new ByteCollector(context.getGameWorld(), context.getParticleManager(), playerContext),
+            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress),
             ByteCollectedEvent.class
       );
    }
@@ -199,7 +205,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupUI(GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
-      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(playerContext));
+      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(progress));
       context.getStage().addActor(layout);
 
       descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getNumber());

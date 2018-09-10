@@ -9,7 +9,6 @@ import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.IntroScreen;
 import de.bitbrain.scape.ui.Styles;
 

@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -27,8 +28,10 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.LevelSelectionUI;
 
 import java.util.HashMap;
@@ -37,6 +40,7 @@ import java.util.Map;
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private Zoomer zoomer;
+   private Preferences prefs;
 
    private class Level {
 
@@ -90,6 +94,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       );
       populateLevelMapping(context);
       selector = context.getGameWorld().addObject();
+      prefs = Gdx.app.getPreferences(GameConfig.PLAYER_PREFERENCES_PATH);
+      currentlySelectedLevel = prefs.getInteger(GameConfig.PLAYER_CURRENT_LEVEL, 1) - 1;
       selectNextLevel();
       GameObject currentlySelected = getLevel(currentlySelectedLevel).getWorldObject();
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
@@ -152,9 +158,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
                   (String)((MapProperties)o.getAttribute(MapProperties.class)).get("name"),
                   (String)((MapProperties)o.getAttribute(MapProperties.class)).get("description")
             );
+            if (metadata.getProgress().getMaximumLevel() < level) {
+               break;
+            }
             LevelSelectionUI levelUI = new LevelSelectionUI(metadata);
             levelUI.setPosition(o.getLeft(), o.getTop());
-            levelUI.setScale(0.15f);
+            levelUI.setScale(0.2f);
             levelUI.getColor().a = 0f;
             context.getWorldStage().addActor(levelUI);
 
@@ -202,6 +211,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
          currentlySelectedLevel = 1;
       }
       Level currentlySelected = getLevel(currentlySelectedLevel);
+      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
+      prefs.flush();
       selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
       if (previouslySelected != null) {
          Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
