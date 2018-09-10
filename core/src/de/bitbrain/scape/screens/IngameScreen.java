@@ -18,11 +18,14 @@ import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
 import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
+import de.bitbrain.braingdx.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.LevelMetaData;
@@ -58,6 +61,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private boolean exiting = false;
 
    private IngameLevelDescriptionUI descriptionUI;
+
+   private Zoomer zoomer;
 
    public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
       super(game);
@@ -96,6 +101,12 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       }
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+         Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+               .target(1.1f)
+               .start(SharedTweenManager.getInstance());
+         Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+               .target(5f)
+               .start(SharedTweenManager.getInstance());
          exiting = true;
          return;
       }
@@ -200,7 +211,19 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
 
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom);
+      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
+      zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+      zoomer.setZoom(1.5f);
+      zoomer.setBlurStrength(10f);
+
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomer, bloom);
+
+      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+            .target(1.0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
    }
 
    private void setupPlayer() {

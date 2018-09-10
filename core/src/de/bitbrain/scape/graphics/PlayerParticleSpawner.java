@@ -4,6 +4,7 @@ import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.camera.ScreenShake;
 import de.bitbrain.scape.model.Direction;
 import de.bitbrain.scape.movement.PlayerMovement;
 

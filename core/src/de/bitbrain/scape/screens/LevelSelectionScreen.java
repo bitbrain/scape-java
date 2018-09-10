@@ -15,12 +15,10 @@ import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
-import de.bitbrain.braingdx.postprocessing.effects.MotionBlur;
 import de.bitbrain.braingdx.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
-import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
@@ -179,9 +177,16 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setThreshold(0.3f);
       zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
       zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
-      zoomer.setZoom(1f);
-      zoomer.setBlurStrength(0f);
+      zoomer.setZoom(1.5f);
+      zoomer.setBlurStrength(10f);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
+
+      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+            .target(1.0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
    }
 
    private void selectNextLevel() {
@@ -210,14 +215,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void enterLevel() {
-      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1.5f);
-      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1.5f)
+      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.0001f)
             .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1.5f)
+      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
             .target(1.1f)
             .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1.5f)
+      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
             .target(5f)
             .start(SharedTweenManager.getInstance());
    }
