@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -103,9 +104,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
          Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
                .target(1.1f)
+               .ease(TweenEquations.easeInExpo)
                .start(SharedTweenManager.getInstance());
          Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
                .target(5f)
+               .ease(TweenEquations.easeInExpo)
                .start(SharedTweenManager.getInstance());
          exiting = true;
          return;
@@ -220,9 +223,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
       Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
             .target(1.0f)
+            .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
       Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
             .target(0f)
+            .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
    }
 

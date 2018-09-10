@@ -78,7 +78,7 @@ public class TerminalUI extends Table {
          if (!nextLineTriggered && cursorPosition < commands.get(0).length()) {
             text = commands.get(0).substring(0, ++cursorPosition);
             if (!text.equals("\n")) {
-               SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.3f);
+               SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.05f);
             }
          } else if (lineTimer.reached(randomLineInterval)) {
             cursorPosition = 0;

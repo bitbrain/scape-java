@@ -1,6 +1,7 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -8,10 +9,13 @@ import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.postprocessing.effects.Bloom;
+import de.bitbrain.braingdx.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tweens.BloomShaderTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -37,6 +41,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    private TextGlitchRandomizer randomizer;
    private TerminalUI ui;
    private Bloom bloom;
+   private Zoomer zoomer;
 
    public IntroScreen(BrainGdxGame game) {
       super(game);
@@ -73,6 +78,14 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
                new LevelSelectionScreen(getGame(), true),
                GameConfig.BOOT_SEQUENCE_DURATION
          );
+         Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+               .target(1.2f)
+               .ease(TweenEquations.easeInExpo)
+               .start(SharedTweenManager.getInstance());
+         Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+               .target(15f)
+               .ease(TweenEquations.easeInExpo)
+               .start(SharedTweenManager.getInstance());
          exiting = true;
       }
       if (bootSequence) {
@@ -86,7 +99,11 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       bloom.setBloomIntesity(1.2f);
       bloom.setBlurPasses(50);
       bloom.setThreshold(0.3f);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom);
+      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
+      zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+      zoomer.setZoom(1f);
+      zoomer.setBlurStrength(0f);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom, zoomer);
    }
 
    private List<String> loadIntroCommands() {

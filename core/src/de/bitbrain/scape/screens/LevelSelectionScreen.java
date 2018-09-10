@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
@@ -181,11 +182,13 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       zoomer.setBlurStrength(10f);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
 
-      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
             .target(1.0f)
+            .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 2f)
             .target(0f)
+            .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
    }
 
@@ -218,12 +221,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.0001f)
+            .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
       Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
             .target(1.1f)
             .start(SharedTweenManager.getInstance());
       Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
             .target(5f)
+            .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
    }
 }
