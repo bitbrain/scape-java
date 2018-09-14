@@ -5,6 +5,7 @@ public interface Assets {
    interface Textures {
       String PLAYER = "player.png";
       String BACKGROUND = "background.png";
+      String LOGO = "logo.png";
    }
 
    interface TiledMaps {

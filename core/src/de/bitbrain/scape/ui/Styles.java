@@ -22,6 +22,7 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_SELECTION_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_COMMAND = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_INTRO_BITBRAIN = new Label.LabelStyle();
 
    public static void init() {
       LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 8);
@@ -45,6 +46,9 @@ public final class Styles {
       LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 15);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_RED.cpy();
       LABEL_SELECTION_DESCRIPTION.fontColor.a /= 1.5f;
+
+      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
+      LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
    }
 
    public static BitmapFont bake(String fontPath, int size) {

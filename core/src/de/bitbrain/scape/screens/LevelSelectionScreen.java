@@ -177,6 +177,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    private Level getLevel(int level) {
       return levelMapping.get(level);
    }
+
    private void setupShaders(GameContext context) {
       Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
       Vignette vignette = new Vignette(Gdx.

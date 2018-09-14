@@ -11,4 +11,6 @@ public interface Colors {
    Color PRIMARY_BLUE = valueOf("05fecf");
 
    Color BACKGROUND_VIOLET = valueOf("0d0711");
+
+   Color BITBRAIN = valueOf("00d56e");
 }
