@@ -25,6 +25,10 @@ import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.ui.Styles;
+import de.bitbrain.scape.ui.TerminalUI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
@@ -70,10 +74,13 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       }).delay(1.3f).start(SharedTweenManager.getInstance());
 
       HorizontalGroup layout = new HorizontalGroup();
-      Label bitbrain = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
+      //Label bitbrain = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
+      List<String> content = new ArrayList<String>();
+      content.add("a bitbrain production");
+      TerminalUI bitbrain = new TerminalUI(content, Styles.LABEL_INTRO_BITBRAIN);
       layout.addActor(bitbrain);
-      layout.setScale(0.1f);
-      layout.setPosition(-(layout.getPrefWidth() * 0.1f) / 2f + logo.getWidth() / 2f, 0f);
+      layout.setScale(0.075f);
+      layout.setPosition(-(44f) / 2f + logo.getWidth() / 2f, 8f);
       context.getWorldStage().addActor(layout);
 
       setupShaders();

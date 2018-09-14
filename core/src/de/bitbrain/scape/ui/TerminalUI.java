@@ -38,12 +38,16 @@ public class TerminalUI extends Table {
 
    private boolean paused = false;
 
-   public TerminalUI(List<String> commands) {
+   public TerminalUI(List<String> commands, Label.LabelStyle style) {
       this.commands = commands;
-      terminal = new Label(CURSOR, Styles.LABEL_INTRO_COMMAND);
+      terminal = new Label(CURSOR, style);
       terminal.setWrap(true);
       setFillParent(true);
       left().top().padLeft(30f).padTop(30f).add(terminal);
+   }
+
+   public TerminalUI(List<String> commands) {
+      this(commands, Styles.LABEL_INTRO_COMMAND);
    }
 
    public String getText() {

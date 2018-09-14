@@ -39,7 +39,6 @@ public final class Styles {
 
       LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 24);
       LABEL_INTRO_COMMAND.fontColor = Colors.PRIMARY_BLUE;
-
       LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
