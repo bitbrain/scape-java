@@ -119,7 +119,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          exiting = true;
          return;
       }
-      if (!anyKeyPressedToStartlevel && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+      if (!anyKeyPressedToStartlevel && (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched())) {
          anyKeyPressedToStartlevel = true;
          descriptionUI.hide(2f);
          Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.5f)
@@ -214,13 +214,13 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupShaders(GameContext context) {
-      Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      Bloom bloom = new Bloom(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
       bloom.setBlurAmount(5f);
       bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(50);
+      bloom.setBlurPasses(4);
       bloom.setThreshold(0.3f);
 
-      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
+      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.Low);
       zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
       zoomer.setZoom(1.5f);
       zoomer.setBlurStrength(10f);

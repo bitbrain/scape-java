@@ -30,7 +30,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    @Override
    public void update(GameObject source, float delta) {
-      if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+      if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()) {
          if (upAgain) {
             flip(source);
          }

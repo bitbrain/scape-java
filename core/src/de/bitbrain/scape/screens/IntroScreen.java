@@ -63,7 +63,8 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       if (!exiting && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          exiting = true;
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
-      } else if (!bootSequence && commands != null && commands.isEmpty() && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+      } else if (!bootSequence && commands != null && commands.isEmpty()
+            && (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched())) {
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
@@ -87,6 +88,9 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
                .ease(TweenEquations.easeInExpo)
                .start(SharedTweenManager.getInstance());
          exiting = true;
+      } else if (!exiting && Gdx.input.isTouched()) {
+         exiting = true;
+         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
       }
       if (bootSequence) {
          randomizer.update(delta);
@@ -94,10 +98,10 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupShaders(GameContext context) {
-      bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      bloom = new Bloom(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
       bloom.setBlurAmount(5f);
       bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(50);
+      bloom.setBlurPasses(4);
       bloom.setThreshold(0.3f);
       zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
       zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);

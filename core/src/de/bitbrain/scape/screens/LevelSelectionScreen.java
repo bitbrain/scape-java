@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -31,7 +32,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.preferences.PlayerProgress;
+import de.bitbrain.scape.input.GameInputManager;
 import de.bitbrain.scape.ui.LevelSelectionUI;
 
 import java.util.HashMap;
@@ -128,22 +129,56 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
                .start(context.getTweenManager());
 
       }
-   }
 
-   @Override
-   protected void onUpdate(float delta) {
-      if (exiting) {
-         return;
-      }
-      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-         Gdx.app.exit();
-         exiting = true;
-      } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isTouched()) {
-         enterLevel();
-         exiting = true;
-      } else if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-         selectNextLevel();
-      }
+      GameInputManager inputManager = new GameInputManager();
+      inputManager.addListener(new GameInputManager.GameInputListener() {
+         @Override
+         public void onSwipe(Orientation orientation) {
+            if (exiting) {
+               return;
+            }
+            switch (orientation) {
+               case RIGHT: case UP:
+                  selectPreviousLevel();
+                  break;
+               case LEFT: case DOWN:
+                  selectNextLevel();
+            }
+         }
+
+         @Override
+         public void onTouch() {
+            if (exiting) {
+               return;
+            }
+            enterLevel();
+            exiting = true;
+         }
+
+         @Override
+         public void onType(int key) {
+            if (exiting) {
+               return;
+            }
+            switch (key) {
+               case Input.Keys.W: case Input.Keys.D:
+                  selectNextLevel();
+                  break;
+               case Input.Keys.S: case Input.Keys.A:
+                  selectPreviousLevel();
+                  break;
+               case Input.Keys.ESCAPE:
+                  Gdx.app.exit();
+                  exiting = true;
+                  break;
+               case Input.Keys.ENTER:
+                  enterLevel();
+                  exiting = true;
+                  break;
+            }
+         }
+      });
+      context.getInput().addProcessor(inputManager);
    }
 
    private void populateLevelMapping(GameContext context) {
@@ -179,14 +214,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupShaders(GameContext context) {
-      Bloom bloom = new Bloom(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      Bloom bloom = new Bloom(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
       Vignette vignette = new Vignette(Gdx.
             graphics.getWidth(), Gdx.graphics.getHeight(), false);
       bloom.setBlurAmount(5f);
       bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(50);
+      bloom.setBlurPasses(4);
       bloom.setThreshold(0.3f);
-      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
+      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.Low);
       zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
       zoomer.setZoom(1.5f);
       zoomer.setBlurStrength(10f);
@@ -200,6 +235,29 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             .target(0f)
             .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
+   }
+
+   private void selectPreviousLevel() {
+      Level previouslySelected = getLevel(currentlySelectedLevel);
+      if (previouslySelected != null) {
+         context.getTweenManager().killTarget(previouslySelected.uiObject);
+      }
+      currentlySelectedLevel--;
+      if (levelMapping.get(currentlySelectedLevel) == null) {
+         currentlySelectedLevel = levelMapping.size() - 1;
+      }
+      Level currentlySelected = getLevel(currentlySelectedLevel);
+      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
+      prefs.flush();
+      selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
+      if (previouslySelected != null) {
+         Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
+               .target(0f)
+               .start(context.getTweenManager());
+      }
+      Tween.to(currentlySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
+            .target(1f)
+            .start(context.getTweenManager());
    }
 
    private void selectNextLevel() {

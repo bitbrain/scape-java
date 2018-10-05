@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TerminalUI extends Table {
 
-   private static final float BLINK_INTERVAL = 0.5f;
-   private static final float LINE_REVEAL_INTERVAL = 0.03f;
+   private static final float BLINK_INTERVAL = 0.4f;
+   private static final float LINE_REVEAL_INTERVAL = 0.02f;
    private static final String CURSOR = "_";
 
    private final List<String> commands;
@@ -34,7 +34,7 @@ public class TerminalUI extends Table {
 
    private String existingtext = "";
 
-   private float randomLineInterval = 0.4f;
+   private float randomLineInterval = 0.2f;
 
    private boolean paused = false;
 
