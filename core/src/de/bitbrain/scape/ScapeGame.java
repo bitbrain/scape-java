@@ -23,8 +23,8 @@ public class ScapeGame extends BrainGdxGame {
    protected AbstractScreen<?> getInitialScreen() {
       Styles.init();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
-      Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
-      Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+      //Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
+      //Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       //return new LevelSelectionScreen(this, true);
       return new LogoScreen(this);
       //return new IngameScreen(this, new LevelMetaData(1, "maps/001_databus.tmx", "test", "test"));

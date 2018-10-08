@@ -17,10 +17,10 @@ import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
-import de.bitbrain.braingdx.postprocessing.effects.Bloom;
-import de.bitbrain.braingdx.postprocessing.effects.Vignette;
-import de.bitbrain.braingdx.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.postprocessing.filters.RadialBlur;
+import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
+import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
+import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
@@ -104,12 +104,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
-      camera.setDefaultZoomFactor(0.0001f);
+      camera.setDefaultZoomFactor(0.001f);
       camera.setZoomScalingFactor(0f);
       camera.setTrackingTarget(selector, true);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.07f)
+            .target(0.2f)
             .start(SharedTweenManager.getInstance());
       if (!initialScreen) {
          exiting = true;
@@ -243,8 +243,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
          context.getTweenManager().killTarget(previouslySelected.uiObject);
       }
       currentlySelectedLevel--;
-      if (levelMapping.get(currentlySelectedLevel) == null) {
-         currentlySelectedLevel = levelMapping.size() - 1;
+      if (getLevel(currentlySelectedLevel) == null) {
+         currentlySelectedLevel = levelMapping.size();
       }
       Level currentlySelected = getLevel(currentlySelectedLevel);
       prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
