@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
+import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
@@ -15,6 +16,7 @@ import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tweens.BloomShaderTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
+import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ui.TerminalUI;
@@ -37,8 +39,8 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
 
    private TextGlitchRandomizer randomizer;
    private TerminalUI ui;
-   private Bloom bloom;
-   private Zoomer zoomer;
+   private AutoReloadPostProcessorEffect<Bloom> bloom;
+   private AutoReloadPostProcessorEffect<Zoomer> zoomer;
 
    public IntroScreen(BrainGdxGame game) {
       super(game);
@@ -65,25 +67,35 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
-         Tween.to(bloom, BloomShaderTween.BLOOM_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-               .target(20f)
-               .start(SharedTweenManager.getInstance());
-         Tween.to(bloom, BloomShaderTween.BASE_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-               .target(0.3f)
-               .start(SharedTweenManager.getInstance());
+         bloom.mutate(new Mutator<Bloom>() {
+            @Override
+            public void mutate(Bloom target) {
+               Tween.to(target, BloomShaderTween.BLOOM_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                     .target(20f)
+                     .start(SharedTweenManager.getInstance());
+               Tween.to(target, BloomShaderTween.BASE_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                     .target(0.3f)
+                     .start(SharedTweenManager.getInstance());
+            }
+         });
          context.getScreenTransitions().out(
                new ColorTransition(Colors.PRIMARY_BLUE),
                new LevelSelectionScreen(getGame(), true),
                GameConfig.BOOT_SEQUENCE_DURATION
          );
-         Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-               .target(1.2f)
-               .ease(TweenEquations.easeInExpo)
-               .start(SharedTweenManager.getInstance());
-         Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-               .target(15f)
-               .ease(TweenEquations.easeInExpo)
-               .start(SharedTweenManager.getInstance());
+         zoomer.mutate(new Mutator<Zoomer>() {
+            @Override
+            public void mutate(Zoomer target) {
+               Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                     .target(1.2f)
+                     .ease(TweenEquations.easeInExpo)
+                     .start(SharedTweenManager.getInstance());
+               Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                     .target(5f)
+                     .ease(TweenEquations.easeInExpo)
+                     .start(SharedTweenManager.getInstance());
+            }
+         });
          exiting = true;
       } else if (!exiting && Gdx.input.isTouched()) {
          exiting = true;
@@ -95,15 +107,16 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupShaders(GameContext context) {
-      bloom = new Bloom(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
-      bloom.setBlurAmount(5f);
-      bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(4);
-      bloom.setThreshold(0.3f);
-      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.High);
-      zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
-      zoomer.setZoom(1f);
-      zoomer.setBlurStrength(0f);
+      bloom = context.getShaderManager().createBloomEffect();
+      bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
+      zoomer = context.getShaderManager().createZoomerEffect();
+      zoomer.mutate(new Mutator<Zoomer>() {
+         @Override
+         public void mutate(Zoomer target) {
+            target.setZoom(1.1f);
+            target.setBlurStrength(0f);
+         }
+      });
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom, zoomer);
    }
 

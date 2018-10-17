@@ -14,6 +14,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
 
@@ -32,8 +33,8 @@ public class ScapeGame extends BrainGdxGame {
       Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       configureSettings();
       //return new LevelSelectionScreen(this, true);
-      return new LogoScreen(this);
-      //return new IngameScreen(this, new LevelMetaData(1, "maps/001_databus.tmx", "test", "test"));
+      //return new LogoScreen(this);
+      return new IngameScreen(this, new LevelMetaData(1, "maps/001_databus.tmx", "test", "test"));
    }
 
    private void configureSettings() {
@@ -45,7 +46,7 @@ public class ScapeGame extends BrainGdxGame {
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.High);
-         graphicsSettings.setRenderScale(1.5f);
+         graphicsSettings.setRenderScale(1f);
          graphicsSettings.save();
       }
    }

@@ -17,16 +17,17 @@ import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
+import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
+import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -40,7 +41,7 @@ import java.util.Map;
 
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
-   private Zoomer zoomer;
+   private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private Preferences prefs;
 
    private class Level {
@@ -213,28 +214,28 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       return levelMapping.get(level);
    }
 
-   private void setupShaders(GameContext context) {
-      Bloom bloom = new Bloom(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+   private void setupShaders(final GameContext context) {
+      AutoReloadPostProcessorEffect<Bloom> bloom = context.getShaderManager().createBloomEffect();
       Vignette vignette = new Vignette(Gdx.
             graphics.getWidth(), Gdx.graphics.getHeight(), false);
-      bloom.setBlurAmount(5f);
-      bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(4);
-      bloom.setThreshold(0.3f);
-      zoomer = new Zoomer(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), RadialBlur.Quality.Low);
-      zoomer.setOrigin(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
-      zoomer.setZoom(1.5f);
-      zoomer.setBlurStrength(10f);
+      bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
+      zoomer = context.getShaderManager().createZoomerEffect();
+      zoomer.mutate(new Mutator<Zoomer>() {
+         @Override
+         public void mutate(Zoomer target) {
+            target.setZoom(2f);
+            target.setBlurStrength(6f);
+            Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
+                  .target(1f)
+                  .ease(TweenEquations.easeOutExpo)
+                  .start(SharedTweenManager.getInstance());
+            Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
+                  .target(0f)
+                  .ease(TweenEquations.easeOutExpo)
+                  .start(SharedTweenManager.getInstance());
+         }
+      });
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
-
-      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
-            .target(1.0f)
-            .ease(TweenEquations.easeOutExpo)
-            .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 2f)
-            .target(0f)
-            .ease(TweenEquations.easeOutExpo)
-            .start(SharedTweenManager.getInstance());
    }
 
    private void selectPreviousLevel() {
@@ -290,15 +291,20 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    private void enterLevel() {
       context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.0001f)
+            .target(0.001f)
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
-            .target(1.1f)
-            .start(SharedTweenManager.getInstance());
-      Tween.to(zoomer, ZoomerShaderTween.BLUR_STRENGTH, 1f)
-            .target(5f)
-            .ease(TweenEquations.easeInExpo)
-            .start(SharedTweenManager.getInstance());
+      zoomer.mutate(new Mutator<Zoomer>() {
+         @Override
+         public void mutate(Zoomer target) {
+            Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+                  .target(12f)
+                  .start(SharedTweenManager.getInstance());
+            Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+                  .target(1f)
+                  .ease(TweenEquations.easeInExpo)
+                  .start(SharedTweenManager.getInstance());
+         }
+      });
    }
 }

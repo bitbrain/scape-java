@@ -31,6 +31,7 @@ import de.bitbrain.scape.ui.TerminalUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class LogoScreen extends AbstractScreen<ScapeGame> {
@@ -98,12 +99,8 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    private void setupShaders() {
       AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
-      Bloom bloom = bloomEffect.getCurrentEffect();
       AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
-      bloom.setBlurAmount(5f);
-      bloom.setBloomIntesity(1.2f);
-      bloom.setBlurPasses(50);
-      bloom.setThreshold(0.3f);
+      bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignetteEffect, bloomEffect);
    }
 }
