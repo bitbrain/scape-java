@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
@@ -57,12 +59,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
             .scale(1f, -1f)
             .interval(0.1f);
       GameObject logo = context.getGameWorld().addObject();
-      logo.setDimensions(8f, 8f);
+      logo.setDimensions(128f, 128f);
       logo.setType("LOGO");
       logo.setAttribute(Orientation.class, Orientation.RIGHT);
 
       context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setDefaultZoomFactor(0.15f);
       context.getGameCamera().setZoomScalingFactor(1f);
       context.getGameCamera().setTrackingTarget(logo, true);
       context.getGameCamera().setTargetTrackingSpeed(0f);
@@ -75,15 +76,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          }
       }).delay(1.3f).start(SharedTweenManager.getInstance());
 
-      HorizontalGroup layout = new HorizontalGroup();
-      //Label bitbrain = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
-      List<String> content = new ArrayList<String>();
-      content.add("a bitbrain production");
-      TerminalUI bitbrain = new TerminalUI(content, Styles.LABEL_INTRO_BITBRAIN);
-      layout.addActor(bitbrain);
-      layout.setScale(0.075f);
-      layout.setPosition(-(44f) / 2f + logo.getWidth() / 2f, 8f);
-      context.getWorldStage().addActor(layout);
+      Table layout = new Table();
+      layout.setFillParent(true);
+      Label slogan = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
+      layout.center().add(slogan);
+      context.getStage().addActor(layout);
 
       setupShaders();
    }

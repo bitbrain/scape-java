@@ -25,6 +25,7 @@ public class TerminalUI extends Table {
    private final DeltaTimer cursorTimer = new DeltaTimer();
    private final DeltaTimer revealTimer = new DeltaTimer();
    private final DeltaTimer lineTimer = new DeltaTimer();
+   private final DeltaTimer soundTimer = new DeltaTimer();
 
    private int cursorPosition = 0;
 
@@ -43,7 +44,7 @@ public class TerminalUI extends Table {
       terminal = new Label(CURSOR, style);
       terminal.setWrap(true);
       setFillParent(true);
-      left().top().padLeft(30f).padTop(30f).add(terminal);
+      left().top().padLeft(10f).padTop(20f).add(terminal);
    }
 
    public TerminalUI(List<String> commands) {
@@ -70,6 +71,7 @@ public class TerminalUI extends Table {
       }
       cursorTimer.update(delta);
       revealTimer.update(delta);
+      soundTimer.update(delta);
       if (cursorTimer.reached(BLINK_INTERVAL)) {
          cursorTimer.reset();
          showCursor = !showCursor;
@@ -82,7 +84,10 @@ public class TerminalUI extends Table {
          if (!nextLineTriggered && cursorPosition < commands.get(0).length()) {
             text = commands.get(0).substring(0, ++cursorPosition);
             if (!text.equals("\n")) {
-               SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.05f);
+               if (soundTimer.reached(0.05f)) {
+                  soundTimer.reset();
+                  SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.05f);
+               }
             }
          } else if (lineTimer.reached(randomLineInterval)) {
             cursorPosition = 0;
