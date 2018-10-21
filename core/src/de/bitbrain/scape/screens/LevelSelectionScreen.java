@@ -278,8 +278,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void enterLevel() {
-      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 1f);
-      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
+      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 0.7f);
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
             .target(0.001f)
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());

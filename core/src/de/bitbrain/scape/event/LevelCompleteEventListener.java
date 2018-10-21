@@ -1,6 +1,7 @@
 package de.bitbrain.scape.event;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
@@ -12,6 +13,8 @@ import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.tweens.GameCameraTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
@@ -49,8 +52,12 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
                   target.setOrigin(screenCoords.x, screenCoords.y);
                }
             });
-            zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
-            context.getScreenTransitions().out(new LevelSelectionScreen(game), 0.5f);
+            zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG_INGAME);
+            context.getScreenTransitions().out(new LevelSelectionScreen(game), 1.5f);
+            Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 2f)
+                  .target(0.001f)
+                  .ease(TweenEquations.easeInExpo)
+                  .start(SharedTweenManager.getInstance());
          }
       });
 
