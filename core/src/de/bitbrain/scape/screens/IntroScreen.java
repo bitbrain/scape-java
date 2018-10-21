@@ -10,12 +10,10 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tweens.BloomShaderTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -83,19 +81,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
                new LevelSelectionScreen(getGame(), true),
                GameConfig.BOOT_SEQUENCE_DURATION
          );
-         zoomer.mutate(new Mutator<Zoomer>() {
-            @Override
-            public void mutate(Zoomer target) {
-               Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-                     .target(1.2f)
-                     .ease(TweenEquations.easeInExpo)
-                     .start(SharedTweenManager.getInstance());
-               Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-                     .target(5f)
-                     .ease(TweenEquations.easeInExpo)
-                     .start(SharedTweenManager.getInstance());
-            }
-         });
+         zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
          exiting = true;
       } else if (!exiting && Gdx.input.isTouched()) {
          exiting = true;

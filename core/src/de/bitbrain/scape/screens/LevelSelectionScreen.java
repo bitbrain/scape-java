@@ -39,6 +39,9 @@ import de.bitbrain.scape.ui.LevelSelectionUI;
 import java.util.HashMap;
 import java.util.Map;
 
+import static de.bitbrain.scape.GameConfig.DEFAULT_ZOOMER_CONFIG;
+import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
+
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
@@ -220,21 +223,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             graphics.getWidth(), Gdx.graphics.getHeight(), false);
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();
-      zoomer.mutate(new Mutator<Zoomer>() {
-         @Override
-         public void mutate(Zoomer target) {
-            target.setZoom(2f);
-            target.setBlurStrength(6f);
-            Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
-                  .target(1f)
-                  .ease(TweenEquations.easeOutExpo)
-                  .start(SharedTweenManager.getInstance());
-            Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
-                  .target(0f)
-                  .ease(TweenEquations.easeOutExpo)
-                  .start(SharedTweenManager.getInstance());
-         }
-      });
+      zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
    }
 
@@ -294,17 +283,6 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             .target(0.001f)
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
-      zoomer.mutate(new Mutator<Zoomer>() {
-         @Override
-         public void mutate(Zoomer target) {
-            Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
-                  .target(12f)
-                  .start(SharedTweenManager.getInstance());
-            Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
-                  .target(1f)
-                  .ease(TweenEquations.easeInExpo)
-                  .start(SharedTweenManager.getInstance());
-         }
-      });
+      zoomer.mutate(EXIT_ZOOMER_CONFIG);
    }
 }

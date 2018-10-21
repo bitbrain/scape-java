@@ -110,19 +110,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       }
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
-         zoomerEffect.mutate(new Mutator<Zoomer>() {
-            @Override
-            public void mutate(Zoomer target) {
-               Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
-                     .target(1.1f)
-                     .ease(TweenEquations.easeInExpo)
-                     .start(SharedTweenManager.getInstance());
-               Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
-                     .target(5f)
-                     .ease(TweenEquations.easeInExpo)
-                     .start(SharedTweenManager.getInstance());
-            }
-         });
+         zoomerEffect.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
          exiting = true;
          return;
       }
@@ -223,26 +211,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupShaders(GameContext context) {
       AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
       bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
-
       zoomerEffect = context.getShaderManager().createZoomerEffect();
-
+      zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomerEffect, bloomEffect);
-
-      zoomerEffect.mutate(new Mutator<Zoomer>() {
-         @Override
-         public void mutate(Zoomer target) {
-            target.setZoom(1.5f);
-            target.setBlurStrength(50f);
-            Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
-                  .target(1.0f)
-                  .ease(TweenEquations.easeOutExpo)
-                  .start(SharedTweenManager.getInstance());
-            Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
-                  .target(0f)
-                  .ease(TweenEquations.easeOutExpo)
-                  .start(SharedTweenManager.getInstance());
-         }
-      });
    }
 
    private void setupPlayer() {
