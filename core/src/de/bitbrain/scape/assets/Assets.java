@@ -11,6 +11,7 @@ public interface Assets {
    interface TiledMaps {
       String WORLD_MAP = "maps/worldmap.tmx";
       String LEVEL_1 = "maps/001_databus.tmx";
+      String LEVEL_0= "maps/000_test.tmx";
    }
 
    interface Particles {

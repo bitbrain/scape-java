@@ -20,14 +20,14 @@ public class CollisionDetector {
       boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
       boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
       boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
-      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
+      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - 1, object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionTopRight) {
          return null;
       }
       if (collisionBottomRight && collisionTopRight && !collisionTopLeft) {
          return null;
       }
-      if (collisionTopLeft) {
+      if (collisionTopLeft || collisionTopRight) {
          float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
@@ -42,7 +42,7 @@ public class CollisionDetector {
    public Vector2 getCollisionBelow(GameObject object) {
       TiledMapAPI api = context.getTiledMapManager().getAPI();
       boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
+      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - 1, object.getTop(), api.layerIndexOf(object), object);
       boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionBottomRight) {
@@ -51,15 +51,10 @@ public class CollisionDetector {
       if (collisionBottomRight && collisionTopRight && !collisionBottomLeft) {
          return null;
       }
-      if (collisionBottomLeft) {
+      if (collisionBottomLeft || collisionBottomRight) {
          float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
-      // we wanna slide off the edge so do not do this!
-      //if (collisionBottomRight) {
-         //float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
-         //return new Vector2(object.getLeft(), correction);
-      //}
       return null;
    }
 
@@ -78,6 +73,10 @@ public class CollisionDetector {
 
       if (collisionBottomRight || collisionTopRight) {
          float correction = (float)Math.floor((object.getLeft())/ api.getCellWidth()) * api.getCellWidth();
+         System.out.println("correction=" + correction + ", lastX=" + object.getLastPosition().x);
+         if (correction < object.getLastPosition().x && (getCollisionBelow(object) == null || getCollisionAbove(object) == null)) {
+            return null;
+         }
          return new Vector2(correction, object.getTop());
       }
       return null;

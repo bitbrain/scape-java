@@ -32,9 +32,7 @@ public class ScapeGame extends BrainGdxGame {
       Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
       Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       configureSettings();
-      //return new LevelSelectionScreen(this, true);
-      //return new LogoScreen(this);
-      return new IngameScreen(this, new LevelMetaData(1, "maps/001_databus.tmx", "test", "test"));
+      return new LogoScreen(this);
    }
 
    private void configureSettings() {

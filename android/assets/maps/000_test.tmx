@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="25" height="26" tilewidth="8" tileheight="8" infinite="0" nextobjectid="43">
+ <tileset firstgid="1" source="tileset-vertical.tsx"/>
+ <tileset firstgid="65" source="tileset-horizontal.tsx"/>
+ <tileset firstgid="193" source="tileset-virus.tsx"/>
+ <layer name="base" width="25" height="26">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BkAQ462CFABzskaGx+ORY8CnCDVChGZiOLkQtSoHgUjIJRMAoGAgAAMFIFqg==
+  </data>
+ </layer>
+ <objectgroup name="spawn">
+  <object id="1" type="PLAYER" x="94.7291" y="110.675">
+   <point/>
+  </object>
+  <object id="28" name="game_over_event" type="game_over_event" x="166.138" y="58.3977" width="12.17" height="107.833">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="41" name="game_over_event" type="game_over_event" x="55.6233" y="67.5835" width="96.5033" height="10.4997">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="42" name="game_over_event" type="game_over_event" x="61.8317" y="119.917" width="96.5033" height="10.4997">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
