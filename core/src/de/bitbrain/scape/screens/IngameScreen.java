@@ -172,7 +172,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       createAnimations(context, powercellSheet, CharacterType.POWERCELL, AnimationTypes.FORWARD)
             .origin(0, 0)
             .frames(8)
-            .interval(0.05f);
+            .interval(0.1f);
       for (GameObject o : context.getGameWorld()) {
          if ("PLAYER".equals(o.getType())) {
             o.setDimensions(8f, 8f);
@@ -197,7 +197,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          }
          if ("POWERCELL".equals(o.getType())) {
             o.setDimensions(16f, 16f);
-            context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
+            context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 8f, 8f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
