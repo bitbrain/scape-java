@@ -26,8 +26,6 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
-import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -66,6 +64,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private IngameLevelDescriptionUI descriptionUI;
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomerEffect;
+   private PlayerMovement movement;
 
    public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
       super(game);
@@ -78,8 +77,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
-
-      setupEvents(context);
 
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(levelMetaData.getPath(), TiledMap.class),
@@ -128,6 +125,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                })
                .start(SharedTweenManager.getInstance());
          setupPlayer();
+         setupEvents(context);
       }
       if (anyKeyPressedToStartlevel) {
          super.onUpdate(delta);
@@ -148,7 +146,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), context, levelMetaData),
+            new LevelCompleteEventListener(getGame(), context, zoomerEffect, levelMetaData),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
@@ -161,12 +159,18 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       this.context = context;
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
+      final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
+      SpriteSheet powercellSheet = new SpriteSheet(powercellTexture, 8, 1);
       createAnimations(context, sheet, CharacterType.PLAYER, AnimationTypes.FORWARD)
             .origin(0, 0)
             .frames(8)
             .interval(0.05f);
       createAnimations(context, sheet, CharacterType.BYTE, AnimationTypes.FORWARD)
             .origin(0, 1)
+            .frames(8)
+            .interval(0.05f);
+      createAnimations(context, powercellSheet, CharacterType.POWERCELL, AnimationTypes.FORWARD)
+            .origin(0, 0)
             .frames(8)
             .interval(0.05f);
       for (GameObject o : context.getGameWorld()) {
@@ -186,6 +190,13 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          }
          if ("BYTE".equals(o.getType())) {
             o.setDimensions(8f, 8f);
+            context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
+            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            o.setPosition(correctX, correctY);
+         }
+         if ("POWERCELL".equals(o.getType())) {
+            o.setDimensions(16f, 16f);
             context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
@@ -218,7 +229,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private void setupPlayer() {
       CollisionDetector collisionDetector = new CollisionDetector(context);
-      PlayerMovement movement = new PlayerMovement(collisionDetector);
+      movement = new PlayerMovement(collisionDetector);
       context.getBehaviorManager().apply(movement, player);
       player.setAttribute(Movement.class, movement);
       player.setAttribute(Orientation.class, Orientation.RIGHT);

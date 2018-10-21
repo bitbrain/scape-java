@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="41">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="41">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="65" source="tileset-horizontal.tsx"/>
  <tileset firstgid="193" source="tileset-virus.tsx"/>
@@ -104,7 +104,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="29" type="level_complete_event" x="772.045" y="-0.16665" width="29" height="76.3333">
+  <object id="29" type="POWERCELL" x="775.681" y="23.6212" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/2_city.tmx"/>
     <property name="producer" value="PLAYER"/>

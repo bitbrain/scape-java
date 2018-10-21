@@ -6,6 +6,7 @@ public interface Assets {
       String PLAYER = "player.png";
       String BACKGROUND = "background.png";
       String LOGO = "logo.png";
+      String POWERCELL = "powercell.png";
    }
 
    interface TiledMaps {
