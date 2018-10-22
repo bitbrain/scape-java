@@ -83,15 +83,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
-
-
       setupWorld(context);
       setupUI(context);
       setupShaders(context);
-
-      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.0001f)
-            .start(SharedTweenManager.getInstance());
    }
 
    @Override
@@ -157,6 +151,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private void setupWorld(GameContext context) {
       this.context = context;
+      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
+      context.getGameWorld().setBounds(levelScroller);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
@@ -180,10 +176,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
-            context.getGameCamera().setDefaultZoomFactor(0.15f);
-            context.getGameCamera().setZoomScalingFactor(1f);
+            context.getGameCamera().setDefaultZoomFactor(0.08f);
+            context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
-            context.getGameCamera().setTargetTrackingSpeed(0.05f);
+            context.getGameCamera().setTargetTrackingSpeed(0.07f);
             player = o;
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
@@ -203,8 +199,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             o.setPosition(correctX, correctY);
          }
       }
-      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
-      context.getGameWorld().setBounds(levelScroller);
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);
    }
 

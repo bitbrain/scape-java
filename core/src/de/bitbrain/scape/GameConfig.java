@@ -13,7 +13,7 @@ public interface GameConfig {
    int SWIPE_TOLERANCE = 2;
 
    float PLAYER_START_SPEED = 50f;
-   float LEVEL_START_SCROLLING_SPEED = 10f;
+   float LEVEL_START_SCROLLING_SPEED = 25f;
    float BOOT_SEQUENCE_DURATION = 5.6f;
 
    String PLAYER_PREFERENCES_PATH = "scape.player.config";
@@ -73,6 +73,22 @@ public interface GameConfig {
                .start(SharedTweenManager.getInstance());
          Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
                .target(1f)
+               .ease(TweenEquations.easeOutExpo)
+               .start(SharedTweenManager.getInstance());
+      }
+   };
+
+
+   Mutator<Zoomer> INITIAL_ZOOMER_CONFIG = new Mutator<Zoomer>() {
+      @Override
+      public void mutate(Zoomer target) {
+         target.setBlurStrength(ZOOMER_DEFAULT_BLUR_STRENGTH);
+         Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 1f)
+               .target(1f)
+               .ease(TweenEquations.easeOutExpo)
+               .start(SharedTweenManager.getInstance());
+         Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
+               .target(0f)
                .ease(TweenEquations.easeOutExpo)
                .start(SharedTweenManager.getInstance());
       }

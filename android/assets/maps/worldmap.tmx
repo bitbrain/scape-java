@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="8" tileheight="8" infinite="0" nextobjectid="4">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="8" tileheight="8" infinite="0" nextobjectid="4">
  <tileset firstgid="1" source="worldmap.tsx"/>
  <tileset firstgid="257" source="tileset-virus.tsx"/>
  <tileset firstgid="321" source="tileset-horizontal.tsx"/>
@@ -30,7 +30,7 @@
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="2"/>
     <property name="name" value="Kernel I/O"/>
-    <property name="path" value="maps/001_kernelio.tmx"/>
+    <property name="path" value="maps/002_kernelio.tmx"/>
    </properties>
    <point/>
   </object>

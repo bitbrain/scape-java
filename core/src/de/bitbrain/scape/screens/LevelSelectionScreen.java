@@ -41,6 +41,7 @@ import java.util.Map;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_ZOOMER_CONFIG;
 import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
+import static de.bitbrain.scape.GameConfig.INITIAL_ZOOMER_CONFIG;
 
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
@@ -223,7 +224,11 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             graphics.getWidth(), Gdx.graphics.getHeight(), false);
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();
-      zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
+      if (initialScreen) {
+         zoomer.mutate(INITIAL_ZOOMER_CONFIG);
+      } else {
+         zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
+      }
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
    }
 

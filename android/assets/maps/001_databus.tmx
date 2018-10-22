@@ -6,7 +6,7 @@
  <tileset firstgid="193" source="tileset-virus.tsx"/>
  <layer name="base" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzNlzsOwjAMhjswdOzY+3BYYOTd3oCRI5EIfunHsmMH2sInWaTNw45dO6FpfEbxvE9ySHJMcn09Z2mTnJKck1xofEvzSnTGe8zvnflaP9taozNKq7yz7LwLnTfxm4Gt8CP7jH3L7bOhb2iesUOcBqEfsI8sHUxX6JPrecixXowl2CPbpq1fAjrvSh/8NjbvPgSRPXpAP+vSsPr7gJ0y9wZjDre1dWrZJtkl2VC7tM8pdH6L5f8IEfu9OH9LjQ+93FiSaM0ApRo0N1P6zTsXl8CqBdwfnZ+ZKzba2YS2FRMv3/gctdb+xTf2CSvxzOdptO5E98zrafV9qlru1QXYq71DDCV8b/O+bbAJjmPd2v3QmqPZKe9H0fXmpvae5t3DcG+zcs9qt848AP959/2If7lea3ZbY/+NUk5xfNfU1uLIudcpY6N6MtL/tf/PsF7kP42Wn9Hvbyke0aOnQw==
+   eJzNV0kOwjAM7IFDjz32PzwWOLK3P+DIk0gEIw2WHTvQFkayyOYldu2YpvExivk+0SHRMdH1Nc/UJjolOie60PmW+ErojHXw9w6/ts+21uiMolXWLDvvQudN+YWt8CP7jH3L47Ohb2iesUOcBqEfYB9ZOhhdYU/K8yDPejGWwB3ZNk1+CdB5F+t5Dr+NzbsPgcgdPUA/69Jg7fcBO2XuDQYPjzU5tdgm2iXa0Lh0zyl0fgvL/xFE7Pfi/C1qfOjlxpKI1gygVIPmxpR+897FJWDVAt6P8mfMFRvtbcLYiomXb/yOWrJ/8Y19gpWY83sarTvRO7M8rb5PVcu9ugB7tTXEUIL7Nu/bBjbBc6xb6w8tHs1O2R9F5c2N2j7N68PQt1m5Z41bhw+A/7x+P+Jfrtea3dbZf0Mppzi+axprceTc65SzUT0Z0v+1/88gL/KfRsvP6Pe3FB79vqjb
   </data>
  </layer>
  <objectgroup name="spawn">
@@ -106,7 +106,7 @@
   </object>
   <object id="29" type="POWERCELL" x="775.681" y="23.6212" width="16.2689" height="16.1439">
    <properties>
-    <property name="next" value="maps/2_city.tmx"/>
+    <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>
    </properties>
   </object>
