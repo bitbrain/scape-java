@@ -114,7 +114,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       camera.setTrackingTarget(selector, true);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.2f)
+            .target(0.15f)
             .start(SharedTweenManager.getInstance());
       if (!initialScreen) {
          exiting = true;

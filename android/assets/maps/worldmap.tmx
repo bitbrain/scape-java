@@ -5,9 +5,10 @@
  <tileset firstgid="257" source="tileset-virus.tsx"/>
  <tileset firstgid="321" source="tileset-horizontal.tsx"/>
  <tileset firstgid="449" source="tileset-vertical.tsx"/>
+ <tileset firstgid="513" source="tileset-misc.tsx"/>
  <layer name="base" width="16" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrlRQBhsBIbfJiDeTGY4EhNH+IAyELMDMQd52uGAXPdvguoTJVEfur9h+jczIszEB4SQMDMQa0DFmaAYHZxgxOQLMyAwCGwBim0F4m1Y7L+AJsYItQdGw8AOHG6/gSYuCHUDyP9C2LWAAXr6AgDLpBZZ
+   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrmRBjiYILQEE/F6NgLDbxMQbyYzHJHjSIAEe2FAGYjZgZiDPOvhgFz3b4LqEyVRH3rahOnfDA1PQnEhhISZgVgDKs4ExejgBCMmX5gBgUFgC1BsKxBvwxIXF9D0M0LtgdEwsANHON5AExeEugHkfyHsWsAAPX0BAIGvFsU=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="16" height="16">
@@ -25,7 +26,7 @@
    </properties>
    <point/>
   </object>
-  <object id="3" type="LEVEL" x="36.25" y="67.25">
+  <object id="3" type="LEVEL" x="70.625" y="99.375">
    <properties>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="2"/>
