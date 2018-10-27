@@ -43,8 +43,7 @@ public final class Styles {
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
       LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 15);
-      LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_RED.cpy();
-      LABEL_SELECTION_DESCRIPTION.fontColor.a /= 1.5f;
+      LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;

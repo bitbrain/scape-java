@@ -7,6 +7,7 @@ public interface Assets {
       String BACKGROUND = "background.png";
       String LOGO = "logo.png";
       String POWERCELL = "powercell.png";
+      String UI_BG = "ui-bg.png";
    }
 
    interface TiledMaps {

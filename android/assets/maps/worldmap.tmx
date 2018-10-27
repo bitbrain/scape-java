@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="8" tileheight="8" infinite="0" nextobjectid="4">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="8" tileheight="8" infinite="0" nextobjectid="8">
  <tileset firstgid="1" source="worldmap.tsx"/>
  <tileset firstgid="257" source="tileset-virus.tsx"/>
  <tileset firstgid="321" source="tileset-horizontal.tsx"/>
  <tileset firstgid="449" source="tileset-vertical.tsx"/>
  <tileset firstgid="513" source="tileset-misc.tsx"/>
- <layer name="base" width="16" height="16">
+ <tileset firstgid="633" source="tileset-misc-large.tsx"/>
+ <layer name="base" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYEAFHIwMOMF2oNwOIN6JR40AHrmRBjiYILQEE/F6NgLDbxMQbyYzHJHjSIAEe2FAGYjZgZiDPOvhgFz3b4LqEyVRH3rahOnfDA1PQnEhhISZgVgDKs4ExejgBCMmX5gBgUFgC1BsKxBvwxIXF9D0M0LtgdEwsANHON5AExeEugHkfyHsWsAAPX0BAIGvFsU=
+   eJxjYBgFo2AUjILhB1YwDbQLBgcIGGbhoEDAPwZo8jD/E9I30CCCCTudAKU5oLQEAf9YENA3WAGx/k8g4B8PHPE/2AEu/2tAaU4y/TFU0j8MwNybAaUL0OIdPT0QArRO/x1UNpfY+CI2XQ/29I9eXhMbXxk45CuYUGkBGvt/BoXmW6Dlc1q7d7ABhxHmX3SAXl/REwAAmxcPqA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="16" height="16">
+ <layer name="Tile Layer 2" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgATMQs6BhVgrNFB1g/UMBAABQ5ABD
+   eJxjYBgFo4B24ATjwNp/YYDtH8ngxQCH/YfRuB/xYPNoGhhQgBz+o3ExCoYLGE3Lo2AUjIKhDgAKQQZF
   </data>
  </layer>
  <objectgroup name="levels">
-  <object id="1" type="LEVEL" x="30.5455" y="116.545">
+  <object id="1" type="LEVEL" x="16.2728" y="226.715">
    <properties>
     <property name="description" value="Enter the grid. You have to reach the end of the data bus."/>
     <property name="level" value="1"/>
@@ -26,11 +27,47 @@
    </properties>
    <point/>
   </object>
-  <object id="3" type="LEVEL" x="70.625" y="99.375">
+  <object id="3" type="LEVEL" x="47.7614" y="200.182">
    <properties>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="2"/>
     <property name="name" value="Kernel I/O"/>
+    <property name="path" value="maps/002_kernelio.tmx"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" type="LEVEL" x="87.9167" y="140.667">
+   <properties>
+    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="level" value="3"/>
+    <property name="name" value="RAM"/>
+    <property name="path" value="maps/002_kernelio.tmx"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="5" type="LEVEL" x="148.333" y="186.333">
+   <properties>
+    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="level" value="4"/>
+    <property name="name" value="Sub Routine"/>
+    <property name="path" value="maps/002_kernelio.tmx"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="6" type="LEVEL" x="175.727" y="123.727">
+   <properties>
+    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="level" value="5"/>
+    <property name="name" value="North Bridge"/>
+    <property name="path" value="maps/002_kernelio.tmx"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="7" type="LEVEL" x="193" y="56.25">
+   <properties>
+    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="level" value="6"/>
+    <property name="name" value="Security Controller"/>
     <property name="path" value="maps/002_kernelio.tmx"/>
    </properties>
    <point/>

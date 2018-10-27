@@ -1,8 +1,12 @@
 package de.bitbrain.scape.ui;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.scape.LevelMetaData;
+import de.bitbrain.scape.assets.Assets;
 
 public class LevelSelectionUI extends VerticalGroup {
 
@@ -16,5 +20,13 @@ public class LevelSelectionUI extends VerticalGroup {
       points = new Label("record: " + metadata.getProgress().getRecord(), Styles.LABEL_SELECTION_DESCRIPTION);
       addActor(caption);
       addActor(points);
+   }
+
+   @Override
+   public void draw(Batch batch, float parentAlpha) {
+      Texture background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
+      batch.setColor(getColor());
+      batch.draw(background, getX() - 40, getY() - 30, 80, 40);
+      super.draw(batch, parentAlpha);
    }
 }

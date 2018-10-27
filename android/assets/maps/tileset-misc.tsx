@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<tileset name="tileset-misc" tilewidth="16" tileheight="16" tilecount="24" columns="8">
- <image source="tileset-misc.png" width="128" height="48"/>
+<tileset name="tileset-misc" tilewidth="16" tileheight="16" tilecount="32" columns="8">
+ <image source="tileset-misc.png" width="128" height="64"/>
  <tile id="7">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -36,6 +36,18 @@
    <frame tileid="21" duration="100"/>
    <frame tileid="22" duration="100"/>
    <frame tileid="23" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="31">
+  <animation>
+   <frame tileid="24" duration="100"/>
+   <frame tileid="25" duration="100"/>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="27" duration="100"/>
+   <frame tileid="28" duration="100"/>
+   <frame tileid="29" duration="100"/>
+   <frame tileid="30" duration="100"/>
+   <frame tileid="31" duration="100"/>
   </animation>
  </tile>
 </tileset>

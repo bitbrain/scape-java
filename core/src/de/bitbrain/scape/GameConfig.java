@@ -2,6 +2,8 @@ package de.bitbrain.scape;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -29,7 +31,7 @@ public interface GameConfig {
       public void mutate(Bloom target) {
          target.setBlurAmount(5f);
          target.setBloomIntesity(1.2f);
-         target.setBlurPasses(50);
+         target.setBlurPasses(Gdx.app.getType() == Application.ApplicationType.Desktop ? 50 : 8);
          target.setThreshold(0.3f);
       }
    };
