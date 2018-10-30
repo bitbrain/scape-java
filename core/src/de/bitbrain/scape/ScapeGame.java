@@ -16,6 +16,7 @@ import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
+import de.bitbrain.scape.screens.MainMenuScreen;
 import de.bitbrain.scape.ui.Styles;
 
 public class ScapeGame extends BrainGdxGame {
@@ -32,7 +33,7 @@ public class ScapeGame extends BrainGdxGame {
       Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
       Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       configureSettings();
-      return new LevelSelectionScreen(this, true);
+      return new MainMenuScreen(this);
    }
 
    private void configureSettings() {

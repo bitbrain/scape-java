@@ -28,10 +28,6 @@ import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.ui.Styles;
-import de.bitbrain.scape.ui.TerminalUI;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;

@@ -1,5 +1,7 @@
 package de.bitbrain.scape.assets;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public interface Assets {
 
    interface Textures {
@@ -8,6 +10,9 @@ public interface Assets {
       String LOGO = "logo.png";
       String POWERCELL = "powercell.png";
       String UI_BG = "ui-bg.png";
+      String MENU_LOGO = "menu-logo.png";
+      String MENU_FOCUS_NINEPATCH = "focus.9.png";
+      String MENU_FOCUS_DEFAULT_NINEPATCH = "focus-default.9.png";
    }
 
    interface TiledMaps {
