@@ -83,26 +83,26 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       context.getGameCamera().setDefaultZoomFactor(0.05f);
    }
 
-   private void setupUI(GameContext context) {
+   private void setupUI(final GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
       Table buttons = new Table();
       addMenuButton("Continue", new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
-            // TODO
+            context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
          }
       }, buttons).padRight(40f);
       addMenuButton("New Game", new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
-            // TODO
+            context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
          }
       }, buttons);
       addMenuButton("Leave", new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
-            // TODO
+            Gdx.app.exit();
          }
       }, buttons).padLeft(40f);
       layout.padTop(400f).add(buttons).padBottom(100f).row();
