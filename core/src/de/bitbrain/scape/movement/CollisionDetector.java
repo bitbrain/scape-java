@@ -73,7 +73,6 @@ public class CollisionDetector {
 
       if (collisionBottomRight || collisionTopRight) {
          float correction = (float)Math.floor((object.getLeft())/ api.getCellWidth()) * api.getCellWidth();
-         System.out.println("correction=" + correction + ", lastX=" + object.getLastPosition().x);
          if (correction < object.getLastPosition().x && (getCollisionBelow(object) == null || getCollisionAbove(object) == null)) {
             return null;
          }

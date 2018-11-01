@@ -22,6 +22,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffec
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screens.TransitionCallback;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
@@ -60,6 +61,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private boolean anyKeyPressedToStartlevel = false;
 
    private boolean exiting = false;
+   private boolean gameOver = false;
 
    private IngameLevelDescriptionUI descriptionUI;
 
@@ -96,7 +98,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onUpdate(float delta) {
-      if (exiting) {
+      if (exiting || gameOver) {
          return;
       }
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -129,9 +131,38 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    public void resetLevel() {
-      player.setPosition(resetPosition.x, resetPosition.y);
-      levelScroller.reset();
-      PlayerAdjustment.adjust(player, context);
+      if (gameOver) {
+         return;
+      }
+      gameOver = true;
+      Gdx.app.postRunnable(new Runnable() {
+         @Override
+         public void run() {
+            context.getScreenTransitions().out(new TransitionCallback() {
+               @Override
+               public void beforeTransition() {
+
+               }
+               @Override
+               public void afterTransition() {
+                  player.setPosition(resetPosition.x, resetPosition.y);
+                  levelScroller.reset();
+                  PlayerAdjustment.adjust(player, context);
+                  context.getScreenTransitions().in(new TransitionCallback() {
+                     @Override
+                     public void beforeTransition() {
+
+                     }
+
+                     @Override
+                     public void afterTransition() {
+                        gameOver = false;
+                     }
+                  }, 0.5f);
+               }
+            }, 0.3f);
+         }
+      });
    }
 
    private void setupEvents(GameContext context) {
