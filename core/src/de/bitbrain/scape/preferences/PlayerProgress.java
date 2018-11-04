@@ -16,6 +16,14 @@ public class PlayerProgress {
       this.metadata = metadata;
    }
 
+   public boolean isNewGame() {
+      return getMaximumLevel() < 2;
+   }
+
+   public float getTotalProgress() {
+      return preferences.getFloat(GameConfig.PLAYER_TOTAL_PROGRESS, 0f);
+   }
+
    public void addPoint() {
       points++;
    }
@@ -50,6 +58,11 @@ public class PlayerProgress {
       if (points > getRecord()) {
          preferences.putInteger(GameConfig.PLAYER_LEVEL_RECORD + metadata.getPath(), points);
       }
+      preferences.flush();
+   }
+
+   public void reset() {
+      preferences.clear();
       preferences.flush();
    }
 }

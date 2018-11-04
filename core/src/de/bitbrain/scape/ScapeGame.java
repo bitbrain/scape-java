@@ -14,9 +14,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.screens.IngameScreen;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
-import de.bitbrain.scape.screens.MainMenuScreen;
+import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
 
 public class ScapeGame extends BrainGdxGame {
@@ -33,7 +31,7 @@ public class ScapeGame extends BrainGdxGame {
       //Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
       //Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
       configureSettings();
-      return new MainMenuScreen(this);
+      return new LogoScreen(this);
    }
 
    private void configureSettings() {

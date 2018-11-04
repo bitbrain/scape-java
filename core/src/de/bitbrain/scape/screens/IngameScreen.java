@@ -206,7 +206,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
-            context.getGameCamera().setDefaultZoomFactor(0.08f);
+            context.getGameCamera().setDefaultZoomFactor(0.1f);
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.07f);

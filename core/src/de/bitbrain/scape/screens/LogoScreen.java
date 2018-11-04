@@ -27,6 +27,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
@@ -35,6 +36,7 @@ import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    private GameContext context;
+   private PlayerProgress progress;
 
    private boolean exiting = false;
 
@@ -45,6 +47,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    @Override
    protected void onCreate(final GameContext context) {
       this.context = context;
+      this.progress = new PlayerProgress(null);
       context.getScreenTransitions().in(0.3f);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
@@ -67,7 +70,10 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          @Override
          public void onEvent(int i, BaseTween<?> baseTween) {
             if (!exiting) {
-               context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
+               AbstractScreen<?> nextScreen = progress.isNewGame()
+                     ? new IntroScreen(getGame())
+                     : new MainMenuScreen(getGame());
+               context.getScreenTransitions().out(nextScreen, 1f);
             }
          }
       }).delay(1.3f).start(SharedTweenManager.getInstance());
@@ -85,7 +91,10 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    protected void onUpdate(float delta) {
       super.onUpdate(delta);
       if (!exiting && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-         context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
+         AbstractScreen<?> nextScreen = progress.isNewGame()
+               ? new IntroScreen(getGame())
+               : new MainMenuScreen(getGame());
+         context.getScreenTransitions().out(nextScreen, 1f);
          exiting = true;
       }
    }

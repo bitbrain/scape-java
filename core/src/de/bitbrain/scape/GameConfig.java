@@ -22,6 +22,7 @@ public interface GameConfig {
    String PLAYER_LEVEL_RECORD = "record";
    String PLAYER_CURRENT_LEVEL = "current_level";
    String PLAYER_MAXIMUM_LEVEL = "maximum_level";
+   String PLAYER_TOTAL_PROGRESS = "total_progress";
 
    float ZOOMER_DEFAULT_ZOOM = 2f;
    float ZOOMER_DEFAULT_BLUR_STRENGTH = 3f;

@@ -34,6 +34,7 @@ import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.GameInputManager;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.LevelSelectionUI;
 
 import java.util.HashMap;
@@ -46,6 +47,7 @@ import static de.bitbrain.scape.GameConfig.INITIAL_ZOOMER_CONFIG;
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
+   private PlayerProgress progress;
    private Preferences prefs;
 
    private class Level {
@@ -98,6 +100,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
+      this.progress = new PlayerProgress(null);
       populateLevelMapping(context);
       selector = context.getGameWorld().addObject();
       prefs = Gdx.app.getPreferences(GameConfig.PLAYER_PREFERENCES_PATH);
@@ -116,7 +119,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.15f)
             .start(SharedTweenManager.getInstance());
-      if (!initialScreen) {
+      if (shouldAutoEnterLevel()) {
          exiting = true;
          Tween.call(new TweenCallback() {
             @Override
@@ -289,5 +292,10 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
       zoomer.mutate(EXIT_ZOOMER_CONFIG);
+   }
+
+   private boolean shouldAutoEnterLevel() {
+      return !initialScreen || progress.isNewGame();
+
    }
 }

@@ -24,6 +24,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
@@ -96,6 +97,8 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       addMenuButton("New Game", new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
+            PlayerProgress progress = new PlayerProgress(null);
+            progress.reset();
             context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
          }
       }, buttons);
