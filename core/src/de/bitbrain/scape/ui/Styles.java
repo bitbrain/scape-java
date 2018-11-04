@@ -59,7 +59,7 @@ public final class Styles {
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
 
-      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 20);
+      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 25);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
 
       BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getWidth() / 22);

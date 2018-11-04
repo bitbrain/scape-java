@@ -106,7 +106,8 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
          }
       }, buttons).padLeft(40f);
       layout.padTop(400f).add(buttons).padBottom(100f).row();
-      Label credits = new Label("a game by bitbrain", Styles.LABEL_CREDITS);
+      Label credits = new Label("a game by bitbrain\n© 2018", Styles.LABEL_CREDITS);
+      credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
       layout.add(credits);
       context.getStage().addActor(layout);

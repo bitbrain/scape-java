@@ -141,7 +141,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getScreenTransitions().out(new TransitionCallback() {
                @Override
                public void beforeTransition() {
-
                }
                @Override
                public void afterTransition() {
