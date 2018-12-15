@@ -68,8 +68,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
    private void setupLogo(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.MENU_LOGO);
-      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 5);
-
+      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 25, 5);
       context.getRenderManager().register("LOGO", new AnimationRenderer(sheet, AnimationConfig.builder()
             .registerFrames("LOGO", AnimationFrames.builder()
                   .frames(14)
@@ -84,7 +83,6 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       GameObject logo = context.getGameWorld().addObject();
       logo.setDimensions(25f, 5f);
       logo.setType("LOGO");
-      logo.getScale().y = -1f;
       logo.setAttribute(Orientation.class, Orientation.RIGHT);
       context.getGameCamera().setTrackingTarget(logo, true);
       context.getGameCamera().setStickToWorldBounds(false);
@@ -116,7 +114,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
             Gdx.app.exit();
          }
       }, buttons).padLeft(40f);
-      layout.padTop(400f).add(buttons).padBottom(100f).row();
+      layout.padTop(500f).add(buttons).padBottom(100f).row();
       Label credits = new Label("a game by bitbrain\n© 2018", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
