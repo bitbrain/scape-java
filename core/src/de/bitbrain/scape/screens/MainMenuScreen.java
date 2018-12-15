@@ -3,7 +3,7 @@ package de.bitbrain.scape.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -11,13 +11,14 @@ import com.badlogic.gdx.utils.Align;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
+import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
+import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
+import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
+import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
-import de.bitbrain.braingdx.graphics.renderer.SpriteRenderer;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
@@ -28,7 +29,6 @@ import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
-import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
@@ -68,15 +68,23 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
    private void setupLogo(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.MENU_LOGO);
-      SpriteSheet sheet = new SpriteSheet(playerTexture, 14, 1);
-      createAnimations(context, sheet, CharacterType.LOGO, AnimationTypes.FORWARD)
-            .origin(0, 0)
-            .frames(14)
-            .scale(1f, -1f)
-            .interval(0.07f);
+      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 5);
+
+      context.getRenderManager().register("LOGO", new AnimationRenderer(sheet, AnimationConfig.builder()
+            .registerFrames("LOGO", AnimationFrames.builder()
+                  .frames(14)
+                  .origin(0, 0)
+                  .duration(0.07f)
+                  .playMode(Animation.PlayMode.LOOP)
+            .build())
+            .build()));
+
+
+
       GameObject logo = context.getGameWorld().addObject();
       logo.setDimensions(25f, 5f);
       logo.setType("LOGO");
+      logo.getScale().y = -1f;
       logo.setAttribute(Orientation.class, Orientation.RIGHT);
       context.getGameCamera().setTrackingTarget(logo, true);
       context.getGameCamera().setStickToWorldBounds(false);

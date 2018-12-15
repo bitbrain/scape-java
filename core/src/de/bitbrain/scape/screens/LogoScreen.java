@@ -6,18 +6,18 @@ import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
+import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
+import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
+import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
+import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
-import de.bitbrain.braingdx.graphics.postprocessing.PostProcessor;
-import de.bitbrain.braingdx.graphics.postprocessing.PostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
@@ -31,7 +31,6 @@ import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
-import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class LogoScreen extends AbstractScreen<ScapeGame> {
 
@@ -51,12 +50,19 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       context.getScreenTransitions().in(0.3f);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
-      SpriteSheet sheet = new SpriteSheet(playerTexture, 16, 1);
-      createAnimations(context, sheet, CharacterType.LOGO, AnimationTypes.FORWARD)
-            .origin(0, 0)
-            .frames(16)
-            .scale(1f, -1f)
-            .interval(0.1f);
+      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 16);
+      context.getRenderManager().register(CharacterType.LOGO.name(), new AnimationRenderer(sheet,
+            AnimationConfig.builder()
+                  .registerFrames(CharacterType.LOGO.name(), AnimationFrames.builder()
+                        .origin(0, 0)
+                        .frames(16)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP)
+                        .duration(0.1f)
+                  .build())
+                  .build()));
+
+
       GameObject logo = context.getGameWorld().addObject();
       logo.setDimensions(128f, 128f);
       logo.setType("LOGO");
@@ -81,7 +87,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       Table layout = new Table();
       layout.setFillParent(true);
       Label slogan = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
-      layout.center().add(slogan);
+      layout.center().add(slogan).padTop(250f);
       context.getStage().addActor(layout);
 
       setupShaders();

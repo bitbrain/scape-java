@@ -26,8 +26,6 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
-import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -112,7 +110,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
-      camera.setDefaultZoomFactor(0.001f);
+      camera.setDefaultZoomFactor(0.2f);
       camera.setZoomScalingFactor(0f);
       camera.setTrackingTarget(selector, true);
       setupShaders(context);

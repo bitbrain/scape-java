@@ -7,6 +7,7 @@ import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,8 +16,10 @@ import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.braingdx.graphics.animation.SpriteSheet;
-import de.bitbrain.braingdx.graphics.animation.types.AnimationTypes;
+import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
+import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
+import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
+import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -25,26 +28,23 @@ import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.screens.TransitionCallback;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
-import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.LevelMetaData;
+import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
 import de.bitbrain.scape.event.*;
 import de.bitbrain.scape.camera.LevelScrollingBounds;
-import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.graphics.PlayerParticleSpawner;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.ui.IngameLevelDescriptionUI;
 import de.bitbrain.scape.ui.PointsLabel;
-
-import static de.bitbrain.scape.graphics.CharacterInitializer.createAnimations;
 
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
@@ -184,23 +184,49 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
       context.getGameWorld().setBounds(levelScroller);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
-      SpriteSheet sheet = new SpriteSheet(playerTexture, 8, 2);
+      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
-      SpriteSheet powercellSheet = new SpriteSheet(powercellTexture, 8, 1);
-      createAnimations(context, sheet, CharacterType.PLAYER, AnimationTypes.FORWARD)
-            .origin(0, 0)
-            .frames(8)
-            .interval(0.05f);
-      createAnimations(context, sheet, CharacterType.BYTE, AnimationTypes.FORWARD)
-            .origin(0, 1)
-            .frames(8)
-            .interval(0.05f);
-      createAnimations(context, powercellSheet, CharacterType.POWERCELL, AnimationTypes.FORWARD)
-            .origin(0, 0)
-            .frames(8)
-            .interval(0.1f);
+      AnimationSpriteSheet powercellSheet = new AnimationSpriteSheet(powercellTexture, 16);
+
+      context.getRenderManager().register(CharacterType.PLAYER.name(), new AnimationRenderer(sheet,
+            AnimationConfig.builder()
+                  .registerFrames(CharacterType.PLAYER.name(), AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.1f)
+                        .origin(0, 0)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP_REVERSED)
+                        .frames(8)
+                     .build())
+            .build()
+      ));
+      context.getRenderManager().register(CharacterType.BYTE.name(), new AnimationRenderer(sheet,
+            AnimationConfig.builder()
+                  .registerFrames(CharacterType.BYTE.name(), AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.5f)
+                        .origin(0, 1)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP_PINGPONG)
+                        .frames(8)
+                        .build())
+                  .build()
+      ));
+      context.getRenderManager().register(CharacterType.POWERCELL.name(), new AnimationRenderer(powercellSheet,
+            AnimationConfig.builder()
+                  .registerFrames(CharacterType.POWERCELL.name(), AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.5f)
+                        .origin(0, 0)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP_PINGPONG)
+                        .frames(8)
+                        .build())
+                  .build()
+      ));
+
       for (GameObject o : context.getGameWorld()) {
-         if ("PLAYER".equals(o.getType())) {
+         if (CharacterType.PLAYER.name().equals(o.getType())) {
             o.setDimensions(8f, 8f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
@@ -214,14 +240,14 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
          }
-         if ("BYTE".equals(o.getType())) {
+         if (CharacterType.BYTE.name().equals(o.getType())) {
             o.setDimensions(8f, 8f);
             context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
          }
-         if ("POWERCELL".equals(o.getType())) {
+         if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);
             context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 8f, 8f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
