@@ -69,9 +69,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       logo.setAttribute(Orientation.class, Orientation.RIGHT);
 
       context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setZoomScalingFactor(1f);
-      context.getGameCamera().setTrackingTarget(logo, true);
-      context.getGameCamera().setTargetTrackingSpeed(0f);
+      context.getGameCamera().setDefaultZoomFactor(2f);
+      context.getGameCamera().setZoomScalingFactor(0.0000001f);
+      context.getGameCamera().setTrackingTarget(logo);
+      context.getGameCamera().setTargetTrackingSpeed(0.07f);
+
       Tween.call(new TweenCallback() {
          @Override
          public void onEvent(int i, BaseTween<?> baseTween) {
@@ -84,11 +86,9 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          }
       }).delay(1.3f).start(SharedTweenManager.getInstance());
 
-      Table layout = new Table();
-      layout.setFillParent(true);
       Label slogan = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
-      layout.center().add(slogan).padTop(250f);
-      context.getStage().addActor(layout);
+      slogan.setPosition(logo.getLeft() - slogan.getPrefWidth() / 2f + logo.getWidth() / 2f, logo.getTop() - logo.getHeight());
+      context.getWorldStage().addActor(slogan);
 
       setupShaders();
    }
