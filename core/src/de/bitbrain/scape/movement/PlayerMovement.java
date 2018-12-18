@@ -9,6 +9,9 @@ import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.model.Direction;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
@@ -67,8 +70,10 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
+         source.getScale().y = min(-source.getScale().y, source.getScale().y);
       } else {
          source.setAttribute(Direction.class, Direction.DOWN);
+         source.getScale().y = max(-source.getScale().y, source.getScale().y);
       }
       flipping = true;
    }
