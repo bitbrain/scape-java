@@ -124,14 +124,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             public void onEvent(int type, BaseTween<?> source) {
                selectNextLevel();
             }
-         }).delay(1.5f)
+         }).delay(1.0f)
                .start(context.getTweenManager());
          Tween.call(new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
                enterLevel();
             }
-         }).delay(3.5f)
+         }).delay(2.5f)
                .start(context.getTweenManager());
 
       }
