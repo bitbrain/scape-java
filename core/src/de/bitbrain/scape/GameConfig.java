@@ -14,7 +14,7 @@ public interface GameConfig {
 
    int SWIPE_TOLERANCE = 2;
 
-   float PLAYER_START_SPEED = 50f;
+   float PLAYER_START_SPEED = 55f;
    float LEVEL_START_SCROLLING_SPEED = 25f;
    float BOOT_SEQUENCE_DURATION = 5.6f;
 

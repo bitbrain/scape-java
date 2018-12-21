@@ -29,7 +29,7 @@ public class PlayerAdjustment {
            indexY >= 0; indexY--) {
          if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
             player.setAttribute(Direction.class, Direction.DOWN);
-            player.getScale().y = max(-player.getScale().y, player.getScale().y);
+            player.setScaleY(max(-player.getScaleY(), player.getScaleY()));
             break;
          }
       }
@@ -37,7 +37,7 @@ public class PlayerAdjustment {
            indexY < api.getNumberOfRows(); indexY++) {
          if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
             player.setAttribute(Direction.class, Direction.UP);
-            player.getScale().y = min(-player.getScale().y, player.getScale().y);
+            player.setScaleY(min(-player.getScaleY(), player.getScaleY()));
             break;
          }
       }

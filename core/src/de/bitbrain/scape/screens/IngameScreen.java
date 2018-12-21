@@ -237,6 +237,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.07f);
             player = o;
+            o.setOrigin(o.getWidth() / 2f, o.getHeight() / 2f);
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
          }

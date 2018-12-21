@@ -1,10 +1,13 @@
 package de.bitbrain.scape.movement;
 
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
+import de.bitbrain.braingdx.tweens.GameObjectTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.model.Direction;
@@ -70,12 +73,13 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
-         source.getScale().y = min(-source.getScale().y, source.getScale().y);
+         source.setScaleY(min(-source.getScaleY(), source.getScaleY()));
       } else {
          source.setAttribute(Direction.class, Direction.DOWN);
-         source.getScale().y = max(-source.getScale().y, source.getScale().y);
+         source.setScaleY(max(-source.getScaleY(), source.getScaleY()));
       }
       flipping = true;
+      animate(source);
    }
 
    @Override
@@ -94,5 +98,19 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    public boolean hasHorizontalCollision() {
       return horizontalCollision != null;
+   }
+
+   private void animate(GameObject source) {
+      SharedTweenManager.getInstance().killTarget(source);
+      float targetScale = 1.3f;
+      float time = 0.1f;
+      Tween.to(source, GameObjectTween.SCALE_X, time)
+            .target(targetScale)
+            .repeatYoyo(1, 0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(source, GameObjectTween.SCALE_Y, time)
+            .target(source.getScaleY() < 0 ? -targetScale : targetScale)
+            .repeatYoyo(1, 0f)
+            .start(SharedTweenManager.getInstance());
    }
 }
