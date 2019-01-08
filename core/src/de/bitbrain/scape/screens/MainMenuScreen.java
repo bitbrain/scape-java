@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
@@ -20,17 +21,21 @@ import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffec
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
+import static de.bitbrain.scape.i18n.Bundle.get;
+import static de.bitbrain.scape.i18n.Messages.*;
 
 public class MainMenuScreen extends AbstractScreen<ScapeGame> {
+
+   private static final String LOGO_ID = "LOGO";
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -45,7 +50,6 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       this.context = context;
       context.getScreenTransitions().in(0.3f);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
-      setupLogo(context);
       setupUI(context);
       setupShaders();
    }
@@ -59,48 +63,37 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       }
    }
 
-   private void setupShaders() {
-      AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
-      AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
-      bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignetteEffect, bloomEffect);
-   }
+   private void setupUI(final GameContext context) {
+      Table layout = new Table();
+      layout.setFillParent(true);
 
-   private void setupLogo(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.MENU_LOGO);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 25, 5);
-      context.getRenderManager().register("LOGO", new AnimationRenderer(sheet, AnimationConfig.builder()
-            .registerFrames("LOGO", AnimationFrames.builder()
+      AnimationDrawable logoDrawable = new AnimationDrawable(sheet, AnimationConfig.builder()
+            .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
                   .frames(14)
                   .origin(0, 0)
                   .duration(0.07f)
                   .playMode(Animation.PlayMode.LOOP)
-            .build())
-            .build()));
+                  .build())
+            .build());
 
+      Image logoImage = new Image(logoDrawable);
 
+      layout.add(logoImage)
+            .width(128f * 3f)
+            .height(32f * 3f)
+            .padBottom(120f)
+            .row();
 
-      GameObject logo = context.getGameWorld().addObject();
-      logo.setDimensions(25f, 5f);
-      logo.setType("LOGO");
-      logo.setAttribute(Orientation.class, Orientation.RIGHT);
-      context.getGameCamera().setTrackingTarget(logo, true);
-      context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setZoomScalingFactor(0f);
-      context.getGameCamera().setDefaultZoomFactor(0.05f);
-   }
-
-   private void setupUI(final GameContext context) {
-      Table layout = new Table();
-      layout.setFillParent(true);
       Table buttons = new Table();
-      addMenuButton("Continue", new ClickListener() {
+      addMenuButton(get(MENU_MAIN_CONTINUE), new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
          }
       }, buttons).padRight(40f);
-      addMenuButton("New Game", new ClickListener() {
+      addMenuButton(get(MENU_MAIN_NEWGAME), new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             PlayerProgress progress = new PlayerProgress(null);
@@ -108,14 +101,14 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
             context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
          }
       }, buttons);
-      addMenuButton("Leave", new ClickListener() {
+      addMenuButton(get(MENU_MAIN_EXIT), new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             Gdx.app.exit();
          }
       }, buttons).padLeft(40f);
-      layout.padTop(500f).add(buttons).padBottom(100f).row();
-      Label credits = new Label("a game by bitbrain\n© 2018", Styles.LABEL_CREDITS);
+      layout.padTop(100f).add(buttons).padBottom(100f).row();
+      Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2019", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
       layout.add(credits);
@@ -129,6 +122,13 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       return buttons
             .add(button)
             .width(Gdx.graphics.getWidth() / 5f)
-            .height(Gdx.graphics.getHeight() / 8f);
+            .height(Gdx.graphics.getHeight() / 10f);
+   }
+
+   private void setupShaders() {
+      AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
+      AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
+      bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignetteEffect, bloomEffect);
    }
 }

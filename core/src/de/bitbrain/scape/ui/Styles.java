@@ -56,13 +56,13 @@ public final class Styles {
       LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 15);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
+      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 30);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
 
       LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 25);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
 
-      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getWidth() / 22);
+      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getWidth() / 30);
       BUTTON_MENU.fontColor = Colors.PRIMARY_BLUE;
       BUTTON_MENU.downFontColor = Colors.PRIMARY_RED;
       BUTTON_MENU.checkedFontColor = Colors.PRIMARY_RED;

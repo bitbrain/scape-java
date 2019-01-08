@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.GameContext;
@@ -22,11 +23,14 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.i18n.Bundle;
+import de.bitbrain.scape.i18n.Messages;
 import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
@@ -51,28 +55,16 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 16);
-      context.getRenderManager().register(CharacterType.LOGO.name(), new AnimationRenderer(sheet,
+      AnimationDrawable drawable = new AnimationDrawable(sheet,
             AnimationConfig.builder()
-                  .registerFrames(CharacterType.LOGO.name(), AnimationFrames.builder()
+                  .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
                         .origin(0, 0)
                         .frames(16)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
                         .playMode(Animation.PlayMode.LOOP)
                         .duration(0.1f)
                   .build())
-                  .build()));
-
-
-      GameObject logo = context.getGameWorld().addObject();
-      logo.setDimensions(128f, 128f);
-      logo.setType("LOGO");
-      logo.setAttribute(Orientation.class, Orientation.RIGHT);
-
-      context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setDefaultZoomFactor(2f);
-      context.getGameCamera().setZoomScalingFactor(0.0000001f);
-      context.getGameCamera().setTrackingTarget(logo);
-      context.getGameCamera().setTargetTrackingSpeed(0.07f);
+                  .build());
 
       Tween.call(new TweenCallback() {
          @Override
@@ -86,9 +78,16 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          }
       }).delay(1.3f).start(SharedTweenManager.getInstance());
 
-      Label slogan = new Label("a bitbrain production", Styles.LABEL_INTRO_BITBRAIN);
-      slogan.setPosition(logo.getLeft() - slogan.getPrefWidth() / 2f + logo.getWidth() / 2f, logo.getTop() - logo.getHeight());
-      context.getWorldStage().addActor(slogan);
+      Table layout = new Table();
+      layout.setFillParent(true);
+
+      Image image = new Image(drawable);
+      layout.add(image).width(50f).height(50f).padBottom(20f).row();
+
+      Label slogan = new Label(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
+      layout.add(slogan);
+
+      context.getStage().addActor(layout);
 
       setupShaders();
    }
