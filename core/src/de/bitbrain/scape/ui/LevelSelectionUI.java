@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.i18n.Bundle;
+import de.bitbrain.scape.i18n.Messages;
 
 public class LevelSelectionUI extends VerticalGroup {
 
@@ -17,7 +19,7 @@ public class LevelSelectionUI extends VerticalGroup {
    public LevelSelectionUI(LevelMetaData metadata) {
       this.metadata = metadata;
       caption = new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION);
-      points = new Label("record: " + metadata.getProgress().getRecord(), Styles.LABEL_SELECTION_DESCRIPTION);
+      points = new Label(Bundle.get(Messages.MENU_SELECTION_PROGRESS) + ": " + metadata.getProgress().getRecord(), Styles.LABEL_SELECTION_DESCRIPTION);
       addActor(caption);
       addActor(points);
    }

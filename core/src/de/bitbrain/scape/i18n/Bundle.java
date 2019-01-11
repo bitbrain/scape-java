@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import de.bitbrain.scape.assets.Assets;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 
 public final class Bundle {
 
@@ -19,12 +20,21 @@ public final class Bundle {
       Gdx.app.log("LOAD", "Loading translation bundles...");
       generalHandle = Gdx.files.internal(PATH);
       Locale locale = Locale.getDefault();
-      setLocale(locale);
+      setLocale(Locale.GERMAN);
       Gdx.app.log("INFO", "Done loading translation bundles.");
    }
 
    public static String get(Messages key) {
-      return translations.get(key.getKey());
+      return get(key.getKey());
+   }
+
+   public static String get(String key) {
+      try {
+         return translations.get(key);
+      } catch (MissingResourceException ex) {
+         Gdx.app.error("Translations", "Unable to resolve translation for key=" + key + " and locale=" + translations.getLocale());
+         return key;
+      }
    }
 
    public static void setLocale(Locale locale) {

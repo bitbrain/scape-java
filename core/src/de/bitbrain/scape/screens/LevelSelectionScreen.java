@@ -31,6 +31,8 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.i18n.Bundle;
+import de.bitbrain.scape.i18n.Messages;
 import de.bitbrain.scape.input.GameInputManager;
 import de.bitbrain.scape.preferences.PlayerProgress;
 import de.bitbrain.scape.ui.LevelSelectionUI;
@@ -193,11 +195,13 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       for (GameObject o : context.getGameWorld()) {
          if ("LEVEL".equals(o.getType())) {
             int level = Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("level"));
+            String translatedName = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("name"));
+            String translatedDescription = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("description"));
             LevelMetaData metadata = new LevelMetaData(
                   level,
                   (String)((MapProperties)o.getAttribute(MapProperties.class)).get("path"),
-                  (String)((MapProperties)o.getAttribute(MapProperties.class)).get("name"),
-                  (String)((MapProperties)o.getAttribute(MapProperties.class)).get("description")
+                  translatedName,
+                  translatedDescription
             );
             if (metadata.getProgress().getMaximumLevel() < level) {
                break;

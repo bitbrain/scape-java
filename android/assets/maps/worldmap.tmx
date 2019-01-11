@@ -20,18 +20,18 @@
  <objectgroup name="levels">
   <object id="1" type="LEVEL" x="16.2728" y="226.715">
    <properties>
-    <property name="description" value="Enter the grid. You have to reach the end of the data bus."/>
+    <property name="description" value="level.databus.description"/>
     <property name="level" value="1"/>
-    <property name="name" value="Data Bus"/>
+    <property name="name" value="level.databus.name"/>
     <property name="path" value="maps/001_databus.tmx"/>
    </properties>
    <point/>
   </object>
   <object id="3" type="LEVEL" x="47.7614" y="200.182">
    <properties>
-    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="description" value="level.kernelio.description"/>
     <property name="level" value="2"/>
-    <property name="name" value="Kernel I/O"/>
+    <property name="name" value="level.kernelio.name"/>
     <property name="path" value="maps/002_kernelio.tmx"/>
    </properties>
    <point/>

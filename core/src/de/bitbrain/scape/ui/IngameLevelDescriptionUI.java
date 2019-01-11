@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.scape.i18n.Bundle;
+import de.bitbrain.scape.i18n.Messages;
 
 public class IngameLevelDescriptionUI extends Table {
 
@@ -22,8 +24,8 @@ public class IngameLevelDescriptionUI extends Table {
    public IngameLevelDescriptionUI(String levelName, int levelNumber) {
       setFillParent(true);
       caption = new Label(levelName, Styles.LABEL_INGAME_CAPTION);
-      description = new Label("Level " + levelNumber, Styles.LABEL_INGAME_DESCRIPTION);
-      pressAnyKey = new Label("press any key", Styles.LABEL_INGAME_INTERACTION);
+      description = new Label(Bundle.get(Messages.MENU_INGAME_LEVEL) + " " + levelNumber, Styles.LABEL_INGAME_DESCRIPTION);
+      pressAnyKey = new Label(Bundle.get(Messages.MENU_INGAME_PRESS_ANY_KEY), Styles.LABEL_INGAME_INTERACTION);
       add(caption).row();
       add(description).padBottom(Gdx.graphics.getHeight() / 8).row();
       add(pressAnyKey);
