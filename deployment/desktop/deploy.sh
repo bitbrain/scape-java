@@ -3,8 +3,8 @@
 set -e
 set -o pipefail
 
-if [[ -z "${ITCH_API_KEY}" ]]; then
-  echo "Unable to deploy! No ITCH_API_KEY environment variable specified!"
+if [[ -z "${BUTLER_API_KEY}" ]]; then
+  echo "Unable to deploy! No BUTLER_API_KEY environment variable specified!"
   exit 1
 fi
 
@@ -12,8 +12,6 @@ prepare_butler() {
     echo "Preparing butler..."
     download_if_not_exist http://dl.itch.ovh/butler/linux-amd64/head/butler butler
     chmod +x butler
-    touch butler_creds
-    echo -n $ITCH_API_KEY > butler_creds
 }
 
 prepare_packr() {
