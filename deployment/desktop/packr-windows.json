@@ -1,0 +1,20 @@
+{
+  "platform": "windows32",
+  "executable": "scape",
+  "jdk": "",
+  "classpath": [
+    "scape.jar"
+  ],
+  "removelibs": [
+    "scape.jar"
+  ],
+  "mainclass": "de.bitbrain.scape.desktop.DesktopLauncher",
+  "vmargs": [
+    "Xmx1G"
+  ],
+  "resources": [
+    "android/assets"
+  ],
+  "minimizejre": "soft",
+  "output": ""
+}

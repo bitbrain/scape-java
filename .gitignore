@@ -3,6 +3,8 @@
 *.class
 *.war
 *.ear
+*.jar
+*.zip
 hs_err_pid*
 
 ## Robovm
@@ -123,3 +125,6 @@ Thumbs.db
 !/ios-moe/xcode/*.xcodeproj/xcshareddata
 !/ios-moe/xcode/*.xcodeproj/project.pbxproj
 /ios-moe/xcode/native/
+
+butler
+butler_creds
