@@ -21,7 +21,7 @@ script:
   chmod +x gradlew && ./gradlew desktop:dist
 
 after_script:
-  chmod +x deploy-desktop.sh && ./deploy-desktop.sh
+  chmod +x deployment/desktop/deploy.sh && ./deployment/desktop/deploy.sh
 
 branches:
   only:
