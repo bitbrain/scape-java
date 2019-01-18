@@ -34,7 +34,7 @@ prepare_and_push() {
     rm -rf scape-$1
 
     echo "Push $1 build to itch.io..."
-    ./butler push scape-$1.zip bitbrain/scape:$2 -i butler_creds
+    ./butler push scape-$1.zip bitbrain/scape:$1 -i butler_creds
 }
 
 download_if_not_exist() {
@@ -47,8 +47,8 @@ download_if_not_exist() {
 prepare_butler
 prepare_packr
 
-# Deploy Windows
 prepare_and_push "windows" "packr-windows.json" "openjdk-1.7.0-u80-unofficial-windows-i586-image.zip"
+prepare_and_push "mac" "packr-mac.json" "openjdk-1.7.0-u80-unofficial-macosx-x86_64-image.zip"
 
 echo "Done."
 exit 0
