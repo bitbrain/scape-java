@@ -34,7 +34,7 @@ prepare_and_push() {
     rm -rf scape-$1
 
     echo "Push $1 build to itch.io..."
-    butler push scape-$1.zip bitbrain/scape:$2 -i butler_creds
+    ./butler push scape-$1.zip bitbrain/scape:$2 -i butler_creds
 }
 
 download_if_not_exist() {
