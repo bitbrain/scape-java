@@ -25,12 +25,13 @@ prepare_packr() {
 # platform = $1
 # packrConfig = $2
 # jre = $3
+# ext = $4
 prepare_and_push() {
     echo "Preparing $1 build..."
     download_if_not_exist https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/$3 $3
-    java -jar packr.jar --jdk $3 --output scape-$1 -- deployment/desktop/$2
+    java -jar packr.jar --jdk $3 --output scape-$1$4 -- deployment/desktop/$2
 
-    zip -r scape-$1.zip scape-$1
+    zip -r scape-$1.zip scape-$1$4
     rm -rf scape-$1
 
     echo "Push $1 build to itch.io..."
@@ -48,7 +49,7 @@ prepare_butler
 prepare_packr
 
 prepare_and_push "windows" "packr-windows.json" "openjdk-1.7.0-u80-unofficial-windows-i586-image.zip"
-prepare_and_push "mac" "packr-mac.json" "openjdk-1.7.0-u80-unofficial-macosx-x86_64-image.zip"
+prepare_and_push "mac" "packr-mac.json" "openjdk-1.7.0-u80-unofficial-macosx-x86_64-image.zip" ".app"
 
 echo "Done."
 exit 0
