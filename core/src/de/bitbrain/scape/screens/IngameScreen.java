@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -29,6 +30,7 @@ import de.bitbrain.braingdx.screens.TransitionCallback;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -45,6 +47,11 @@ import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.ui.IngameLevelDescriptionUI;
 import de.bitbrain.scape.ui.PointsLabel;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
@@ -67,6 +74,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomerEffect;
    private PlayerMovement movement;
+
+   private Set<GameObject> bytes = new HashSet<GameObject>();
 
    public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
       super(game);
@@ -144,6 +153,15 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                }
                @Override
                public void afterTransition() {
+                  for (GameObject o : context.getGameWorld()) {
+                     if (CharacterType.BYTE.name().equals(o.getType())) {
+                        context.getGameWorld().remove(o);
+                     }
+                  }
+                  for (final GameObject o : bytes) {
+                     context.getGameWorld().addObject(o.mutator(), false);
+                  }
+                  progress.setPoints(0);
                   player.setPosition(resetPosition.x, resetPosition.y);
                   levelScroller.reset();
                   PlayerAdjustment.adjust(player, context);
@@ -247,6 +265,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
+            // Create a copy to not interfere with object pooling!
+            bytes.add(o.copy());
          }
          if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);

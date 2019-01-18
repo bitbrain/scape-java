@@ -28,6 +28,10 @@ public class PlayerProgress {
       points++;
    }
 
+   public void setPoints(int points) {
+      this.points = points;
+   }
+
    public int getPoints() {
       return points;
    }
