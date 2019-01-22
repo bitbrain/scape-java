@@ -13,11 +13,11 @@ public class ButtonMenuControls extends InputAdapter {
 
    @Override
    public boolean keyDown(int keycode) {
-      if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
+      if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A || keycode == Input.Keys.UP) {
          buttonMenu.checkPrevious();
          return true;
       }
-      if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
+      if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D || keycode == Input.Keys.DOWN) {
          buttonMenu.checkNext();
          return true;
       }
@@ -26,5 +26,17 @@ public class ButtonMenuControls extends InputAdapter {
          return true;
       }
       return false;
+   }
+
+   @Override
+   public boolean scrolled(int amount) {
+      if (amount < 0) {
+         buttonMenu.checkNext();
+         return true;
+      } else if (amount > 0) {
+         buttonMenu.checkPrevious();
+         return true;
+      }
+      return super.scrolled(amount);
    }
 }
