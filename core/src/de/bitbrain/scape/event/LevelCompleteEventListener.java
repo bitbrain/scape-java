@@ -7,19 +7,14 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
-import de.bitbrain.braingdx.behavior.BehaviorManager;
-import de.bitbrain.braingdx.behavior.movement.Movement;
-import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
-import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.LevelMetaData;
-import de.bitbrain.scape.movement.PlayerMovement;
+import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {

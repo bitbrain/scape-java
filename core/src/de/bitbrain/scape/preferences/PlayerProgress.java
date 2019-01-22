@@ -3,7 +3,7 @@ package de.bitbrain.scape.preferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.LevelMetaData;
+import de.bitbrain.scape.level.LevelMetaData;
 
 public class PlayerProgress {
 

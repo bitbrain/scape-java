@@ -29,13 +29,13 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.LevelMetaData;
+import de.bitbrain.scape.level.LevelManager;
+import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
-import de.bitbrain.scape.i18n.Messages;
 import de.bitbrain.scape.input.GameInputManager;
 import de.bitbrain.scape.preferences.PlayerProgress;
-import de.bitbrain.scape.ui.LevelSelectionUI;
+import de.bitbrain.scape.ui.LevelOverviewUI;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,40 +48,11 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private PlayerProgress progress;
-   private Preferences prefs;
-
-   private class Level {
-
-      private final GameObject worldObject;
-      private final LevelMetaData metadata;
-      private final Actor uiObject;
-
-      public Level(GameObject worldObject, LevelMetaData metadata, Actor uiObject) {
-         this.worldObject = worldObject;
-         this.metadata = metadata;
-         this.uiObject = uiObject;
-      }
-
-      public GameObject getWorldObject() {
-         return worldObject;
-      }
-
-      public LevelMetaData getMetadata() {
-         return metadata;
-      }
-
-      public Actor getUiObject() {
-         return uiObject;
-      }
-   }
-
-   private final Map<Integer, Level> levelMapping = new HashMap<Integer, Level>();
-   private Integer currentlySelectedLevel = 0;
-   private GameObject selector;
 
    private boolean exiting = false;
    private GameContext context;
    private boolean initialScreen;
+   private LevelManager levelManager;
 
    public LevelSelectionScreen(BrainGdxGame game, boolean initialScreen) {
       super(game);
@@ -101,6 +72,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(GameContext context) {
+      this.context = context;
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),
@@ -108,20 +80,13 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             TiledMapType.ORTHOGONAL
       );
       this.progress = new PlayerProgress(null);
-      populateLevelMapping(context);
-      selector = context.getGameWorld().addObject();
-      prefs = Gdx.app.getPreferences(GameConfig.PLAYER_PREFERENCES_PATH);
-      currentlySelectedLevel = prefs.getInteger(GameConfig.PLAYER_CURRENT_LEVEL, 1) - 1;
-      selectNextLevel();
-      GameObject currentlySelected = getLevel(currentlySelectedLevel).getWorldObject();
-      selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
-      GameCamera camera = context.getGameCamera();
+      levelManager = new LevelManager(context);
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
+      GameCamera camera = context.getGameCamera();
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
       camera.setDefaultZoomFactor(0.2f);
       camera.setZoomScalingFactor(0f);
-      camera.setTrackingTarget(selector, true);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.15f)
@@ -131,7 +96,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
          Tween.call(new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
-               selectNextLevel();
+               levelManager.selectNextLevel();
             }
          }).delay(1.0f)
                .start(context.getTweenManager());
@@ -154,10 +119,10 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             }
             switch (orientation) {
                case RIGHT: case UP:
-                  selectPreviousLevel();
+                  levelManager.selectPreviousLevel();
                   break;
                case LEFT: case DOWN:
-                  selectNextLevel();
+                  levelManager.selectNextLevel();
             }
          }
 
@@ -177,10 +142,10 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
             }
             switch (key) {
                case Input.Keys.W: case Input.Keys.D:
-                  selectNextLevel();
+                  levelManager.selectNextLevel();
                   break;
                case Input.Keys.S: case Input.Keys.A:
-                  selectPreviousLevel();
+                  levelManager.selectPreviousLevel();
                   break;
                case Input.Keys.ESCAPE:
                   Gdx.app.exit();
@@ -194,41 +159,6 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
          }
       });
       context.getInput().addProcessor(inputManager);
-   }
-
-   private void populateLevelMapping(GameContext context) {
-      this.context = context;
-      levelMapping.clear();
-      for (GameObject o : context.getGameWorld()) {
-         if ("LEVEL".equals(o.getType())) {
-            int level = Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("level"));
-            String translatedName = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("name"));
-            String translatedDescription = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("description"));
-            LevelMetaData metadata = new LevelMetaData(
-                  level,
-                  (String)((MapProperties)o.getAttribute(MapProperties.class)).get("path"),
-                  translatedName,
-                  translatedDescription,
-                  Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("bytes"))
-            );
-            if (metadata.getProgress().getMaximumLevel() < level) {
-               break;
-            }
-            LevelSelectionUI levelUI = new LevelSelectionUI(metadata);
-            levelUI.setPosition(o.getLeft(), o.getTop());
-            levelUI.setScale(0.2f);
-            levelUI.getColor().a = 0f;
-            context.getWorldStage().addActor(levelUI);
-
-            levelMapping.put(level, new Level(
-                  o, metadata, levelUI
-            ));
-         }
-      }
-   }
-
-   private Level getLevel(int level) {
-      return levelMapping.get(level);
    }
 
    private void setupShaders(final GameContext context) {
@@ -245,58 +175,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
    }
 
-   private void selectPreviousLevel() {
-      Level previouslySelected = getLevel(currentlySelectedLevel);
-      if (previouslySelected != null) {
-         context.getTweenManager().killTarget(previouslySelected.uiObject);
-      }
-      currentlySelectedLevel--;
-      if (getLevel(currentlySelectedLevel) == null) {
-         currentlySelectedLevel = levelMapping.size();
-      }
-      Level currentlySelected = getLevel(currentlySelectedLevel);
-      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
-      prefs.flush();
-      selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
-      if (previouslySelected != null) {
-         Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-               .target(0f)
-               .start(context.getTweenManager());
-      }
-      Tween.to(currentlySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-            .target(1f)
-            .start(context.getTweenManager());
-   }
-
-   private void selectNextLevel() {
-      Level previouslySelected = getLevel(currentlySelectedLevel);
-      if (previouslySelected != null) {
-         context.getTweenManager().killTarget(previouslySelected.uiObject);
-      }
-      currentlySelectedLevel++;
-      if (levelMapping.get(currentlySelectedLevel) == null) {
-         currentlySelectedLevel = 1;
-      }
-      Level currentlySelected = getLevel(currentlySelectedLevel);
-      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
-      prefs.flush();
-      selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
-      if (previouslySelected != null) {
-         Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-               .target(0f)
-               .start(context.getTweenManager());
-      }
-      Tween.to(currentlySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-            .target(1f)
-            .start(context.getTweenManager());
-   }
-
-   private LevelMetaData getCurrentMetaData() {
-      return levelMapping.get(currentlySelectedLevel).getMetadata();
-   }
-
    private void enterLevel() {
-      context.getScreenTransitions().out(new IngameScreen(getGame(), getCurrentMetaData()), 0.7f);
+      context.getScreenTransitions().out(new IngameScreen(getGame(), levelManager.getCurrentMetaData()), 0.7f);
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
             .target(0.001f)
             .ease(TweenEquations.easeInExpo)
@@ -306,6 +186,5 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean shouldAutoEnterLevel() {
       return !initialScreen || progress.isNewGame();
-
    }
 }

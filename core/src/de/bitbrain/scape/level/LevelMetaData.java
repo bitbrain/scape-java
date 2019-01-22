@@ -1,4 +1,4 @@
-package de.bitbrain.scape;
+package de.bitbrain.scape.level;
 
 import de.bitbrain.scape.preferences.PlayerProgress;
 
