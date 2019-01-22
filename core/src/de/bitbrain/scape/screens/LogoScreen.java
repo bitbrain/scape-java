@@ -5,11 +5,14 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
@@ -49,6 +52,8 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
+      context.getSettings().getGraphics().setRenderScale(0.5f);
+      context.getSettings().getGraphics().save();
       this.context = context;
       this.progress = new PlayerProgress(null);
       context.getScreenTransitions().in(0.3f);
@@ -102,6 +107,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          context.getScreenTransitions().out(nextScreen, 1f);
          exiting = true;
       }
+   }
+
+   @Override
+   protected Viewport getViewport(int width, int height, Camera camera) {
+      return new ExtendViewport(width, height, camera);
    }
 
    private void setupShaders() {

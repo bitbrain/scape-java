@@ -93,6 +93,13 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    @Override
+   protected void onUpdate(float delta) {
+      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+         Gdx.app.exit();
+      }
+   }
+
+   @Override
    protected void onCreate(GameContext context) {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(

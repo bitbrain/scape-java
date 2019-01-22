@@ -30,9 +30,9 @@ public interface GameConfig {
    Mutator<Bloom> DEFAULT_BLOOM_CONFIG = new Mutator<Bloom>() {
       @Override
       public void mutate(Bloom target) {
-         target.setBlurAmount(5f);
-         target.setBloomIntesity(1.2f);
-         target.setBlurPasses(Gdx.app.getType() == Application.ApplicationType.Desktop ? 50 : 8);
+         target.setBlurAmount(10f);
+         target.setBloomIntesity(1.5f);
+         target.setBlurPasses(Gdx.app.getType() == Application.ApplicationType.Desktop ? 10 : 8);
          target.setThreshold(0.3f);
       }
    };
@@ -96,4 +96,9 @@ public interface GameConfig {
                .start(SharedTweenManager.getInstance());
       }
    };
+
+   float MENU_BUTTON_WIDTH = 300f;
+   float MENU_BUTTON_HEIGHT = 80f;
+   float MENU_BUTTON_PADDING = 30f;
+   float MENU_BUTTON_ALPHA = 0.8f;
 }

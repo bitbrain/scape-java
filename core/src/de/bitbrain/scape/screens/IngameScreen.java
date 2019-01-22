@@ -6,12 +6,17 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
@@ -29,6 +34,7 @@ import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.screens.TransitionCallback;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
@@ -139,6 +145,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       }
    }
 
+   @Override
+   protected Viewport getViewport(int width, int height, Camera camera) {
+      return new ExtendViewport(width, height, camera);
+   }
+
    public void resetLevel() {
       if (gameOver) {
          return;
@@ -159,7 +170,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                      }
                   }
                   for (final GameObject o : bytes) {
-                     context.getGameWorld().addObject(o.mutator(), false);
+                     GameObject newByte = context.getGameWorld().addObject(o.mutator(), false);
+                     animateByte(newByte);
                   }
                   progress.setPoints(0);
                   player.setPosition(resetPosition.x, resetPosition.y);
@@ -222,10 +234,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             AnimationConfig.builder()
                   .registerFrames(CharacterType.BYTE.name(), AnimationFrames.builder()
                         .resetIndex(0)
-                        .duration(0.5f)
+                        .duration(0.05f)
                         .origin(0, 1)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
-                        .playMode(Animation.PlayMode.LOOP_PINGPONG)
+                        .playMode(Animation.PlayMode.LOOP)
                         .frames(8)
                         .build())
                   .build()
@@ -265,8 +277,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
+            o.setOrigin(4f, 4f);
             // Create a copy to not interfere with object pooling!
             bytes.add(o.copy());
+            animateByte(o);
          }
          if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);
@@ -306,5 +320,23 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       player.setAttribute(Orientation.class, Orientation.RIGHT);
       context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), player);
       PlayerAdjustment.adjust(player, context);
+   }
+
+   private void animateByte(GameObject o) {
+      context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
+      float delay = (float) Math.random() * 2f;
+      Tween.to(o, GameObjectTween.SCALE, 0.5f)
+            .delay(delay)
+            .target(1.3f)
+            .ease(TweenEquations.easeInQuad)
+            .repeatYoyo(Tween.INFINITY, 0)
+            .start(context.getTweenManager());
+      o.getColor().a = 0.8f;
+      Tween.to(o, GameObjectTween.ALPHA, 0.5f)
+            .delay(delay)
+            .target(1f)
+            .ease(TweenEquations.easeInOutQuad)
+            .repeatYoyo(Tween.INFINITY, 0)
+            .start(context.getTweenManager());
    }
 }

@@ -4,6 +4,9 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -53,6 +56,11 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       context.getStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
       setupShaders(context);
+   }
+
+   @Override
+   protected Viewport getViewport(int width, int height, Camera camera) {
+      return new ExtendViewport(width, height, camera);
    }
 
    @Override

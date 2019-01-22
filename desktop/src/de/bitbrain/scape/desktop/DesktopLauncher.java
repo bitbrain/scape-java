@@ -12,12 +12,11 @@ import javax.swing.*;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1400;
-		config.height = 800;
-		config.useHDPI = true;
+		config.useHDPI = false;
 		config.vSyncEnabled = true;
 		config.resizable = true;
-		config.samples = 8;
+		config.width = 1920;
+		config.height = 1080;
 		config.title = "scape (Evil Corp. Edition)";
 		setApplicationIcon(config);
 		new LwjglApplication(new ScapeGame(), config);

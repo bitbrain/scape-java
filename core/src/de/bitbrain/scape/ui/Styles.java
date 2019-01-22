@@ -36,33 +36,33 @@ public final class Styles {
    public static final TextButton.TextButtonStyle BUTTON_MENU = new TextButton.TextButtonStyle();
 
    public static void init() {
-      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 8);
+      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 66);
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 5);
+      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 72);
       LABEL_INGAME_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
+      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
       LABEL_INGAME_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 20);
+      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, 26);
       LABEL_INGAME_INTERACTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 24);
+      LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, 25);
       LABEL_INTRO_COMMAND.fontColor = Colors.PRIMARY_BLUE;
-      LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 10);
+      LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 62);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 15);
+      LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 30);
+      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 18);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
 
-      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getHeight() / 30);
+      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
 
-      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getWidth() / 30);
+      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, 36);
       BUTTON_MENU.fontColor = Colors.PRIMARY_BLUE;
       BUTTON_MENU.downFontColor = Colors.PRIMARY_RED;
       BUTTON_MENU.checkedFontColor = Colors.PRIMARY_RED;
