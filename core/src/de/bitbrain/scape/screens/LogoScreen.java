@@ -66,7 +66,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
                         .origin(0, 0)
                         .frames(16)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
-                        .playMode(Animation.PlayMode.LOOP)
+                        .playMode(Animation.PlayMode.NORMAL)
                         .duration(0.1f)
                   .build())
                   .build());
@@ -78,7 +78,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
                AbstractScreen<?> nextScreen = progress.isNewGame()
                      ? new IntroScreen(getGame())
                      : new MainMenuScreen(getGame());
-               context.getScreenTransitions().out(nextScreen, 1f);
+               context.getScreenTransitions().out(nextScreen, 2f);
             }
          }
       }).delay(1.3f).start(SharedTweenManager.getInstance());

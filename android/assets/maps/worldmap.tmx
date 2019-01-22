@@ -20,6 +20,7 @@
  <objectgroup name="levels">
   <object id="1" type="LEVEL" x="16.2728" y="226.715">
    <properties>
+    <property name="bytes" value="3"/>
     <property name="description" value="level.databus.description"/>
     <property name="level" value="1"/>
     <property name="name" value="level.databus.name"/>
@@ -29,6 +30,7 @@
   </object>
   <object id="3" type="LEVEL" x="47.7614" y="200.182">
    <properties>
+    <property name="bytes" value="3"/>
     <property name="description" value="level.kernelio.description"/>
     <property name="level" value="2"/>
     <property name="name" value="level.kernelio.name"/>
@@ -38,6 +40,7 @@
   </object>
   <object id="4" type="LEVEL" x="87.9167" y="140.667">
    <properties>
+    <property name="bytes" value="5"/>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="3"/>
     <property name="name" value="RAM"/>
@@ -47,6 +50,7 @@
   </object>
   <object id="5" type="LEVEL" x="148.333" y="186.333">
    <properties>
+    <property name="bytes" value="5"/>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="4"/>
     <property name="name" value="Sub Routine"/>
@@ -56,6 +60,7 @@
   </object>
   <object id="6" type="LEVEL" x="175.727" y="123.727">
    <properties>
+    <property name="bytes" value="5"/>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="5"/>
     <property name="name" value="North Bridge"/>
@@ -65,6 +70,7 @@
   </object>
   <object id="7" type="LEVEL" x="193" y="56.25">
    <properties>
+    <property name="bytes" value="7"/>
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="6"/>
     <property name="name" value="Security Controller"/>

@@ -56,7 +56,7 @@ public final class Styles {
       LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 18);
+      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
 
       LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, 20);

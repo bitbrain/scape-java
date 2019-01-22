@@ -208,7 +208,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
                   level,
                   (String)((MapProperties)o.getAttribute(MapProperties.class)).get("path"),
                   translatedName,
-                  translatedDescription
+                  translatedDescription,
+                  Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("bytes"))
             );
             if (metadata.getProgress().getMaximumLevel() < level) {
                break;

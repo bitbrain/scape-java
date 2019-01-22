@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -26,6 +27,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
+import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
@@ -60,13 +62,12 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       setupShaders();
 
       float effectWidth = 200;
-      context.getParticleManager()
-            .spawnEffect(Assets.Particles.MENU, 0f, 0f)
-            .scaleEffect(Gdx.graphics.getWidth() / effectWidth);
-      context.getParticleManager()
-            .spawnEffect(Assets.Particles.MENU_ALT, 0f, 0f)
-            .scaleEffect(Gdx.graphics.getWidth() / effectWidth);
-
+      ParticleEffect blueEffect = context.getParticleManager()
+            .spawnEffect(Assets.Particles.MENU, 0f, Gdx.graphics.getHeight());
+      blueEffect.scaleEffect(Gdx.graphics.getWidth() / effectWidth);
+      ParticleEffect pinkEffect = context.getParticleManager()
+            .spawnEffect(Assets.Particles.MENU_ALT, 0f, Gdx.graphics.getHeight());
+      pinkEffect.scaleEffect(Gdx.graphics.getWidth() / effectWidth);
    }
 
    @Override
@@ -88,7 +89,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
             .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
                   .frames(14)
                   .origin(0, 0)
-                  .duration(0.07f)
+                  .duration(0.05f)
                   .playMode(Animation.PlayMode.LOOP)
                   .build())
             .build());
