@@ -1,7 +1,5 @@
 package de.bitbrain.scape.assets;
 
-import com.badlogic.gdx.graphics.Texture;
-
 public interface Assets {
 
    interface Textures {
@@ -27,6 +25,8 @@ public interface Assets {
       String TOUCH_BOTTOM = "particles/touch-bottom.p";
       String COLLECT = "particles/collect.p";
       String BYTE = "particles/byte.p";
+      String MENU = "particles/menu.p";
+      String MENU_ALT = "particles/menu-alt.p";
    }
 
    interface Fonts {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -57,6 +58,15 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
       setupShaders();
+
+      float effectWidth = 200;
+      context.getParticleManager()
+            .spawnEffect(Assets.Particles.MENU, 0f, 0f)
+            .scaleEffect(Gdx.graphics.getWidth() / effectWidth);
+      context.getParticleManager()
+            .spawnEffect(Assets.Particles.MENU_ALT, 0f, 0f)
+            .scaleEffect(Gdx.graphics.getWidth() / effectWidth);
+
    }
 
    @Override
