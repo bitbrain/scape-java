@@ -36,8 +36,8 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.input.KeyboardPlayerInputAdapter;
-import de.bitbrain.scape.input.MobilePlayerInputAdapter;
+import de.bitbrain.scape.input.IngameKeyboardInputAdapter;
+import de.bitbrain.scape.input.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.movement.PlayerControls;
@@ -100,6 +100,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       setupWorld(context);
       setupUI(context);
       setupShaders(context);
+      setupPlayer();
    }
 
    @Override
@@ -108,18 +109,15 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       progress.save();
    }
 
-   @Override
-   protected void onUpdate(float delta) {
-      if (exiting || gameOver) {
-         return;
-      }
-      if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
-         zoomerEffect.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
-         exiting = true;
-         return;
-      }
-      if (!anyKeyPressedToStartlevel && (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched())) {
+   public void exitIngame() {
+      context.getBehaviorManager().clear();
+      context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+      zoomerEffect.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
+      exiting = true;
+   }
+
+   public void startLevel() {
+      if (!anyKeyPressedToStartlevel) {
          anyKeyPressedToStartlevel = true;
          descriptionUI.hide(2f);
          Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.5f)
@@ -132,8 +130,14 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                   }
                })
                .start(SharedTweenManager.getInstance());
-         setupPlayer();
          setupEvents(context);
+      }
+   }
+
+   @Override
+   protected void onUpdate(float delta) {
+      if (exiting || gameOver) {
+         return;
       }
       if (anyKeyPressedToStartlevel) {
          super.onUpdate(delta);
@@ -189,11 +193,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             }, 0.3f);
          }
       });
-   }
-
-   private void setupInput(GameContext context, PlayerControls playerControls) {
-      context.getInput().addProcessor(new KeyboardPlayerInputAdapter(playerControls));
-      context.getInput().addProcessor(new MobilePlayerInputAdapter(playerControls));
    }
 
    private void setupEvents(GameContext context) {
@@ -324,6 +323,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       PlayerAdjustment.adjust(player, context);
       PlayerControls controls = new PlayerControls(movement, context);
       setupInput(context, controls);
+   }
+
+   private void setupInput(GameContext context, PlayerControls playerControls) {
+      context.getInput().addProcessor(new IngameKeyboardInputAdapter(playerControls, this));
+      context.getInput().addProcessor(new IngameMobileInputAdapter(playerControls, this));
    }
 
    private void animateByte(GameObject o) {

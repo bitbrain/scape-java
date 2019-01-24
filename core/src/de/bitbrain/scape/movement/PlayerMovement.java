@@ -23,11 +23,17 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private boolean jumpRequested = false;
 
+   private boolean enabled = false;
+
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
 
    public PlayerMovement(CollisionDetector collisionDetector) {
       this.collisionDetector = collisionDetector;
+   }
+
+   public void setEnabled(boolean enabled) {
+      this.enabled = enabled;
    }
 
    public void jumpIfUpAgain() {
@@ -36,6 +42,9 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    @Override
    public void update(GameObject source, float delta) {
+      if (!enabled) {
+         return;
+      }
       if (jumpRequested) {
          jumpRequested = false;
          flip(source);

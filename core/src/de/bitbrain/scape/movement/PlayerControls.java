@@ -13,6 +13,10 @@ public class PlayerControls {
       this.context = context;
    }
 
+   public void unfreezePlayer() {
+      playerMovement.setEnabled(true);
+   }
+
    public void jump() {
       playerMovement.jumpIfUpAgain();
    }
