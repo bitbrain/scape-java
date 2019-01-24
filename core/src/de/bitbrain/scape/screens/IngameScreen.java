@@ -36,6 +36,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.input.IngameKeyboardInputAdapter;
 import de.bitbrain.scape.input.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
@@ -116,6 +117,25 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       exiting = true;
    }
 
+   public void setGameOver(boolean gameOver) {
+      this.gameOver = gameOver;
+   }
+
+   public boolean isGameOver() {
+      return gameOver;
+   }
+
+   public Set<GameObject> getAllLoadedBytes() {
+      return bytes;
+   }
+
+   public void resetUI() {
+      progress.setPoints(0);
+      player.setPosition(resetPosition.x, resetPosition.y);
+      levelScroller.reset();
+      PlayerAdjustment.adjust(player, context);
+   }
+
    public void startLevel() {
       if (!anyKeyPressedToStartlevel) {
          anyKeyPressedToStartlevel = true;
@@ -151,53 +171,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       return new ExtendViewport(width, height, camera);
    }
 
-   public void resetLevel() {
-      if (gameOver) {
-         return;
-      }
-      gameOver = true;
-      Gdx.app.postRunnable(new Runnable() {
-         @Override
-         public void run() {
-            context.getScreenTransitions().out(new TransitionCallback() {
-               @Override
-               public void beforeTransition() {
-               }
-               @Override
-               public void afterTransition() {
-                  for (GameObject o : context.getGameWorld()) {
-                     if (CharacterType.BYTE.name().equals(o.getType())) {
-                        context.getGameWorld().remove(o);
-                     }
-                  }
-                  for (final GameObject o : bytes) {
-                     GameObject newByte = context.getGameWorld().addObject(o.mutator(), false);
-                     animateByte(newByte);
-                  }
-                  progress.setPoints(0);
-                  player.setPosition(resetPosition.x, resetPosition.y);
-                  levelScroller.reset();
-                  PlayerAdjustment.adjust(player, context);
-                  context.getScreenTransitions().in(new TransitionCallback() {
-                     @Override
-                     public void beforeTransition() {
-
-                     }
-
-                     @Override
-                     public void afterTransition() {
-                        gameOver = false;
-                     }
-                  }, 0.5f);
-               }
-            }, 0.3f);
-         }
-      });
-   }
-
    private void setupEvents(GameContext context) {
       context.getEventManager().register(
-            new GameOverEventListener(this),
+            new GameOverEventListener(this, context),
             GameOverEvent.class
       );
       context.getEventManager().register(
@@ -281,7 +257,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             o.setOrigin(4f, 4f);
             // Create a copy to not interfere with object pooling!
             bytes.add(o.copy());
-            animateByte(o);
+            Animator.animateByte(context, o);
          }
          if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);
@@ -328,23 +304,5 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupInput(GameContext context, PlayerControls playerControls) {
       context.getInput().addProcessor(new IngameKeyboardInputAdapter(playerControls, this));
       context.getInput().addProcessor(new IngameMobileInputAdapter(playerControls, this));
-   }
-
-   private void animateByte(GameObject o) {
-      context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
-      float delay = (float) Math.random() * 2f;
-      Tween.to(o, GameObjectTween.SCALE, 0.5f)
-            .delay(delay)
-            .target(1.3f)
-            .ease(TweenEquations.easeInQuad)
-            .repeatYoyo(Tween.INFINITY, 0)
-            .start(context.getTweenManager());
-      o.getColor().a = 0.8f;
-      Tween.to(o, GameObjectTween.ALPHA, 0.5f)
-            .delay(delay)
-            .target(1f)
-            .ease(TweenEquations.easeInOutQuad)
-            .repeatYoyo(Tween.INFINITY, 0)
-            .start(context.getTweenManager());
    }
 }
