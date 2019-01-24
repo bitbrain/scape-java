@@ -10,7 +10,7 @@ import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.i18n.Bundle;
+import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.LevelOverviewUI;
 
 import java.util.HashMap;
@@ -48,6 +48,7 @@ public class LevelManager {
    private GameObject selector;
    private final GameContext context;
    private Preferences prefs;
+   private final LevelMetaDataLoader metaDataLoader = new LevelMetaDataLoader();
 
    public LevelManager(GameContext context) {
       this.context = context;
@@ -72,7 +73,7 @@ public class LevelManager {
          currentlySelectedLevel = levelMapping.size();
       }
       Level currentlySelected = getLevel(currentlySelectedLevel);
-      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
+      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getLevelNumber());
       prefs.flush();
       selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
       if (previouslySelected != null) {
@@ -95,7 +96,7 @@ public class LevelManager {
          currentlySelectedLevel = 1;
       }
       Level currentlySelected = getLevel(currentlySelectedLevel);
-      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getNumber());
+      prefs.putInteger(GameConfig.PLAYER_CURRENT_LEVEL, currentlySelected.getMetadata().getLevelNumber());
       prefs.flush();
       selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
       if (previouslySelected != null) {
@@ -116,17 +117,9 @@ public class LevelManager {
       levelMapping.clear();
       for (GameObject o : context.getGameWorld()) {
          if ("LEVEL".equals(o.getType())) {
-            int level = Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("level"));
-            String translatedName = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("name"));
-            String translatedDescription = Bundle.get((String)((MapProperties)o.getAttribute(MapProperties.class)).get("description"));
-            LevelMetaData metadata = new LevelMetaData(
-                  level,
-                  (String)((MapProperties)o.getAttribute(MapProperties.class)).get("path"),
-                  translatedName,
-                  translatedDescription,
-                  Integer.valueOf((String)((MapProperties)o.getAttribute(MapProperties.class)).get("bytes"))
-            );
-            if (metadata.getProgress().getMaximumLevel() < level) {
+            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties((MapProperties)o.getAttribute(MapProperties.class));
+            PlayerProgress progress = new PlayerProgress(metadata);
+            if (progress.getMaximumLevel() < metadata.getLevelNumber()) {
                break;
             }
             LevelOverviewUI levelUI = new LevelOverviewUI(metadata);
@@ -135,7 +128,7 @@ public class LevelManager {
             levelUI.getColor().a = 0f;
             context.getWorldStage().addActor(levelUI);
 
-            levelMapping.put(level, new Level(
+            levelMapping.put(metadata.getLevelNumber(), new Level(
                   o, metadata, levelUI
             ));
          }

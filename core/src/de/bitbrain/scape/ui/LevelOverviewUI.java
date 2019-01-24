@@ -9,17 +9,20 @@ import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.i18n.Messages;
+import de.bitbrain.scape.progress.PlayerProgress;
 
 public class LevelOverviewUI extends VerticalGroup {
 
-   private final LevelMetaData metadata;
+   private static final int DIFFICULTIES = 3;
+
    private final Label caption;
    private final Label points;
 
    public LevelOverviewUI(LevelMetaData metadata) {
-      this.metadata = metadata;
+      PlayerProgress progress = new PlayerProgress(metadata);
+      int current = (int) Math.floor(((float)progress.getRecord() / metadata.getNumberOfBytes()) * DIFFICULTIES);
       caption = new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION);
-      points = new Label(Bundle.get(Messages.MENU_SELECTION_PROGRESS) + ": " + metadata.getProgress().getRecord(), Styles.LABEL_SELECTION_DESCRIPTION);
+      points = new Label(current + "/" + DIFFICULTIES, Styles.LABEL_SELECTION_DESCRIPTION);
       addActor(caption);
       addActor(points);
    }

@@ -15,6 +15,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.level.LevelMetaData;
+import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
@@ -23,17 +24,19 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
    private final GameContext context;
    private final LevelMetaData metadata;
    private final AutoReloadPostProcessorEffect<Zoomer> zoomer;
+   private final PlayerProgress progress;
 
    public LevelCompleteEventListener(BrainGdxGame game, GameContext context, AutoReloadPostProcessorEffect<Zoomer> zoomer, LevelMetaData metadata) {
       this.game = game;
       this.context = context;
       this.metadata = metadata;
       this.zoomer = zoomer;
+      this.progress = new PlayerProgress(metadata);
    }
 
    @Override
    public void onEvent(final LevelCompleteEvent event) {
-      metadata.getProgress().increaseMaxLevel();
+      progress.increaseMaxLevel();
       Gdx.app.postRunnable(new Runnable() {
          @Override
          public void run() {
