@@ -4,7 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.scape.preferences.PlayerProgress;
+import de.bitbrain.scape.progress.PlayerProgress;
 
 public class PointsLabel extends Label {
 

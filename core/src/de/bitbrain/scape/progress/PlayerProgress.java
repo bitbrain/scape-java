@@ -1,4 +1,4 @@
-package de.bitbrain.scape.preferences;
+package de.bitbrain.scape.progress;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

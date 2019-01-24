@@ -38,7 +38,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.graphics.CharacterType;
-import de.bitbrain.scape.preferences.PlayerProgress;
+import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
 import de.bitbrain.scape.event.*;
@@ -293,7 +293,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(progress));
       context.getStage().addActor(layout);
 
-      descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getNumber());
+      descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getLevelNumber());
       context.getStage().addActor(descriptionUI);
       descriptionUI.show(2f);
    }

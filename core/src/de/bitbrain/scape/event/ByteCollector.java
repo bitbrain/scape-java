@@ -10,7 +10,7 @@ import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
-import de.bitbrain.scape.preferences.PlayerProgress;
+import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 
 public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
