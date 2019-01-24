@@ -26,7 +26,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.level.LevelManager;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.input.GameInputManager;
+import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.progress.PlayerProgress;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_ZOOMER_CONFIG;
@@ -99,8 +99,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 
       }
 
-      GameInputManager inputManager = new GameInputManager();
-      inputManager.addListener(new GameInputManager.GameInputListener() {
+      TouchInputManager inputManager = new TouchInputManager();
+      inputManager.addListener(new TouchInputManager.TouchInputListener() {
          @Override
          public void onSwipe(Orientation orientation) {
             if (exiting) {

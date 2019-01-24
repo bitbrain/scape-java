@@ -12,17 +12,13 @@ import de.bitbrain.scape.i18n.Messages;
 import de.bitbrain.scape.progress.PlayerProgress;
 
 public class LevelOverviewUI extends VerticalGroup {
-
-   private static final int DIFFICULTIES = 3;
-
    private final Label caption;
    private final Label points;
 
    public LevelOverviewUI(LevelMetaData metadata) {
       PlayerProgress progress = new PlayerProgress(metadata);
-      int current = (int) Math.floor(((float)progress.getRecord() / metadata.getNumberOfBytes()) * DIFFICULTIES);
       caption = new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION);
-      points = new Label(current + "/" + DIFFICULTIES, Styles.LABEL_SELECTION_DESCRIPTION);
+      points = new Label(progress.getRecord() + "/" +  metadata.getNumberOfBytes(), Styles.LABEL_SELECTION_DESCRIPTION);
       addActor(caption);
       addActor(points);
    }

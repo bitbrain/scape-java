@@ -36,8 +36,11 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.input.KeyboardPlayerInputAdapter;
+import de.bitbrain.scape.input.MobilePlayerInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.movement.PlayerControls;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
@@ -188,6 +191,11 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       });
    }
 
+   private void setupInput(GameContext context, PlayerControls playerControls) {
+      context.getInput().addProcessor(new KeyboardPlayerInputAdapter(playerControls));
+      context.getInput().addProcessor(new MobilePlayerInputAdapter(playerControls));
+   }
+
    private void setupEvents(GameContext context) {
       context.getEventManager().register(
             new GameOverEventListener(this),
@@ -256,7 +264,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
-            context.getGameCamera().setDefaultZoomFactor(0.1f);
+            context.getGameCamera().setDefaultZoomFactor(0.08f);
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.07f);
@@ -314,6 +322,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       player.setAttribute(Orientation.class, Orientation.RIGHT);
       context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), player);
       PlayerAdjustment.adjust(player, context);
+      PlayerControls controls = new PlayerControls(movement, context);
+      setupInput(context, controls);
    }
 
    private void animateByte(GameObject o) {

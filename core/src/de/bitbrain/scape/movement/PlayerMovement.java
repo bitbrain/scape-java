@@ -21,7 +21,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private boolean flipping = false;
 
-   private boolean upAgain = false;
+   private boolean jumpRequested = false;
 
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
@@ -30,19 +30,15 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       this.collisionDetector = collisionDetector;
    }
 
-   public boolean isFlipping() {
-      return flipping;
+   public void jumpIfUpAgain() {
+      jumpRequested = true;
    }
 
    @Override
    public void update(GameObject source, float delta) {
-      if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()) {
-         if (upAgain) {
-            flip(source);
-         }
-         upAgain = false;
-      } else {
-         upAgain = true;
+      if (jumpRequested) {
+         jumpRequested = false;
+         flip(source);
       }
 
       Direction direction = ((Direction) source.getAttribute(Direction.class));

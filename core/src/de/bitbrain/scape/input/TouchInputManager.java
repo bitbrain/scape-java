@@ -8,26 +8,26 @@ import de.bitbrain.scape.GameConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameInputManager extends InputAdapter {
+public class TouchInputManager extends InputAdapter {
 
-   public static interface GameInputListener {
+   public static interface TouchInputListener {
       void onSwipe(Orientation orientation);
       void onTouch();
       void onType(int key);
    }
 
-   private final List<GameInputListener> listeners = new ArrayList<GameInputListener>();
+   private final List<TouchInputListener> listeners = new ArrayList<TouchInputListener>();
    private boolean touched = false;
    private boolean dragged = false;
 
-   public void addListener(GameInputListener listener) {
+   public void addListener(TouchInputListener listener) {
       listeners.add(listener);
    }
 
    @Override
    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
       if (touched) {
-         for (GameInputListener l : listeners) {
+         for (TouchInputListener l : listeners) {
             l.onTouch();
          }
       }
@@ -41,7 +41,7 @@ public class GameInputManager extends InputAdapter {
       if (touched) {
          return false;
       }
-      for (GameInputListener l : listeners) {
+      for (TouchInputListener l : listeners) {
          l.onType(keycode);
       }
       touched = true;
@@ -67,21 +67,21 @@ public class GameInputManager extends InputAdapter {
 
       if (absDeltaX > GameConfig.SWIPE_TOLERANCE && absDeltaX > absDeltaY) {
          if (deltaX < 0) {
-            for (GameInputListener l : listeners) {
+            for (TouchInputListener l : listeners) {
                l.onSwipe(Orientation.LEFT);
             }
          } else {
-            for (GameInputListener l : listeners) {
+            for (TouchInputListener l : listeners) {
                l.onSwipe(Orientation.RIGHT);
             }
          }
       } else if (absDeltaY > GameConfig.SWIPE_TOLERANCE) {
          if (deltaY < 0) {
-            for (GameInputListener l : listeners) {
+            for (TouchInputListener l : listeners) {
                l.onSwipe(Orientation.UP);
             }
          } else {
-            for (GameInputListener l : listeners) {
+            for (TouchInputListener l : listeners) {
                l.onSwipe(Orientation.DOWN);
             }
          }

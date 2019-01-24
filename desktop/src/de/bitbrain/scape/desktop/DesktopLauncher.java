@@ -15,8 +15,6 @@ public class DesktopLauncher {
 		config.useHDPI = false;
 		config.vSyncEnabled = true;
 		config.resizable = true;
-		config.width = 1920;
-		config.height = 1080;
 		config.title = "scape (Evil Corp. Edition)";
 		setApplicationIcon(config);
 		new LwjglApplication(new ScapeGame(), config);

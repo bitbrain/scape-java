@@ -49,7 +49,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
    @Override
    protected void onCreate(GameContext context) {
       this.context = context;
-      context.getScreenTransitions().in(0.3f);
+      context.getScreenTransitions().in(1.5f);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
       setupShaders();
