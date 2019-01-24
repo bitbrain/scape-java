@@ -34,7 +34,7 @@ public class IngameMobileInputAdapter extends TouchInputManager implements Touch
    public void onSwipe(Orientation orientation) {
       if (orientation.getXFactor() < 0) {
          controls.respawn();
-      } else (orientation.getXFactor()) {
+      } else {
          ingameScreen.exitIngame();
       }
 
