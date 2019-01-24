@@ -1,4 +1,4 @@
-package de.bitbrain.scape.ui;
+package de.bitbrain.scape.ui.levelselection;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,6 +10,7 @@ import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.i18n.Messages;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.ui.Styles;
 
 public class LevelOverviewUI extends VerticalGroup {
    private final Label caption;

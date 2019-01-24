@@ -11,7 +11,7 @@ import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.ui.LevelOverviewUI;
+import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package de.bitbrain.scape.ui;
+package de.bitbrain.scape.ui.intro;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.ui.Styles;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package de.bitbrain.scape.ui.effects;
 
 import de.bitbrain.braingdx.util.DeltaTimer;
-import de.bitbrain.scape.ui.TerminalUI;
+import de.bitbrain.scape.ui.intro.TerminalUI;
 
 import java.util.Random;
 

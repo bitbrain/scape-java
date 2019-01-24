@@ -1,4 +1,4 @@
-package de.bitbrain.scape.ui;
+package de.bitbrain.scape.ui.levelselection;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -14,6 +14,7 @@ import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.i18n.Messages;
+import de.bitbrain.scape.ui.Styles;
 
 public class IngameLevelDescriptionUI extends Table {
 

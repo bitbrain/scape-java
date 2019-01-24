@@ -1,7 +1,6 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
@@ -20,7 +19,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.ui.TerminalUI;
+import de.bitbrain.scape.ui.intro.TerminalUI;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 
 import java.io.BufferedReader;
