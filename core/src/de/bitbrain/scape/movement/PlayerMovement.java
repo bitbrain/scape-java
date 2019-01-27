@@ -74,6 +74,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (flipping) {
          return;
       }
+      System.out.println("FLIP!");
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
          source.setScaleY(min(-source.getScaleY(), source.getScaleY()));
@@ -93,6 +94,14 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    @Override
    public boolean isMoving() {
       return !flipping;
+   }
+
+   public void reset() {
+      flipping = false;
+      horizontalCollision = null;
+      verticalCollision = null;
+      jumpRequested = false;
+      enabled = true;
    }
 
    public boolean hasVerticalCollision() {

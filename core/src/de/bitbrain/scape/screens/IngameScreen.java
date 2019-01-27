@@ -128,6 +128,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       progress.setPoints(0);
       player.setPosition(resetPosition.x, resetPosition.y);
       levelScroller.reset();
+      movement.reset();
       PlayerAdjustment.adjust(player, context);
    }
 

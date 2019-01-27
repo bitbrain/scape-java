@@ -24,6 +24,7 @@ public class IngameMobileInputAdapter extends TouchInputManager implements Touch
          started = true;
          ingameScreen.startLevel();
          controls.unfreezePlayer();
+         return true;
       }
       controls.jump();
       return false;

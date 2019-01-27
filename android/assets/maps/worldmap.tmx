@@ -44,7 +44,7 @@
     <property name="description" value="Be careful. This area is protected with additional security."/>
     <property name="level" value="3"/>
     <property name="name" value="RAM"/>
-    <property name="path" value="maps/002_kernelio.tmx"/>
+    <property name="path" value="maps/003_ram.tmx"/>
    </properties>
    <point/>
   </object>

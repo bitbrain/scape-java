@@ -32,9 +32,12 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
          started = true;
          ingameScreen.startLevel();
          controls.unfreezePlayer();
+         return true;
       }
 
-      controls.jump();
+      if (keycode == Input.Keys.SPACE) {
+         controls.jump();
+      }
       return true;
    }
 }

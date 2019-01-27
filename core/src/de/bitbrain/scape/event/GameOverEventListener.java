@@ -7,6 +7,7 @@ import de.bitbrain.braingdx.screens.TransitionCallback;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.screens.IngameScreen;
 
 public class GameOverEventListener implements GameEventListener<GameOverEvent> {
