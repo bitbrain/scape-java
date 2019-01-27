@@ -24,14 +24,12 @@ import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.level.LevelManager;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.TouchInputManager;
+import de.bitbrain.scape.level.LevelManager;
 import de.bitbrain.scape.progress.PlayerProgress;
 
-import static de.bitbrain.scape.GameConfig.DEFAULT_ZOOMER_CONFIG;
-import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
-import static de.bitbrain.scape.GameConfig.INITIAL_ZOOMER_CONFIG;
+import static de.bitbrain.scape.GameConfig.*;
 
 public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
 

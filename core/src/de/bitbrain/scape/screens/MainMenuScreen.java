@@ -1,5 +1,7 @@
 package de.bitbrain.scape.screens;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
@@ -7,10 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.*;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
@@ -21,6 +26,8 @@ import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffec
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.tweens.GameCameraTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
@@ -30,13 +37,11 @@ import de.bitbrain.scape.ui.ButtonMenu;
 import de.bitbrain.scape.ui.ButtonMenuControls;
 import de.bitbrain.scape.ui.Styles;
 
-import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
+import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 
 public class MainMenuScreen extends AbstractScreen<ScapeGame> {
-
-   private static final String LOGO_ID = "LOGO";
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -100,7 +105,11 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       buttonMenu.add(get(MENU_MAIN_CONTINUE), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
-                  context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+                  context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
+                  Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
+                        .target(0.001f)
+                        .ease(TweenEquations.easeInExpo)
+                        .start(SharedTweenManager.getInstance());
                }
       });
       buttonMenu.add(get(MENU_MAIN_NEWGAME), new ClickListener() {
@@ -108,7 +117,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
                public void clicked(InputEvent event, float x, float y) {
                   PlayerProgress progress = new PlayerProgress(null);
                   progress.reset();
-                  context.getScreenTransitions().out(new IntroScreen(getGame()), 1f);
+                  context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
                }
       });
       buttonMenu.add(get(MENU_MAIN_EXIT), new ClickListener() {

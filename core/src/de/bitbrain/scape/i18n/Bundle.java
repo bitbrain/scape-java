@@ -3,7 +3,6 @@ package de.bitbrain.scape.i18n;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.I18NBundle;
-import de.bitbrain.scape.assets.Assets;
 
 import java.util.Locale;
 import java.util.MissingResourceException;

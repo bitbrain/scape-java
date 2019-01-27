@@ -1,17 +1,12 @@
 package de.bitbrain.scape.event;
 
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.screens.TransitionCallback;
-import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.animation.Animator;
-import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
-import de.bitbrain.scape.movement.PlayerAdjustment;
 import de.bitbrain.scape.screens.IngameScreen;
 
 public class GameOverEventListener implements GameEventListener<GameOverEvent> {

@@ -5,8 +5,6 @@ import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.world.GameObject;
 
-import static java.lang.String.format;
-
 public class CollisionDetector {
 
    private final GameContext context;

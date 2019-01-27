@@ -4,31 +4,33 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.utils.Align;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
-import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.i18n.Bundle;
-import de.bitbrain.scape.i18n.Messages;
+import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 public class LevelOverviewUI extends VerticalGroup {
-   private final Label caption;
-   private final Label points;
 
    public LevelOverviewUI(LevelMetaData metadata) {
       PlayerProgress progress = new PlayerProgress(metadata);
-      caption = new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION);
-      points = new Label(progress.getRecord() + "/" +  metadata.getNumberOfBytes(), Styles.LABEL_SELECTION_DESCRIPTION);
-      addActor(caption);
-      addActor(points);
+      addActor(new Label(metadata.getName(), Styles.LABEL_SELECTION_CAPTION));
+      addActor(new Label(" ", Styles.LABEL_SELECTION_DESCRIPTION));
+      Label description = new Label(metadata.getDescription(), Styles.LABEL_SELECTION_DESCRIPTION);
+      description.getColor().a = 0.8f;
+      description.pack();
+      addActor(description);
+      addActor(new Label(" ", Styles.LABEL_SELECTION_DESCRIPTION));
+      addActor(new Label(" ", Styles.LABEL_SELECTION_DESCRIPTION));
+      addActor(new LevelProgressUI(metadata, progress));
    }
 
    @Override
    public void draw(Batch batch, float parentAlpha) {
       Texture background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
       batch.setColor(getColor());
-      batch.draw(background, getX() - 40, getY() - 30, 80, 40);
+      batch.draw(background, getX() - 40, getY() - 40, 80, 50);
       super.draw(batch, parentAlpha);
    }
 }

@@ -1,17 +1,14 @@
 package de.bitbrain.scape.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
-import de.bitbrain.braingdx.graphics.BitmapFontBaker;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.assets.Assets;
@@ -28,6 +25,8 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_INGAME_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_INTERACTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_CAPTION = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_SELECTION_PROGRESS_DESCRIPTION = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_SELECTION_PROGRESS = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_COMMAND = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_BITBRAIN = new Label.LabelStyle();
@@ -53,8 +52,13 @@ public final class Styles {
       LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 62);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
+      LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 22);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
+
+      LABEL_SELECTION_PROGRESS_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_SELECTION_PROGRESS_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
+      LABEL_SELECTION_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_SELECTION_PROGRESS.fontColor = Colors.PRIMARY_RED;
 
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;

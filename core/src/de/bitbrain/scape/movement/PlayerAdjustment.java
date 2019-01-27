@@ -1,7 +1,6 @@
 package de.bitbrain.scape.movement;
 
 import de.bitbrain.braingdx.GameContext;
-import de.bitbrain.braingdx.tmx.IndexCalculator;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.model.Direction;

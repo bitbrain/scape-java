@@ -19,8 +19,8 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.ui.intro.TerminalUI;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
+import de.bitbrain.scape.ui.intro.TerminalUI;
 
 import java.io.BufferedReader;
 import java.io.IOException;

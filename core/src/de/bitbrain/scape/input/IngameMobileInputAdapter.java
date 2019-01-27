@@ -1,6 +1,5 @@
 package de.bitbrain.scape.input;
 
-import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.scape.movement.PlayerControls;
 import de.bitbrain.scape.screens.IngameScreen;

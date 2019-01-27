@@ -1,6 +1,5 @@
 package de.bitbrain.scape.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import de.bitbrain.scape.movement.PlayerControls;

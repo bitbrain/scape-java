@@ -1,8 +1,6 @@
 package de.bitbrain.scape.movement;
 
 import aurelienribon.tweenengine.Tween;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;

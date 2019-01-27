@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.*;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.VectorTween;
+
 import java.util.Random;
 
 public class ScreenShake {
