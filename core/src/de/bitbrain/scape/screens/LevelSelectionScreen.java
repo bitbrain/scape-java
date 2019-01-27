@@ -6,13 +6,22 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
+import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
+import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
+import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
+import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -22,12 +31,15 @@ import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.level.LevelManager;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
 
@@ -68,12 +80,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       );
       this.progress = new PlayerProgress(null);
       levelManager = new LevelManager(context);
+
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       GameCamera camera = context.getGameCamera();
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
       camera.setDefaultZoomFactor(0.2f);
       camera.setZoomScalingFactor(0f);
+      setupUI(context);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.15f)
@@ -148,6 +162,35 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       context.getInput().addProcessor(inputManager);
    }
 
+   private void setupUI(final GameContext context) {
+      Table layout = new Table();
+      layout.setFillParent(true);
+
+      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
+      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
+      Image image = new Image(new AnimationDrawable(sheet,
+            AnimationConfig.builder()
+                  .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.05f)
+                        .origin(0, 1)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP)
+                        .frames(8)
+                        .build())
+                  .build()
+      ));
+
+      Label progress = new Label(levelManager.getTotalCollectedBytes() + "/" + levelManager.getTotalBytes(), Styles.LABEL_SELECTION_CAPTION);
+      layout.left().top().add(image).width(90f).height(90f)
+            .padLeft(50f)
+            .padTop(50f);
+      layout.add(progress)
+            .padLeft(10f)
+            .padTop(50f);
+      context.getStage().addActor(layout);
+   }
+
    private void setupShaders(final GameContext context) {
       AutoReloadPostProcessorEffect<Bloom> bloom = context.getShaderManager().createBloomEffect();
       Vignette vignette = new Vignette(Gdx.
@@ -159,7 +202,8 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       } else {
          zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
       }
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignette, zoomer, bloom);
+      context.getRenderPipeline().getPipe(RenderPipeIds.WORLD_UI).addEffects(vignette);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomer, bloom);
    }
 
    private void enterLevel() {

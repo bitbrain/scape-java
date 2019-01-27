@@ -113,6 +113,23 @@ public class LevelManager {
       return levelMapping.get(currentlySelectedLevel).getMetadata();
    }
 
+   public int getTotalBytes() {
+      int bytes = 0;
+      for (Level level : levelMapping.values()) {
+         bytes += level.getMetadata().getNumberOfBytes();
+      }
+      return bytes;
+   }
+
+   public int getTotalCollectedBytes() {
+      int bytes = 0;
+      for (Level level : levelMapping.values()) {
+         PlayerProgress progress = new PlayerProgress(level.getMetadata());
+         bytes += progress.getRecord();
+      }
+      return bytes;
+   }
+
    private void populateLevelMapping() {
       levelMapping.clear();
       for (GameObject o : context.getGameWorld()) {
