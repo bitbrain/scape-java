@@ -25,6 +25,7 @@ public class LevelProgressUI extends Actor {
 
    private final Label descriptionLabel;
    private final Label progressLabel;
+   private final Label completeLabel;
    private final Texture texture;
    private final NinePatch background;
    private final float totalProgress;
@@ -37,7 +38,14 @@ public class LevelProgressUI extends Actor {
       Texture ninePatch = SharedAssetManager.getInstance().get(Assets.Textures.MENU_FOCUS_DEFAULT_NINEPATCH, Texture.class);
       background = GraphicsFactory.createNinePatch(ninePatch, 15);
       descriptionLabel = new Label(Bundle.get(Messages.MENU_SELECTION_PROGRESS), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
-      progressLabel = new Label((int)(100 * totalProgress) + "%", Styles.LABEL_SELECTION_PROGRESS);
+      if (totalProgress == 1f) {
+         progressLabel = new Label(playerProgress.getRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS_COMPLETE);
+         completeLabel = new Label("complete", Styles.LABEL_SELECTION_COMPLETE);
+         completeLabel.setFontScale(1.1f);
+      } else {
+         completeLabel = null;
+         progressLabel = new Label(playerProgress.getRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS);
+      }
    }
 
    @Override
@@ -47,11 +55,18 @@ public class LevelProgressUI extends Actor {
       progressLabel.setPosition(getX() + getWidth() / 2f - progressLabel.getPrefWidth() / 2f, getY() - progressLabel.getPrefHeight() + LABEL_PADDING);
       progressLabel.draw(batch, parentAlpha);
       background.draw(batch, getX(), getY(), getWidth(), getHeight());
-      Color color = Colors.PRIMARY_RED.cpy();
+      Color color = totalProgress == 1f ? Colors.PRIMARY_BLUE.cpy() : Colors.PRIMARY_RED.cpy();
       color.a = getColor().a * parentAlpha;
       batch.setColor(color);
       if (totalProgress > 0f) {
          batch.draw(texture, getX() + PADDING, getY() + PADDING, totalProgress * getWidth() - PADDING * 2f, getHeight() - PADDING * 2f);
+      }
+      if (totalProgress == 1f) {
+         completeLabel.setPosition(
+               getX() + getWidth() / 2f - completeLabel.getPrefWidth() / 2f,
+               getY() + getHeight() / 2f - completeLabel.getPrefHeight() / 2f
+         );
+         completeLabel.draw(batch, parentAlpha);
       }
       batch.setColor(Color.WHITE);
    }

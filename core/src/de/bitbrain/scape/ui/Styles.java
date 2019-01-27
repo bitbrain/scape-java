@@ -27,6 +27,8 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_SELECTION_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_PROGRESS_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_PROGRESS = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_SELECTION_PROGRESS_COMPLETE = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_SELECTION_COMPLETE = new Label.LabelStyle();;
    public static final Label.LabelStyle LABEL_SELECTION_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_COMMAND = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_BITBRAIN = new Label.LabelStyle();
@@ -57,8 +59,13 @@ public final class Styles {
 
       LABEL_SELECTION_PROGRESS_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_SELECTION_PROGRESS_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
-      LABEL_SELECTION_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_SELECTION_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 30);
       LABEL_SELECTION_PROGRESS.fontColor = Colors.PRIMARY_RED;
+      LABEL_SELECTION_PROGRESS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 30);
+      LABEL_SELECTION_PROGRESS_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
+
+      LABEL_SELECTION_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 24);
+      LABEL_SELECTION_COMPLETE.fontColor = Colors.BACKGROUND_VIOLET;
 
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;

@@ -13,13 +13,6 @@
   <object id="1" type="PLAYER" x="12.5984" y="30.4247">
    <point/>
   </object>
-  <object id="15" type="BYTE" x="155.625" y="21.25">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
   <object id="16" type="BYTE" x="259.523" y="29.0227">
    <properties>
     <property name="producer" value="PLAYER"/>
@@ -110,13 +103,6 @@
     <property name="producer" value="PLAYER"/>
    </properties>
   </object>
-  <object id="30" type="BYTE" x="204.5" y="37.75">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
   <object id="31" type="BYTE" x="219.5" y="53.5">
    <properties>
     <property name="producer" value="PLAYER"/>
@@ -124,21 +110,7 @@
    </properties>
    <point/>
   </object>
-  <object id="32" type="BYTE" x="148.625" y="52.875">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="35" type="BYTE" x="188.5" y="21.25">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="37" type="BYTE" x="99.375" y="37.5">
+  <object id="37" type="BYTE" x="139.625" y="12.75">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -152,7 +124,7 @@
    </properties>
    <point/>
   </object>
-  <object id="39" type="BYTE" x="156.25" y="61.75">
+  <object id="39" type="BYTE" x="180" y="37.25">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
