@@ -182,12 +182,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       ));
 
       Label progress = new Label(levelManager.getTotalCollectedBytes() + "/" + levelManager.getTotalBytes(), Styles.LABEL_SELECTION_CAPTION);
-      layout.left().top().add(image).width(90f).height(90f)
-            .padLeft(50f)
-            .padTop(50f);
+      layout.right().bottom().add(image).width(90f).height(90f)
+            .padRight(10f)
+            .padBottom(50f);
       layout.add(progress)
-            .padLeft(10f)
-            .padTop(50f);
+            .padRight(80f)
+            .padBottom(50f);
       context.getStage().addActor(layout);
    }
 

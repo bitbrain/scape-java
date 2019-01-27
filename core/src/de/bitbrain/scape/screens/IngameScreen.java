@@ -282,7 +282,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupUI(GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
-      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(progress));
+      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(progress, levelMetaData));
       context.getStage().addActor(layout);
 
       descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getLevelNumber());

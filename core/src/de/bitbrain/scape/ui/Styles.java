@@ -20,7 +20,10 @@ public final class Styles {
 
    private static final AssetManager m = SharedAssetManager.getInstance();
 
+   public static final Label.LabelStyle LABEL_INGAME_POINTS_ALL = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_POINTS = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_INGAME_POINTS_ALL_COMPLETE = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_INGAME_POINTS_COMPLETE = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_INTERACTION = new Label.LabelStyle();
@@ -37,8 +40,14 @@ public final class Styles {
    public static final TextButton.TextButtonStyle BUTTON_MENU = new TextButton.TextButtonStyle();
 
    public static void init() {
-      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 66);
+      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 120);
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
+      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 66);
+      LABEL_INGAME_POINTS_ALL.fontColor = Colors.PRIMARY_RED;
+      LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_INGAME_POINTS_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
+      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_INGAME_POINTS_ALL_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
 
       LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 72);
       LABEL_INGAME_CAPTION.fontColor = Colors.PRIMARY_RED;
