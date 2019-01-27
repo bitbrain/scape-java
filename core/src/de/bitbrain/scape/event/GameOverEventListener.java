@@ -1,9 +1,13 @@
 package de.bitbrain.scape.event;
 
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.screens.TransitionCallback;
+import de.bitbrain.braingdx.tweens.GameObjectTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.graphics.CharacterType;
@@ -26,6 +30,12 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
             return;
          }
          ingameScreen.setGameOver(true);
+      Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE, 0.3f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.3f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
          Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
@@ -45,6 +55,12 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
                         Animator.animateByte(context, newByte);
                      }
                      ingameScreen.resetUI();
+                     Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE, 0.3f)
+                           .target(1f)
+                           .start(SharedTweenManager.getInstance());
+                     Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.3f)
+                           .target(1f)
+                           .start(SharedTweenManager.getInstance());
                      context.getScreenTransitions().in(new TransitionCallback() {
                         @Override
                         public void beforeTransition() {
@@ -55,7 +71,7 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
                         public void afterTransition() {
                            ingameScreen.setGameOver(false);
                         }
-                     }, 0.5f);
+                     }, 0.3f);
                   }
                }, 0.3f);
             }

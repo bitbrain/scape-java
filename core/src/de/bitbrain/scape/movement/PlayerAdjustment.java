@@ -24,19 +24,19 @@ public class PlayerAdjustment {
             calculateIndex(
             player.getTop(), api.getCellHeight()) * api.getCellHeight());
 
-      for (int indexY = calculateIndex(player.getLeft(), api.getCellWidth());
+      for (int indexY = calculateIndex(player.getTop(), api.getCellWidth());
            indexY >= 0; indexY--) {
-         if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
-            player.setAttribute(Direction.class, Direction.DOWN);
-            player.setScaleY(max(-player.getScaleY(), player.getScaleY()));
-            break;
-         }
-      }
-      for (int indexY = calculateIndex(player.getLeft(), api.getCellWidth());
-           indexY < api.getNumberOfRows(); indexY++) {
          if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
             player.setAttribute(Direction.class, Direction.UP);
             player.setScaleY(min(-player.getScaleY(), player.getScaleY()));
+            break;
+         }
+      }
+      for (int indexY = calculateIndex(player.getTop(), api.getCellWidth());
+           indexY < api.getNumberOfRows(); indexY++) {
+         if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
+            player.setAttribute(Direction.class, Direction.DOWN);
+            player.setScaleY(max(-player.getScaleY(), player.getScaleY()));
             break;
          }
       }

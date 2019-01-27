@@ -27,6 +27,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
@@ -103,6 +104,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    public void dispose() {
       super.dispose();
       progress.save();
+   }
+
+   public GameObject getPlayer() {
+      return player;
    }
 
    public void exitIngame() {
@@ -241,6 +246,14 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setTargetTrackingSpeed(0.07f);
             player = o;
             o.setOrigin(o.getWidth() / 2f, o.getHeight() / 2f);
+            o.setScale(0f);
+            Tween.to(player, GameObjectTween.SCALE, 0.3f)
+                  .target(1f)
+                  .start(SharedTweenManager.getInstance());
+            player.getColor().a = 0f;
+            Tween.to(player, GameObjectTween.ALPHA, 0.3f)
+                  .target(1f)
+                  .start(SharedTweenManager.getInstance());
             this.resetPosition.x = player.getLeft();
             this.resetPosition.y = player.getTop();
          }
@@ -291,6 +304,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       context.getBehaviorManager().apply(movement, player);
       player.setAttribute(Movement.class, movement);
       player.setAttribute(Orientation.class, Orientation.RIGHT);
+      player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
       context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), player);
       PlayerAdjustment.adjust(player, context);
       PlayerControls controls = new PlayerControls(movement, context);
