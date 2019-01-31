@@ -103,7 +103,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    @Override
    public void dispose() {
       super.dispose();
-      progress.save();
+      if (!exiting && !gameOver) {
+         progress.save();
+      }
    }
 
    public GameObject getPlayer() {
