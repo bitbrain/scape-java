@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -55,6 +56,12 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       context.getStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
       setupShaders(context);
+   }
+
+   @Override
+   public void dispose() {
+      super.dispose();
+      Controllers.clearListeners();
    }
 
    @Override

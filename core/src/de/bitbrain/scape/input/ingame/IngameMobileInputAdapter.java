@@ -1,6 +1,7 @@
-package de.bitbrain.scape.input;
+package de.bitbrain.scape.input.ingame;
 
 import de.bitbrain.braingdx.behavior.movement.Orientation;
+import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.movement.PlayerControls;
 import de.bitbrain.scape.screens.IngameScreen;
 

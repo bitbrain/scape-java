@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -67,6 +68,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
          Gdx.app.exit();
       }
+   }
+
+   @Override
+   public void dispose() {
+      super.dispose();
+      Controllers.clearListeners();
    }
 
    @Override

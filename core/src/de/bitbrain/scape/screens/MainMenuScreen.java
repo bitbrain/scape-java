@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -32,9 +33,10 @@ import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.input.mainmenu.MainMenuControllerInputAdapter;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.ButtonMenu;
-import de.bitbrain.scape.ui.ButtonMenuControls;
+import de.bitbrain.scape.input.mainmenu.MainMenuKeyboardInputAdapter;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
@@ -42,6 +44,8 @@ import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 
 public class MainMenuScreen extends AbstractScreen<ScapeGame> {
+
+   private ButtonMenu buttonMenu;
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -58,6 +62,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
       setupShaders();
+      setupInput(context);
 
       float effectWidth = 200;
       ParticleEffect blueEffect = context.getParticleManager()
@@ -66,6 +71,12 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       ParticleEffect pinkEffect = context.getParticleManager()
             .spawnEffect(Assets.Particles.MENU_ALT, 0f, Gdx.graphics.getHeight());
       pinkEffect.scaleEffect(Gdx.graphics.getWidth() / effectWidth);
+   }
+
+   @Override
+   public void dispose() {
+      super.dispose();
+      Controllers.clearListeners();
    }
 
    @Override
@@ -101,7 +112,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
             .padBottom(100f)
             .row();
 
-      ButtonMenu buttonMenu = new ButtonMenu(context.getTweenManager());
+      buttonMenu = new ButtonMenu(context.getTweenManager());
       buttonMenu.add(get(MENU_MAIN_CONTINUE), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
@@ -129,8 +140,6 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
       buttonMenu.checkNext();
 
-      context.getInput().addProcessor(new ButtonMenuControls(buttonMenu));
-
       layout.padTop(100f).add(buttonMenu).padBottom(100f).row();
       Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2019", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
@@ -142,6 +151,11 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
    @Override
    protected Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
+   }
+
+   private void setupInput(GameContext context) {
+      context.getInput().addProcessor(new MainMenuKeyboardInputAdapter(buttonMenu));
+      Controllers.addListener(new MainMenuControllerInputAdapter(buttonMenu));
    }
 
    private void setupShaders() {

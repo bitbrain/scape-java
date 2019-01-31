@@ -1,4 +1,4 @@
-package de.bitbrain.scape.input;
+package de.bitbrain.scape.input.ingame;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;

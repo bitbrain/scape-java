@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -30,6 +31,9 @@ import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.i18n.Messages;
+import de.bitbrain.scape.input.logo.LogoControllerInputAdapter;
+import de.bitbrain.scape.input.logo.LogoKeyboardInputAdapter;
+import de.bitbrain.scape.input.logo.LogoMobileInputAdapter;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
@@ -90,13 +94,18 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
       context.getStage().addActor(layout);
 
+      setupInput(context);
       setupShaders();
    }
 
    @Override
    protected void onUpdate(float delta) {
       super.onUpdate(delta);
-      if (!exiting && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+
+   }
+
+   public void exit() {
+      if (!exiting) {
          AbstractScreen<?> nextScreen = progress.isNewGame()
                ? new IntroScreen(getGame())
                : new MainMenuScreen(getGame());
@@ -106,8 +115,20 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
+   public void dispose() {
+      super.dispose();
+      Controllers.clearListeners();
+   }
+
+   @Override
    protected Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
+   }
+
+   private void setupInput(GameContext context) {
+      context.getInput().addProcessor(new LogoKeyboardInputAdapter(this));
+      context.getInput().addProcessor(new LogoMobileInputAdapter(this));
+      Controllers.addListener(new LogoControllerInputAdapter(this));
    }
 
    private void setupShaders() {

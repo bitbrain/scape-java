@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -39,8 +40,9 @@ import de.bitbrain.scape.camera.OutOfBoundsManager;
 import de.bitbrain.scape.event.*;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.graphics.PlayerParticleSpawner;
-import de.bitbrain.scape.input.IngameKeyboardInputAdapter;
-import de.bitbrain.scape.input.IngameMobileInputAdapter;
+import de.bitbrain.scape.input.ingame.IngameControllerInputAdapter;
+import de.bitbrain.scape.input.ingame.IngameKeyboardInputAdapter;
+import de.bitbrain.scape.input.ingame.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.movement.CollisionDetector;
 import de.bitbrain.scape.movement.PlayerAdjustment;
@@ -106,6 +108,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       if (!exiting && !gameOver) {
          progress.save();
       }
+      Controllers.clearListeners();
    }
 
    public GameObject getPlayer() {
@@ -312,5 +315,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private void setupInput(GameContext context, PlayerControls playerControls) {
       context.getInput().addProcessor(new IngameKeyboardInputAdapter(playerControls, this));
       context.getInput().addProcessor(new IngameMobileInputAdapter(playerControls, this));
+      Controllers.addListener(new IngameControllerInputAdapter(playerControls, this));
    }
 }

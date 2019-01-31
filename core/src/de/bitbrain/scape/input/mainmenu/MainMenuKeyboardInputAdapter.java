@@ -1,13 +1,14 @@
-package de.bitbrain.scape.ui;
+package de.bitbrain.scape.input.mainmenu;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import de.bitbrain.scape.ui.ButtonMenu;
 
-public class ButtonMenuControls extends InputAdapter {
+public class MainMenuKeyboardInputAdapter extends InputAdapter {
 
    private final ButtonMenu buttonMenu;
 
-   public ButtonMenuControls(ButtonMenu buttonMenu) {
+   public MainMenuKeyboardInputAdapter(ButtonMenu buttonMenu) {
       this.buttonMenu = buttonMenu;
    }
 
