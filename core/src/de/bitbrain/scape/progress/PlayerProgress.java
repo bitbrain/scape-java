@@ -17,7 +17,7 @@ public class PlayerProgress {
    }
 
    public boolean isNewGame() {
-      return getMaximumLevel() < 2;
+      return getMaximumLevel() == 1;
    }
 
    public float getTotalProgress() {

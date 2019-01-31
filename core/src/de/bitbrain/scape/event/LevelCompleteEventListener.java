@@ -22,16 +22,14 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
 
    private final BrainGdxGame game;
    private final GameContext context;
-   private final LevelMetaData metadata;
    private final AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private final PlayerProgress progress;
 
-   public LevelCompleteEventListener(BrainGdxGame game, GameContext context, AutoReloadPostProcessorEffect<Zoomer> zoomer, LevelMetaData metadata) {
+   public LevelCompleteEventListener(BrainGdxGame game, GameContext context, AutoReloadPostProcessorEffect<Zoomer> zoomer, PlayerProgress progress) {
       this.game = game;
       this.context = context;
-      this.metadata = metadata;
       this.zoomer = zoomer;
-      this.progress = new PlayerProgress(metadata);
+      this.progress = progress;
    }
 
    @Override

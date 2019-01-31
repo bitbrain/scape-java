@@ -178,7 +178,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), context, zoomerEffect, levelMetaData),
+            new LevelCompleteEventListener(getGame(), context, zoomerEffect, progress),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
