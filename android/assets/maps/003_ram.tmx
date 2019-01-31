@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="30" tilewidth="8" tileheight="8" infinite="0" nextobjectid="87">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="30" tilewidth="8" tileheight="8" infinite="0" nextobjectid="89">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="65" source="tileset-horizontal.tsx"/>
  <tileset firstgid="193" source="tileset-virus.tsx"/>
@@ -41,7 +41,7 @@
    </properties>
    <point/>
   </object>
-  <object id="72" name="game_over_event" type="game_over_event" x="-1.1265" y="138.25" width="684.42" height="102.167">
+  <object id="72" name="game_over_event" type="game_over_event" x="-1.1265" y="138.25" width="954.42" height="102.167">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -90,7 +90,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="81" name="game_over_event" type="game_over_event" x="411.548" y="-2.53028" width="322.238" height="6.3939">
+  <object id="81" name="game_over_event" type="game_over_event" x="411.548" y="-2.53028" width="459.571" height="6.3939">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -122,6 +122,20 @@
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>
+   </properties>
+  </object>
+  <object id="87" name="game_over_event" type="game_over_event" x="558.29" y="89.0832" width="392.754" height="49.167">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="88" name="game_over_event" type="game_over_event" x="801.623" y="2.08317" width="93.4207" height="85.8337">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

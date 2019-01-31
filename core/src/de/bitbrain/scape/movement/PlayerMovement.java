@@ -1,6 +1,7 @@
 package de.bitbrain.scape.movement;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
@@ -43,10 +44,6 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (!enabled) {
          return;
       }
-      if (jumpRequested) {
-         jumpRequested = false;
-         flip(source);
-      }
 
       Direction direction = ((Direction) source.getAttribute(Direction.class));
 
@@ -59,14 +56,22 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
             collisionDetector.getCollisionAbove(source) :
             collisionDetector.getCollisionBelow(source);
 
+      boolean hadVerticalCollision = false;
+
       if (hasVerticalCollision()) {
          flipping = false;
+         hadVerticalCollision = true;
          source.setPosition(source.getLeft(), verticalCollision.y);
       }
       if (hasHorizontalCollision()) {
          source.setPosition(horizontalCollision.x, source.getTop());
-      } else if (!hasVerticalCollision()) {
+      } else if (!hadVerticalCollision) {
          flipping = true;
+      }
+
+      if (jumpRequested) {
+         jumpRequested = false;
+         flip(source);
       }
    }
 
@@ -113,15 +118,19 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private void animate(GameObject source) {
       SharedTweenManager.getInstance().killTarget(source);
-      float targetScale = 1.3f;
-      float time = 0.1f;
+      source.setScaleX(1f);
+      float targetScaleX = 0.6f;
+      float targetScaleY = 1.3f;
+      float time = 0.15f;
       Tween.to(source, GameObjectTween.SCALE_X, time)
-            .target(targetScale)
+            .target(targetScaleX)
             .repeatYoyo(1, 0f)
+            .ease(TweenEquations.easeInOutCubic)
             .start(SharedTweenManager.getInstance());
       Tween.to(source, GameObjectTween.SCALE_Y, time)
-            .target(source.getScaleY() < 0 ? -targetScale : targetScale)
+            .target(source.getScaleY() < 0 ? -targetScaleY : targetScaleY)
             .repeatYoyo(1, 0f)
+            .ease(TweenEquations.easeInOutCubic)
             .start(SharedTweenManager.getInstance());
    }
 }

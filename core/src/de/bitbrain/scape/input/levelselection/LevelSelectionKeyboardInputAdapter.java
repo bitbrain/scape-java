@@ -25,18 +25,18 @@ public class LevelSelectionKeyboardInputAdapter extends InputAdapter {
       switch (keycode) {
          case Input.Keys.W: case Input.Keys.D:
             levelManager.selectNextLevel();
-            break;
+            return true;
          case Input.Keys.S: case Input.Keys.A:
             levelManager.selectPreviousLevel();
-            break;
+            return true;
          case Input.Keys.ESCAPE:
             Gdx.app.exit();
             screen.exit();
-            break;
+            return true;
          case Input.Keys.ENTER:
             screen.enterLevel();
             screen.exit();
-            break;
+            return true;
       }
       return false;
    }
