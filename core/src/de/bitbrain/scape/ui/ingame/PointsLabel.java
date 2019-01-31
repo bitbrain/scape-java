@@ -1,20 +1,24 @@
 package de.bitbrain.scape.ui.ingame;
 
 import aurelienribon.tweenengine.Tween;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 public class PointsLabel extends Actor {
 
-   private static final float TRANSPARENCY = 0.4f;
+   private static final float TRANSPARENCY = 1f;
 
    private final PlayerProgress context;
    private final LevelMetaData metadata;
@@ -22,6 +26,7 @@ public class PointsLabel extends Actor {
    private final Label pointLabel;
    private final Label overlayLabel;
    private final Label allPointsLabel;
+   private final Texture background;
 
    private int previousPoints;
 
@@ -33,6 +38,7 @@ public class PointsLabel extends Actor {
       this.context = context;
       this.metadata = metadata;
       getColor().a =TRANSPARENCY;
+      background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
    }
 
    @Override
@@ -47,6 +53,9 @@ public class PointsLabel extends Actor {
 
    @Override
    public void draw(Batch batch, float parentAlpha) {
+      batch.setColor(Color.WHITE.cpy());
+      batch.draw(background, getX() - 60, getY() - 60, getWidth() + 120, getHeight() + 120);
+
       pointLabel.setPosition(getX(), getY());
       allPointsLabel.setPosition(getX() + pointLabel.getPrefWidth() + 10f, getY());
       overlayLabel.setPosition(getX(), getY());
@@ -65,12 +74,6 @@ public class PointsLabel extends Actor {
       }
       // Points have changed! Update label
       if (previousPoints != context.getPoints()) {
-         SharedTweenManager.getInstance().killTarget(this);
-         getColor().a = 1f;
-         Tween.to(this, ActorTween.ALPHA, 1f)
-               .target(TRANSPARENCY)
-               .start(SharedTweenManager.getInstance());
-
          pointLabel.setText(Integer.toString(context.getPoints()));
          overlayLabel.setOrigin(Align.center);
          overlayLabel.setText(pointLabel.getText());
