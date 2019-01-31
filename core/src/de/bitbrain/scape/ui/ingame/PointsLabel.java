@@ -74,14 +74,16 @@ public class PointsLabel extends Actor {
          pointLabel.setText(Integer.toString(context.getPoints()));
          overlayLabel.setOrigin(Align.center);
          overlayLabel.setText(pointLabel.getText());
-         overlayLabel.setScale(1f);
-         overlayLabel.getColor().a = 1f;
-         Tween.to(overlayLabel, ActorTween.ALPHA, 0.5f)
-               .target(0f)
-               .start(SharedTweenManager.getInstance());
-         Tween.to(overlayLabel, ActorTween.SCALE, 0.5f)
-               .target(5f)
-               .start(SharedTweenManager.getInstance());
+         if (context.getPoints() != 0) {
+            overlayLabel.setScale(1f);
+            overlayLabel.getColor().a = 1f;
+            Tween.to(overlayLabel, ActorTween.ALPHA, 0.5f)
+                  .target(0f)
+                  .start(SharedTweenManager.getInstance());
+            Tween.to(overlayLabel, ActorTween.SCALE, 0.5f)
+                  .target(5f)
+                  .start(SharedTweenManager.getInstance());
+         }
       }
       previousPoints = context.getPoints();
    }

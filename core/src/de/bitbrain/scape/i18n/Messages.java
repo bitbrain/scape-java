@@ -14,6 +14,7 @@ public enum Messages {
    // LEVEL SELECTION
 
    MENU_SELECTION_PROGRESS("menu.selection.progress"),
+   MENU_SELECTION_COMPLETE("menu.selection.complete"),
 
    // INGAME
 

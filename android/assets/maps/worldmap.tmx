@@ -41,9 +41,9 @@
   <object id="4" type="LEVEL" x="87.9167" y="140.667">
    <properties>
     <property name="bytes" value="5"/>
-    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="description" value="level.ram.description"/>
     <property name="level" value="3"/>
-    <property name="name" value="RAM"/>
+    <property name="name" value="level.ram.name"/>
     <property name="path" value="maps/003_ram.tmx"/>
    </properties>
    <point/>

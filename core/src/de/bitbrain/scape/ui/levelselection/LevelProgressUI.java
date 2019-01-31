@@ -40,7 +40,7 @@ public class LevelProgressUI extends Actor {
       descriptionLabel = new Label(Bundle.get(Messages.MENU_SELECTION_PROGRESS), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
       if (totalProgress == 1f) {
          progressLabel = new Label(playerProgress.getRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS_COMPLETE);
-         completeLabel = new Label("complete", Styles.LABEL_SELECTION_COMPLETE);
+         completeLabel = new Label(Bundle.get(Messages.MENU_SELECTION_COMPLETE), Styles.LABEL_SELECTION_COMPLETE);
          completeLabel.setFontScale(1.1f);
       } else {
          completeLabel = null;
