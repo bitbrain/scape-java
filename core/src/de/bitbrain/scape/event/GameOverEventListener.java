@@ -30,10 +30,14 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
             return;
          }
          ingameScreen.setGameOver(true);
-      Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE, 0.3f)
+         SharedTweenManager.getInstance().killTarget(ingameScreen.getPlayer());
+         Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE_X, 0.3f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
-      Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.3f)
+         Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE_Y, 0.3f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
+         Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.3f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
          Gdx.app.postRunnable(new Runnable() {
@@ -55,9 +59,6 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
                         Animator.animateByte(context, newByte);
                      }
                      ingameScreen.resetUI();
-                     Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE, 0.3f)
-                           .target(1f)
-                           .start(SharedTweenManager.getInstance());
                      Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.3f)
                            .target(1f)
                            .start(SharedTweenManager.getInstance());

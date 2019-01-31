@@ -248,10 +248,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setTargetTrackingSpeed(0.07f);
             player = o;
             o.setOrigin(o.getWidth() / 2f, o.getHeight() / 2f);
-            o.setScale(0f);
-            Tween.to(player, GameObjectTween.SCALE, 0.3f)
-                  .target(1f)
-                  .start(SharedTweenManager.getInstance());
             player.getColor().a = 0f;
             Tween.to(player, GameObjectTween.ALPHA, 0.3f)
                   .target(1f)

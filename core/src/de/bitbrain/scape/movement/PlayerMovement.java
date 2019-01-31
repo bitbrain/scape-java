@@ -74,7 +74,6 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (flipping) {
          return;
       }
-      System.out.println("FLIP!");
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
          source.setScaleY(min(-source.getScaleY(), source.getScaleY()));
