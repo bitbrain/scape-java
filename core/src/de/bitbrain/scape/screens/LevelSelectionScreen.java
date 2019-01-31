@@ -38,6 +38,9 @@ import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.graphics.CharacterType;
 import de.bitbrain.scape.input.TouchInputManager;
+import de.bitbrain.scape.input.levelselection.LevelSelectionControllerInputAdapter;
+import de.bitbrain.scape.input.levelselection.LevelSelectionKeyboardInputAdapter;
+import de.bitbrain.scape.input.levelselection.LevelSelectionMobileInputAdapter;
 import de.bitbrain.scape.level.LevelManager;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
@@ -76,6 +79,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Controllers.clearListeners();
    }
 
+   public boolean isExiting() {
+      return exiting;
+   }
+
+   public void exit() {
+      exiting = true;
+   }
+
    @Override
    protected void onCreate(GameContext context) {
       this.context = context;
@@ -94,6 +105,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       camera.setTargetTrackingSpeed(0.1f);
       camera.setDefaultZoomFactor(0.2f);
       camera.setZoomScalingFactor(0f);
+      setupInput(context);
       setupUI(context);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
@@ -117,56 +129,6 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
                .start(context.getTweenManager());
 
       }
-
-      TouchInputManager inputManager = new TouchInputManager();
-      inputManager.addListener(new TouchInputManager.TouchInputListener() {
-         @Override
-         public void onSwipe(Orientation orientation) {
-            if (exiting) {
-               return;
-            }
-            switch (orientation) {
-               case RIGHT: case UP:
-                  levelManager.selectPreviousLevel();
-                  break;
-               case LEFT: case DOWN:
-                  levelManager.selectNextLevel();
-            }
-         }
-
-         @Override
-         public void onTouch() {
-            if (exiting) {
-               return;
-            }
-            enterLevel();
-            exiting = true;
-         }
-
-         @Override
-         public void onType(int key) {
-            if (exiting) {
-               return;
-            }
-            switch (key) {
-               case Input.Keys.W: case Input.Keys.D:
-                  levelManager.selectNextLevel();
-                  break;
-               case Input.Keys.S: case Input.Keys.A:
-                  levelManager.selectPreviousLevel();
-                  break;
-               case Input.Keys.ESCAPE:
-                  Gdx.app.exit();
-                  exiting = true;
-                  break;
-               case Input.Keys.ENTER:
-                  enterLevel();
-                  exiting = true;
-                  break;
-            }
-         }
-      });
-      context.getInput().addProcessor(inputManager);
    }
 
    private void setupUI(final GameContext context) {
@@ -198,6 +160,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       context.getStage().addActor(layout);
    }
 
+   private void setupInput(GameContext context) {
+      TouchInputManager touchManager = new TouchInputManager();
+      touchManager.addListener(new LevelSelectionMobileInputAdapter(levelManager, this));
+      context.getInput().addProcessor(touchManager);
+      context.getInput().addProcessor(new LevelSelectionKeyboardInputAdapter(levelManager, this));
+      Controllers.addListener(new LevelSelectionControllerInputAdapter(levelManager, this));
+   }
+
    private void setupShaders(final GameContext context) {
       AutoReloadPostProcessorEffect<Bloom> bloom = context.getShaderManager().createBloomEffect();
       Vignette vignette = new Vignette(Gdx.
@@ -213,7 +183,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomer, bloom);
    }
 
-   private void enterLevel() {
+   public void enterLevel() {
       context.getScreenTransitions().out(new IngameScreen(getGame(), levelManager.getCurrentMetaData()), 0.7f);
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
             .target(0.001f)

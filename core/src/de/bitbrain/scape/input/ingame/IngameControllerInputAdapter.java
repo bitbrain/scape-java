@@ -52,7 +52,7 @@ public class IngameControllerInputAdapter extends ControllerAdapter {
 
    private int getRespawnButton(Controller controller) {
       if (Xbox.isXboxController(controller)) {
-         return Xbox.R_BUMPER;
+         return Xbox.START;
       }
       return -1;
    }
