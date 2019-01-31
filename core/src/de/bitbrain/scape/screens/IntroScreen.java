@@ -1,6 +1,7 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controllers;
@@ -20,6 +21,8 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
+import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 import de.bitbrain.scape.ui.intro.TerminalUI;
 
@@ -43,6 +46,8 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    private AutoReloadPostProcessorEffect<Bloom> bloom;
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
 
+   private boolean proceedWithBootSequence = false;
+
    public IntroScreen(BrainGdxGame game) {
       super(game);
    }
@@ -55,6 +60,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       ui = new TerminalUI(commands);
       context.getStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
+      setupInput(context);
       setupShaders(context);
    }
 
@@ -69,13 +75,22 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
       return new ExtendViewport(width, height, camera);
    }
 
-   @Override
-   protected void onUpdate(float delta) {
-      if (!exiting && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+   public void exit() {
+      if (!exiting) {
          exiting = true;
          context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
-      } else if (!bootSequence && commands != null && commands.isEmpty()
-            && (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched())) {
+      }
+   }
+
+   public void proceed() {
+      if (commands.isEmpty()) {
+         proceedWithBootSequence = true;
+      }
+   }
+
+   @Override
+   protected void onUpdate(float delta) {
+      if (!bootSequence && commands != null && commands.isEmpty() && proceedWithBootSequence) {
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
@@ -97,13 +112,15 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
          );
          zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
          exiting = true;
-      } else if (!exiting && Gdx.input.isTouched()) {
-         exiting = true;
-         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
       }
       if (bootSequence) {
          randomizer.update(delta);
       }
+   }
+
+   private void setupInput(GameContext context) {
+      context.getInput().addProcessor(new IntroKeyboardInputAdapter(this));
+      Controllers.addListener(new IntroControllerInputAdapter(this));
    }
 
    private void setupShaders(GameContext context) {

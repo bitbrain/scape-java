@@ -1,12 +1,15 @@
 package de.bitbrain.scape.movement;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.model.Direction;
@@ -16,6 +19,8 @@ import static java.lang.Math.min;
 
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
+   private static final long INPUT_LAG_BUFFER_IN_MS = 15;
+
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
 
    private boolean flipping = false;
@@ -23,6 +28,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    private boolean jumpRequested = false;
 
    private boolean enabled = false;
+
+   private long timestamp = 0;
 
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
@@ -37,6 +44,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    public void jumpIfUpAgain() {
       jumpRequested = true;
+      timestamp = System.currentTimeMillis();
    }
 
    @Override
@@ -65,13 +73,16 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
       if (hasHorizontalCollision()) {
          source.setPosition(horizontalCollision.x, source.getTop());
-      } else if (!hadVerticalCollision) {
+      } else if (!hadVerticalCollision && !flipping) {
+         animate(source);
          flipping = true;
       }
 
       if (jumpRequested) {
-         jumpRequested = false;
          flip(source);
+         if (flipping && (System.currentTimeMillis() - timestamp) > INPUT_LAG_BUFFER_IN_MS) {
+            jumpRequested = false;
+         }
       }
    }
 
@@ -116,21 +127,35 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       return horizontalCollision != null;
    }
 
-   private void animate(GameObject source) {
+   private void animate(final GameObject source) {
       SharedTweenManager.getInstance().killTarget(source);
       source.setScaleX(1f);
-      float targetScaleX = 0.6f;
-      float targetScaleY = 1.3f;
-      float time = 0.15f;
-      Tween.to(source, GameObjectTween.SCALE_X, time)
+      final float targetScaleX = 0.6f;
+      final float targetScaleY_A = 0.7f;
+      final float targetScaleY_B = 1.4f;
+      final float time = 0.15f;
+      Tween.to(source, GameObjectTween.SCALE_X, time).delay(0.05f)
             .target(targetScaleX)
             .repeatYoyo(1, 0f)
             .ease(TweenEquations.easeInOutCubic)
             .start(SharedTweenManager.getInstance());
-      Tween.to(source, GameObjectTween.SCALE_Y, time)
-            .target(source.getScaleY() < 0 ? -targetScaleY : targetScaleY)
+      Tween.to(source, GameObjectTween.SCALE_Y, time / 2f).delay(0.05f)
+            .target(source.getScaleY() < 0 ? -targetScaleY_A : targetScaleY_A)
             .repeatYoyo(1, 0f)
             .ease(TweenEquations.easeInOutCubic)
+            .setCallbackTriggers(TweenCallback.COMPLETE)
+            .setCallback(new TweenCallback() {
+               @Override
+               public void onEvent(int type, BaseTween<?> t) {
+                  source.setScaleY(source.getScaleY() < 0 ? -1f : 1f);
+                  Tween.to(source, GameObjectTween.SCALE_Y, time / 2f)
+                        .target(source.getScaleY() < 0 ? -targetScaleY_B : targetScaleY_B)
+                        .repeatYoyo(1, 0f)
+                        .ease(TweenEquations.easeInOutCubic)
+                        .start(SharedTweenManager.getInstance());
+               }
+            })
             .start(SharedTweenManager.getInstance());
+
    }
 }

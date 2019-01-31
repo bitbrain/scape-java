@@ -50,7 +50,7 @@ import de.bitbrain.scape.movement.PlayerControls;
 import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.ingame.PointsLabel;
-import de.bitbrain.scape.ui.levelselection.IngameLevelDescriptionUI;
+import de.bitbrain.scape.ui.ingame.IngameLevelDescriptionUI;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package de.bitbrain.scape.ui.levelselection;
+package de.bitbrain.scape.ui.ingame;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
