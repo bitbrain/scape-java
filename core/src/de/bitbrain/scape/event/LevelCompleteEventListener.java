@@ -36,7 +36,10 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
 
    @Override
    public void onEvent(final LevelCompleteEvent event) {
-      progress.increaseMaxLevel();
+      final boolean stageCompletedForTheFirstTime = progress.getRecord() == 0 && progress.getPoints() > 0;
+      if (stageCompletedForTheFirstTime) {
+         progress.increaseMaxLevel();
+      }
       Gdx.app.postRunnable(new Runnable() {
          @Override
          public void run() {
@@ -51,7 +54,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
                }
             });
             zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG_INGAME);
-            context.getScreenTransitions().out(new LevelSelectionScreen(game), 1.5f);
+            context.getScreenTransitions().out(new LevelSelectionScreen(game, !stageCompletedForTheFirstTime), 1.5f);
             Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 2f)
                   .target(0.001f)
                   .ease(TweenEquations.easeInExpo)
