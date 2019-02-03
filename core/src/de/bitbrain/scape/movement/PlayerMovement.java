@@ -19,7 +19,7 @@ import static java.lang.Math.min;
 
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
-   private static final long INPUT_LAG_BUFFER_IN_MS = 15;
+   private static final long INPUT_LAG_BUFFER_IN_MS = 100;
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
 
@@ -74,15 +74,16 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (hasHorizontalCollision()) {
          source.setPosition(horizontalCollision.x, source.getTop());
       } else if (!hadVerticalCollision && !flipping) {
-         animate(source);
+         animate(source, 0.08f, 0.15f);
          flipping = true;
       }
 
       if (jumpRequested) {
-         flip(source);
+         // We want to apply additional input lag so we can insert commands while being in flipping state
          if (flipping && (System.currentTimeMillis() - timestamp) > INPUT_LAG_BUFFER_IN_MS) {
             jumpRequested = false;
          }
+         flip(source);
       }
    }
 
@@ -98,7 +99,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          source.setScaleY(max(-source.getScaleY(), source.getScaleY()));
       }
       flipping = true;
-      animate(source);
+      animate(source, 0.1f, 0.3f);
+      timestamp = System.currentTimeMillis() - INPUT_LAG_BUFFER_IN_MS;
    }
 
    @Override
@@ -127,13 +129,12 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       return horizontalCollision != null;
    }
 
-   private void animate(final GameObject source) {
+   private void animate(final GameObject source, final float time, float strength) {
       SharedTweenManager.getInstance().killTarget(source);
       source.setScaleX(1f);
-      final float targetScaleX = 0.6f;
-      final float targetScaleY_A = 0.7f;
-      final float targetScaleY_B = 1.4f;
-      final float time = 0.15f;
+      final float targetScaleX = 1.0f - strength;
+      final float targetScaleY_A = 1.1f - strength;
+      final float targetScaleY_B = 1.0f + strength;
       Tween.to(source, GameObjectTween.SCALE_X, time).delay(0.05f)
             .target(targetScaleX)
             .repeatYoyo(1, 0f)
