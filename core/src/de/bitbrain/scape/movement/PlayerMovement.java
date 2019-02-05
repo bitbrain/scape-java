@@ -100,7 +100,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
       flipping = true;
       animate(source, 0.1f, 0.3f);
-      timestamp = System.currentTimeMillis() - INPUT_LAG_BUFFER_IN_MS;
+      jumpRequested = false;
    }
 
    @Override
