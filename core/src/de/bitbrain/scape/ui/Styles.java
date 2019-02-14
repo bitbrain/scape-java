@@ -49,7 +49,7 @@ public final class Styles {
       LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 120);
       LABEL_INGAME_POINTS_ALL_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 72);
+      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 92);
       LABEL_INGAME_CAPTION.fontColor = Colors.PRIMARY_RED;
 
       LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);

@@ -58,9 +58,13 @@ public class PlayerAdjustment {
       }
       if (count > 0) {
          player.setAttribute(Direction.class, Direction.DOWN);
+         player.setOrigin(player.getWidth() / 2f, 0f);
+         player.setOffset(0f, 0f);
          return 1;
       } else {
          player.setAttribute(Direction.class, Direction.UP);
+         player.setOrigin(player.getWidth() / 2f, 0f);
+         player.setOffset(0f, player.getHeight());
          return -1;
       }
    }

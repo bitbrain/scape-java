@@ -12,6 +12,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.model.Direction;
 
 import static java.lang.Math.max;
@@ -48,7 +49,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    }
 
    @Override
-   public void update(GameObject source, float delta) {
+   public void update(final GameObject source, float delta) {
       if (!enabled) {
          return;
       }
@@ -65,7 +66,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
             collisionDetector.getCollisionBelow(source);
 
       boolean hadVerticalCollision = false;
-
+      boolean lastFlipping = flipping;
       if (hasVerticalCollision()) {
          flipping = false;
          hadVerticalCollision = true;
@@ -85,6 +86,10 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          }
          flip(source);
       }
+
+      if (!flipping && lastFlipping) {
+         Animator.animatePlayerBounce(source);
+      }
    }
 
    private void flip(GameObject source) {
@@ -94,9 +99,13 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
          source.setScaleY(min(-source.getScaleY(), source.getScaleY()));
+         source.setOrigin(source.getWidth() / 2f, 0f);
+         source.setOffset(0f, source.getHeight());
       } else {
          source.setAttribute(Direction.class, Direction.DOWN);
          source.setScaleY(max(-source.getScaleY(), source.getScaleY()));
+         source.setOrigin(source.getWidth() / 2f, 0f);
+         source.setOffset(0f, 0f);
       }
       flipping = true;
       animate(source, 0.1f, 0.3f);

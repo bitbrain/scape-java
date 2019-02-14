@@ -27,7 +27,7 @@ public class IngameLevelDescriptionUI extends Table {
       caption = new Label(levelName, Styles.LABEL_INGAME_CAPTION);
       description = new Label(Bundle.get(Messages.MENU_INGAME_LEVEL) + " " + levelNumber, Styles.LABEL_INGAME_DESCRIPTION);
       pressAnyKey = new Label(Bundle.get(Messages.MENU_INGAME_PRESS_ANY_KEY), Styles.LABEL_INGAME_INTERACTION);
-      add(caption).row();
+      add(caption).padBottom(Gdx.graphics.getHeight() / 32).row();
       add(description).padBottom(Gdx.graphics.getHeight() / 8).row();
       add(pressAnyKey);
 

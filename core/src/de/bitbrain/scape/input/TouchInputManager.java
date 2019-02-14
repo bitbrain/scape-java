@@ -45,7 +45,7 @@ public class TouchInputManager extends InputAdapter {
          l.onType(keycode);
       }
       touched = true;
-      return true;
+      return false;
    }
 
    @Override
