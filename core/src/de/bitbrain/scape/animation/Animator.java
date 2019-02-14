@@ -33,14 +33,14 @@ public class Animator {
    public static void animatePlayerBounce(final GameObject o) {
       SharedTweenManager.getInstance().killTarget(o, GameObjectTween.SCALE_Y);
       Tween.to(o, GameObjectTween.SCALE_Y, 0.08f)
-            .target(o.getScaleY() > 0f ? 0.45f : -0.45f)
-            .ease(TweenEquations.easeOutQuad)
+            .target(o.getScaleY() > 0f ? 0.6f : -0.6f)
+            .ease(TweenEquations.easeOutCubic)
             .setCallback(new TweenCallback() {
                @Override
                public void onEvent(int type, BaseTween<?> t) {
                   Tween.to(o, GameObjectTween.SCALE_Y, 0.1f)
                         .target(o.getScaleY() > 0f ? 1f : -1f)
-                        .ease(TweenEquations.easeInOutCubic)
+                        .ease(TweenEquations.easeInCubic)
                         .start(SharedTweenManager.getInstance());
                }
             })

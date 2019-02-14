@@ -37,35 +37,35 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
       Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE_Y, 0.2f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
+      Tween.call(new TweenCallback() {
+         @Override
+         public void onEvent(int type, BaseTween<?> source) {
+            for (GameObject o : context.getGameWorld()) {
+               if (CharacterType.BYTE.name().equals(o.getType())) {
+                  context.getGameWorld().remove(o);
+               }
+            }
+            for (final GameObject o : ingameScreen.getAllLoadedBytes()) {
+               GameObject newByte = context.getGameWorld().addObject(o.mutator(), false);
+               Animator.animateByte(context, newByte);
+            }
+            ingameScreen.resetUI();
+            SharedTweenManager.getInstance().killTarget(ingameScreen.getPlayer(), GameObjectTween.ALPHA);
+            Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.2f)
+                  .target(1f)
+                  .setCallback(new TweenCallback() {
+                     @Override
+                     public void onEvent(int type, BaseTween<?> source) {
+                        ingameScreen.setGameOver(false);
+                     }
+                  })
+                  .setCallbackTriggers(TweenCallback.COMPLETE)
+                  .start(SharedTweenManager.getInstance());
+         }
+      }).delay(0.2f).start(SharedTweenManager.getInstance());
       Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.2f)
             .target(0f)
             .ease(TweenEquations.easeOutCubic)
-            .setCallbackTriggers(TweenCallback.COMPLETE)
-            .setCallback(new TweenCallback() {
-               @Override
-               public void onEvent(int type, BaseTween<?> source) {
-                  for (GameObject o : context.getGameWorld()) {
-                     if (CharacterType.BYTE.name().equals(o.getType())) {
-                        context.getGameWorld().remove(o);
-                     }
-                  }
-                  for (final GameObject o : ingameScreen.getAllLoadedBytes()) {
-                     GameObject newByte = context.getGameWorld().addObject(o.mutator(), false);
-                     Animator.animateByte(context, newByte);
-                  }
-                  ingameScreen.resetUI();
-                  Tween.to(ingameScreen.getPlayer(), GameObjectTween.ALPHA, 0.2f)
-                        .target(1f)
-                        .setCallback(new TweenCallback() {
-                           @Override
-                           public void onEvent(int type, BaseTween<?> source) {
-                              ingameScreen.setGameOver(false);
-                           }
-                        })
-                        .setCallbackTriggers(TweenCallback.COMPLETE)
-                        .start(SharedTweenManager.getInstance());
-               }
-            })
             .start(SharedTweenManager.getInstance());
    }
 }

@@ -9,7 +9,7 @@
  <tileset firstgid="633" source="tileset-misc-large.tsx"/>
  <layer name="base" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjILhB1YwDbQLBgcIGGbhoEDAPwZo8jD/E9I30CCCCTudAKU5oLQEAf9YENA3WAGx/k8g4B8PHPE/2AEu/2tAaU4y/TFU0j8MwNybAaUL0OIdPT0QArRO/x1UNpfY+CI2XQ/29I9eXhMbXxk45CuYUGkBGvt/BoXmW6Dlc1q7d7ABhxHmX3SAXl/REwAAmxcPqA==
+   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYN1cwYYrhCxt6AHxhQysQgCUchjJQIOAfAzR5mP8J6RtoEMGEnU6A0hxQWoKAfywI6BusgFj/JxDwjweO+KcWoFUZgsv/GlCaE0qTWoYMlfQPAzD3ZkDpArR4R08PhACt038Hlc0lNr6ITdeDvfxHL6+Jja8MHPIVTKi0AI39P4NC8y3Q8jmt3TvYgMMw8y+pbWz0+opSAGpjE+sGADWzEV0=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="32" height="32">
