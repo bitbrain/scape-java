@@ -12,6 +12,22 @@ import de.bitbrain.scape.assets.Assets;
 
 public class Animator {
 
+   public static void animatePowercell(GameContext context, GameObject o) {
+      context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 8f, 8f);
+      Tween.to(o, GameObjectTween.SCALE, 0.5f)
+            .target(1.3f)
+            .ease(TweenEquations.easeInQuad)
+            .repeatYoyo(Tween.INFINITY, 0)
+            .start(context.getTweenManager());
+      o.getColor().a = 0.8f;
+      Tween.to(o, GameObjectTween.ALPHA, 0.5f)
+            .target(1f)
+            .ease(TweenEquations.easeInOutQuad)
+            .repeatYoyo(Tween.INFINITY, 0)
+            .start(context.getTweenManager());
+   }
+
+
    public static void animateByte(GameContext context, GameObject o) {
       context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
       float delay = (float) Math.random() * 2f;

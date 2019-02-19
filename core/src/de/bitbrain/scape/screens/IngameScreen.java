@@ -44,16 +44,19 @@ import de.bitbrain.scape.input.ingame.IngameControllerInputAdapter;
 import de.bitbrain.scape.input.ingame.IngameKeyboardInputAdapter;
 import de.bitbrain.scape.input.ingame.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
-import de.bitbrain.scape.movement.CollisionDetector;
-import de.bitbrain.scape.movement.PlayerAdjustment;
-import de.bitbrain.scape.movement.PlayerControls;
-import de.bitbrain.scape.movement.PlayerMovement;
+import de.bitbrain.scape.movement.*;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.ingame.PointsLabel;
 import de.bitbrain.scape.ui.ingame.IngameLevelDescriptionUI;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
+import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
+import static de.bitbrain.scape.animation.Animator.animatePowercell;
 
 public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
@@ -66,6 +69,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    private LevelScrollingBounds levelScroller;
    private OutOfBoundsManager outOfBoundsManager;
    private GameContext context;
+
+   private List<GameObject> powerCells = new ArrayList<GameObject>();
 
    private boolean anyKeyPressedToStartlevel = false;
 
@@ -118,8 +123,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    public void exitIngame() {
       context.getBehaviorManager().clear();
       context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
-      zoomerEffect.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
       exiting = true;
+      zoomerEffect.mutate(EXIT_ZOOMER_CONFIG_INGAME);
    }
 
    public void setGameOver(boolean gameOver) {
@@ -183,7 +188,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), context, zoomerEffect, progress),
+            new LevelCompleteEventListener(getGame(), context, progress, powerCells, player, zoomerEffect),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
@@ -229,7 +234,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             AnimationConfig.builder()
                   .registerFrames(CharacterType.POWERCELL.name(), AnimationFrames.builder()
                         .resetIndex(0)
-                        .duration(0.5f)
+                        .duration(0.05f)
                         .origin(0, 0)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
                         .playMode(Animation.PlayMode.LOOP_PINGPONG)
@@ -271,10 +276,13 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          }
          if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);
-            context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 8f, 8f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
+            o.setOrigin(8f, 8f);
+            context.getBehaviorManager().apply(new PowerCellMovement(), o);
+            animatePowercell(context, o);
+            powerCells.add(o);
          }
       }
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);

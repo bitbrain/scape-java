@@ -10,7 +10,7 @@
   </data>
  </layer>
  <objectgroup name="spawn">
-  <object id="1" type="PLAYER" x="11.8484" y="148.591">
+  <object id="1" type="PLAYER" x="6.8484" y="149.424">
    <point/>
   </object>
   <object id="29" type="POWERCELL" x="1068.18" y="39.6212" width="16.2689" height="16.1439">
