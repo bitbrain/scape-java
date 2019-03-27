@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -26,17 +27,18 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
+import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
+import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
+import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
+import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.input.mainmenu.MainMenuControllerInputAdapter;
 import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.ui.ButtonMenu;
-import de.bitbrain.scape.input.mainmenu.MainMenuKeyboardInputAdapter;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
@@ -45,7 +47,7 @@ import static de.bitbrain.scape.i18n.Messages.*;
 
 public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
-   private ButtonMenu buttonMenu;
+   private NavigationMenu<TextButton> buttonMenu;
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -112,8 +114,10 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
             .padBottom(100f)
             .row();
 
-      buttonMenu = new ButtonMenu(context.getTweenManager());
-      buttonMenu.add(get(MENU_MAIN_CONTINUE), new ClickListener() {
+      NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
+      style.padding = MENU_BUTTON_PADDING;
+      buttonMenu = new NavigationMenu<TextButton>(style);
+      buttonMenu.add(new TextButton(get(MENU_MAIN_CONTINUE), Styles.BUTTON_MENU), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
                   context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
@@ -122,23 +126,23 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
                         .ease(TweenEquations.easeInExpo)
                         .start(SharedTweenManager.getInstance());
                }
-      });
-      buttonMenu.add(get(MENU_MAIN_NEWGAME), new ClickListener() {
+      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
+      buttonMenu.add(new TextButton(get(MENU_MAIN_NEWGAME), Styles.BUTTON_MENU), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
                   PlayerProgress progress = new PlayerProgress(null);
                   progress.reset();
                   context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
                }
-      });
-      buttonMenu.add(get(MENU_MAIN_EXIT), new ClickListener() {
+      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
+      buttonMenu.add(new TextButton(get(MENU_MAIN_EXIT), Styles.BUTTON_MENU), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
                   Gdx.app.exit();
                }
-      });
+      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
 
-      buttonMenu.checkNext();
+      buttonMenu.next();
 
       layout.padTop(100f).add(buttonMenu).padBottom(100f).row();
       Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2019", Styles.LABEL_CREDITS);
@@ -154,8 +158,8 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupInput(GameContext context) {
-      context.getInput().addProcessor(new MainMenuKeyboardInputAdapter(buttonMenu));
-      Controllers.addListener(new MainMenuControllerInputAdapter(buttonMenu));
+      context.getInputManager().register(new NavigateableControllerInput(buttonMenu));
+      context.getInputManager().register(new NavigateableKeyboardInput(buttonMenu));
    }
 
    private void setupShaders() {

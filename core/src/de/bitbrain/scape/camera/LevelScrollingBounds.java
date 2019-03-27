@@ -41,7 +41,7 @@ public class LevelScrollingBounds implements GameWorld.WorldBounds {
    }
 
    @Override
-   public boolean isInBounds(GameObject object, OrthographicCamera camera) {
+   public boolean isInBounds(GameObject object) {
       return true;
    }
 

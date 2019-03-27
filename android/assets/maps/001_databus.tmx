@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="200" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="42">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="200" height="10" tilewidth="8" tileheight="8" infinite="0" nextobjectid="45">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
- <tileset firstgid="65" source="tileset-horizontal.tsx"/>
- <tileset firstgid="193" source="tileset-virus.tsx"/>
+ <tileset firstgid="129" source="tileset-horizontal.tsx"/>
+ <tileset firstgid="257" source="tileset-virus.tsx"/>
  <layer name="base" width="200" height="10">
   <data encoding="base64" compression="zlib">
-   eJztmU1SwzAMhbNgkWWW3IfDFpaklKY3YNkj4Qx9Mw8hWcqQUDPRN6Op7Vi22z75L13ncxH512JjsWOx8y0/W1/srdip2DvV78mvxmCUw//R8dee81iX9BmlV8qscV5Fnx/GZ9IO0A50zRpmrXP6ZLQ1dV+xhLiZbuVSg6xZqw9mqDyT7XnIul7MSfAdeWxa+zXQ51WUy3xyf6DjS/dd0yCiOQ/ogfvyxiL9vXHKtWkyfDittbOU52IvxQ6Urn1P2bf1WyT74TcaiGh4a60tiSNv7Uj2S3SPA2p7pq1ZU8feuSrZH9behZ9H/We2ihXtbIO0FSPeesTnMKvte8R88v95EHk+H0f3SVENcnva+WCN88eMt25ivFoZYippG76n9OZ+cAjWYy1o96GWj6Ybef8UbW9rlt6DRe65knbAPaW1V7DSveMHoGfvfUNE77zf18Zt1W2NNe4Gk7+B578nSmvzHO8VBqVu7X+X86yMh6Xv69Be5J2Ktn5F5wNwpPIx6DtSWcvxmvzkE2Uhtvw=
+   eJztmc1OwzAMxzuJQ4897siRI4+wI++F4FUHRzoGXRkfiailfy07dmlLC8pPspamifMxO3HSorA5seenIHWQQ5DX7jlKGeQ5yDHIC5QvoV6KSsmn+lujvvQe+zqkzRQ7SJfCe62f1abfZrmRfyNXkM4sB9kO2TXaMNo6po+Krqb49iXym6bL5zaINqu1gVSJd1yfBS9r+RyHxoh9k/SnoDYr5gP4fJ39YxWQHZ+Kvk0T70E+RrZB9oBtWX3h9a1+8r2pUepgWtIzlIcgj0H2kE6Nk7etzUUK/p9oc5L5G/zEBgjP/z7G1lLsBvSBOE/cB/KFz4n1Zn4fb4xDpGKmubFioMiNU5d1rlqK7FPLocUu+N5bPxLX3Tl8RTrbUFrzEWs/wnNYq+hewuc5cRxafJzP/+vkgj3j+dgbJ5ENtkY51CedD6aK2a19k/or5UU/enO00XblMH47C3le8vl/GHhPaa39xN5ZDm1Bug/V6kThtsPvn7z65mboPRiNA9fxOF7L5zPLQPeUWqygpUulHl/XyJ6t7w0ee8d4X+q3VnZtxDmR1vE4d3dB7ov+HG6da370MZwL2ns4Xn2Z/vp3C2npPh9jhUoom4o1+DrL/WHo9zrS5/mmIu1f3vWAOEB+7axbQ94Yf72cwJ7RJ6bQ99/5Atr9ESA=
   </data>
  </layer>
  <objectgroup name="spawn">
-  <object id="1" type="PLAYER" x="12.5984" y="30.4247">
+  <object id="1" type="PLAYER" x="11.75" y="29.955">
    <point/>
   </object>
   <object id="16" type="BYTE" x="259.523" y="29.0227">
@@ -97,7 +97,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="29" type="POWERCELL" x="764.013" y="27.2878" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="981.388" y="42.8105" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>
@@ -144,6 +144,27 @@
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="42" type="BYTE" x="884.5" y="29">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="43" type="BYTE" x="844" y="36.25">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="44" type="BYTE" x="948.75" y="44.25">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

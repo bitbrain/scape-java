@@ -103,13 +103,13 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       GameCamera camera = context.getGameCamera();
       camera.setStickToWorldBounds(false);
       camera.setTargetTrackingSpeed(0.1f);
-      camera.setDefaultZoomFactor(0.2f);
+      camera.setDefaultZoomFactor(0.3f);
       camera.setZoomScalingFactor(0f);
       setupInput(context);
       setupUI(context);
       setupShaders(context);
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.15f)
+            .target(0.12f)
             .start(SharedTweenManager.getInstance());
       if (shouldAutoEnterLevel()) {
          exiting = true;
@@ -163,9 +163,9 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    private void setupInput(GameContext context) {
       TouchInputManager touchManager = new TouchInputManager();
       touchManager.addListener(new LevelSelectionMobileInputAdapter(levelManager, this));
-      context.getInput().addProcessor(touchManager);
-      context.getInput().addProcessor(new LevelSelectionKeyboardInputAdapter(levelManager, this));
-      Controllers.addListener(new LevelSelectionControllerInputAdapter(levelManager, this));
+      context.getInputManager().register(touchManager);
+      context.getInputManager().register(new LevelSelectionKeyboardInputAdapter(levelManager, this));
+      context.getInputManager().register(new LevelSelectionControllerInputAdapter(levelManager, this));
    }
 
    private void setupShaders(final GameContext context) {

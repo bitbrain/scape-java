@@ -119,8 +119,8 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupInput(GameContext context) {
-      context.getInput().addProcessor(new IntroKeyboardInputAdapter(this));
-      Controllers.addListener(new IntroControllerInputAdapter(this));
+      context.getInputManager().register(new IntroKeyboardInputAdapter(this));
+      context.getInputManager().register(new IntroControllerInputAdapter(this));
    }
 
    private void setupShaders(GameContext context) {

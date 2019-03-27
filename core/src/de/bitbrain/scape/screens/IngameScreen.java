@@ -321,8 +321,8 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupInput(GameContext context, PlayerControls playerControls) {
-      context.getInput().addProcessor(new IngameKeyboardInputAdapter(playerControls, this));
-      context.getInput().addProcessor(new IngameMobileInputAdapter(playerControls, this));
-      Controllers.addListener(new IngameControllerInputAdapter(playerControls, this));
+      context.getInputManager().register(new IngameKeyboardInputAdapter(playerControls, this));
+      context.getInputManager().register(new IngameMobileInputAdapter(playerControls, this));
+      context.getInputManager().register(new IngameControllerInputAdapter(playerControls, this));
    }
 }

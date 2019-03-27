@@ -126,9 +126,9 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupInput(GameContext context) {
-      context.getInput().addProcessor(new LogoKeyboardInputAdapter(this));
-      context.getInput().addProcessor(new LogoMobileInputAdapter(this));
-      Controllers.addListener(new LogoControllerInputAdapter(this));
+      context.getInputManager().register(new LogoKeyboardInputAdapter(this));
+      context.getInputManager().register(new LogoMobileInputAdapter(this));
+      context.getInputManager().register(new LogoControllerInputAdapter(this));
    }
 
    private void setupShaders() {

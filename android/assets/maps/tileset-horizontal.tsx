@@ -701,31 +701,91 @@
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="9" duration="100"/>
+   <frame tileid="25" duration="100"/>
+   <frame tileid="41" duration="100"/>
+   <frame tileid="57" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="89" duration="100"/>
+   <frame tileid="105" duration="100"/>
+   <frame tileid="121" duration="100"/>
+  </animation>
  </tile>
  <tile id="122">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="42" duration="100"/>
+   <frame tileid="58" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="90" duration="100"/>
+   <frame tileid="106" duration="100"/>
+   <frame tileid="122" duration="100"/>
+  </animation>
  </tile>
  <tile id="123">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="11" duration="100"/>
+   <frame tileid="27" duration="100"/>
+   <frame tileid="43" duration="100"/>
+   <frame tileid="59" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="91" duration="100"/>
+   <frame tileid="107" duration="100"/>
+   <frame tileid="123" duration="100"/>
+  </animation>
  </tile>
  <tile id="124">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="12" duration="100"/>
+   <frame tileid="28" duration="100"/>
+   <frame tileid="44" duration="100"/>
+   <frame tileid="60" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="92" duration="100"/>
+   <frame tileid="108" duration="100"/>
+   <frame tileid="124" duration="100"/>
+  </animation>
  </tile>
  <tile id="125">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="29" duration="100"/>
+   <frame tileid="45" duration="100"/>
+   <frame tileid="61" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="93" duration="100"/>
+   <frame tileid="109" duration="100"/>
+   <frame tileid="125" duration="100"/>
+  </animation>
  </tile>
  <tile id="126">
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="14" duration="100"/>
+   <frame tileid="30" duration="100"/>
+   <frame tileid="46" duration="100"/>
+   <frame tileid="62" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="94" duration="100"/>
+   <frame tileid="110" duration="100"/>
+   <frame tileid="126" duration="100"/>
+  </animation>
  </tile>
  <tile id="127">
   <properties>
