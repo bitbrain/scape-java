@@ -27,6 +27,7 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_INGAME_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_INTERACTION = new Label.LabelStyle();
+   public static final Label.LabelStyle LABEL_SELECTION_TOTAL_PROGRESS = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_CAPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_PROGRESS_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_SELECTION_PROGRESS = new Label.LabelStyle();
@@ -40,26 +41,30 @@ public final class Styles {
    public static final TextButton.TextButtonStyle BUTTON_MENU = new TextButton.TextButtonStyle();
 
    public static void init() {
-      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
-      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 66);
+      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 86);
       LABEL_INGAME_POINTS_ALL.fontColor = Colors.PRIMARY_RED;
-      LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
-      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS_ALL_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 92);
+      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 128);
       LABEL_INGAME_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
+      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 66);
       LABEL_INGAME_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, 26);
+      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
       LABEL_INGAME_INTERACTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, 25);
+      LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, 35);
       LABEL_INTRO_COMMAND.fontColor = Colors.PRIMARY_BLUE;
+
+      LABEL_SELECTION_TOTAL_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 90);
+      LABEL_SELECTION_TOTAL_PROGRESS.fontColor = Colors.PRIMARY_RED;
+
       LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 62);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 

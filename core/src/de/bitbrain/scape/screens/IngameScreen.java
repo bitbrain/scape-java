@@ -253,7 +253,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().setDefaultZoomFactor(0.08f);
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
-            context.getGameCamera().setTargetTrackingSpeed(0.05f);
+            context.getGameCamera().setTargetTrackingSpeed(0.15f, 0.05f);
             player = o;
             o.setOrigin(o.getWidth() / 2f, o.getHeight() / 2f);
             player.getColor().a = 0f;
