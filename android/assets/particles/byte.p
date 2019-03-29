@@ -2,16 +2,16 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 2000.0
-lowMax: 2000.0
+lowMin: 3000.0
+lowMax: 3000.0
 - Count - 
 min: 0
 max: 15
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 15.0
-highMax: 15.0
+highMin: 3.0
+highMax: 6.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -20,8 +20,8 @@ timeline0: 0.0
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 1500.0
+highMax: 3000.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -56,9 +56,9 @@ scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - X Scale - 
-lowMin: 0.5
+lowMin: 1.0
 lowMax: 0.0
-highMin: 1.0
+highMin: 2.0
 highMax: 0.0
 relative: false
 scalingCount: 3
@@ -67,7 +67,7 @@ scaling1: 0.0
 scaling2: 0.0
 timelineCount: 3
 timeline0: 0.0
-timeline1: 0.08219178
+timeline1: 0.13013698
 timeline2: 1.0
 - Y Scale - 
 active: false

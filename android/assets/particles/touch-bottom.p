@@ -182,7 +182,7 @@ timeline5: 0.6643836
 timeline6: 0.80136985
 timeline7: 1.0
 - Options - 
-attached: true
+attached: false
 continuous: false
 aligned: false
 additive: true

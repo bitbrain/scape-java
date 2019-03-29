@@ -34,9 +34,9 @@ public class PlayerParticleSpawner extends BehaviorAdapter {
       if (firstTouch) {
          Direction direction = (Direction)source.getAttribute(Direction.class);
          String effect = direction == Direction.UP ? Assets.Particles.TOUCH_TOP : Assets.Particles.TOUCH_BOTTOM;
-         final float x = source.getLeft() + HORIZONTAL_OFFSET;
-         final float y = direction == Direction.UP ? source.getTop() + source.getHeight() : source.getTop();
-         particleManager.spawnEffect(effect, x, y);
+         final float x = HORIZONTAL_OFFSET;
+         final float y = direction == Direction.UP ? source.getHeight() : 0f;
+         particleManager.attachEffect(effect, source, x, y);
       }
       firstTouch = false;
    }
