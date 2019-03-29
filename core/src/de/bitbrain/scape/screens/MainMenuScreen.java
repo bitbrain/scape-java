@@ -6,23 +6,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.GameContext;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
-import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
-import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
-import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -30,12 +22,11 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
-import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
@@ -65,14 +56,6 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       setupUI(context);
       setupShaders();
       setupInput(context);
-
-      float effectWidth = 200;
-      ParticleEffect blueEffect = context.getParticleManager()
-            .spawnEffect(Assets.Particles.MENU, 0f, Gdx.graphics.getHeight());
-      blueEffect.scaleEffect(Gdx.graphics.getWidth() / effectWidth);
-      ParticleEffect pinkEffect = context.getParticleManager()
-            .spawnEffect(Assets.Particles.MENU_ALT, 0f, Gdx.graphics.getHeight());
-      pinkEffect.scaleEffect(Gdx.graphics.getWidth() / effectWidth);
    }
 
    @Override
@@ -94,25 +77,8 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       Table layout = new Table();
       layout.setFillParent(true);
 
-      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.MENU_LOGO);
-      AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 25, 5);
-      AnimationDrawable logoDrawable = new AnimationDrawable(sheet, AnimationConfig.builder()
-            .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
-                  .frames(14)
-                  .origin(0, 0)
-                  .duration(0.05f)
-                  .playMode(Animation.PlayMode.LOOP)
-                  .build())
-            .build());
-
-      Image logoImage = new Image(logoDrawable);
-
-      layout.add(logoImage)
-            .width(128f * 3.3f)
-            .height(32f * 3.3f)
-            .padLeft(35f)
-            .padBottom(100f)
-            .row();
+      Actor logo = createAnimatedLogo("scape_");
+      layout.add(logo).padBottom(80f).row();
 
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
       style.padding = MENU_BUTTON_PADDING;
@@ -167,5 +133,22 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
       bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignetteEffect, bloomEffect);
+   }
+
+   private Actor createAnimatedLogo(String text) {
+      HorizontalGroup logoGroup = new HorizontalGroup();
+      for (int i = 0; i < text.length(); ++i) {
+         Label character = new Label(text.charAt(i) + "", Styles.LABEL_LOGO);
+         character.getColor().a = 0.3f;
+         Tween.to(character, ActorTween.ALPHA, 1.9f)
+               .delay(0.35f * i)
+               .target(1f)
+               .repeatYoyo(Tween.INFINITY, 0f)
+               .ease(TweenEquations.easeInOutSine)
+               .start(context.getTweenManager());
+         logoGroup.addActor(character);
+      }
+
+      return logoGroup;
    }
 }

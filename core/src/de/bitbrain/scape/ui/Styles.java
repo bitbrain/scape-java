@@ -20,6 +20,7 @@ public final class Styles {
 
    private static final AssetManager m = SharedAssetManager.getInstance();
 
+   public static final Label.LabelStyle LABEL_LOGO = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_POINTS_ALL = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_POINTS = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_POINTS_ALL_COMPLETE = new Label.LabelStyle();
@@ -86,6 +87,9 @@ public final class Styles {
 
       LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
+
+      LABEL_LOGO.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_LOGO.fontColor = Colors.PRIMARY_BLUE;
 
       BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, 36);
       BUTTON_MENU.fontColor = Colors.PRIMARY_BLUE;

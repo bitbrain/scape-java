@@ -1,6 +1,8 @@
 Untitled
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 2000.0
 - Duration - 
 lowMin: 10000.0
 lowMax: 10000.0
@@ -20,8 +22,8 @@ timeline0: 0.0
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 6000.0
+highMin: 4000.0
+highMax: 8000.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -118,15 +120,19 @@ active: false
 active: false
 - Gravity - 
 active: true
-lowMin: 0.0
-lowMax: 0.0
-highMin: -10.0
-highMax: -30.0
+lowMin: 5.0
+lowMax: 1.0
+highMin: 3.0
+highMax: 1.0
 relative: false
-scalingCount: 1
+scalingCount: 3
 scaling0: 1.0
-timelineCount: 1
+scaling1: 0.25490198
+scaling2: 0.0
+timelineCount: 3
 timeline0: 0.0
+timeline1: 0.29452056
+timeline2: 0.8835617
 - Tint - 
 colorsCount: 9
 colors0: 0.0

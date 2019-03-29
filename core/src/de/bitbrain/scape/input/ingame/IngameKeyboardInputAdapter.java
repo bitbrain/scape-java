@@ -23,10 +23,6 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
          ingameScreen.exitIngame();
          return true;
       }
-      if (keycode == Input.Keys.BACKSPACE) {
-         controls.respawn();
-         return true;
-      }
 
       if (!started) {
          started = true;
@@ -35,9 +31,12 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
          return true;
       }
 
-      if (keycode == Input.Keys.SPACE) {
-         controls.jump();
+      if (keycode == Input.Keys.BACKSPACE) {
+         controls.respawn();
+         return true;
       }
+
+      controls.jump();
       return true;
    }
 }
