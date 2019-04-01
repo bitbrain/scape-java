@@ -4,7 +4,9 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
@@ -13,6 +15,7 @@ import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.animation.Animator;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.model.Direction;
 
 import static java.lang.Math.max;
@@ -89,6 +92,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
       if (!flipping && lastFlipping) {
          Animator.animatePlayerBounce(source);
+         SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
+               .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
       }
    }
 
@@ -96,6 +101,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (flipping) {
          return;
       }
+      SharedAssetManager.getInstance().get(Assets.Sounds.JUMP, Sound.class)
+            .play(0.3f, (float) (1f + Math.random() * 0.3f), 0f);
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);
          source.setScaleY(min(-source.getScaleY(), source.getScaleY()));

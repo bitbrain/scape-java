@@ -15,7 +15,7 @@ public interface GameConfig {
    int SWIPE_TOLERANCE = 2;
 
    float PLAYER_START_SPEED = 65f;
-   float LEVEL_START_SCROLLING_SPEED = 40f;
+   float LEVEL_START_SCROLLING_SPEED = 50f;
    float BOOT_SEQUENCE_DURATION = 5.6f;
 
    String PLAYER_PREFERENCES_PATH = "scape.player.config";

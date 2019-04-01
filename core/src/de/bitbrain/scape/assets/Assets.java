@@ -36,5 +36,9 @@ public interface Assets {
 
    interface Sounds {
       String BEEP = "sounds/beep.ogg";
+      String JUMP = "sounds/jump.ogg";
+      String STEP = "sounds/step.ogg";
+      String SELECT = "sounds/select.ogg";
+      String SUBMIT = "sounds/submit.ogg";
    }
 }
