@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
@@ -250,7 +251,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
-            context.getGameCamera().setDefaultZoomFactor(0.08f);
+            context.getGameCamera().setDefaultZoomFactor(getCameraZoom());
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.15f, 0.05f);
@@ -305,6 +306,13 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       zoomerEffect = context.getShaderManager().createZoomerEffect();
       zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
       context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomerEffect, bloomEffect);
+   }
+
+   private float getCameraZoom() {
+      if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
+         return 350000f * (1f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
+      return 8400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupPlayer() {
