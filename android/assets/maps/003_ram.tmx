@@ -14,7 +14,7 @@
   <object id="1" type="PLAYER" x="3.60597" y="196.863">
    <point/>
   </object>
-  <object id="29" type="POWERCELL" x="1048.6" y="245.409" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="1033.6" y="272.659" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>

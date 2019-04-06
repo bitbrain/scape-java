@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,6 +23,7 @@ import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
+import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -92,6 +94,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
+      context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       progress = new PlayerProgress(levelMetaData);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
@@ -329,6 +332,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       PlayerAdjustment.adjust(player, context);
       PlayerControls controls = new PlayerControls(movement, context);
       setupInput(context, controls);
+      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 160f, context.getLightingManager()), player);
    }
 
    private void setupInput(GameContext context, PlayerControls playerControls) {
