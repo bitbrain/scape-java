@@ -4,17 +4,17 @@
  <tileset firstgid="1" source="worldmap.tsx"/>
  <tileset firstgid="257" source="tileset-virus.tsx"/>
  <tileset firstgid="321" source="tileset-horizontal.tsx"/>
- <tileset firstgid="449" source="tileset-vertical.tsx"/>
- <tileset firstgid="513" source="tileset-misc.tsx"/>
- <tileset firstgid="633" source="tileset-misc-large.tsx"/>
+ <tileset firstgid="513" source="tileset-vertical.tsx"/>
+ <tileset firstgid="641" source="tileset-misc.tsx"/>
+ <tileset firstgid="761" source="tileset-misc-large.tsx"/>
  <layer name="base" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYN1cwYYrhCxt6AHxhQysQgCUchjJQIOAfAzR5mP8J6RtoEMGEnU6A0hxQWoKAfywI6BusgFj/JxDwjweO+KcWoFUZgsv/GlCaE0qTWoYMlfQPAzD3ZkDpArR4R08PhACt038Hlc0lNr6ITdeDvfxHL6+Jja8MHPIVTKi0AI39P4NC8y3Q8jmt3TvYgMMw8y+pbWz0+opSAGpjE+sGADWzEV0=
+   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYNzWYsYgNcNmAL2xoBS4w0d9OSsFXYDh9A+LvWMJrAQH/bECTh/mfkL6BBjeYsNMPoHQHlJ5BwD87COjDBiyQ5CKAbA86h5UDE8K/CUA6gAm3/x8Q8M8JHPFPLUCrMgRX/K+A0p1QmtQyhNj0/xNo7q9B0HaCufcFlP6AFu/o6YEQICb9UwI4sNQzlABi44vYdD3Yy3/08prY+HqBQ/4HEyo9gcb+l6Aw/neg5XNau3ewgQPDzL+ktrHR6ytKAaiNTawbAEU6MbQ=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B24ATjwNp/YYDtH8ngxQCH/YfRuB/xYPNoGhhQgBz+o3ExCoYLGE3Lo2AUjIKhDgAKQQZF
+   eJxjYBgFo4B2gINpYO0XGCD7HQbY3x4DbD8IaAywGwwGQRiMgsEHAgY4XUTQ0H6LAfbbQJd7xAAJxoG1S4FK9v8DmvMfzazvSHyQ3djs0qCT/0F2Y7PLgE72g+ymlV3EpCGQ3Rw0sp/YNCRAI/vplYZwAXqlIXLBD6D7fgLxLyD+PUBuHexhNAoGHgAA8OMLqQ==
   </data>
  </layer>
  <objectgroup name="levels">

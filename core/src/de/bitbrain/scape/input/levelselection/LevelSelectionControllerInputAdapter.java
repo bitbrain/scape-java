@@ -56,6 +56,9 @@ public class LevelSelectionControllerInputAdapter extends ControllerAdapter {
 
    @Override
    public boolean povMoved(Controller controller, int povIndex, PovDirection value) {
+      if (screen.shouldAutoEnterLevel()) {
+         return false;
+      }
       if (value == PovDirection.west || value == PovDirection.south) {
          levelManager.selectPreviousLevel();
          return true;

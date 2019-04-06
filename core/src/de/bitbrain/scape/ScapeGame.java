@@ -31,9 +31,6 @@ public class ScapeGame extends BrainGdxGame {
       Bundle.load();
       Styles.init();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
-      Gdx.graphics.setUndecorated(true);
-      Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
-      //Gdx.graphics.setWindowedMode(1248, 770);
       configureSettings();
       return new LogoScreen(this);
    }
@@ -46,6 +43,9 @@ public class ScapeGame extends BrainGdxGame {
          graphicsSettings.setRenderScale(0.2f);
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+         Gdx.graphics.setUndecorated(true);
+         Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
+         // Gdx.graphics.setWindowedMode(1248, 770);
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.Medium);
          graphicsSettings.setRenderScale(0.5f);
          graphicsSettings.save();

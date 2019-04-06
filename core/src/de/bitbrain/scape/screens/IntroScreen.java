@@ -21,8 +21,11 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
 import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
+import de.bitbrain.scape.input.intro.IntroMobileInputAdapter;
+import de.bitbrain.scape.input.levelselection.LevelSelectionMobileInputAdapter;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 import de.bitbrain.scape.ui.intro.TerminalUI;
 
@@ -119,6 +122,9 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    private void setupInput(GameContext context) {
+      TouchInputManager touchManager = new TouchInputManager();
+      touchManager.addListener(new IntroMobileInputAdapter(this));
+      context.getInputManager().register(touchManager);
       context.getInputManager().register(new IntroKeyboardInputAdapter(this));
       context.getInputManager().register(new IntroControllerInputAdapter(this));
    }
