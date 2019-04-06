@@ -20,6 +20,9 @@ public class LevelSelectionMobileInputAdapter implements TouchInputManager.Touch
       if (screen.isExiting()) {
          return;
       }
+      if (screen.shouldAutoEnterLevel()) {
+         return;
+      }
       switch (orientation) {
          case RIGHT: case UP:
             levelManager.selectPreviousLevel();

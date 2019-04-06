@@ -312,6 +312,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
          return 350000f * (1f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
       }
+      if (Gdx.graphics.getWidth() < 1300) {
+         return 5400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
       return 8400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 

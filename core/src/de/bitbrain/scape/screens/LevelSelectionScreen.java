@@ -192,7 +192,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       zoomer.mutate(EXIT_ZOOMER_CONFIG);
    }
 
-   private boolean shouldAutoEnterLevel() {
+   public boolean shouldAutoEnterLevel() {
       return !initialScreen || progress.isNewGame();
    }
 }

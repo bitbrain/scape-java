@@ -3,6 +3,7 @@ package de.bitbrain.scape;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameSettings;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
@@ -32,6 +33,7 @@ public class ScapeGame extends BrainGdxGame {
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       Gdx.graphics.setUndecorated(true);
       Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
+      //Gdx.graphics.setWindowedMode(1248, 770);
       configureSettings();
       return new LogoScreen(this);
    }

@@ -35,6 +35,9 @@ public class LevelSelectionControllerInputAdapter extends ControllerAdapter {
          Gdx.app.exit();
          return true;
       }
+      if (screen.shouldAutoEnterLevel()) {
+         return false;
+      }
       if (buttonIndex == getPreviousLevelButton(controller)) {
          levelManager.selectPreviousLevel();
          return true;

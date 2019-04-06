@@ -22,6 +22,9 @@ public class LevelSelectionKeyboardInputAdapter extends InputAdapter {
       if (screen.isExiting()) {
          return false;
       }
+      if (screen.shouldAutoEnterLevel()) {
+         return false;
+      }
       switch (keycode) {
          case Input.Keys.W: case Input.Keys.D:
             levelManager.selectNextLevel();
