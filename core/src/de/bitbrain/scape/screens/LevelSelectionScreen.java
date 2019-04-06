@@ -90,6 +90,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    @Override
    protected void onCreate(GameContext context) {
       this.context = context;
+      context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),

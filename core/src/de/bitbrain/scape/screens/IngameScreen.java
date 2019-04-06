@@ -23,6 +23,7 @@ import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
+import de.bitbrain.braingdx.graphics.lighting.LightingManager;
 import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -332,7 +333,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       PlayerAdjustment.adjust(player, context);
       PlayerControls controls = new PlayerControls(movement, context);
       setupInput(context, controls);
-      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 160f, context.getLightingManager()), player);
+      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 140f, context.getLightingManager()), player);
    }
 
    private void setupInput(GameContext context, PlayerControls playerControls) {

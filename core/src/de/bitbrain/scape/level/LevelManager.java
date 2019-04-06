@@ -4,11 +4,13 @@ import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.graphics.GameCamera;
+import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
@@ -64,6 +66,7 @@ public class LevelManager {
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
       GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
+      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 100, context.getLightingManager()), selector);
    }
 
    public void selectPreviousLevel() {
