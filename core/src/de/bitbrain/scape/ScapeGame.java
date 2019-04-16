@@ -46,7 +46,7 @@ public class ScapeGame extends BrainGdxGame {
          Gdx.graphics.setUndecorated(true);
          Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
          // Gdx.graphics.setWindowedMode(1248, 770);
-         graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.Medium);
+         graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.High);
          graphicsSettings.setRenderScale(0.5f);
          graphicsSettings.save();
       }

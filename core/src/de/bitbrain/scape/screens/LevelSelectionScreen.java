@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -106,6 +107,7 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       camera.setTargetTrackingSpeed(0.1f);
       camera.setDefaultZoomFactor(0.3f);
       camera.setZoomScalingFactor(0f);
+      camera.setDistanceStoppingThreshold(40f);
       setupInput(context);
       setupUI(context);
       setupShaders(context);
@@ -136,14 +138,14 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
       Table layout = new Table();
       layout.setFillParent(true);
 
-      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
+      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
       Image image = new Image(new AnimationDrawable(sheet,
             AnimationConfig.builder()
                   .registerFrames(AnimationDrawable.DEFAULT_FRAME_ID, AnimationFrames.builder()
                         .resetIndex(0)
                         .duration(0.05f)
-                        .origin(0, 1)
+                        .origin(0, 0)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
                         .playMode(Animation.PlayMode.LOOP)
                         .frames(8)
@@ -185,9 +187,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    public void enterLevel() {
-      context.getScreenTransitions().out(new IngameScreen(getGame(), levelManager.getCurrentMetaData()), 0.7f);
-      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
-            .target(0.001f)
+      context.getLightingManager().setAmbientLight(Color.WHITE, 0.4f, TweenEquations.easeOutCubic);
+      context.getWorldStage().clear();
+      context.getStage().clear();
+      context.getScreenTransitions().out(new IngameScreen(getGame(), levelManager.getCurrentMetaData()), 0.5f);
+      Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.5f)
+            .target(0.005f)
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
       zoomer.mutate(EXIT_ZOOMER_CONFIG);

@@ -27,9 +27,11 @@ public class LevelSelectionKeyboardInputAdapter extends InputAdapter {
       }
       switch (keycode) {
          case Input.Keys.W: case Input.Keys.D:
+         case Input.Keys.UP: case Input.Keys.RIGHT:
             levelManager.selectNextLevel();
             return true;
          case Input.Keys.S: case Input.Keys.A:
+         case Input.Keys.DOWN: case Input.Keys.LEFT:
             levelManager.selectPreviousLevel();
             return true;
          case Input.Keys.ESCAPE:

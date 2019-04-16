@@ -11,8 +11,6 @@ public class IngameControllerInputAdapter extends ControllerAdapter {
    private final PlayerControls controls;
    private final IngameScreen ingameScreen;
 
-   private boolean started = false;
-
    public IngameControllerInputAdapter(PlayerControls controls, IngameScreen ingameScreen) {
       this.controls = controls;
       this.ingameScreen = ingameScreen;
@@ -29,8 +27,7 @@ public class IngameControllerInputAdapter extends ControllerAdapter {
          return true;
       }
 
-      if (!started) {
-         started = true;
+      if (!ingameScreen.isStarted()) {
          ingameScreen.startLevel();
          controls.unfreezePlayer();
          return true;

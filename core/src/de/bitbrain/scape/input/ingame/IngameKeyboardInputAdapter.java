@@ -10,8 +10,6 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
    private final PlayerControls controls;
    private final IngameScreen ingameScreen;
 
-   private boolean started = false;
-
    public IngameKeyboardInputAdapter(PlayerControls controls, IngameScreen ingameScreen) {
       this.controls = controls;
       this.ingameScreen = ingameScreen;
@@ -24,8 +22,7 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
          return true;
       }
 
-      if (!started) {
-         started = true;
+      if (!ingameScreen.isStarted()) {
          ingameScreen.startLevel();
          controls.unfreezePlayer();
          return true;

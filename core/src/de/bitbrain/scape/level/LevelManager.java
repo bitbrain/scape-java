@@ -66,7 +66,7 @@ public class LevelManager {
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
       GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
-      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 100, context.getLightingManager()), selector);
+      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 90, context.getLightingManager()), selector);
    }
 
    public void selectPreviousLevel() {

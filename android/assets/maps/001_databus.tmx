@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="8" tileheight="8" infinite="0" nextobjectid="45">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="8" tileheight="8" infinite="0" nextobjectid="90">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
@@ -90,7 +90,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="28" name="game_over_event" type="game_over_event" x="-0.467576" y="237.875" width="1597.75" height="59.1667">
+  <object id="28" name="game_over_event" type="game_over_event" x="3.53242" y="247.875" width="1597.75" height="59.1667">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>

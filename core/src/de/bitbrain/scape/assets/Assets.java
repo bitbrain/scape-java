@@ -4,6 +4,7 @@ public interface Assets {
 
    interface Textures {
       String PLAYER = "player.png";
+      String BYTE = "byte.png";
       String BACKGROUND = "background.png";
       String LOGO = "logo.png";
       String POWERCELL = "powercell.png";
@@ -18,7 +19,7 @@ public interface Assets {
       String LEVEL_1 = "maps/001_databus.tmx";
       String LEVEL_2 = "maps/002_kernelio.tmx";
       String LEVEL_3 = "maps/003_ram.tmx";
-      String LEVEL_0= "maps/000_test.tmx";
+      String LEVEL_4 = "maps/004_subroutine.tmx";
    }
 
    interface Particles {

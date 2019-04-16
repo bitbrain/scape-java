@@ -23,7 +23,7 @@ import static java.lang.Math.min;
 
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
-   private static final long INPUT_LAG_BUFFER_IN_MS = 100;
+   private static final long INPUT_LAG_BUFFER_IN_MS = 140;
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
 
@@ -95,6 +95,10 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
                .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
       }
+   }
+
+   public boolean hasHorizontalCollisionInFront() {
+      return hasHorizontalCollision();
    }
 
    private void flip(GameObject source) {

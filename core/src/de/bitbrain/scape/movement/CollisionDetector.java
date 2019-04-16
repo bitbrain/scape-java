@@ -18,7 +18,7 @@ public class CollisionDetector {
       boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
       boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
       boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
-      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - 2, object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
+      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionTopRight) {
          return null;
       }
@@ -35,7 +35,7 @@ public class CollisionDetector {
    public Vector2 getCollisionBelow(GameObject object) {
       TiledMapAPI api = context.getTiledMapManager().getAPI();
       boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - 2, object.getTop(), api.layerIndexOf(object), object);
+      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop(), api.layerIndexOf(object), object);
       boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionBottomRight) {

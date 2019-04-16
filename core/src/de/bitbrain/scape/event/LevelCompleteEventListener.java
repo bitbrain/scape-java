@@ -22,6 +22,7 @@ import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.camera.ScreenShake;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
 
 import java.util.List;
@@ -37,9 +38,18 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
    private final List<GameObject> powerCells;
    private final GameObject player;
    private final AutoReloadPostProcessorEffect<Zoomer> zoomerEffect;
+   private final IngameScreen screen;
 
-   public LevelCompleteEventListener(BrainGdxGame game, GameContext context, PlayerProgress progress, List<GameObject> powerCells, GameObject player, AutoReloadPostProcessorEffect<Zoomer> zoomerEffect) {
+   public LevelCompleteEventListener(
+         BrainGdxGame game,
+         IngameScreen screen,
+         GameContext context,
+         PlayerProgress progress,
+         List<GameObject> powerCells,
+         GameObject player,
+         AutoReloadPostProcessorEffect<Zoomer> zoomerEffect) {
       this.game = game;
+      this.screen = screen;
       this.context = context;
       this.progress = progress;
       this.powerCells = powerCells;
@@ -53,10 +63,13 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
       if (stageCompletedForTheFirstTime) {
          progress.increaseMaxLevel();
       }
+      screen.setGameComplete(true);
       Gdx.app.postRunnable(new Runnable() {
          @Override
          public void run() {
             context.getBehaviorManager().clear();
+            context.getStage().clear();
+            context.getWorldStage().clear();
             context.getScreenTransitions().out(new LevelSelectionScreen(game, !stageCompletedForTheFirstTime), 2f);
             for (GameObject powercell : powerCells) {
                SharedTweenManager.getInstance().killTarget(powercell);

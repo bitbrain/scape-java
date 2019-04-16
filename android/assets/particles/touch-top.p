@@ -5,8 +5,8 @@ active: false
 lowMin: 150.0
 lowMax: 150.0
 - Count - 
-min: 2
-max: 5
+min: 4
+max: 10
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
@@ -81,10 +81,10 @@ timeline4: 1.0
 active: false
 - Velocity - 
 active: true
-lowMin: -10.0
+lowMin: -2.0
 lowMax: 0.0
-highMin: -35.0
-highMax: -10.0
+highMin: -5.0
+highMax: -3.0
 relative: false
 scalingCount: 5
 scaling0: 1.0
@@ -116,7 +116,7 @@ active: false
 - Gravity - 
 active: true
 lowMin: 0.0
-lowMax: -15.0
+lowMax: -3.0
 highMin: 0.0
 highMax: 0.0
 relative: false

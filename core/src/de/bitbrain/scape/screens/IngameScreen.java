@@ -1,8 +1,6 @@
 package de.bitbrain.scape.screens;
 
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
@@ -37,7 +35,9 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.animation.AnimationTypes;
 import de.bitbrain.scape.animation.Animator;
+import de.bitbrain.scape.animation.PlayerAnimationTypeResolver;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.LevelScrollingBounds;
 import de.bitbrain.scape.camera.OutOfBoundsManager;
@@ -80,6 +80,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean exiting = false;
    private boolean gameOver = false;
+   private boolean gameComplete = false;
 
    private IngameLevelDescriptionUI descriptionUI;
 
@@ -106,16 +107,18 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
+
       setupWorld(context);
       setupUI(context);
       setupShaders(context);
-      setupPlayer();
+      setupPlayer(context);
+      setupRendering(context);
    }
 
    @Override
    public void dispose() {
       super.dispose();
-      if (!exiting && !gameOver) {
+      if (gameComplete) {
          progress.save();
       }
       Controllers.clearListeners();
@@ -126,14 +129,20 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    public void exitIngame() {
+      context.getLightingManager().setAmbientLight(Color.WHITE, 0.3f, TweenEquations.easeOutCubic);
+      context.getStage().clear();
       context.getBehaviorManager().clear();
-      context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+      context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
       exiting = true;
       zoomerEffect.mutate(EXIT_ZOOMER_CONFIG_INGAME);
    }
 
    public void setGameOver(boolean gameOver) {
       this.gameOver = gameOver;
+   }
+
+   public void setGameComplete(boolean gameComplete) {
+      this.gameComplete = gameComplete;
    }
 
    public boolean isGameOver() {
@@ -145,11 +154,19 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    public void resetUI() {
-      progress.setPoints(0);
-      player.setPosition(resetPosition.x, resetPosition.y);
-      levelScroller.reset();
-      movement.reset();
-      PlayerAdjustment.adjust(player, context);
+      if (!gameComplete) {
+         progress.setPoints(0);
+         player.setPosition(resetPosition.x, resetPosition.y);
+         levelScroller.reset();
+         movement.reset();
+         descriptionUI.show(1f);
+         PlayerAdjustment.adjust(player, context);
+         movement.setEnabled(false);
+         anyKeyPressedToStartlevel = false;
+         Tween.to(descriptionUI, ActorTween.ALPHA, 0.6f)
+               .target(1f)
+               .start(SharedTweenManager.getInstance());
+      }
    }
 
    public void startLevel() {
@@ -158,13 +175,6 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
          descriptionUI.hide(2f);
          Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.5f)
                .target(0f)
-               .setCallbackTriggers(TweenCallback.COMPLETE)
-               .setCallback(new TweenCallback() {
-                  @Override
-                  public void onEvent(int type, BaseTween<?> source) {
-                     context.getStage().getActors().removeValue(descriptionUI, false);
-                  }
-               })
                .start(SharedTweenManager.getInstance());
          setupEvents(context);
       }
@@ -193,7 +203,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), context, progress, powerCells, player, zoomerEffect),
+            new LevelCompleteEventListener(getGame(), this, context, progress, powerCells, player, zoomerEffect),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
@@ -202,33 +212,40 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       );
    }
 
-   private void setupWorld(GameContext context) {
-      this.context = context;
-      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
-      context.getGameWorld().setBounds(levelScroller);
+   private void setupRendering(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
+      final Texture byteTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
+      AnimationSpriteSheet byteSheet = new AnimationSpriteSheet(byteTexture, 8);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
       AnimationSpriteSheet powercellSheet = new AnimationSpriteSheet(powercellTexture, 16);
 
       context.getRenderManager().register(CharacterType.PLAYER.name(), new AnimationRenderer(sheet,
             AnimationConfig.builder()
-                  .registerFrames(CharacterType.PLAYER.name(), AnimationFrames.builder()
+                  .registerFrames(AnimationTypes.PLAYER_DEFAULT, AnimationFrames.builder()
                         .resetIndex(0)
                         .duration(0.1f)
                         .origin(0, 0)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
                         .playMode(Animation.PlayMode.LOOP_REVERSED)
                         .frames(8)
-                     .build())
-            .build()
+                        .build())
+                  .registerFrames(AnimationTypes.PLAYER_WALL_CLIMBING, AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.1f)
+                        .origin(0, 1)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP_REVERSED)
+                        .frames(8)
+                        .build())
+                  .build(), new PlayerAnimationTypeResolver(movement)
       ));
-      context.getRenderManager().register(CharacterType.BYTE.name(), new AnimationRenderer(sheet,
+      context.getRenderManager().register(CharacterType.BYTE.name(), new AnimationRenderer(byteSheet,
             AnimationConfig.builder()
                   .registerFrames(CharacterType.BYTE.name(), AnimationFrames.builder()
                         .resetIndex(0)
                         .duration(0.05f)
-                        .origin(0, 1)
+                        .origin(0, 0)
                         .direction(AnimationFrames.Direction.HORIZONTAL)
                         .playMode(Animation.PlayMode.LOOP)
                         .frames(8)
@@ -247,6 +264,12 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
                         .build())
                   .build()
       ));
+   }
+
+   private void setupWorld(GameContext context) {
+      this.context = context;
+      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
+      context.getGameWorld().setBounds(levelScroller);
 
       for (GameObject o : context.getGameWorld()) {
          if (CharacterType.PLAYER.name().equals(o.getType())) {
@@ -319,10 +342,10 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       if (Gdx.graphics.getWidth() < 1300) {
          return 5400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
       }
-      return 8400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      return 7800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
-   private void setupPlayer() {
+   private void setupPlayer(GameContext context) {
       CollisionDetector collisionDetector = new CollisionDetector(context);
       movement = new PlayerMovement(collisionDetector);
       context.getBehaviorManager().apply(movement, player);
@@ -340,5 +363,9 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
       context.getInputManager().register(new IngameKeyboardInputAdapter(playerControls, this));
       context.getInputManager().register(new IngameMobileInputAdapter(playerControls, this));
       context.getInputManager().register(new IngameControllerInputAdapter(playerControls, this));
+   }
+
+   public boolean isStarted() {
+      return anyKeyPressedToStartlevel;
    }
 }
