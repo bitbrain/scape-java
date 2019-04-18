@@ -48,6 +48,7 @@ prepare_packr
 
 prepare_and_push "windows" "packr-windows.json" "openjdk-1.7.0-u80-unofficial-windows-i586-image.zip"
 prepare_and_push "mac" "packr-mac.json" "openjdk-1.7.0-u80-unofficial-macosx-x86_64-image.zip" ".app"
+prepare_and_push "linux" "packr-linux.json" "openjdk-1.7.0-u80-unofficial-linux-amd64-image.zip"
 
 echo "Done."
 exit 0
