@@ -19,6 +19,7 @@ import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameObjectUtils;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.camera.ScreenShake;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
@@ -32,7 +33,7 @@ import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
 
-   private final BrainGdxGame game;
+   private final ScapeGame game;
    private final GameContext context;
    private final PlayerProgress progress;
    private final List<GameObject> powerCells;
@@ -41,7 +42,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
    private final IngameScreen screen;
 
    public LevelCompleteEventListener(
-         BrainGdxGame game,
+         ScapeGame game,
          IngameScreen screen,
          GameContext context,
          PlayerProgress progress,

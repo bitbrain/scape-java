@@ -37,6 +37,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.input.levelselection.LevelSelectionControllerInputAdapter;
@@ -48,7 +49,7 @@ import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
 
-public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
+public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private PlayerProgress progress;
@@ -58,12 +59,12 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    private boolean initialScreen;
    private LevelManager levelManager;
 
-   public LevelSelectionScreen(BrainGdxGame game, boolean initialScreen) {
+   public LevelSelectionScreen(ScapeGame game, boolean initialScreen) {
       super(game);
       this.initialScreen = initialScreen;
    }
 
-   public LevelSelectionScreen(BrainGdxGame game) {
+   public LevelSelectionScreen(ScapeGame game) {
       this(game, false);
    }
 
@@ -199,6 +200,6 @@ public class LevelSelectionScreen extends AbstractScreen<BrainGdxGame> {
    }
 
    public boolean shouldAutoEnterLevel() {
-      return !initialScreen || progress.isNewGame();
+      return !initialScreen || progress.isNewGame() && !getGame().isDebugMode();
    }
 }

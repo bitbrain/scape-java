@@ -17,7 +17,7 @@ public class DesktopLauncher {
 		config.resizable = true;
 		config.title = "scape (Evil Corp. Edition)";
 		setApplicationIcon(config);
-		new LwjglApplication(new ScapeGame(), config);
+		new LwjglApplication(new ScapeGame(arg), config);
 	}
 
 	private static void setApplicationIcon(LwjglApplicationConfiguration config) {

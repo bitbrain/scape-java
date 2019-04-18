@@ -35,6 +35,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.animation.AnimationTypes;
 import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.animation.PlayerAnimationTypeResolver;
@@ -62,7 +63,7 @@ import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
 import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 import static de.bitbrain.scape.animation.Animator.animatePowercell;
 
-public class IngameScreen extends AbstractScreen<BrainGdxGame> {
+public class IngameScreen extends AbstractScreen<ScapeGame> {
 
    private final LevelMetaData levelMetaData;
 
@@ -89,7 +90,7 @@ public class IngameScreen extends AbstractScreen<BrainGdxGame> {
 
    private Set<GameObject> bytes = new HashSet<GameObject>();
 
-   public IngameScreen(BrainGdxGame game, LevelMetaData levelMetaData) {
+   public IngameScreen(ScapeGame game, LevelMetaData levelMetaData) {
       super(game);
       this.levelMetaData = levelMetaData;
    }

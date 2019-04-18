@@ -21,6 +21,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
 import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
@@ -36,7 +37,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroScreen extends AbstractScreen<BrainGdxGame> {
+public class IntroScreen extends AbstractScreen<ScapeGame> {
 
    private GameContext context;
    private List<String> commands;
@@ -51,7 +52,7 @@ public class IntroScreen extends AbstractScreen<BrainGdxGame> {
 
    private boolean proceedWithBootSequence = false;
 
-   public IntroScreen(BrainGdxGame game) {
+   public IntroScreen(ScapeGame game) {
       super(game);
    }
 
