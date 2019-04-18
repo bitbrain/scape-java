@@ -3,7 +3,6 @@ package de.bitbrain.scape;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Cursor;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameSettings;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
@@ -19,7 +18,7 @@ import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang.SystemUtils;
 
 public class ScapeGame extends BrainGdxGame {
 

@@ -83,7 +83,7 @@ project(":core") {
     apply plugin: "java"
 
     dependencies {
-        compile "org.apache.commons:commons-lang3:3.9"
+        compile "commons-lang:commons-lang:2.5"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
