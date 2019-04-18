@@ -5,11 +5,9 @@ public interface Assets {
    interface Textures {
       String PLAYER = "player.png";
       String BYTE = "byte.png";
-      String BACKGROUND = "background.png";
       String LOGO = "logo.png";
       String POWERCELL = "powercell.png";
       String UI_BG = "ui-bg.png";
-      String MENU_LOGO = "menu-logo.png";
       String MENU_FOCUS_NINEPATCH = "focus.9.png";
       String MENU_FOCUS_DEFAULT_NINEPATCH = "focus-default.9.png";
    }
@@ -21,6 +19,7 @@ public interface Assets {
       String LEVEL_3 = "maps/003_ram.tmx";
       String LEVEL_4 = "maps/004_subroutine.tmx";
       String LEVEL_5 = "maps/005_northbridge.tmx";
+      String LEVEL_6 = "maps/006_securitycontroller.tmx";
    }
 
    interface Particles {
@@ -29,8 +28,6 @@ public interface Assets {
       String TOUCH_RIGHT = "particles/touch-right.p";
       String COLLECT = "particles/collect.p";
       String BYTE = "particles/byte.p";
-      String MENU = "particles/menu.p";
-      String MENU_ALT = "particles/menu-alt.p";
    }
 
    interface Fonts {

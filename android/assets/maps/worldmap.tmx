@@ -65,10 +65,10 @@
   </object>
   <object id="7" type="LEVEL" x="193" y="56.25">
    <properties>
-    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="description" value="level.securitycontroller.description"/>
     <property name="level" value="6"/>
-    <property name="name" value="Security Controller"/>
-    <property name="path" value="maps/002_kernelio.tmx"/>
+    <property name="name" value="level.securitycontroller.name"/>
+    <property name="path" value="maps/006_securitycontroller.tmx"/>
    </properties>
    <point/>
   </object>
