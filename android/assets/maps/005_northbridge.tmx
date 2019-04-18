@@ -83,7 +83,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="115" name="game_over_event" type="game_over_event" x="600.123" y="404.333" width="47.088" height="64.5004">
+  <object id="115" name="game_over_event" type="game_over_event" x="601.873" y="405.083" width="47.088" height="64.5004">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -97,21 +97,21 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="117" name="game_over_event" type="game_over_event" x="467.206" y="503.75" width="109.588" height="60.0004">
+  <object id="117" name="game_over_event" type="game_over_event" x="471.933" y="508.477" width="109.588" height="60.0004">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="118" name="game_over_event" type="game_over_event" x="544.206" y="464" width="56.338" height="40.0004">
+  <object id="118" name="game_over_event" type="game_over_event" x="568.206" y="471.125" width="56.338" height="40.0004">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="119" name="game_over_event" type="game_over_event" x="614.88" y="314.386" width="63.7849" height="16.364">
+  <object id="119" name="game_over_event" type="game_over_event" x="618.38" y="320.136" width="63.7849" height="16.364">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
