@@ -200,6 +200,6 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
    }
 
    public boolean shouldAutoEnterLevel() {
-      return !initialScreen || progress.isNewGame() && !getGame().isDebugMode();
+      return (!initialScreen || progress.isNewGame()) && !getGame().isDebugMode();
    }
 }
