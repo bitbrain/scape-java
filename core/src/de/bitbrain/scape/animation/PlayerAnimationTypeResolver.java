@@ -14,6 +14,9 @@ public class PlayerAnimationTypeResolver implements AnimationTypeResolver<GameOb
 
    @Override
    public Object getAnimationType(GameObject object) {
+      if (playerMovement.hasHorizontalCollision() && playerMovement.hasVerticalCollision()) {
+         return AnimationTypes.PLAYER_WALL_CORNERED;
+      }
       if (playerMovement.hasHorizontalCollisionInFront()) {
          return AnimationTypes.PLAYER_WALL_CLIMBING;
       }
