@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextobjectid="133">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextobjectid="137">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
  <tileset firstgid="417" source="tileset-misc.tsx"/>
  <layer name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   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
+   eJztmj1v3DAMhu2tY8aOHDO0SVsURT7btWPGjv0JHTv2p9cCYoDHiKJoS7Zkvw9gnC0LOp1EveRRGgYAAAAAAAAAAAAAAAAAR+Zd5frgWMj5t+zhqlZHQBfI+bfs5X2tjoAukPNv6QdV6kcAvq59SDxb+nFdqR8BzVZhR+0g55+M+p8q9SOg2Spipv35MA7Dx/Ht/JfWjxdHXVLKETO1i1c/LF/xy9EWt1XeLjnaAG0h7cPyFU+Thj1P1/fp+jGm2+O2ytutGTMBH95YUtrHWl+h2Rtvt2bMBHx4Y0lpH7Ty+zV7W9suqINXH0g8W77Cind5e1zr4IPahMSz5Z9kfctXWPEutwuudbzdJfmXZxErhfjpSZQhr+NHruPS+d3fxntuF1b+5W6a7/vpepiux0js7AV5HT9yje2Z3yWlPNWn2YaWkOOLz6JBcz7uxhhLucbIaFf6n5LjWSP/cpf4/TntnlGDUrYj15jUD2v9Sl8hPy1K5l+8WqPZJ+esuWXNZkjUk/pxNaTX2Dyef6Z2/y7wC3vmXzT75FCl7+4VuXZj8Uy4vr7GmPI9vX7+nN79W2AvreRfeD+0//VniWVSxPSEE8aIEu/n8XxZGHOSUr51/oXYvfa//oyxjEXs/NR14v1aX6HZRe09gPtR1xFN83qJZbbUQRLPYYz43JVe93vuDWk6Qkp9rbw1ttRB6/zUkfb+NL3QYpZeYpktddB7fqrlcbMgpVyLWVqIZebzIfNnDNq0R5dYetJzDLgm/1JyDc97HKVoea+2lxgwxpr8i1Zeg5SWxGg5ZqC9O1AIb/6lxBq+Deenp+vzGL+/Lag5rdCy9nkgdp8Ts8zl1nlTrzYEvmTWL7lXvxUta5+HFvMv3wrZHyjPXvmXB7FH+jiWP+cD6qL52CX5lyX5BunjoClto/nY3PwL/3/M660525VLz/mwI5Mby6TqrZ3bmN/qOR92ZKhAvZj2zHO/NIbpOR92ZHLzCFq9oC015pYqtAnWk5tH0OoFbaEyXbngKPkwcEnQlhpze5R8GLiEBswtyAd+A3iAtgAAAAAAAAAAAAAAAAAowX+hjDL5
   </data>
  </layer>
  <objectgroup name="spawn">
@@ -209,12 +209,33 @@
    </properties>
    <point/>
   </object>
-  <object id="132" type="BYTE" x="899.75" y="332.75">
+  <object id="132" type="BYTE" x="931.25" y="293">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
+  </object>
+  <object id="133" name="game_over_event" type="game_over_event" x="719.539" y="176.583" width="309.921" height="68.8337">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="135" name="game_over_event" type="game_over_event" x="715.039" y="359.583" width="316.921" height="69.3337">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="136" name="game_over_event" type="game_over_event" x="1031.54" y="196.833" width="20.421" height="213.834">
+   <properties>
+    <property name="collision" value="false"/>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

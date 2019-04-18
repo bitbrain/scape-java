@@ -4,10 +4,10 @@
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
- <tileset firstgid="385" source="tileset-misc.tsx"/>
+ <tileset firstgid="417" source="tileset-misc.tsx"/>
  <layer name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   eJzt2jtPwzAQwPFmY+zI2BGJR8urvEq7MjIyduzI959wpEZYlpNcUj/O6f8nRSomSmznOF9cZjMAAAAAAAAAAAAAAAAAAAAAuf1UuXsgY/fzIl83zt6+0hUzbbGwt/o4t9oPivo+VXZ81PO9VzTndiwsTb9W5rg3x876bLdvrc8IZ2Pm8/M4v/XcS37O4bLjd0/EhFrXCZ6Nu/YsyRXoMO8/pdMLcZXEzjPPW09b15oUokYekk9uzDm35rir2j8/ED/B1etMcwxpc+PDrpH73lFCvcOshOdJx4h+zXy5c9nXJqmRXW3nxyYdI/qNzS8lmdp4Qur7G/eR5vXSScbJXjGGOPUdTbMxucR1DuuRj4Yxro/3Kek7jLH1rvTauZ9Jm5w18LNz/d8I9wuRS3xi5hfN7yU5Ynkq+4kfnnG8etp853XRnF8aiwT3SBUnU4hH7XusV5GuWz87d92JZa18jk+Vah4l7HdsST7cjNinjEUyjyXFUgnrkS1lvfUYcfx1LfFmjvdqeA2Rk+Z61ydHfPM/PP9Kyy81aT0Teh+4rvOavODmB+01YEgLT5vm7x+kfUu1D/x1jJVS15ihYr1/pJI7R34n2NvTRHMukSitBkNeufMLylN6jgQAAAAAAAAAAAAAoBR/UyU8lw==
+   eJzt2jtvwjAQwHGydWTsyFipD+iLvqEjY0fGjB37/afGFaiW5diXxI7t8P9JkcC1ILGP88XpbAYAAAAAAAAAAAAAAAAAAAAgtX2V+gxk9PM8S3caJ6+u8oqZtliotXOca+3fGZ37VOnxoca7zmjM9VhYNue1ao7b5thqr/X2jfYa4bw34/lxGF819pL3KZw7/vZATGTrcoS5MdeeJbkCDnN/F6cn4moUW8s4byxtrjUpRI3cJZ9cNX2um+Oman99R/wEp9aZ49GlzYwPvUb23aOEuodZCftJrxF+x/Eyx9LXJqmRTW39Y5NeI/z65peSTO16QvL9xm2keb10kutkr7gMuczT0Hu0nPXJJaZc1iPbPD1GXCtyWKPWh+8p6RlG33pX+tm+OdkJ+4WWsgY2fwc/Eb4vRC6xiZlf+sRi7egXUooYncp+4pvlOp4tbbZ+Lr45qYX9YlrE/fg/Y8XJFOKx7x7r/UjXfhHpc9Xcxay/dOsJxImLOY4pfxf6PbYkz6m6oOs+ZSySeCwplobURin208asgWPmT1VLvDTHa9W9hkip773XZ0u/2FLELf/D86+0/KJI65nQ+4uqzjvmBTM/nNJz9oWlzbYvb8vPsWpRF+mzkbH2gXeHcSl1jelqyJzn8Fwrde77Mr4jxt5eTnKY8yFS7gOjPKnzC8pTeo4EAAAAAAAAAAAAAKAUvwI+RKU=
   </data>
  </layer>
  <objectgroup name="spawn">
