@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="8" tileheight="8" infinite="0" nextobjectid="10">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="10">
  <tileset firstgid="1" source="worldmap.tsx"/>
  <tileset firstgid="257" source="tileset-virus.tsx"/>
- <tileset firstgid="321" source="tileset-horizontal.tsx"/>
- <tileset firstgid="513" source="tileset-vertical.tsx"/>
- <tileset firstgid="641" source="tileset-misc.tsx"/>
- <tileset firstgid="761" source="tileset-misc-large.tsx"/>
- <layer name="base" width="32" height="32">
+ <tileset firstgid="353" source="tileset-horizontal.tsx"/>
+ <tileset firstgid="545" source="tileset-vertical.tsx"/>
+ <tileset firstgid="673" source="tileset-misc.tsx"/>
+ <tileset firstgid="793" source="tileset-misc-large.tsx"/>
+ <layer id="1" name="base" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYNzWYsYgNcNmAL2xoBS4w0d9OSsFXYDh9A+LvWMJrAQH/bECTh/mfkL6BBjeYsNMPoHQHlJ5BwD87COjDBiyQ5CKAbA86h5UDE8K/CUA6gAm3/x8Q8M8JHPFPLUCrMgRX/K+A0p1QmtQyhNj0/xNo7q9B0HaCufcFlP6AFu/o6YEQICb9UwI4sNQzlABi44vYdD3Yy3/08prY+HqBQ/4HEyo9gcb+l6Aw/neg5XNau3ewgQPDzL+ktrHR6ytKAaiNTawbAEU6MbQ=
+   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYNz2YMcXwhQ09AL6woRX4wER/OykFokA3iwGxOBa3HyDgnwto8jD/E9I30OAHE3aaAZqOV0D5Owj45wYBfdhABJJcBZCdQeewSmBC+LcBSBcw4fY/jI/LPy9wxD+1AK3KEFzxfwJKr4TSpJYhxKZ/SaC81CDIIzD3ckDjWQBWjqPRK4h0KzHpnxKggaWeoQQQG1/EpuvBXv6jl9fExhcHjnCXYEalN9DY/xYUxv8NtHxOa/cONvBgmPmX1DY2en1FKQC1sYl1AwAWlSpk
   </data>
  </layer>
- <layer name="Tile Layer 2" width="32" height="32">
+ <layer id="2" name="Tile Layer 2" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B2gINpYO0XGCD7HQbY3x4DbD8IaAywGwwGQRiMgsEHAgY4XUTQ0H6LAfbbQJd7xAAJxoG1S4FK9v8DmvMfzazvSHyQ3djs0qCT/0F2Y7PLgE72g+ymlV3EpCGQ3Rw0sp/YNCRAI/vplYZwAXqlIXLBD6D7fgLxLyD+PUBuHexhNAoGHgAA8OMLqQ==
+   eJxjYBgFo4B2QINpYO03GCD7EwbY3xkDbD8IeAywGwIGQRiMgsEHCgY4XVTQ0P6IAfbbQJd7xAAJxoG1S4FK9ssBw1oeLbzFkfggu7HZpUEn/4PsxmaXAZ3sB9lNK7uISUMguzloZD+xaUiARvbTKw3hAvRKQ+QCCWA+lARiKSCWHqAycbCH0SgYeAAA8uQG0A==
   </data>
  </layer>
- <objectgroup name="levels">
+ <objectgroup id="3" name="levels">
   <object id="1" type="LEVEL" x="16.2728" y="226.715">
    <properties>
     <property name="description" value="level.databus.description"/>
@@ -56,10 +56,10 @@
   </object>
   <object id="6" type="LEVEL" x="174.06" y="132.727">
    <properties>
-    <property name="description" value="Be careful. This area is protected with additional security."/>
+    <property name="description" value="level.northbridge.description"/>
     <property name="level" value="5"/>
-    <property name="name" value="North Bridge"/>
-    <property name="path" value="maps/002_kernelio.tmx"/>
+    <property name="name" value="level.northbridge.name"/>
+    <property name="path" value="maps/005_northbridge.tmx"/>
    </properties>
    <point/>
   </object>

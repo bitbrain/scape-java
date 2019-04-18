@@ -20,6 +20,7 @@ public interface Assets {
       String LEVEL_2 = "maps/002_kernelio.tmx";
       String LEVEL_3 = "maps/003_ram.tmx";
       String LEVEL_4 = "maps/004_subroutine.tmx";
+      String LEVEL_5 = "maps/005_northbridge.tmx";
    }
 
    interface Particles {
