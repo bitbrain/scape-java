@@ -1,5 +1,5 @@
 {
-  "platform": "linux32",
+  "platform": "linux64",
   "executable": "scape",
   "jdk": "",
   "classpath": [
