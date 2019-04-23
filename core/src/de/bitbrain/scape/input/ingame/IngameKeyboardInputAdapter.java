@@ -17,7 +17,7 @@ public class IngameKeyboardInputAdapter extends InputAdapter {
 
    @Override
    public boolean keyDown(int keycode) {
-      if (keycode == Input.Keys.ESCAPE) {
+      if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
          ingameScreen.exitIngame();
          return true;
       }

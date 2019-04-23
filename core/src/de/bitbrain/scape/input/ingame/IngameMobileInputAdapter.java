@@ -9,8 +9,6 @@ public class IngameMobileInputAdapter extends TouchInputManager implements Touch
 
    private final PlayerControls controls;
 
-   private boolean started = false;
-
    private final IngameScreen ingameScreen;
 
    public IngameMobileInputAdapter(PlayerControls controls, IngameScreen ingameScreen) {
@@ -21,8 +19,7 @@ public class IngameMobileInputAdapter extends TouchInputManager implements Touch
 
    @Override
    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-      if (!started) {
-         started = true;
+      if (!ingameScreen.isStarted()) {
          ingameScreen.startLevel();
          controls.unfreezePlayer();
          return true;
