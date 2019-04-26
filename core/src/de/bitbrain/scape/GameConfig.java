@@ -12,11 +12,9 @@ import de.bitbrain.braingdx.util.Mutator;
 
 public interface GameConfig {
 
-   int SWIPE_TOLERANCE = 2;
-
-   float PLAYER_START_SPEED = 65f;
-   float LEVEL_START_SCROLLING_SPEED = 35f;
-   float BOOT_SEQUENCE_DURATION = 5.6f;
+   float PLAYER_START_SPEED = 60f;
+   float LEVEL_START_SCROLLING_SPEED = 30f;
+   float BOOT_SEQUENCE_DURATION = 3.6f;
 
    String PLAYER_PREFERENCES_PATH = "scape.player.config";
    String PLAYER_LEVEL_RECORD = "record";

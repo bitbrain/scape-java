@@ -1,12 +1,10 @@
 package de.bitbrain.scape.input.logo;
 
+import com.badlogic.gdx.input.GestureDetector;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.scape.input.TouchInputManager;
-import de.bitbrain.scape.movement.PlayerControls;
-import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 
-public class LogoMobileInputAdapter extends TouchInputManager implements TouchInputManager.TouchInputListener {
+public class LogoMobileInputAdapter extends GestureDetector.GestureAdapter {
 
    private final LogoScreen screen;
 
@@ -15,23 +13,8 @@ public class LogoMobileInputAdapter extends TouchInputManager implements TouchIn
    }
 
    @Override
-   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+   public boolean touchDown(float x, float y, int pointer, int button) {
       screen.exit();
-      return true;
-   }
-
-   @Override
-   public void onSwipe(Orientation orientation) {
-      screen.exit();
-   }
-
-   @Override
-   public void onTouch() {
-
-   }
-
-   @Override
-   public void onType(int key) {
-
+      return super.touchDown(x, y, pointer, button);
    }
 }

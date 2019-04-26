@@ -1,14 +1,12 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -22,11 +20,9 @@ import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
-import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
 import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
 import de.bitbrain.scape.input.intro.IntroMobileInputAdapter;
-import de.bitbrain.scape.input.levelselection.LevelSelectionMobileInputAdapter;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 import de.bitbrain.scape.ui.intro.TerminalUI;
 
@@ -123,9 +119,8 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupInput(GameContext context) {
-      TouchInputManager touchManager = new TouchInputManager();
-      touchManager.addListener(new IntroMobileInputAdapter(this));
-      context.getInputManager().register(touchManager);
+      GestureDetector gestureDetector = new GestureDetector(new IntroMobileInputAdapter(this));
+      context.getInputManager().register(gestureDetector);
       context.getInputManager().register(new IntroKeyboardInputAdapter(this));
       context.getInputManager().register(new IntroControllerInputAdapter(this));
    }

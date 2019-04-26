@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
@@ -21,7 +21,6 @@ import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
-import de.bitbrain.braingdx.graphics.lighting.LightingManager;
 import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -59,7 +58,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG;
 import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 import static de.bitbrain.scape.animation.Animator.animatePowercell;
 
@@ -370,7 +368,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
 
    private void setupInput(GameContext context, PlayerControls playerControls) {
       context.getInputManager().register(new IngameKeyboardInputAdapter(playerControls, this));
-      context.getInputManager().register(new IngameMobileInputAdapter(playerControls, this));
+      context.getInputManager().register(new GestureDetector(new IngameMobileInputAdapter(playerControls, this)));
       context.getInputManager().register(new IngameControllerInputAdapter(playerControls, this));
    }
 

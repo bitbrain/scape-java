@@ -6,24 +6,21 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
-import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
-import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -39,7 +36,6 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.input.TouchInputManager;
 import de.bitbrain.scape.input.levelselection.LevelSelectionControllerInputAdapter;
 import de.bitbrain.scape.input.levelselection.LevelSelectionKeyboardInputAdapter;
 import de.bitbrain.scape.input.levelselection.LevelSelectionMobileInputAdapter;
@@ -165,9 +161,9 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupInput(GameContext context) {
-      TouchInputManager touchManager = new TouchInputManager();
-      touchManager.addListener(new LevelSelectionMobileInputAdapter(levelManager, this));
-      context.getInputManager().register(touchManager);
+      GestureDetector detector = new GestureDetector(new LevelSelectionMobileInputAdapter(levelManager, this));
+      detector.setLongPressSeconds(0.05f);
+      context.getInputManager().register(detector);
       context.getInputManager().register(new LevelSelectionKeyboardInputAdapter(levelManager, this));
       context.getInputManager().register(new LevelSelectionControllerInputAdapter(levelManager, this));
    }

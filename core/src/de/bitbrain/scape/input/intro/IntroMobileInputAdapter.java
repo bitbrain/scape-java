@@ -1,10 +1,9 @@
 package de.bitbrain.scape.input.intro;
 
-import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.scape.input.TouchInputManager;
+import com.badlogic.gdx.input.GestureDetector;
 import de.bitbrain.scape.screens.IntroScreen;
 
-public class IntroMobileInputAdapter implements TouchInputManager.TouchInputListener {
+public class IntroMobileInputAdapter extends GestureDetector.GestureAdapter {
 
    private final IntroScreen screen;
 
@@ -13,17 +12,14 @@ public class IntroMobileInputAdapter implements TouchInputManager.TouchInputList
    }
 
    @Override
-   public void onSwipe(Orientation orientation) {
-      screen.proceed();
+   public boolean longPress(float x, float y) {
+      screen.exit();
+      return true;
    }
 
    @Override
-   public void onTouch() {
+   public boolean touchDown(float x, float y, int pointer, int button) {
       screen.proceed();
-   }
-
-   @Override
-   public void onType(int key) {
-
+      return true;
    }
 }

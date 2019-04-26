@@ -23,7 +23,7 @@ import static java.lang.Math.min;
 
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
-   private static final long INPUT_LAG_BUFFER_IN_MS = 140;
+   private static final long INPUT_LAG_BUFFER_IN_MS = 240;
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
 

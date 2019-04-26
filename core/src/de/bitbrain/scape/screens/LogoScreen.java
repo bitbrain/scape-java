@@ -9,6 +9,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -127,7 +128,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    private void setupInput(GameContext context) {
       context.getInputManager().register(new LogoKeyboardInputAdapter(this));
-      context.getInputManager().register(new LogoMobileInputAdapter(this));
+      context.getInputManager().register(new GestureDetector(new LogoMobileInputAdapter(this)));
       context.getInputManager().register(new LogoControllerInputAdapter(this));
    }
 
