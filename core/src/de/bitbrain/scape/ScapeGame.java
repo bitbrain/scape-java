@@ -71,7 +71,7 @@ public class ScapeGame extends BrainGdxGame {
       GraphicsSettings graphicsSettings = settings.getGraphics();
       if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS) {
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.Low);
-         graphicsSettings.setRenderScale(0.1f);
+         graphicsSettings.setRenderScale(0.05f);
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
          if (gifMode) {

@@ -1,6 +1,7 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;

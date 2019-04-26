@@ -1,6 +1,7 @@
 package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.*;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
@@ -335,11 +336,15 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupShaders(GameContext context) {
-      AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
-      bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomerEffect = context.getShaderManager().createZoomerEffect();
       zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomerEffect, bloomEffect);
+      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomerEffect);
+
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
+         bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
+         context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloomEffect);
+      }
    }
 
    private float getCameraZoom() {
