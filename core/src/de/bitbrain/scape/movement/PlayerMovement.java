@@ -37,6 +37,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
+   private boolean lastHorizontalCollision;
 
    public PlayerMovement(CollisionDetector collisionDetector) {
       this.collisionDetector = collisionDetector;
@@ -76,10 +77,18 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          source.setPosition(source.getLeft(), verticalCollision.y);
       }
       if (hasHorizontalCollision()) {
-         source.setPosition(horizontalCollision.x, source.getTop());
-      } else if (!hadVerticalCollision && !flipping) {
-         animate(source, 0.08f, 0.15f);
-         flipping = true;
+         if (!lastHorizontalCollision) {
+            SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
+                  .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
+         }
+         lastHorizontalCollision = true;
+               source.setPosition(horizontalCollision.x, source.getTop());
+      } else{
+         lastHorizontalCollision = false;
+         if (!hadVerticalCollision && !flipping) {
+            animate(source, 0.08f, 0.15f);
+            flipping = true;
+         }
       }
 
       if (jumpRequested) {

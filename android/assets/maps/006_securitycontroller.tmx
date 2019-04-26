@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="152">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="155">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
@@ -76,7 +76,7 @@
    </properties>
    <point/>
   </object>
-  <object id="136" type="BYTE" x="355.818" y="68.9091">
+  <object id="136" type="BYTE" x="492.485" y="133.242">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -97,7 +97,7 @@
    </properties>
    <point/>
   </object>
-  <object id="139" type="BYTE" x="404.727" y="99.2727">
+  <object id="139" type="BYTE" x="548.06" y="125.189">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -111,7 +111,7 @@
    </properties>
    <point/>
   </object>
-  <object id="141" type="BYTE" x="436" y="100">
+  <object id="141" type="BYTE" x="594.5" y="94">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -180,6 +180,27 @@
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="152" type="BYTE" x="644" y="117">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="153" type="BYTE" x="715" y="116.75">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="154" type="BYTE" x="763" y="76.75">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

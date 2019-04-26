@@ -4,6 +4,8 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.audio.Sound;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
@@ -31,6 +33,8 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       if (!object.isActive()) {
          return;
       }
+      SharedAssetManager.getInstance().get(Assets.Sounds.COLLECT, Sound.class)
+            .play(0.13f, (float) (0.65f + Math.random() * 0.3f), 0f);
       playerContext.addPoint();
       float centerX = object.getLeft() + object.getWidth() / 2f;
       float centerY = object.getTop() + object.getHeight() / 2f;
