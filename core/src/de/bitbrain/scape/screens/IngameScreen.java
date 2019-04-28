@@ -134,7 +134,9 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       context.getBehaviorManager().clear();
       context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
       exiting = true;
-      zoomerEffect.mutate(EXIT_ZOOMER_CONFIG_INGAME);
+      if (zoomerEffect != null) {
+         zoomerEffect.mutate(EXIT_ZOOMER_CONFIG_INGAME);
+      }
    }
 
    public void setGameOver(boolean gameOver) {
@@ -338,12 +340,12 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private void setupShaders(GameContext context) {
       zoomerEffect = context.getShaderManager().createZoomerEffect();
       zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomerEffect);
+      context.getRenderPipeline().addEffects(RenderPipeIds.UI, zoomerEffect);
 
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
          AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
          bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
-         context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloomEffect);
+         context.getRenderPipeline().addEffects(RenderPipeIds.UI, bloomEffect);
       }
    }
 

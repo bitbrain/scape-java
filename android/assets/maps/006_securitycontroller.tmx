@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="155">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="156">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
  <tileset firstgid="417" source="tileset-misc.tsx"/>
  <layer id="4" name="base" width="120" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmLlSAzEMhrMdJSXllsykyXCGEI6SkpKSkkehpMzjYs+gQSiWZSXrvfi/GU9WsbM+fluSs1iA/8pnM/QIQJd8CD2/mL1r9HZ9cmLYQGcbdHsI5TGUp8a2h+DUsEF9roP2N6HcVtgDZ4YNpk1r2PDX04R0O1dsAv7aZtnsF1knn1Nchrqrjnw06bZSbE1/sE/U7KL51Ufq+yra9oEVdzX9NVJ7OFe6oua7PWPQ7Pj8lmmrQXvl0DPdGrY8r9JvS/ge5vkgjY9/V1ODofTV5hef3zO/0/YmvUvLq62cW4u7ZMvzSudYG9NQ53cMHBp/c379WLS4K3WV5zjni46lZJ1S+2ou1JhLaRzWiGPaGmc0VXffkVZz8g25sXv8JqddpG1v/mzlkKk6yj20eVnzHTvrMMa7Qs3IzrXV1pC+X7N3WPdfzW+X+kmpb6qOco8a+qZ8yNiI2m8Kx5VbQ+KZ2db9V+bLJflzRMshU/ml5mtSc/L64Zp5Qg3orG9+Ypckt4bEC7OtuLsy7FT/9FmaG9Vk7Hp68cbfVvxe2lNnbvp68frfqTGnvDriPb9e/+vpn2xrbKAcvmY8T46fffy/vWz+/ldacj8C5Wh5Mt0xU+1q9W/1A339LFnuzPNkumPydrX6z9ngOLzxt6/+eR0AAAAAAAAAAAAAAAAAAAAAAAAwFr4BfahMwQ==
+   eJztmD1PAzEMhu82RkbGG5FuqQqFUsrHyMjIyMhPYWTszyWRsDBuHCe9y33xPlLUc5NePt7EdlpV4L/yWY89AtAnH0LPL2Yfar3dkJwZNtDZO90eXHl05am27TE4N2xQno3T/saV2wJ74MKwwbxpDBv+ep6QbpeKTcBf27T1cZF18jnElau77slHk24rxdb0B8d4zdb1rz5S31fRdgisuKvprxHaw7HSFyXfnTMGzfbPb5G2GrRXTj3TjWHL8yr9toTvYZ4P0vj4dyU1GEtfbX7++T3yO21v0ru0vNrKubW4S7Y8r3SOtTGNdX6nwKnxN+bXu6LFXamrPMcxX9SVlHUK7aulUGIuqXFYw49pb5zRUN19T1otyTfExp7jNzlNFbZz82crhwzVUe6hzcuabxcofpVk695/l6gZ2bG22hrS91v2Duv+q/ntVD8p9Q3VUe5RQt+QD5kaXvtd4rhia0g8M9u6/8p8OSV/9mg5ZCi/1HxNaE65flhbj80EdfbQWd/9xC5JbA2JF2ZbcXdl2KH+6TM1NypJah/rieotyY2/jfi9tOfOFP3xkOT637mxpLzak3t+c/1vTv9kW2MD6fA143my/xzi/+22/vtfacr9CKSj5cl0xwy1K9W/1Q/0zadluTPPk+mOyduV6j9mg27kxt+h+ud1AAAAAAAAAAAAAAAAAAAAAAAAwFT4BoUZTZc=
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
   <object id="1" type="PLAYER" x="51.6893" y="36.4236">
    <point/>
   </object>
-  <object id="29" type="POWERCELL" x="824.725" y="126.951" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="876.543" y="108.406" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>
@@ -146,7 +146,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="147" name="game_over_event" type="game_over_event" x="756.039" y="162" width="105.255" height="29.3337">
+  <object id="147" name="game_over_event" type="game_over_event" x="756.039" y="162" width="167.922" height="29.3337">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -160,14 +160,14 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="149" name="game_over_event" type="game_over_event" x="862.706" y="6.66648" width="35.255" height="186">
+  <object id="149" name="game_over_event" type="game_over_event" x="923.706" y="10.9998" width="35.255" height="186">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="150" name="game_over_event" type="game_over_event" x="588.706" y="11.3331" width="273.922" height="49.3337">
+  <object id="150" name="game_over_event" type="game_over_event" x="588.706" y="11.3331" width="341.922" height="49.3337">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -196,6 +196,13 @@
    <point/>
   </object>
   <object id="154" type="BYTE" x="763" y="76.75">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="155" type="BYTE" x="836" y="132.5">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>

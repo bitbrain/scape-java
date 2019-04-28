@@ -101,6 +101,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       GameCamera camera = context.getGameCamera();
       camera.setStickToWorldBounds(false);
+
       camera.setTargetTrackingSpeed(0.1f);
       camera.setDefaultZoomFactor(0.3f);
       camera.setZoomScalingFactor(0f);
@@ -179,8 +180,8 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
       } else {
          zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
       }
-      context.getRenderPipeline().getPipe(RenderPipeIds.WORLD_UI).addEffects(vignette);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(zoomer, bloom);
+      context.getRenderPipeline().addEffects(RenderPipeIds.WORLD_UI, vignette);
+      context.getRenderPipeline().addEffects(RenderPipeIds.UI, zoomer, bloom);
    }
 
    public void enterLevel() {

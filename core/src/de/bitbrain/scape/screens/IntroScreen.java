@@ -137,7 +137,7 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
             target.setBlurStrength(0f);
          }
       });
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(bloom, zoomer);
+      context.getRenderPipeline().addEffects(RenderPipeIds.UI, bloom, zoomer);
    }
 
    private List<String> loadIntroCommands() {

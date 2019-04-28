@@ -1,6 +1,7 @@
 package de.bitbrain.scape.level;
 
 import aurelienribon.tweenengine.Tween;
+import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
@@ -9,10 +10,13 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.behavior.Behavior;
+import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
+import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
@@ -55,7 +59,7 @@ public class LevelManager {
    private Preferences prefs;
    private final LevelMetaDataLoader metaDataLoader = new LevelMetaDataLoader();
 
-   public LevelManager(GameContext context) {
+   public LevelManager(final GameContext context) {
       this.context = context;
       populateLevelMapping();
       selector = context.getGameWorld().addObject();
@@ -64,9 +68,25 @@ public class LevelManager {
       selectNextLevel();
       GameObject currentlySelected = getLevel(currentlySelectedLevel).getWorldObject();
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
-      GameCamera camera = context.getGameCamera();
+      final GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
-      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 90, context.getLightingManager()), selector);
+      final PointLight bgLight = context.getLightingManager().addPointLight("asdf-bg", camera.getPosition().x, camera.getPosition().y, 40f, Colors.PRIMARY_RED);
+      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 110f, Color.WHITE);
+      context.getBehaviorManager().apply(new BehaviorAdapter() {
+         @Override
+         public void onDetach(GameObject source) {
+            super.onDetach(source);
+            context.getLightingManager().removePointLight("asdf-bg");
+            context.getLightingManager().removePointLight("asdf");
+         }
+
+         @Override
+         public void update(GameObject source, float delta) {
+            bgLight.setPosition(camera.getPosition().x, camera.getPosition().y);
+            light.setPosition(camera.getPosition().x, camera.getPosition().y);
+            super.update(source, delta);
+         }
+      });
    }
 
    public void selectPreviousLevel() {

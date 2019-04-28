@@ -97,7 +97,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="29" type="POWERCELL" x="981.388" y="202.81" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="990.683" y="211.393" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>

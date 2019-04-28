@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<tileset name="tileset-horizontal" tilewidth="8" tileheight="8" tilecount="192" columns="24">
+<tileset version="1.2" tiledversion="1.2.3" name="tileset-horizontal" tilewidth="8" tileheight="8" tilecount="192" columns="24">
  <image source="tileset-horizontal.png" width="192" height="64"/>
  <tile id="0">
   <properties>

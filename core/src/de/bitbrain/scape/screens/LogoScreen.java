@@ -136,6 +136,6 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
       AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
       bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
-      context.getRenderPipeline().getPipe(RenderPipeIds.UI).addEffects(vignetteEffect, bloomEffect);
+      context.getRenderPipeline().addEffects(RenderPipeIds.UI, vignetteEffect, bloomEffect);
    }
 }
