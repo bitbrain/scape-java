@@ -17,6 +17,7 @@ import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.IngameScreen;
+import de.bitbrain.scape.screens.StageCompleteScreen;
 import de.bitbrain.scape.screens.StageSelectionScreen;
 
 import java.util.List;
@@ -52,10 +53,6 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
 
    @Override
    public void onEvent(final LevelCompleteEvent event) {
-      final boolean stageCompletedForTheFirstTime = progress.getRecord() == 0 && progress.getPoints() > 0;
-      if (stageCompletedForTheFirstTime) {
-         progress.increaseMaxLevel();
-      }
       screen.setGameComplete(true);
       Gdx.app.postRunnable(new Runnable() {
          @Override
@@ -63,7 +60,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
             context.getBehaviorManager().clear();
             context.getStage().clear();
             context.getWorldStage().clear();
-            context.getScreenTransitions().out(new StageSelectionScreen(game, !stageCompletedForTheFirstTime), 2f);
+            context.getScreenTransitions().out(new StageCompleteScreen(game, progress), 2f);
             for (GameObject powercell : powerCells) {
                SharedTweenManager.getInstance().killTarget(powercell);
                Tween.to(powercell, GameObjectTween.SCALE, 1f)

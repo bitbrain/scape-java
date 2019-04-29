@@ -48,11 +48,11 @@ public final class Styles {
 
       LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
-      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 86);
+      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 96);
       LABEL_INGAME_POINTS_ALL.fontColor = Colors.PRIMARY_RED;
       LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
-      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 140);
+      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 96);
       LABEL_INGAME_POINTS_ALL_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
 
       LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 128);

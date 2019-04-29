@@ -54,7 +54,6 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      context.getSettings().getGraphics().save();
       this.context = context;
       this.progress = new PlayerProgress(null);
       context.getScreenTransitions().in(0.3f);
@@ -101,12 +100,6 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       }
    }
 
-   @Override
-   protected void onUpdate(float delta) {
-      super.onUpdate(delta);
-
-   }
-
    public void exit() {
       if (!exiting) {
          AbstractScreen<?> nextScreen = progress.isNewGame()
@@ -120,7 +113,6 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    @Override
    public void dispose() {
       super.dispose();
-      Controllers.clearListeners();
    }
 
    @Override

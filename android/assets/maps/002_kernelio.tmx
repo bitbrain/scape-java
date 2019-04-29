@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextobjectid="90">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="90">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
- <layer name="base" width="140" height="60">
+ <layer id="1" name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   eJzt2Tt3gjAUwHHYHB37EWprW1ufVfsYHTs6Mnb0+08NB3O8RSCJBCL4/52T04ApUnJ78yCKAAAAAAAAAAAAAAAAgGYs49B3gGu0UnHxrspalU18foz+m6t+XsRZjpD1Ilt1/kOVT1W+4vNj9NvKwzXeasTJnhjrjB9Vvo91mVd0nvHlt+JaCfHSGfvolF/S2HlQffeoyjTOckbduUnZ2MUY1h0DUU+iU35JY2cUZ3Gj8wv92g8uY/4i13Yo6mls7I71JMpySxozOs+gH8rG/Bd1fqLKa2yuy/b53/WtydgbmJvcFD1XLJoLuIwXD5Z9ZttOC73/MjQ3uQldnDv8tHifekzet/eVrXDJlzJG6rLJE3oN7VvVHrCP/eE05+oxOSlpI+d4Vev5ovYhmfKlzxiRxup6T6o8x+51Xw6Ga+0cv8u0t1z3OBQZq3fivN4DaypGqsg92Ik4Pw34nFzHL5mLpha5albx+fLC3OaTjNU0z5etUeq4lrwZQl/zi299/buaVPVOq877ri4InTfhj/y/r3pHp+eT+uclTPNHhOPz/aw0O16XnNGMsn6T533uIWwt15Y2a3obBxE/xFA103qo7rErm/XMssW5J/HzX37eP7dY/0xLPl/2eH2k3Xr8tJVfmti7DM11b7RP8nOBdEzPP4+ivUD9rqmovbQSn7nGTX5dM76Sfmrz3d61KVon2jyPxLG9trkw34xuuI+QcdkPuW/2VtARa8t4mZibAAAAAAAAAAAAAAAAAAAAtOoP8zRjVQ==
+   eJzt2Tt3gjAUwHHYHB37EWprW1ufVfsYHTs6Mnb0+08NB3O8RSCJBCL4/52T04ApUnJ78yCKAAAAAAAAAAAAAAAAgGYs49B3gGu0UnHxrspalU18foz+m6t+XsRZjpD1Ilt1/kOVT1W+4vNj9NvKwzXeasTJnhjrjB9Vvo91mVd0nvHlt+JaCfHSGfvolF/S2HlQffeoyjTOckbduUnZ2MUY1h0DUU+iU35JY2cUZ3Gj8wv92g8uY/4i13Yo6mls7I71JMpySxozOs+gH8rG/Bd1fqLKa2yuy/b53/WtydgbmJvcFD1XLJoLuIwXD5Z9Ztsupec3IfdfhuYmN6GLc4efFu9Tj8n79r6yFS75UsZIXTZ5Qq+hfavaA/axP5zmXD0mJyVt5Byvaj1f1D4kU770GSPSWF3vSZXn2L3uy8FwrZ3jd5n2lusehyJj9U6c13tgTcVIFbkHOxHnpwGfk+v4JXPR1CJXzSo+X16Y23ySsZrm+bI1Sh3XkjdD6Gt+8a2vf1eTqt5p1Xnf1QWh8yb8kf/3Ve/o9HxS/7yEaf6IcHy+n5Vmx+uSM5pR1m/yvM89hK3l2tJmTW/jIOKHGKpmWg/VPXZls55Ztjj3JH7+y8/75xbrn2nJ58ser4+0W4+ftvJLE3uXobnujfZJfi6Qjun551G0F6jfNRW1l1biM9e4ya9rxlfST22+27s2RetEm+eROLbXNhfmm9EN9xEyLvsh983eCjpibRkvE3MTAAAAAAAAAAAAAAAAAACAVv0BZj1jjw==
   </data>
  </layer>
- <objectgroup name="spawn">
+ <objectgroup id="2" name="spawn">
   <object id="1" type="PLAYER" x="6.8484" y="277.424">
    <point/>
   </object>

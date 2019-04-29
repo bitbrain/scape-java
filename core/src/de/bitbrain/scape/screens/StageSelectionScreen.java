@@ -53,12 +53,12 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
 
    private boolean exiting = false;
    private GameContext context;
-   private boolean initialScreen;
+   private boolean manualNavigationMode;
    private StageManager stageManager;
 
-   public StageSelectionScreen(ScapeGame game, boolean initialScreen) {
+   public StageSelectionScreen(ScapeGame game, boolean manualNavigationMode) {
       super(game);
-      this.initialScreen = initialScreen;
+      this.manualNavigationMode = manualNavigationMode;
    }
 
    public StageSelectionScreen(ScapeGame game) {
@@ -178,7 +178,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
             graphics.getWidth(), Gdx.graphics.getHeight(), false);
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();
-      if (initialScreen) {
+      if (manualNavigationMode) {
          zoomer.mutate(INITIAL_ZOOMER_CONFIG);
       } else {
          zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
@@ -202,6 +202,6 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
    }
 
    public boolean shouldAutoEnterLevel() {
-      return (!initialScreen || progress.isNewGame()) && !getGame().isDebugMode();
+      return (!manualNavigationMode || progress.isNewGame()) && !getGame().isDebugMode();
    }
 }

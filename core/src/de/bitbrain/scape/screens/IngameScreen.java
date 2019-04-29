@@ -335,7 +335,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private void setupUI(GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
-      layout.right().bottom().padRight(90).padBottom(50).add(new PointsLabel(progress, levelMetaData));
+      layout.right().bottom().padRight(130).padBottom(80).add(new PointsLabel(progress, levelMetaData));
       context.getStage().addActor(layout);
 
       descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getLevelNumber());
