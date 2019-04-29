@@ -40,13 +40,13 @@ import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.levelselection.LevelSelectionControllerInputAdapter;
 import de.bitbrain.scape.input.levelselection.LevelSelectionKeyboardInputAdapter;
 import de.bitbrain.scape.input.levelselection.LevelSelectionMobileInputAdapter;
-import de.bitbrain.scape.level.LevelManager;
+import de.bitbrain.scape.level.StageManager;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
 
-public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
+public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private PlayerProgress progress;
@@ -54,14 +54,14 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
    private boolean exiting = false;
    private GameContext context;
    private boolean initialScreen;
-   private LevelManager levelManager;
+   private StageManager stageManager;
 
-   public LevelSelectionScreen(ScapeGame game, boolean initialScreen) {
+   public StageSelectionScreen(ScapeGame game, boolean initialScreen) {
       super(game);
       this.initialScreen = initialScreen;
    }
 
-   public LevelSelectionScreen(ScapeGame game) {
+   public StageSelectionScreen(ScapeGame game) {
       this(game, false);
    }
 
@@ -97,7 +97,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
             TiledMapType.ORTHOGONAL
       );
       this.progress = new PlayerProgress(null);
-      levelManager = new LevelManager(context);
+      stageManager = new StageManager(context);
 
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       GameCamera camera = context.getGameCamera();
@@ -120,7 +120,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
          Tween.call(new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
-               levelManager.selectNextLevel();
+               stageManager.selectNextLevel();
             }
          }).delay(1.0f)
                .start(context.getTweenManager());
@@ -154,7 +154,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
                   .build()
       ));
 
-      Label progress = new Label(levelManager.getTotalCollectedBytes() + "/" + levelManager.getTotalBytes(), Styles.LABEL_SELECTION_TOTAL_PROGRESS);
+      Label progress = new Label(stageManager.getTotalCollectedBytes() + "/" + stageManager.getTotalBytes(), Styles.LABEL_SELECTION_TOTAL_PROGRESS);
       layout.right().bottom().add(image).width(100f).height(100f)
             .padRight(10f)
             .padBottom(50f);
@@ -165,11 +165,11 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupInput(GameContext context) {
-      GestureDetector detector = new GestureDetector(new LevelSelectionMobileInputAdapter(levelManager, this));
+      GestureDetector detector = new GestureDetector(new LevelSelectionMobileInputAdapter(stageManager, this));
       detector.setLongPressSeconds(0.1f);
       context.getInputManager().register(detector);
-      context.getInputManager().register(new LevelSelectionKeyboardInputAdapter(levelManager, this));
-      context.getInputManager().register(new LevelSelectionControllerInputAdapter(levelManager, this));
+      context.getInputManager().register(new LevelSelectionKeyboardInputAdapter(stageManager, this));
+      context.getInputManager().register(new LevelSelectionControllerInputAdapter(stageManager, this));
    }
 
    private void setupShaders(final GameContext context) {
@@ -191,7 +191,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
       context.getLightingManager().setAmbientLight(Color.WHITE, 0.4f, TweenEquations.easeOutCubic);
       context.getWorldStage().clear();
       context.getStage().clear();
-      context.getScreenTransitions().out(new IngameScreen(getGame(), levelManager.getCurrentMetaData()), 0.5f);
+      context.getScreenTransitions().out(new IngameScreen(getGame(), stageManager.getCurrentMetaData()), 0.5f);
       Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.5f)
             .target(0.005f)
             .ease(TweenEquations.easeInExpo)

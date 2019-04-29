@@ -25,7 +25,7 @@ import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LevelManager {
+public class StageManager {
 
    private class Level {
 
@@ -59,7 +59,7 @@ public class LevelManager {
    private Preferences prefs;
    private final LevelMetaDataLoader metaDataLoader = new LevelMetaDataLoader();
 
-   public LevelManager(final GameContext context) {
+   public StageManager(final GameContext context) {
       this.context = context;
       populateLevelMapping();
       selector = context.getGameWorld().addObject();

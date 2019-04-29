@@ -17,7 +17,7 @@ import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
+import de.bitbrain.scape.screens.StageSelectionScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
 import org.apache.commons.lang.SystemUtils;
@@ -63,7 +63,7 @@ public class ScapeGame extends BrainGdxGame {
       Tween.registerAccessor(ValueProvider.class, new ValueTween());
       configureSettings();
       if (isDebugMode()) {
-         return new LevelSelectionScreen(this);
+         return new StageSelectionScreen(this);
       } else {
          return new LogoScreen(this);
       }

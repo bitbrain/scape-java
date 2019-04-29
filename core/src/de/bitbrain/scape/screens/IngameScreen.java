@@ -32,7 +32,6 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -137,7 +136,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       context.getLightingManager().setAmbientLight(Color.WHITE, 0.3f, TweenEquations.easeOutCubic);
       context.getStage().clear();
       context.getBehaviorManager().clear();
-      context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
+      context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 0.5f);
       exiting = true;
       if (zoomerEffect != null) {
          zoomerEffect.mutate(EXIT_ZOOMER_CONFIG_INGAME);

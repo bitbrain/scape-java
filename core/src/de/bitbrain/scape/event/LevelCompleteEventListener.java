@@ -3,12 +3,9 @@ package de.bitbrain.scape.event;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
-import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.event.GameEventListener;
-import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
@@ -17,19 +14,14 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
-import de.bitbrain.braingdx.world.GameObjectUtils;
-import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
-import de.bitbrain.scape.camera.ScreenShake;
-import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.IngameScreen;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
+import de.bitbrain.scape.screens.StageSelectionScreen;
 
 import java.util.List;
 
 import static de.bitbrain.braingdx.world.GameObjectUtils.distanceBetween;
-import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
 
@@ -71,7 +63,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
             context.getBehaviorManager().clear();
             context.getStage().clear();
             context.getWorldStage().clear();
-            context.getScreenTransitions().out(new LevelSelectionScreen(game, !stageCompletedForTheFirstTime), 2f);
+            context.getScreenTransitions().out(new StageSelectionScreen(game, !stageCompletedForTheFirstTime), 2f);
             for (GameObject powercell : powerCells) {
                SharedTweenManager.getInstance().killTarget(powercell);
                Tween.to(powercell, GameObjectTween.SCALE, 1f)

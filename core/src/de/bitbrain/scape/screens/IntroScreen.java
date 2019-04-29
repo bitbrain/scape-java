@@ -81,7 +81,7 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
    public void exit() {
       if (!exiting) {
          exiting = true;
-         context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 1f);
+         context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 1f);
       }
    }
 
@@ -110,7 +110,7 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
          });
          context.getScreenTransitions().out(
                new ColorTransition(Colors.PRIMARY_BLUE),
-               new LevelSelectionScreen(getGame(), true),
+               new StageSelectionScreen(getGame(), true),
                GameConfig.BOOT_SEQUENCE_DURATION
          );
          zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);

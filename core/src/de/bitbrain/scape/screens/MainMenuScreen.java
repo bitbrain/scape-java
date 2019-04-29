@@ -8,9 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -99,7 +97,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
 
          @Override
                public void clicked(InputEvent event, float x, float y) {
-                  context.getScreenTransitions().out(new LevelSelectionScreen(getGame(), true), 0.5f);
+                  context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 0.5f);
                   Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
                         .target(0.001f)
                         .ease(TweenEquations.easeInExpo)

@@ -5,23 +5,18 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.controllers.mappings.Xbox;
-import de.bitbrain.scape.level.LevelManager;
-import de.bitbrain.scape.level.LevelMetaData;
-import de.bitbrain.scape.movement.PlayerControls;
-import de.bitbrain.scape.screens.IngameScreen;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
-
-import java.util.logging.Level;
+import de.bitbrain.scape.level.StageManager;
+import de.bitbrain.scape.screens.StageSelectionScreen;
 
 public class LevelSelectionControllerInputAdapter extends ControllerAdapter {
 
-   private final LevelManager levelManager;
-   private final LevelSelectionScreen screen;
+   private final StageManager stageManager;
+   private final StageSelectionScreen screen;
 
    private boolean started = false;
 
-   public LevelSelectionControllerInputAdapter(LevelManager levelManager, LevelSelectionScreen screen) {
-      this.levelManager = levelManager;
+   public LevelSelectionControllerInputAdapter(StageManager stageManager, StageSelectionScreen screen) {
+      this.stageManager = stageManager;
       this.screen = screen;
    }
 
@@ -39,11 +34,11 @@ public class LevelSelectionControllerInputAdapter extends ControllerAdapter {
          return false;
       }
       if (buttonIndex == getPreviousLevelButton(controller)) {
-         levelManager.selectPreviousLevel();
+         stageManager.selectPreviousLevel();
          return true;
       }
       if (buttonIndex == getNextLevelButton(controller)) {
-         levelManager.selectNextLevel();
+         stageManager.selectNextLevel();
          return true;
       }
       if (buttonIndex == getEnterLevelButton(controller)) {
@@ -60,11 +55,11 @@ public class LevelSelectionControllerInputAdapter extends ControllerAdapter {
          return false;
       }
       if (value == PovDirection.west || value == PovDirection.south) {
-         levelManager.selectPreviousLevel();
+         stageManager.selectPreviousLevel();
          return true;
       }
       if (value == PovDirection.east || value == PovDirection.north) {
-         levelManager.selectNextLevel();
+         stageManager.selectNextLevel();
          return true;
       }
       return super.povMoved(controller, povIndex, value);

@@ -3,17 +3,17 @@ package de.bitbrain.scape.input.levelselection;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
-import de.bitbrain.scape.level.LevelManager;
-import de.bitbrain.scape.screens.LevelSelectionScreen;
+import de.bitbrain.scape.level.StageManager;
+import de.bitbrain.scape.screens.StageSelectionScreen;
 
 public class LevelSelectionMobileInputAdapter extends GestureDetector.GestureAdapter {
 
-   private final LevelManager levelManager;
-   private final LevelSelectionScreen screen;
+   private final StageManager stageManager;
+   private final StageSelectionScreen screen;
    private final Vector2 tmpVector = new Vector2();
 
-   public LevelSelectionMobileInputAdapter(LevelManager levelManager, LevelSelectionScreen screen) {
-      this.levelManager = levelManager;
+   public LevelSelectionMobileInputAdapter(StageManager stageManager, StageSelectionScreen screen) {
+      this.stageManager = stageManager;
       this.screen = screen;
    }
 
@@ -41,10 +41,10 @@ public class LevelSelectionMobileInputAdapter extends GestureDetector.GestureAda
       }
       switch (orientation) {
          case RIGHT: case UP:
-            levelManager.selectPreviousLevel();
+            stageManager.selectPreviousLevel();
             break;
          case LEFT: case DOWN:
-            levelManager.selectNextLevel();
+            stageManager.selectNextLevel();
       }
       return true;
    }
