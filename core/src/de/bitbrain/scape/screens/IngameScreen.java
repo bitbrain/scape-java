@@ -298,7 +298,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
             context.getGameCamera().setDefaultZoomFactor(getCameraZoom());
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
-            context.getGameCamera().setTargetTrackingSpeed(0.15f, 0.05f);
+            context.getGameCamera().setTargetTrackingSpeed(0.15f, 0.1f);
             player = o;
             o.setOrigin(o.getWidth() / 2f, o.getHeight() / 2f);
             player.getColor().a = 0f;
@@ -361,7 +361,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       if (Gdx.graphics.getWidth() < 1300) {
          return 5400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
       }
-      return 7800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupPlayer(GameContext context) {

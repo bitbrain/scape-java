@@ -54,7 +54,6 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    @Override
    protected void onCreate(final GameContext context) {
-      context.getSettings().getGraphics().setRenderScale(0.5f);
       context.getSettings().getGraphics().save();
       this.context = context;
       this.progress = new PlayerProgress(null);
@@ -89,7 +88,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       layout.setFillParent(true);
 
       Image image = new Image(drawable);
-      layout.add(image).width(50f).height(50f).padBottom(20f).row();
+      layout.add(image).width(90f).height(90f).padBottom(40f).row();
 
       Label slogan = new Label(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
       layout.add(slogan);
