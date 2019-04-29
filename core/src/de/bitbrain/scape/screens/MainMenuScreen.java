@@ -80,16 +80,20 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
    }
 
    private void setupUI(final GameContext context) {
+
+      boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
+
       Table layout = new Table();
       layout.setFillParent(true);
 
-      Actor logo = createAnimatedLogo("scape_");
+      Actor logo = createAnimatedLogo("scape");
       layout.add(logo).padBottom(80f).row();
 
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
-      style.padding = MENU_BUTTON_PADDING;
+      style.padding = isMobile ? MENU_BUTTON_PADDING_MOBILE : MENU_BUTTON_PADDING;
       style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
       style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
+      style.vertical = !isMobile;
       buttonMenu = new NavigationMenu<TextButton>(style);
       buttonMenu.add(new TextButton(get(MENU_MAIN_CONTINUE), Styles.BUTTON_MENU), new ClickListener() {
 
@@ -101,7 +105,8 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
                         .ease(TweenEquations.easeInExpo)
                         .start(SharedTweenManager.getInstance());
                }
-      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
+      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
+        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
       buttonMenu.add(new TextButton(get(MENU_MAIN_NEWGAME), Styles.BUTTON_MENU), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
@@ -109,13 +114,15 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
                   progress.reset();
                   context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
                }
-      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
+      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
+        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
       buttonMenu.add(new TextButton(get(MENU_MAIN_EXIT), Styles.BUTTON_MENU), new ClickListener() {
                @Override
                public void clicked(InputEvent event, float x, float y) {
                   Gdx.app.exit();
                }
-      }).width(MENU_BUTTON_WIDTH).height(MENU_BUTTON_HEIGHT);
+      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
+        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
 
       buttonMenu.next();
 

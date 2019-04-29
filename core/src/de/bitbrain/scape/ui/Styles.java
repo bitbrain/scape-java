@@ -1,5 +1,7 @@
 package de.bitbrain.scape.ui;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,6 +44,8 @@ public final class Styles {
    public static final TextButton.TextButtonStyle BUTTON_MENU = new TextButton.TextButtonStyle();
 
    public static void init() {
+      boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
+
       LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 140);
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
       LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 86);
@@ -85,13 +89,13 @@ public final class Styles {
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
 
-      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 50 : 20);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_LOGO.font = bake(Assets.Fonts.UI_NUMBER, 120);
+      LABEL_LOGO.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 260 : 120);
       LABEL_LOGO.fontColor = Colors.PRIMARY_BLUE;
 
-      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, 36);
+      BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 48 : 36);
       BUTTON_MENU.fontColor = Colors.PRIMARY_BLUE;
       BUTTON_MENU.downFontColor = Colors.PRIMARY_RED;
       BUTTON_MENU.checkedFontColor = Colors.PRIMARY_RED;
