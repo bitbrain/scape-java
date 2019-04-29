@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controllers;
@@ -108,7 +109,9 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
       camera.setDistanceStoppingThreshold(40f);
       setupInput(context);
       setupUI(context);
-      setupShaders(context);
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders(context);
+      }
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
             .target(0.12f)
             .start(SharedTweenManager.getInstance());
@@ -163,7 +166,7 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
 
    private void setupInput(GameContext context) {
       GestureDetector detector = new GestureDetector(new LevelSelectionMobileInputAdapter(levelManager, this));
-      detector.setLongPressSeconds(0.05f);
+      detector.setLongPressSeconds(0.1f);
       context.getInputManager().register(detector);
       context.getInputManager().register(new LevelSelectionKeyboardInputAdapter(levelManager, this));
       context.getInputManager().register(new LevelSelectionControllerInputAdapter(levelManager, this));
@@ -193,7 +196,9 @@ public class LevelSelectionScreen extends AbstractScreen<ScapeGame> {
             .target(0.005f)
             .ease(TweenEquations.easeInExpo)
             .start(SharedTweenManager.getInstance());
-      zoomer.mutate(EXIT_ZOOMER_CONFIG);
+      if (zoomer != null) {
+         zoomer.mutate(EXIT_ZOOMER_CONFIG);
+      }
    }
 
    public boolean shouldAutoEnterLevel() {

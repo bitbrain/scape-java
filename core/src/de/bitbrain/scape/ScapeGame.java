@@ -13,6 +13,8 @@ import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.postprocessing.filters.RadialBlur;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
+import de.bitbrain.braingdx.tweens.ValueTween;
+import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.screens.LevelSelectionScreen;
@@ -58,6 +60,7 @@ public class ScapeGame extends BrainGdxGame {
       Bundle.load();
       Styles.init();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
+      Tween.registerAccessor(ValueProvider.class, new ValueTween());
       configureSettings();
       if (isDebugMode()) {
          return new LevelSelectionScreen(this);
@@ -71,6 +74,7 @@ public class ScapeGame extends BrainGdxGame {
       GraphicsSettings graphicsSettings = settings.getGraphics();
       if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS) {
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.Low);
+         Gdx.input.setCatchBackKey(true);
          graphicsSettings.setRenderScale(0.05f);
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {

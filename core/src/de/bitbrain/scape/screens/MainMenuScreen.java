@@ -2,6 +2,7 @@ package de.bitbrain.scape.screens;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -57,7 +58,9 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       context.getScreenTransitions().in(1.5f);
       setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
-      setupShaders();
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders();
+      }
       setupInput(context);
    }
 

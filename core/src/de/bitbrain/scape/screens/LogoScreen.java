@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controllers;
@@ -96,7 +97,9 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       context.getStage().addActor(layout);
 
       setupInput(context);
-      setupShaders();
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders();
+      }
    }
 
    @Override

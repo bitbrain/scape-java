@@ -53,16 +53,16 @@ public class LevelSelectionMobileInputAdapter extends GestureDetector.GestureAda
       tmpVector.set(velocityX, velocityY);
       float angle = tmpVector.angle();
       if (angle <= 45f || angle >= 335) {
-         return Orientation.LEFT;
-      }
-      if (angle >= 45f && angle <= 135) {
-         return Orientation.UP;
-      }
-      if (angle >= 135f && angle <= 225) {
          return Orientation.RIGHT;
       }
-      if (angle >= 225 && angle <= 335) {
+      if (angle >= 45f && angle <= 135) {
          return Orientation.DOWN;
+      }
+      if (angle >= 135f && angle <= 225) {
+         return Orientation.LEFT;
+      }
+      if (angle >= 225 && angle <= 335) {
+         return Orientation.UP;
       }
       return null;
    }

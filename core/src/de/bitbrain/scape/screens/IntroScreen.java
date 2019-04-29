@@ -62,7 +62,9 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
       context.getStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
       setupInput(context);
-      setupShaders(context);
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders(context);
+      }
    }
 
    @Override

@@ -4,7 +4,7 @@ public interface Assets {
 
    interface Textures {
       String PLAYER = "player.png";
-      String PLAYER_CHARGED = "player.png";
+      String PLAYER_CHARGED = "player-charged.png";
       String BYTE = "byte.png";
       String LOGO = "logo.png";
       String POWERCELL = "powercell.png";

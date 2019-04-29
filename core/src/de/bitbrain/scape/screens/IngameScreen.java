@@ -32,6 +32,7 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -110,7 +111,11 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
 
       setupWorld(context);
       setupUI(context);
-      setupShaders(context);
+
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders(context);
+      }
+
       setupPlayer(context);
       setupRendering(context);
    }
@@ -217,6 +222,8 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private void setupRendering(GameContext context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
+      final Texture playerOverlayTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER_CHARGED);
+      AnimationSpriteSheet overlaySheet = new AnimationSpriteSheet(playerOverlayTexture, 8);
       final Texture byteTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
       AnimationSpriteSheet byteSheet = new AnimationSpriteSheet(byteTexture, 8);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
@@ -342,11 +349,9 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
       context.getRenderPipeline().addEffects(RenderPipeIds.UI, zoomerEffect);
 
-      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
-         AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
-         bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
-         context.getRenderPipeline().addEffects(RenderPipeIds.UI, bloomEffect);
-      }
+      AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
+      bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
+      context.getRenderPipeline().addEffects(RenderPipeIds.UI, bloomEffect);
    }
 
    private float getCameraZoom() {
