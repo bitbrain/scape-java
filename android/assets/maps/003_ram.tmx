@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextobjectid="107">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="107">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
  <tileset firstgid="417" source="tileset-misc.tsx"/>
- <layer name="base" width="140" height="60">
+ <tileset firstgid="537" source="tileset-block.tsx"/>
+ <layer id="1" name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   eJzt2jtvwjAQwHGydWTsyFipD+iLvqEjY0fGjB37/afGFaiW5diXxI7t8P9JkcC1ILGP88XpbAYAAAAAAAAAAAAAAAAAAAAgtX2V+gxk9PM8S3caJ6+u8oqZtliotXOca+3fGZ37VOnxoca7zmjM9VhYNue1ao7b5thqr/X2jfYa4bw34/lxGF819pL3KZw7/vZATGTrcoS5MdeeJbkCDnN/F6cn4moUW8s4byxtrjUpRI3cJZ9cNX2um+Oman99R/wEp9aZ49GlzYwPvUb23aOEuodZCftJrxF+x/Eyx9LXJqmRTW39Y5NeI/z65peSTO16QvL9xm2keb10kutkr7gMuczT0Hu0nPXJJaZc1iPbPD1GXCtyWKPWh+8p6RlG33pX+tm+OdkJ+4WWsgY2fwc/Eb4vRC6xiZlf+sRi7egXUooYncp+4pvlOp4tbbZ+Lr45qYX9YlrE/fg/Y8XJFOKx7x7r/UjXfhHpc9Xcxay/dOsJxImLOY4pfxf6PbYkz6m6oOs+ZSySeCwplobURin208asgWPmT1VLvDTHa9W9hkip773XZ0u/2FLELf/D86+0/KJI65nQ+4uqzjvmBTM/nNJz9oWlzbYvb8vPsWpRF+mzkbH2gXeHcSl1jelqyJzn8Fwrde77Mr4jxt5eTnKY8yFS7gOjPKnzC8pTeo4EAAAAAAAAAAAAAKAUvwI+RKU=
+   eJzt2j1TwjAYwHFgcmR1w03PN0BF8AVwgw02xo6Ofv/J5GzPXEjbpyVt2vL/3fWOhngm6dP0SUqvBwAAAAAAAAAAAAAAAAAAACC0Qz90C47dDI7LzHZe1NcUWKJ+c2LmMo6TiSNeIqONQ6P8uyFt7zIzPvR4R4HGXMeHOZfsrXh5VO0aq2OijpXx2SxfGp/hz4caz894fPXYS86rth+4z13zi/ZMTDTWbYB42arzL3UsUuIF5y2JF1d+K/HKfFOLlWOcl46yrGeSjxy5yHxyp/7fvToe+umfp8SPdzrHvLLyTEmZHR9mjpy3RvG1hhkL60n7iHyunFJSJsmRbWn1qybtI/K5ngHSsrboWn9Ck87rbSfpJ3vF7dCU6zTMr3LWyua7vrmu00uFuU3ZPiZ10o4i4zOL+9emdxhl810JyTXZCOv5VraP9p6iaZ7ztwn7PvhpUbxUme+WicUoo55PZfuo27VL+W7dy25vV/YT3x39mDvKXPWy5F2TSFivSqOC9XW8HFK+03NlEi/mu9O64qQL8Vh2j/Wppr5fF6y/N+LcJYmXbY1r9VkH4iSL/fwOeV+Ya2xJHpXMe2lHnfs5Va4HQjhl7RViv77OfeCq5k+dRyzU8db/yx+KnodUdu21TqlXtRB5FL/h+XfK2ivUfr00n/G9vzg17nX7nj+n9+wjR5lrX941PxfNRX2Qvhupax94E4+LuU/Y5Xfqp1zzJrzXCp1b7eJ4MfPsLr8jbcI1PwW/hUARTcqt0A5tnyMBAAAAAAAAAAAAAGiLX+KmVME=
   </data>
  </layer>
- <objectgroup name="spawn">
+ <objectgroup id="2" name="spawn">
   <object id="1" type="PLAYER" x="3.60597" y="196.863">
    <point/>
   </object>
-  <object id="29" type="POWERCELL" x="1033.6" y="272.659" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="1044.1" y="273.659" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>

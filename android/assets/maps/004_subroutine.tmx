@@ -5,16 +5,17 @@
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
  <tileset firstgid="417" source="tileset-misc.tsx"/>
+ <tileset firstgid="537" source="tileset-block.tsx"/>
  <layer id="1" name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
   <object id="1" type="PLAYER" x="3.60597" y="196.863">
    <point/>
   </object>
-  <object id="29" type="POWERCELL" x="996.145" y="299.523" width="16.2689" height="16.1439">
+  <object id="29" type="POWERCELL" x="1004.69" y="283.523" width="16.2689" height="16.1439">
    <properties>
     <property name="next" value="maps/worldmap.tmx"/>
     <property name="producer" value="PLAYER"/>
@@ -196,20 +197,6 @@
    <point/>
   </object>
   <object id="130" type="BYTE" x="834.5" y="316">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="131" type="BYTE" x="955.25" y="277.5">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="132" type="BYTE" x="931.25" y="293">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
