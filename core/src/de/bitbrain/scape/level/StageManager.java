@@ -4,21 +4,16 @@ import aurelienribon.tweenengine.Tween;
 import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.bitbrain.braingdx.GameContext;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
-import de.bitbrain.braingdx.behavior.Behavior;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.graphics.GameCamera;
-import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
-import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
@@ -151,7 +146,7 @@ public class StageManager {
       int bytes = 0;
       for (Level level : levelMapping.values()) {
          PlayerProgress progress = new PlayerProgress(level.getMetadata());
-         bytes += progress.getRecord();
+         bytes += progress.getPointRecord();
       }
       return bytes;
    }

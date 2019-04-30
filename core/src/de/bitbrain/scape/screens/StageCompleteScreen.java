@@ -1,7 +1,5 @@
 package de.bitbrain.scape.screens;
 
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -35,7 +33,7 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
    public StageCompleteScreen(ScapeGame game, PlayerProgress progress) {
       super(game);
       this.progress = progress;
-      this.stageCompletedForTheFirstTime = progress.getRecord() == 0 && progress.getPoints() > 0;
+      this.stageCompletedForTheFirstTime = progress.getPointRecord() == 0 && progress.getPoints() > 0;
       if (stageCompletedForTheFirstTime) {
          progress.increaseMaxLevel();
       }

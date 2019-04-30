@@ -32,6 +32,7 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -51,6 +52,8 @@ import de.bitbrain.scape.input.ingame.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.movement.*;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.ui.Styles;
+import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 import de.bitbrain.scape.ui.ingame.PointsLabel;
 import de.bitbrain.scape.ui.ingame.IngameLevelDescriptionUI;
 
@@ -87,6 +90,8 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private AutoReloadPostProcessorEffect<Zoomer> zoomerEffect;
    private PlayerMovement movement;
 
+   private long startTime = 0;
+
    private Set<GameObject> bytes = new HashSet<GameObject>();
 
    public IngameScreen(ScapeGame game, LevelMetaData levelMetaData) {
@@ -118,6 +123,8 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       setupPlayer(context);
       setupRendering(context);
    }
+
+
 
    @Override
    public void dispose() {
@@ -162,6 +169,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    public void resetUI() {
       if (!gameComplete) {
          progress.setPoints(0);
+         progress.setCurrentTime(0);
          player.setPosition(resetPosition.x, resetPosition.y);
          levelScroller.reset();
          movement.reset();
@@ -183,6 +191,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
                .target(0f)
                .start(SharedTweenManager.getInstance());
          setupEvents(context);
+         startTime = System.currentTimeMillis();
       }
    }
 
@@ -195,6 +204,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
          super.onUpdate(delta);
          levelScroller.update(delta);
          outOfBoundsManager.update();
+         this.progress.setCurrentTime(System.currentTimeMillis() - getStartTime());
       }
    }
 
@@ -335,8 +345,12 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private void setupUI(GameContext context) {
       Table layout = new Table();
       layout.setFillParent(true);
-      layout.right().bottom().padRight(130).padBottom(80).add(new PointsLabel(progress, levelMetaData));
+      layout.right().top().padRight(130).padTop(80).add(new PointsLabel(progress, levelMetaData));
       context.getStage().addActor(layout);
+
+      CurrentTimeLabel timeLabel = new CurrentTimeLabel(progress, Styles.LABEL_INGAME_POINTS_ALL);
+      timeLabel.setPosition(130, 80);
+      context.getStage().addActor(timeLabel);
 
       descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getLevelNumber());
       context.getStage().addActor(descriptionUI);
@@ -385,5 +399,9 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
 
    public boolean isStarted() {
       return anyKeyPressedToStartlevel;
+   }
+
+   public long getStartTime() {
+      return startTime;
    }
 }

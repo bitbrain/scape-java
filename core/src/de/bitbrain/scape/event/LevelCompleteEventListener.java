@@ -54,6 +54,9 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
    @Override
    public void onEvent(final LevelCompleteEvent event) {
       screen.setGameComplete(true);
+      if (screen.getStartTime() != 0) {
+         this.progress.setCurrentTime(System.currentTimeMillis() - screen.getStartTime());
+      }
       Gdx.app.postRunnable(new Runnable() {
          @Override
          public void run() {
@@ -83,33 +86,35 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
             context.getGameCamera().setTrackingTarget(null);
             context.getGameCamera().focusCentered(player);
             context.getGameCamera().setStickToWorldBounds(false);
-            zoomerEffect.mutate(new Mutator<Zoomer>() {
-               @Override
-               public void mutate(Zoomer target) {
-                  Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
-                        .target(3f)
-                        .ease(TweenEquations.easeInOutCubic)
-                        .start(SharedTweenManager.getInstance());
-                  Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
-                        .target(4f)
-                        .ease(TweenEquations.easeInOutCubic)
-                        .start(SharedTweenManager.getInstance());
-                  GameObject closestPowerCell = null;
-                  for (GameObject powercell : powerCells) {
-                     if (closestPowerCell == null || distanceBetween(powercell, player) < distanceBetween(closestPowerCell, player)) {
-                        closestPowerCell = powercell;
+            if (zoomerEffect != null) {
+               zoomerEffect.mutate(new Mutator<Zoomer>() {
+                  @Override
+                  public void mutate(Zoomer target) {
+                     Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
+                           .target(3f)
+                           .ease(TweenEquations.easeInOutCubic)
+                           .start(SharedTweenManager.getInstance());
+                     Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
+                           .target(4f)
+                           .ease(TweenEquations.easeInOutCubic)
+                           .start(SharedTweenManager.getInstance());
+                     GameObject closestPowerCell = null;
+                     for (GameObject powercell : powerCells) {
+                        if (closestPowerCell == null || distanceBetween(powercell, player) < distanceBetween(closestPowerCell, player)) {
+                           closestPowerCell = powercell;
+                        }
+                     }
+                     if (closestPowerCell != null) {
+                        Vector3 worldCoords = new Vector3(
+                              closestPowerCell.getLeft() + closestPowerCell.getWidth() / 2f,
+                              closestPowerCell.getTop() + closestPowerCell.getHeight() / 2f,
+                              0f);
+                        Vector3 screenCoords = context.getGameCamera().getInternalCamera().project(worldCoords);
+                        target.setOrigin(screenCoords.x, screenCoords.y);
                      }
                   }
-                  if (closestPowerCell != null) {
-                     Vector3 worldCoords = new Vector3(
-                           closestPowerCell.getLeft() + closestPowerCell.getWidth() / 2f,
-                           closestPowerCell.getTop() + closestPowerCell.getHeight() / 2f,
-                           0f);
-                     Vector3 screenCoords = context.getGameCamera().getInternalCamera().project(worldCoords);
-                     target.setOrigin(screenCoords.x, screenCoords.y);
-                  }
-               }
-            });
+               });
+            }
             Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 2f)
                   .target(1.5f)
                   .ease(TweenEquations.easeInExpo)

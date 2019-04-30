@@ -17,7 +17,8 @@ public interface GameConfig {
    float BOOT_SEQUENCE_DURATION = 3.6f;
 
    String PLAYER_PREFERENCES_PATH = "scape.player.config";
-   String PLAYER_LEVEL_RECORD = "record";
+   String PLAYER_LEVEL_POINT_RECORD = "point_record";
+   String PLAYER_LEVEL_TIME_RECORD = "time_record";
    String PLAYER_CURRENT_LEVEL = "current_level";
    String PLAYER_MAXIMUM_LEVEL = "maximum_level";
    String PLAYER_TOTAL_PROGRESS = "total_progress";

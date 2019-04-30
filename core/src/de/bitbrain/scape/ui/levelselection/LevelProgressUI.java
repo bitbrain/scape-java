@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
@@ -33,18 +32,18 @@ public class LevelProgressUI extends Actor {
    public LevelProgressUI(LevelMetaData metaData, PlayerProgress playerProgress) {
       setWidth(260f);
       setHeight(40f);
-      totalProgress = (float)playerProgress.getRecord() / metaData.getNumberOfBytes();
+      totalProgress = (float)playerProgress.getPointRecord() / metaData.getNumberOfBytes();
       texture = GraphicsFactory.createTexture(2, 2, Color.WHITE);
       Texture ninePatch = SharedAssetManager.getInstance().get(Assets.Textures.MENU_FOCUS_DEFAULT_NINEPATCH, Texture.class);
       background = GraphicsFactory.createNinePatch(ninePatch, 15);
       descriptionLabel = new Label(Bundle.get(Messages.MENU_SELECTION_PROGRESS), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
       if (totalProgress == 1f) {
-         progressLabel = new Label(playerProgress.getRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS_COMPLETE);
+         progressLabel = new Label(playerProgress.getPointRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS_COMPLETE);
          completeLabel = new Label(Bundle.get(Messages.MENU_SELECTION_COMPLETE), Styles.LABEL_SELECTION_COMPLETE);
          completeLabel.setFontScale(1.1f);
       } else {
          completeLabel = null;
-         progressLabel = new Label(playerProgress.getRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS);
+         progressLabel = new Label(playerProgress.getPointRecord() + "/" + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_PROGRESS);
       }
    }
 

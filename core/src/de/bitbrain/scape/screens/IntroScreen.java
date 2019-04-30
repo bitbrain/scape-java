@@ -97,23 +97,27 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
-         bloom.mutate(new Mutator<Bloom>() {
-            @Override
-            public void mutate(Bloom target) {
-               Tween.to(target, BloomShaderTween.BLOOM_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-                     .target(20f)
-                     .start(SharedTweenManager.getInstance());
-               Tween.to(target, BloomShaderTween.BASE_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
-                     .target(0.3f)
-                     .start(SharedTweenManager.getInstance());
-            }
-         });
+         if (bloom != null) {
+            bloom.mutate(new Mutator<Bloom>() {
+               @Override
+               public void mutate(Bloom target) {
+                  Tween.to(target, BloomShaderTween.BLOOM_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                        .target(20f)
+                        .start(SharedTweenManager.getInstance());
+                  Tween.to(target, BloomShaderTween.BASE_INTENSITY, GameConfig.BOOT_SEQUENCE_DURATION * 2)
+                        .target(0.3f)
+                        .start(SharedTweenManager.getInstance());
+               }
+            });
+         }
          context.getScreenTransitions().out(
                new ColorTransition(Colors.PRIMARY_BLUE),
                new StageSelectionScreen(getGame(), true),
                GameConfig.BOOT_SEQUENCE_DURATION
          );
-         zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
+         if (zoomer != null) {
+            zoomer.mutate(GameConfig.EXIT_ZOOMER_CONFIG);
+         }
          exiting = true;
       }
       if (bootSequence) {

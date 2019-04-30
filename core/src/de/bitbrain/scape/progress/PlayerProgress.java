@@ -10,6 +10,7 @@ public class PlayerProgress {
    private final Preferences preferences;
    private final LevelMetaData metadata;
    private int points;
+   private long currentTime;
 
    public PlayerProgress(LevelMetaData metadata) {
       this.preferences = Gdx.app.getPreferences(GameConfig.PLAYER_PREFERENCES_PATH);
@@ -32,6 +33,14 @@ public class PlayerProgress {
       points++;
    }
 
+   public void setCurrentTime(long currentTime) {
+      this.currentTime = currentTime;
+   }
+
+   public long getCurrentTime() {
+      return currentTime;
+   }
+
    public void setPoints(int points) {
       this.points = points;
    }
@@ -40,8 +49,12 @@ public class PlayerProgress {
       return points;
    }
 
-   public int getRecord() {
-      return preferences.getInteger(GameConfig.PLAYER_LEVEL_RECORD + metadata.getPath(), 0);
+   public int getPointRecord() {
+      return preferences.getInteger(GameConfig.PLAYER_LEVEL_POINT_RECORD + metadata.getPath(), 0);
+   }
+
+   public long getTimeRecord() {
+      return preferences.getInteger(GameConfig.PLAYER_LEVEL_TIME_RECORD + metadata.getPath(), 0);
    }
 
    public int getCurrentLevel() {
@@ -63,8 +76,11 @@ public class PlayerProgress {
    }
 
    public void save() {
-      if (points > getRecord()) {
-         preferences.putInteger(GameConfig.PLAYER_LEVEL_RECORD + metadata.getPath(), points);
+      if (points > getPointRecord()) {
+         preferences.putInteger(GameConfig.PLAYER_LEVEL_POINT_RECORD + metadata.getPath(), points);
+      }
+      if (currentTime < getTimeRecord()) {
+         preferences.putLong(GameConfig.PLAYER_LEVEL_TIME_RECORD + metadata.getPath(), currentTime);
       }
       preferences.flush();
    }
