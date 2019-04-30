@@ -16,6 +16,10 @@ public class PlayerProgress {
       this.metadata = metadata;
    }
 
+   public LevelMetaData getMetadata() {
+      return metadata;
+   }
+
    public boolean isNewGame() {
       return getMaximumLevel() == 1;
    }
