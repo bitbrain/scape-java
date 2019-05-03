@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="107">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="108">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
@@ -8,7 +8,7 @@
  <tileset firstgid="537" source="tileset-block.tsx"/>
  <layer id="1" name="base" width="140" height="60">
   <data encoding="base64" compression="zlib">
-   eJzt2j1TwjAYwHFgcmR1w03PN0BF8AVwgw02xo6Ofv/J5GzPXEjbpyVt2vL/3fWOhngm6dP0SUqvBwAAAAAAAAAAAAAAAAAAACC0Qz90C47dDI7LzHZe1NcUWKJ+c2LmMo6TiSNeIqONQ6P8uyFt7zIzPvR4R4HGXMeHOZfsrXh5VO0aq2OijpXx2SxfGp/hz4caz894fPXYS86rth+4z13zi/ZMTDTWbYB42arzL3UsUuIF5y2JF1d+K/HKfFOLlWOcl46yrGeSjxy5yHxyp/7fvToe+umfp8SPdzrHvLLyTEmZHR9mjpy3RvG1hhkL60n7iHyunFJSJsmRbWn1qybtI/K5ngHSsrboWn9Ck87rbSfpJ3vF7dCU6zTMr3LWyua7vrmu00uFuU3ZPiZ10o4i4zOL+9emdxhl810JyTXZCOv5VraP9p6iaZ7ztwn7PvhpUbxUme+WicUoo55PZfuo27VL+W7dy25vV/YT3x39mDvKXPWy5F2TSFivSqOC9XW8HFK+03NlEi/mu9O64qQL8Vh2j/Wppr5fF6y/N+LcJYmXbY1r9VkH4iSL/fwOeV+Ya2xJHpXMe2lHnfs5Va4HQjhl7RViv77OfeCq5k+dRyzU8db/yx+KnodUdu21TqlXtRB5FL/h+XfK2ivUfr00n/G9vzg17nX7nj+n9+wjR5lrX941PxfNRX2Qvhupax94E4+LuU/Y5Xfqp1zzJrzXCp1b7eJ4MfPsLr8jbcI1PwW/hUARTcqt0A5tnyMBAAAAAAAAAAAAAGiLX+KmVME=
+   eJztmz1T3DAQhm1XKSlzndOFAMlBAuEb0kHHdZQuU+b/V5En9oxGWVnf8kp+nxnN2GshpNVKu175mgYAAAAAAAAAAAAAAAAAAAAAAADgx65rmk+iHHfpZKAeDtO8nnfpZKAeXsW8/hLlpksnA/XwMUBm2x6ohz5AZtseqAfEu4DivaXla8a7lE3J/fxgbgIkYmhpm5Hj0y/i+UkbT6Zjt2BTg9THI0n+W2PvIB6yfYz6HlbS+U7xT+oe9E30ay/KuShP0rUsf5SuU/Vxi771XujzYdLvqHub+9QcOvpe57N+rGDXyCXZcULMTezYVrUXjjka5JL8iR3bzvV89/WfGfabpbzRVnJKT4SeHwmZ6pPkdTXHQCHrz2Wdnor/dybK11Z/fZHAfnrPZ7Xg61PUdyg5Rja9o8R6h9lb1osZo2413p3x9Sk2MbKKrr4sT0HMGHXr8e4Wzgdjjqc23fhgu6+Xjs04kSsuAy7zdGSusmm4nA9S83QZKZ6JOca5jq646OdqGl9JZxgpv4ezmZMXy3ohxByjmlOUuTb87Yy6Dv4UZC8p412feRoW6vkSc4xjv940z54N/c2RT8zBHTGOa0JG1VvCNCeDZb1QlvKuvWNbo728a56Ne+VsL/LZaS47qcEe1Ryrbc78e8Sx9wvPPju2dZDsnGK2l9eM79dXGe0kd7zbN//779TrYqnve0M9VTbve7qSMwcT633AhbXjXReZL67nnTlytzH3T5kxjrgR5bb9Fz+43pvgFu+OPGvq+RJy3pk6d7vGNzxcKfH3SbbxTOz84oW01tU1n+KcnSs9IaPy8tT+7BqLxsD2bCRXHvhl0oucJ6R8NBffH0rInHM411pb52/Kd0W6PbeW3yZzmPMQStF5ib6/RqBz4MKYX+SwR3KKMYCefu0OTJj8XS3xbulw0aXJ39US75YON13qzt8Q7/KAmy77tTsAioCLXwRlwM0vAt5w84sAAAAAAAAAAAAw8xeWcJN3
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
@@ -21,7 +21,7 @@
     <property name="producer" value="PLAYER"/>
    </properties>
   </object>
-  <object id="88" name="game_over_event" type="game_over_event" x="-14.377" y="76.083" width="471.421" height="85.8337">
+  <object id="88" name="game_over_event" type="game_over_event" x="-5.377" y="-17.417" width="471.421" height="85.8337">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>

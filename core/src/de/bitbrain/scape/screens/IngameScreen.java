@@ -186,8 +186,8 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    public void startLevel() {
       if (!anyKeyPressedToStartlevel) {
          anyKeyPressedToStartlevel = true;
-         descriptionUI.hide(2f);
-         Tween.to(descriptionUI, ActorTween.ALPHA, 1f).delay(0.5f)
+         descriptionUI.hide(1f);
+         Tween.to(descriptionUI, ActorTween.ALPHA, 0.5f).delay(0.2f)
                .target(0f)
                .start(SharedTweenManager.getInstance());
          setupEvents(context);
@@ -232,7 +232,6 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
       final Texture playerOverlayTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER_CHARGED);
-      AnimationSpriteSheet overlaySheet = new AnimationSpriteSheet(playerOverlayTexture, 8);
       final Texture byteTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
       AnimationSpriteSheet byteSheet = new AnimationSpriteSheet(byteTexture, 8);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
@@ -348,9 +347,10 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       layout.right().top().padRight(130).padTop(80).add(new PointsLabel(progress, levelMetaData));
       context.getStage().addActor(layout);
 
-      CurrentTimeLabel timeLabel = new CurrentTimeLabel(progress, Styles.LABEL_INGAME_POINTS_ALL);
+      // Disable ingame time for now
+      /*(CurrentTimeLabel timeLabel = new CurrentTimeLabel(progress, Styles.LABEL_INGAME_POINTS_ALL);
       timeLabel.setPosition(130, 80);
-      context.getStage().addActor(timeLabel);
+      context.getStage().addActor(timeLabel);*/
 
       descriptionUI = new IngameLevelDescriptionUI(levelMetaData.getName(), levelMetaData.getLevelNumber());
       context.getStage().addActor(descriptionUI);

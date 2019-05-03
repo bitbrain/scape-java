@@ -28,7 +28,7 @@ allprojects {
         roboVMVersion = '2.3.3'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
-        braingdxVersion = '0.5.5'
+        braingdxVersion = '0.5.6'
     }
 
     repositories {
@@ -36,6 +36,8 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        jcenter()
+        google()
     }
 }
 

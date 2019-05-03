@@ -1159,7 +1159,7 @@
  <tileset firstgid="417" source="tileset-block.tsx"/>
  <layer id="1" name="base" width="200" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2bty00AUgGG5S5kO8wYkQOLECYS7y5SUlLyaSkpKSkpKl7wNuzM548PJXnWxFev/ZnbGsiVrtbtnb2oaAAAAAAAAAAAAAAAAAAAAAAAAAACA6TpRn9tF0/woSD8XB8susFen6vNf1+6/quNrEwc3D8e/esZHKA6JOfxZPE4xvg1dF7Sb0/TPWUv12cfHt4JrusTHxtwn9Z+pcWzIODrJn/Kf0vF17uNu7rlv3fEbEwe/I2WzNeetHs4LtaFQfL1y6XWHsj9z55+79FJd5+/5PXCuPM/bivGjVedszfPbZ7blE3p20Xfs0mr7llS+NN+vrRe78VYMmfcpS9WtZ9tDF1IX28g99L1iv+fyeRbIdygGc/+Tyv/QurYxiXFx5T5fqv6ohJ1/1ppLfOzDtkdZlsSntI2rgetsU5GHLkramB3vhhKaf4bGYUt+Jz7SWlVn0pe1lXOjtuN8al/uD52Bnj66cv3k0meXvpgyjo2Jdh/Dxue6Yl6qjdWHTVVu3n2ZKQeZ00t5jbXu8/e5UGubC/X/54l53iozZpSsb6ca916q/mJzU/37GOMpdl4EvpOYyrWrtrD96T7rmUtLl56ruXrtnF0rWd+E1nK1ax8RWiffBL6birmNF33IPMr33bIPucpcI33wegble+ee8Z1L72f2rB8W9ceHVrsvLn147j2ZrPn6vuNI5XvKa5l9ibUnWz9STkPU7ZzYdZtdrwm7TsutR8Ty8VeDkHyvA3Xpxep1iuuIMcaT0Hr8NvCdna+F9s3uml29h9Z1x0zK0ZZLqCy9qezzpd5R6Gex+fXXxd6Bxa55iqR8ZD8qt48r5Dz9zmXTxMvk2OOl9L1alzXmmLq+D4zFld7XPIb4qK3Xp1LvGFeXfSgAAAAAAAAAAAAAAAAAAAAAAAAAAKbuHy0aFMA=
+   eJzt2btyEzEUgOHdjpKO0FGSgBMThyRcAi4pKVPm1bakpKSkpHTJ2yDN+IyVw9FKWmvtjf1/M5rxRWvrdlaXbRoAAAAAAAAAAAAAAAAAAAAAAAAAgHbRNs3cpXdt/PWQvH35rbwAHutcjPzISD+JJRyhv27cfw/eX6o4uFq//7VlfFhxSMzhT/t/ivFj6DJj3DyvWD4fH/cZ+YbEx1L9T99v9s1jNePoWWH+3Pn12OfdVBu8d+laxcHvSNusVL75Op81hqz4euvSbEDbn7r8Zy69Ca7z//lg5JX63BTMH12QZ6Xqr+us28equ9h27gqV3lv6yhXy97VFu5lvRc2yT5k1Tvv6ewjpi1Xi9/q+T5XpVL23xm2sbjeJ+uWOpVJDx5jEuAjPKHLp9WepY4mPPh8rtcFqi9/R92tL7IyrxPV6rgwtC8owRM4Y0/NdLdb605qHNfme+OjXBX0m97KucG3UDVxP7cq3fRdgS59du9659MWlr6qNY3OiPsfQ8bkoWJeGatzDnpLUuvsi0Q6yppf2Gmvf5//nvN3sbc6D3z/rWefNE3NGzv52qnHv9fVfbG0afj/GfIqN18ZnElOpcdVljr/wnvXCpROXXgZr9dI1eyhnf6PHkL6mZIxZ++Qr47OpONT54m6E+sg6yt+75RxynrhG7sGLA2tfy62r44e23n5vysK6fmrL3+9b6bm43MNTz8lkz1fzGYcu95T3MrsSG0+6f6SdavTtMdH7Nr1fE3qfltqPiJN6RX1Eyr0w+tKL9esU9xFjzCfWflyf13l6vWadm902m3639nWHTNpRt4vVlt4uzvnCPoi97ntGEdZFl9dfF3sGpq+ZtXnjwSrfbM/jR9pHzqNS57hC8oXPXJZNvN8PPV5yn6vVenZYS8nzwFAsrsJzTRkL4Z7JOl/QXgWvU/utsZX261Ppd4xryDmUlzPec2IIOFb7njMAAAAAAAAAAAAAAAAAAAAAAACAQ/cPqQYjoA==
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
@@ -1208,13 +1208,6 @@
    </properties>
    <point/>
   </object>
-  <object id="23" type="BYTE" x="618.909" y="179.636">
-   <properties>
-    <property name="producer" value="PLAYER"/>
-    <property name="sticky" type="bool" value="true"/>
-   </properties>
-   <point/>
-  </object>
   <object id="25" type="BYTE" x="755.383" y="172.823">
    <properties>
     <property name="producer" value="PLAYER"/>
@@ -1222,7 +1215,7 @@
    </properties>
    <point/>
   </object>
-  <object id="27" name="game_over_event" type="game_over_event" x="-0.331212" y="111.053" width="1604.72" height="46.8031">
+  <object id="27" name="game_over_event" type="game_over_event" x="1.66879" y="67.3863" width="1604.72" height="46.8031">
    <properties>
     <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
@@ -1270,7 +1263,7 @@
    </properties>
    <point/>
   </object>
-  <object id="40" type="BYTE" x="676.386" y="179.488">
+  <object id="40" type="BYTE" x="668.136" y="220.988">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
