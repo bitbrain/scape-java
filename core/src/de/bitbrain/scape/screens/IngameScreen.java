@@ -124,17 +124,6 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       setupRendering(context);
    }
 
-
-
-   @Override
-   public void dispose() {
-      super.dispose();
-      if (gameComplete) {
-         progress.save();
-      }
-      Controllers.clearListeners();
-   }
-
    public GameObject getPlayer() {
       return player;
    }
@@ -156,6 +145,10 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
 
    public void setGameComplete(boolean gameComplete) {
       this.gameComplete = gameComplete;
+   }
+
+   public boolean isGameComplete() {
+      return gameComplete;
    }
 
    public boolean isGameOver() {

@@ -1,5 +1,8 @@
 package de.bitbrain.scape.screens;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,18 +16,25 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.tweens.ActorTween;
+import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.ui.NavigationMenu;
+import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
+import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
 import static de.bitbrain.scape.GameConfig.*;
 
 public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
 
    private final boolean stageCompletedForTheFirstTime;
+   private final boolean newPointRecord;
+   private final boolean newTimeRecord;
    private boolean exiting = false;
    private GameContext context;
    private PlayerProgress progress;
@@ -33,10 +43,16 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
    public StageCompleteScreen(ScapeGame game, PlayerProgress progress) {
       super(game);
       this.progress = progress;
-      this.stageCompletedForTheFirstTime = progress.getPointRecord() == 0 && progress.getPoints() > 0;
+      this.stageCompletedForTheFirstTime = progress.getTimeRecord() == 0;
       if (stageCompletedForTheFirstTime) {
          progress.increaseMaxLevel();
+         newPointRecord = false;
+         newTimeRecord = false;
+      } else {
+         newPointRecord = progress.getPoints() > progress.getPointRecord();
+         newTimeRecord = progress.getCurrentTime() < progress.getTimeRecord();
       }
+      progress.save();
    }
 
    public void exit() {
@@ -66,20 +82,75 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
 
       final LevelMetaData metaData = progress.getMetadata();
 
-      // 1. Level Caption
+      // 1. Complete message
+      Label completeLabel = new Label("Stage complete:", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      layout.center().add(completeLabel).padBottom(10).row();
+      // 2. Level Caption
       Label captionLevel = new Label(metaData.getName(), Styles.LABEL_INGAME_CAPTION);
-      layout.center().add(captionLevel).padBottom(20).row();
+      layout.center().add(captionLevel).padBottom(50).row();
 
-      // 2. Complete message
-      Label completeLabel = new Label("Stage complete!", Styles.LABEL_INGAME_DESCRIPTION);
-      layout.center().add(completeLabel).padBottom(50).row();
-
-      // 2. Collected
-      Label collectedBytesLabel = new Label( progress.getPoints() + "/" + metaData.getNumberOfBytes() + " bytes", Styles.LABEL_SELECTION_TOTAL_PROGRESS);
+      // 3. Collected
+      final Label byteDescription = new Label("bytes", Styles.LABEL_INGAME_DESCRIPTION);
+      layout.add(byteDescription).row();
+      Label collectedBytesLabel = new Label( progress.getPoints() + " out of " + metaData.getNumberOfBytes() + "", Styles.LABEL_SELECTION_TOTAL_PROGRESS);
       layout.add(collectedBytesLabel).row();
+
+      float blinkDuration = 1;
+      final Label pointRecordLabel = new Label("new record!", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      if (newPointRecord) {
+         Tween.to(pointRecordLabel, ActorTween.ALPHA, blinkDuration / 3)
+               .setCallback(new TweenCallback() {
+                  @Override
+                  public void onEvent(int type, BaseTween<?> source) {
+                     Tween.to(pointRecordLabel, ActorTween.ALPHA, 0.5f)
+                           .target(0.5f)
+                           .repeatYoyo(Tween.INFINITY, 0f)
+                           .start(SharedTweenManager.getInstance());
+                  }
+               })
+               .setCallbackTriggers(TweenCallback.COMPLETE)
+               .target(1f)
+               .start(SharedTweenManager.getInstance());
+      } else {
+         pointRecordLabel.getColor().a = 0f;
+      }
+      layout.add(pointRecordLabel).padBottom(60).row();
+
+      // 4. Current time
+      final Label timeDescription = new Label("time", Styles.LABEL_INGAME_DESCRIPTION);
+      layout.add(timeDescription).row();
+      ValueProvider valueProvider = new ValueProvider();
+      Label currentTime = new CurrentTimeLabel(valueProvider, Styles.LABEL_SELECTION_TOTAL_PROGRESS);
+      layout.add(currentTime).row();
+      // Animate time
+      Tween.to(valueProvider, ValueTween.VALUE, 2f)
+            .delay(1f)
+            .target(progress.getCurrentTime())
+            .start(SharedTweenManager.getInstance());
+
+      final Label timeRecordLabel = new Label("new record!", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      layout.add(timeRecordLabel).padBottom(60).row();
+      if (newTimeRecord) {
+         Tween.to(timeRecordLabel, ActorTween.ALPHA, blinkDuration / 3)
+               .setCallback(new TweenCallback() {
+                  @Override
+                  public void onEvent(int type, BaseTween<?> source) {
+                     Tween.to(timeRecordLabel, ActorTween.ALPHA, 0.5f)
+                           .target(0.5f)
+                           .repeatYoyo(Tween.INFINITY, 0f)
+                           .start(SharedTweenManager.getInstance());
+                  }
+               })
+               .setCallbackTriggers(TweenCallback.COMPLETE)
+               .target(1f)
+               .start(SharedTweenManager.getInstance());
+      } else {
+         timeRecordLabel.getColor().a = 0f;
+      }
 
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
       style.vertical = false;
+      style.padding = 100;
       buttonMenu = new NavigationMenu<TextButton>(style);
       buttonMenu.add(new TextButton("Retry", Styles.BUTTON_MENU), new ClickListener() {
 
@@ -98,7 +169,7 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
       }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
             .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
 
-      layout.add(buttonMenu).row();
+      layout.add(buttonMenu).padTop(40).row();
       buttonMenu.next();
       if (stageCompletedForTheFirstTime) {
          buttonMenu.next();

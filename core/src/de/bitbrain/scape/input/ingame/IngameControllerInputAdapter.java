@@ -42,14 +42,14 @@ public class IngameControllerInputAdapter extends ControllerAdapter {
 
    private int getEscapeButton(Controller controller) {
       if (Xbox.isXboxController(controller)) {
-         return Xbox.B;
+         return Xbox.START;
       }
       return -1;
    }
 
    private int getRespawnButton(Controller controller) {
       if (Xbox.isXboxController(controller)) {
-         return Xbox.START;
+         return Xbox.B;
       }
       return -1;
    }

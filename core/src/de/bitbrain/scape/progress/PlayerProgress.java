@@ -79,7 +79,8 @@ public class PlayerProgress {
       if (points > getPointRecord()) {
          preferences.putInteger(GameConfig.PLAYER_LEVEL_POINT_RECORD + metadata.getPath(), points);
       }
-      if (currentTime < getTimeRecord()) {
+      long timeRecord = getTimeRecord();
+      if (currentTime < timeRecord || (timeRecord == 0 && currentTime > timeRecord)) {
          preferences.putLong(GameConfig.PLAYER_LEVEL_TIME_RECORD + metadata.getPath(), currentTime);
       }
       preferences.flush();

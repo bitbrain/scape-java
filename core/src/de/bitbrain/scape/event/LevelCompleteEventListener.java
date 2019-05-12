@@ -53,6 +53,12 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
 
    @Override
    public void onEvent(final LevelCompleteEvent event) {
+      if (screen.isGameOver()) {
+         return;
+      }
+      if (screen.isGameComplete()) {
+         return;
+      }
       screen.setGameComplete(true);
       if (screen.getStartTime() != 0) {
          this.progress.setCurrentTime(System.currentTimeMillis() - screen.getStartTime());
