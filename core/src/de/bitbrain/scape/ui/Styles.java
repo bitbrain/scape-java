@@ -70,13 +70,13 @@ public final class Styles {
       LABEL_SELECTION_TOTAL_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 90);
       LABEL_SELECTION_TOTAL_PROGRESS.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 62);
+      LABEL_SELECTION_CAPTION.font = SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 42);
+      LABEL_SELECTION_DESCRIPTION.font =  SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_SELECTION_PROGRESS_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_SELECTION_PROGRESS_DESCRIPTION.font =  SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_PROGRESS_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
       LABEL_SELECTION_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 30);
       LABEL_SELECTION_PROGRESS.fontColor = Colors.PRIMARY_RED;

@@ -35,6 +35,10 @@ public interface Assets {
       String UI_NUMBER = "fonts/visitor.ttf";
    }
 
+   interface BitmapFonts {
+      String VISITOR_MICRO = "fonts/visitor-micro.fnt";
+   }
+
    interface Sounds {
       String BEEP = "sounds/beep.ogg";
       String COLLECT = "sounds/collect.ogg";

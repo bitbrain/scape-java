@@ -113,7 +113,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
          setupShaders(context);
       }
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.12f)
+            .target(0.09f)
             .start(SharedTweenManager.getInstance());
       if (shouldAutoEnterLevel()) {
          exiting = true;
