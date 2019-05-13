@@ -11,6 +11,8 @@ public interface Assets {
       String UI_BG = "ui-bg.png";
       String MENU_FOCUS_NINEPATCH = "focus.9.png";
       String MENU_FOCUS_DEFAULT_NINEPATCH = "focus-default.9.png";
+      String SELECTION_NINEPATCH = "selection.9.png";
+      String SELECTION_TARGET = "selection-target.png";
    }
 
    interface TiledMaps {
