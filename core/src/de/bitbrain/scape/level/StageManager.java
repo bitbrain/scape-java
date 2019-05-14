@@ -155,7 +155,7 @@ public class StageManager {
                break;
             }
             String tooltipAlignment = properties.get("tooltip", "left", String.class);
-            LevelOverviewUI levelUI = new LevelOverviewUI(metadata, resolveAlignment(tooltipAlignment), o);
+            LevelOverviewUI levelUI = new LevelOverviewUI(context.getParticleManager(), metadata, resolveAlignment(tooltipAlignment), o);
             context.getWorldStage().addActor(levelUI);
 
             levelMapping.put(metadata.getLevelNumber(), new Level(

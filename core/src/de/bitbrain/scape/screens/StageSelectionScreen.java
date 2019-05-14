@@ -113,7 +113,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
          setupShaders(context);
       }
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.09f)
+            .target(getCameraZoom())
             .start(SharedTweenManager.getInstance());
       if (shouldAutoEnterLevel()) {
          exiting = true;
@@ -133,6 +133,16 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
                .start(context.getTweenManager());
 
       }
+   }
+
+   private float getCameraZoom() {
+      if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
+         return 350000f * (1f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
+      if (Gdx.graphics.getWidth() < 1300) {
+         return 7000f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
+      return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupUI(final GameContext context) {

@@ -1,12 +1,13 @@
 package de.bitbrain.scape.ui.levelselection;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
-import aurelienribon.tweenengine.TweenManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
+import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ValueTween;
@@ -27,19 +29,25 @@ import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LevelOverviewUI extends Table {
 
    private static final int MARGIN = 12;
+   private static final int BG_RADIUS = 3;
 
    private final GameObject reference;
    private final int alignment;
    private final Actor description;
    private final Actor label;
    private final NinePatch selection;
+   private final ParticleEffect particleEffect;
+   private final Map<ParticleEmitter, Integer> particleCounts = new HashMap<ParticleEmitter, Integer>();
 
    private ValueProvider spacing = new ValueProvider();
 
-   public LevelOverviewUI(LevelMetaData metadata, int alignment, GameObject reference) {
+   public LevelOverviewUI(ParticleManager particleManager, LevelMetaData metadata, int alignment, GameObject reference) {
       this.reference = reference;
       this.alignment = alignment;
       PlayerProgress progress = new PlayerProgress(metadata);
@@ -56,9 +64,17 @@ public class LevelOverviewUI extends Table {
             .ease(TweenEquations.easeInOutQuart)
             .repeatYoyo(Tween.INFINITY, 0)
             .start(SharedTweenManager.getInstance());
+      this.particleEffect = particleManager.spawnEffect(Assets.Particles.BYTE, reference.getLeft(), reference.getTop());
+      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
+         particleCounts.put(emitter, emitter.getMaxParticleCount());
+         emitter.setMaxParticleCount(0);
+      }
    }
 
    public void show() {
+      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
+         emitter.setMaxParticleCount(particleCounts.get(emitter));
+      }
       SharedTweenManager.getInstance().killTarget(this);
       Tween.to(this, ActorTween.ALPHA, 0.4f)
             .target(1f)
@@ -66,6 +82,9 @@ public class LevelOverviewUI extends Table {
    }
 
    public void hide() {
+      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
+         emitter.setMaxParticleCount(0);
+      }
       SharedTweenManager.getInstance().killTarget(this);
       Tween.to(this, ActorTween.ALPHA, 0.1f)
             .target(0f)
@@ -74,6 +93,11 @@ public class LevelOverviewUI extends Table {
 
    @Override
    public void draw(Batch batch, float parentAlpha) {
+      Color shadowColor = getColor().cpy();
+      shadowColor.a *= 0.8f;
+      batch.setColor(shadowColor);
+      Texture background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
+      batch.draw(background, reference.getLeft() - BG_RADIUS, reference.getTop() - BG_RADIUS, BG_RADIUS * 2, BG_RADIUS * 2);
       batch.setColor(getColor());
       float left = (float) (Math.floor(reference.getLeft() / 8) * 8);
       float top = (float) (Math.floor(reference.getTop() / 8) * 8);
