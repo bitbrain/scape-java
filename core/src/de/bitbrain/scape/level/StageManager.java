@@ -66,8 +66,8 @@ public class StageManager {
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
       final GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
-      final PointLight bgLight = context.getLightingManager().addPointLight("asdf-bg", camera.getPosition().x, camera.getPosition().y, 60f, Colors.PRIMARY_RED);
-      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 140f, Color.WHITE);
+      final PointLight bgLight = context.getLightingManager().addPointLight("asdf-bg", camera.getPosition().x, camera.getPosition().y, 40f, Colors.PRIMARY_RED);
+      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 120f, Color.WHITE);
       context.getBehaviorManager().apply(new BehaviorAdapter() {
          @Override
          public void onDetach(GameObject source) {
@@ -155,7 +155,13 @@ public class StageManager {
                break;
             }
             String tooltipAlignment = properties.get("tooltip", "left", String.class);
-            LevelOverviewUI levelUI = new LevelOverviewUI(context.getParticleManager(), metadata, resolveAlignment(tooltipAlignment), o);
+            LevelOverviewUI levelUI = new LevelOverviewUI(
+                  context.getLightingManager(),
+                  context.getParticleManager(),
+                  metadata,
+                  resolveAlignment(tooltipAlignment),
+                  o
+            );
             context.getWorldStage().addActor(levelUI);
 
             levelMapping.put(metadata.getLevelNumber(), new Level(

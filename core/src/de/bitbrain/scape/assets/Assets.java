@@ -31,6 +31,7 @@ public interface Assets {
       String TOUCH_RIGHT = "particles/touch-right.p";
       String COLLECT = "particles/collect.p";
       String BYTE = "particles/byte.p";
+      String STAGE = "particles/stage.p";
    }
 
    interface Fonts {

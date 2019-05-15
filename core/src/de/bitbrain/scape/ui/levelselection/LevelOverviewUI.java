@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
+import de.bitbrain.braingdx.graphics.lighting.LightingManager;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -31,6 +32,7 @@ import de.bitbrain.scape.ui.Styles;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class LevelOverviewUI extends Table {
 
@@ -42,12 +44,14 @@ public class LevelOverviewUI extends Table {
    private final Actor description;
    private final Actor label;
    private final NinePatch selection;
-   private final ParticleEffect particleEffect;
-   private final Map<ParticleEmitter, Integer> particleCounts = new HashMap<ParticleEmitter, Integer>();
+   private final ParticleEffect selectedParticleEffect;
+   private final ParticleEffect normalParticleEffect;
+   private final Map<ParticleEmitter, Integer> selectedParticleCounts = new HashMap<ParticleEmitter, Integer>();
+   private final Map<ParticleEmitter, Integer> normalParticleCounts = new HashMap<ParticleEmitter, Integer>();
 
    private ValueProvider spacing = new ValueProvider();
 
-   public LevelOverviewUI(ParticleManager particleManager, LevelMetaData metadata, int alignment, GameObject reference) {
+   public LevelOverviewUI(LightingManager lightingManager, ParticleManager particleManager, LevelMetaData metadata, int alignment, GameObject reference) {
       this.reference = reference;
       this.alignment = alignment;
       PlayerProgress progress = new PlayerProgress(metadata);
@@ -64,16 +68,24 @@ public class LevelOverviewUI extends Table {
             .ease(TweenEquations.easeInOutQuart)
             .repeatYoyo(Tween.INFINITY, 0)
             .start(SharedTweenManager.getInstance());
-      this.particleEffect = particleManager.spawnEffect(Assets.Particles.BYTE, reference.getLeft(), reference.getTop());
-      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
-         particleCounts.put(emitter, emitter.getMaxParticleCount());
+      this.selectedParticleEffect = particleManager.spawnEffect(Assets.Particles.BYTE, reference.getLeft(), reference.getTop());
+      this.normalParticleEffect = particleManager.spawnEffect(Assets.Particles.STAGE, reference.getLeft(), reference.getTop());
+      for (ParticleEmitter emitter :selectedParticleEffect.getEmitters()) {
+         selectedParticleCounts.put(emitter, emitter.getMaxParticleCount());
          emitter.setMaxParticleCount(0);
       }
+      for (ParticleEmitter emitter :normalParticleEffect.getEmitters()) {
+         normalParticleCounts.put(emitter, emitter.getMaxParticleCount());
+      }
+      lightingManager.addPointLight(UUID.randomUUID().toString(), reference.getLeft(), reference.getTop(), 12f, Color.WHITE);
    }
 
    public void show() {
-      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
-         emitter.setMaxParticleCount(particleCounts.get(emitter));
+      for (ParticleEmitter emitter :selectedParticleEffect.getEmitters()) {
+         emitter.setMaxParticleCount(selectedParticleCounts.get(emitter));
+      }
+      for (ParticleEmitter emitter :normalParticleEffect.getEmitters()) {
+         emitter.setMaxParticleCount(0);
       }
       SharedTweenManager.getInstance().killTarget(this);
       Tween.to(this, ActorTween.ALPHA, 0.4f)
@@ -82,8 +94,11 @@ public class LevelOverviewUI extends Table {
    }
 
    public void hide() {
-      for (ParticleEmitter emitter :particleEffect.getEmitters()) {
+      for (ParticleEmitter emitter :selectedParticleEffect.getEmitters()) {
          emitter.setMaxParticleCount(0);
+      }
+      for (ParticleEmitter emitter :normalParticleEffect.getEmitters()) {
+         emitter.setMaxParticleCount(normalParticleCounts.get(emitter));
       }
       SharedTweenManager.getInstance().killTarget(this);
       Tween.to(this, ActorTween.ALPHA, 0.1f)
@@ -94,7 +109,7 @@ public class LevelOverviewUI extends Table {
    @Override
    public void draw(Batch batch, float parentAlpha) {
       Color shadowColor = getColor().cpy();
-      shadowColor.a *= 0.8f;
+      shadowColor.a *= 0.3f;
       batch.setColor(shadowColor);
       Texture background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
       batch.draw(background, reference.getLeft() - BG_RADIUS, reference.getTop() - BG_RADIUS, BG_RADIUS * 2, BG_RADIUS * 2);
