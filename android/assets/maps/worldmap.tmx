@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="34" height="28" tilewidth="8" tileheight="8" infinite="0" nextlayerid="11" nextobjectid="24">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="24">
  <tileset firstgid="1" source="tileset-virus.tsx"/>
  <tileset firstgid="97" source="tileset-horizontal.tsx"/>
  <tileset firstgid="289" source="tileset-vertical.tsx"/>
  <tileset firstgid="417" source="tileset-misc.tsx"/>
  <tileset firstgid="537" source="tileset-misc-large.tsx"/>
  <tileset firstgid="601" source="worldmap.tsx"/>
- <layer id="10" name="base" width="34" height="28">
+ <layer id="12" name="base" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYKAcxDJBcDwTFQyjAKQC7U8D4nQ6u6MQaF8Rkp25QHYeEOfT2R2VQPtq0OzMpKIbkoFmpRBpHrq9zVR0RzbQrBwk8yKB7CwcmJbhgW4ePrPR5YarOxLxhD0udSBcC6WnAPFUIJ5Ghrs6ceghx49zgHrmAvE8MvROpKI7KAG47Bss7qhGiv8uIO6msbuICQ9QGVpFY3dUM2Evq5IGSbzQG4y6AxWgl40wHDVI3DdYwmmwuCNxEMVNIoV1KDUBJXXoKBgF1AAAugErvQ==
+   eJztks0KQEAURqd5Swr5z//axsqKlcIKz+pTFqOEbFx1T53u4m7OTFcIhmEYhrnGlUJ48uuK9yRoT3/cr6G9gjqxNxjoMaF10xXJ46SCj54AhhddnaTbn6Enh4XStd1KrLjdjbPvbcwGtsq+3udXlCe9PRzgSOy/nzKhe4YL4f4VnMAUbw==
   </data>
  </layer>
  <objectgroup id="7" name="levels">
-  <object id="13" name="Databus" type="LEVEL" x="11.6364" y="116.636">
+  <object id="13" name="Databus" type="LEVEL" x="19.4543" y="116.333">
    <properties>
     <property name="description" value="level.databus.description"/>
     <property name="level" type="int" value="1"/>
     <property name="name" value="level.databus.name"/>
     <property name="path" value="maps/001_databus.tmx"/>
-    <property name="tooltip" value="left"/>
+    <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
   </object>
-  <object id="19" name="Kernel IO" type="LEVEL" x="59.9091" y="100.227">
+  <object id="19" name="Kernel IO" type="LEVEL" x="51.4091" y="116.602">
    <properties>
     <property name="description" value="level.kernelio.description"/>
     <property name="level" type="int" value="2"/>
     <property name="name" value="level.kernelio.name"/>
     <property name="path" value="maps/002_kernelio.tmx"/>
-    <property name="tooltip" value="left"/>
+    <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
   </object>
-  <object id="20" name="RAM" type="LEVEL" x="59.4545" y="68.5454">
+  <object id="20" name="RAM" type="LEVEL" x="83.3295" y="108.295">
    <properties>
     <property name="description" value="level.ram.description"/>
     <property name="level" type="int" value="3"/>
     <property name="name" value="level.ram.name"/>
     <property name="path" value="maps/003_ram.tmx"/>
-    <property name="tooltip" value="right"/>
+    <property name="tooltip" value="bottomRight"/>
    </properties>
    <point/>
   </object>
-  <object id="21" name="Subroutine" type="LEVEL" x="116.205" y="44.7727">
+  <object id="21" name="Subroutine" type="LEVEL" x="99.0914" y="84.392">
    <properties>
     <property name="description" value="level.subroutine.description"/>
     <property name="level" type="int" value="4"/>
     <property name="name" value="level.subroutine.name"/>
     <property name="path" value="maps/004_subroutine.tmx"/>
-    <property name="tooltip" value="bottomLeft"/>
+    <property name="tooltip" value="left"/>
    </properties>
    <point/>
   </object>
-  <object id="22" name="Northbridge" type="LEVEL" x="147.784" y="68.1818">
+  <object id="22" name="Northbridge" type="LEVEL" x="123.125" y="108.477">
    <properties>
     <property name="description" value="level.northbridge.description"/>
     <property name="level" type="int" value="5"/>
     <property name="name" value="level.northbridge.name"/>
     <property name="path" value="maps/005_northbridge.tmx"/>
-    <property name="tooltip" value="bottomLeft"/>
+    <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
   </object>
-  <object id="23" name="Security Controller" type="LEVEL" x="147.739" y="36.5114">
+  <object id="23" name="Security Controller" type="LEVEL" x="147.194" y="108.33">
    <properties>
     <property name="description" value="level.securitycontroller.description"/>
     <property name="level" type="int" value="6"/>
     <property name="name" value="level.securitycontroller.name"/>
     <property name="path" value="maps/006_securitycontroller.tmx"/>
-    <property name="tooltip" value="right"/>
+    <property name="tooltip" value="bottom"/>
    </properties>
    <point/>
   </object>

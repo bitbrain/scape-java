@@ -59,6 +59,8 @@ public class LevelOverviewUI extends Table {
       setAlignment(add(label), alignment).row();
       this.description = new Label(Bundle.get(Messages.MENU_INGAME_LEVEL).toUpperCase() + " " + metadata.getLevelNumber(), Styles.LABEL_SELECTION_DESCRIPTION);
       setAlignment(add(description), alignment).row();
+      LevelProgressUI levelProgressUI = new LevelProgressUI(metadata, progress);
+      setAlignment(add(levelProgressUI), alignment).row();
       invalidatePosition();
       this.selection = GraphicsFactory.createNinePatch(SharedAssetManager.getInstance().get(Assets.Textures.SELECTION_NINEPATCH, Texture.class), 3);
       getColor().a = 0;
@@ -134,7 +136,7 @@ public class LevelOverviewUI extends Table {
          offset.y = -getPrefHeight() / 2f - MARGIN;
       }
       if (Align.isTop(alignment)) {
-         offset.y = getPrefWidth() / 2f + MARGIN;
+         offset.y = getPrefHeight() / 2f + MARGIN;
       }
       setPosition(reference.getLeft() + offset.x, reference.getTop() + offset.y);
    }
