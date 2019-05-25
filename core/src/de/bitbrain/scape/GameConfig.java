@@ -12,8 +12,8 @@ import de.bitbrain.braingdx.util.Mutator;
 
 public interface GameConfig {
 
-   float PLAYER_START_SPEED = 60f;
-   float LEVEL_START_SCROLLING_SPEED = 0f;
+   float PLAYER_START_SPEED = 70f;
+   float LEVEL_START_SCROLLING_SPEED = 35f;
    float BOOT_SEQUENCE_DURATION = 3.6f;
 
    String PLAYER_PREFERENCES_PATH = "scape.player.config";

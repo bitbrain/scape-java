@@ -69,7 +69,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
             context.getBehaviorManager().clear();
             context.getStage().clear();
             context.getWorldStage().clear();
-            context.getScreenTransitions().out(new StageCompleteScreen(game, progress), 2f);
+            context.getScreenTransitions().out(new StageCompleteScreen(game, progress), 0.5f);
             for (GameObject powercell : powerCells) {
                SharedTweenManager.getInstance().killTarget(powercell);
                Tween.to(powercell, GameObjectTween.SCALE, 1f)

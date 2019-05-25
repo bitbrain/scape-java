@@ -43,6 +43,7 @@ public class LevelOverviewUI extends Table {
    private final int alignment;
    private final Actor description;
    private final Actor label;
+   private final Actor levelProgress;
    private final NinePatch selection;
    private final ParticleEffect selectedParticleEffect;
    private final ParticleEffect normalParticleEffect;
@@ -54,13 +55,13 @@ public class LevelOverviewUI extends Table {
    public LevelOverviewUI(LightingManager lightingManager, ParticleManager particleManager, LevelMetaData metadata, int alignment, GameObject reference) {
       this.reference = reference;
       this.alignment = alignment;
-      PlayerProgress progress = new PlayerProgress(metadata);
+      PlayerProgress playerProgress = new PlayerProgress(metadata);
       this.label = new Label(metadata.getName().toUpperCase(), Styles.LABEL_SELECTION_CAPTION);
       setAlignment(add(label), alignment).row();
       this.description = new Label(Bundle.get(Messages.MENU_INGAME_LEVEL).toUpperCase() + " " + metadata.getLevelNumber(), Styles.LABEL_SELECTION_DESCRIPTION);
       setAlignment(add(description), alignment).row();
-      LevelProgressUI levelProgressUI = new LevelProgressUI(metadata, progress);
-      setAlignment(add(levelProgressUI), alignment).row();
+      this.levelProgress = new Label(playerProgress.getPointRecord() + "/" + playerProgress.getMetadata().getNumberOfBytes(), Styles.LABEL_SELECTION_LEVEL_PROGRESS);
+      setAlignment(add(levelProgress), alignment).row();
       invalidatePosition();
       this.selection = GraphicsFactory.createNinePatch(SharedAssetManager.getInstance().get(Assets.Textures.SELECTION_NINEPATCH, Texture.class), 3);
       getColor().a = 0;
