@@ -18,8 +18,7 @@ import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StageManager {
 
@@ -146,10 +145,17 @@ public class StageManager {
 
    private void populateLevelMapping() {
       levelMapping.clear();
-      for (GameObject o : context.getGameWorld()) {
+      List<GameObject> levelsHorizontallyOrdered = context.getGameWorld().getObjects(new Comparator<GameObject>() {
+         @Override
+         public int compare(GameObject o1, GameObject o2) {
+            return (int) (o1.getLeft() - o2.getLeft());
+         }
+      });
+      int levelNumber = 1;
+      for (GameObject o : levelsHorizontallyOrdered) {
          if ("LEVEL".equals(o.getType())) {
             MapProperties properties = (MapProperties)o.getAttribute(MapProperties.class);
-            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(properties);
+            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(levelNumber++, properties);
             PlayerProgress progress = new PlayerProgress(metadata);
             if (progress.getMaximumLevel() < metadata.getLevelNumber()) {
                break;

@@ -8,13 +8,12 @@ import de.bitbrain.scape.i18n.Bundle;
 
 public class LevelMetaDataLoader {
 
-   public LevelMetaData loadFromWorldMapProperties(MapProperties worldMapProperties) {
-      int level = (Integer)worldMapProperties.get("level");
+   public LevelMetaData loadFromWorldMapProperties(int number, MapProperties worldMapProperties) {
       String translatedName = Bundle.get((String)worldMapProperties.get("name"));
       String translatedDescription = Bundle.get((String)worldMapProperties.get("description"));
       String path = (String)worldMapProperties.get("path");
       return new LevelMetaData(
-            level,
+            number,
             path,
             translatedName,
             translatedDescription,

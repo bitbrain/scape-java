@@ -16,7 +16,6 @@
   <object id="13" name="Databus" type="LEVEL" x="19.4543" y="116.333">
    <properties>
     <property name="description" value="level.databus.description"/>
-    <property name="level" type="int" value="1"/>
     <property name="name" value="level.databus.name"/>
     <property name="path" value="maps/001_databus.tmx"/>
     <property name="tooltip" value="bottomLeft"/>
@@ -26,7 +25,6 @@
   <object id="19" name="Kernel IO" type="LEVEL" x="51.4091" y="116.602">
    <properties>
     <property name="description" value="level.kernelio.description"/>
-    <property name="level" type="int" value="2"/>
     <property name="name" value="level.kernelio.name"/>
     <property name="path" value="maps/002_kernelio.tmx"/>
     <property name="tooltip" value="bottomLeft"/>
@@ -36,7 +34,6 @@
   <object id="20" name="RAM" type="LEVEL" x="83.3295" y="108.295">
    <properties>
     <property name="description" value="level.ram.description"/>
-    <property name="level" type="int" value="3"/>
     <property name="name" value="level.ram.name"/>
     <property name="path" value="maps/003_ram.tmx"/>
     <property name="tooltip" value="bottomRight"/>
@@ -46,7 +43,6 @@
   <object id="21" name="Subroutine" type="LEVEL" x="99.0914" y="84.392">
    <properties>
     <property name="description" value="level.subroutine.description"/>
-    <property name="level" type="int" value="4"/>
     <property name="name" value="level.subroutine.name"/>
     <property name="path" value="maps/004_subroutine.tmx"/>
     <property name="tooltip" value="left"/>
@@ -56,7 +52,6 @@
   <object id="22" name="Northbridge" type="LEVEL" x="123.125" y="108.477">
    <properties>
     <property name="description" value="level.northbridge.description"/>
-    <property name="level" type="int" value="5"/>
     <property name="name" value="level.northbridge.name"/>
     <property name="path" value="maps/005_northbridge.tmx"/>
     <property name="tooltip" value="topRight"/>
@@ -66,7 +61,6 @@
   <object id="23" name="Security Controller" type="LEVEL" x="147.194" y="108.33">
    <properties>
     <property name="description" value="level.securitycontroller.description"/>
-    <property name="level" type="int" value="6"/>
     <property name="name" value="level.securitycontroller.name"/>
     <property name="path" value="maps/006_securitycontroller.tmx"/>
     <property name="tooltip" value="bottom"/>
