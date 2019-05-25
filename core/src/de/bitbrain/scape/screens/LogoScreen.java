@@ -3,6 +3,7 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.GameContext;
@@ -27,7 +29,10 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.StringRandomizerTween;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
+import de.bitbrain.braingdx.util.DeltaTimer;
+import de.bitbrain.braingdx.util.StringRandomizer;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
@@ -47,6 +52,10 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    private PlayerProgress progress;
 
    private boolean exiting = false;
+   private Label slogan;
+
+   private StringRandomizer randomizer;
+   private DeltaTimer updateTimer = new DeltaTimer();
 
    public LogoScreen(ScapeGame game) {
       super(game);
@@ -89,14 +98,31 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       Image image = new Image(drawable);
       layout.add(image).width(90f).height(90f).padBottom(40f).row();
 
-      Label slogan = new Label(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
-      layout.add(slogan);
+      slogan = new Label(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
+      slogan.setAlignment(Align.center);
+      layout.add(slogan).width(Gdx.graphics.getWidth());
+
+      randomizer = new StringRandomizer(slogan.getText().toString(), "01");
+      randomizer.setFactor(1f);
+      Tween.to(randomizer, StringRandomizerTween.FACTOR, 1.1f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
 
       context.getStage().addActor(layout);
 
       setupInput(context);
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
          setupShaders();
+      }
+   }
+
+   @Override
+   protected void onUpdate(float delta) {
+      super.onUpdate(delta);
+      updateTimer.update(delta);
+      if (updateTimer.reached(0.1f)) {
+         slogan.setText(randomizer.randomize());
+         updateTimer.reset();
       }
    }
 

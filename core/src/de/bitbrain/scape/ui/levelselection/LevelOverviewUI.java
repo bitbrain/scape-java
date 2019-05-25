@@ -20,7 +20,10 @@ import de.bitbrain.braingdx.graphics.lighting.LightingManager;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
+import de.bitbrain.braingdx.tweens.StringRandomizerTween;
 import de.bitbrain.braingdx.tweens.ValueTween;
+import de.bitbrain.braingdx.util.DeltaTimer;
+import de.bitbrain.braingdx.util.StringRandomizer;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.assets.Assets;
@@ -36,14 +39,17 @@ import java.util.UUID;
 
 public class LevelOverviewUI extends Table {
 
+   private static final String MASK = "01";
+   private static final float GLITCH_UPDATE_INTERVAL = 0.05f;
+
    private static final int MARGIN = 12;
    private static final int BG_RADIUS = 3;
 
    private final GameObject reference;
    private final int alignment;
-   private final Actor description;
-   private final Actor label;
-   private final Actor levelProgress;
+   private final Label description;
+   private final Label label;
+   private final Label levelProgress;
    private final NinePatch selection;
    private final ParticleEffect selectedParticleEffect;
    private final ParticleEffect normalParticleEffect;
@@ -52,16 +58,21 @@ public class LevelOverviewUI extends Table {
 
    private ValueProvider spacing = new ValueProvider();
 
+   private StringRandomizer labelRandomizer;
+   private StringRandomizer progressRandomizer;
+   private StringRandomizer descriptionRandomizer;
+   private DeltaTimer intervalTimer = new DeltaTimer();
+
    public LevelOverviewUI(LightingManager lightingManager, ParticleManager particleManager, LevelMetaData metadata, int alignment, GameObject reference) {
       this.reference = reference;
       this.alignment = alignment;
       PlayerProgress playerProgress = new PlayerProgress(metadata);
       this.label = new Label(metadata.getName().toUpperCase(), Styles.LABEL_SELECTION_CAPTION);
-      setAlignment(add(label), alignment).row();
+      setAlignment(add(label), label, alignment).width(100f).row();
       this.description = new Label(Bundle.get(Messages.MENU_INGAME_LEVEL).toUpperCase() + " " + metadata.getLevelNumber(), Styles.LABEL_SELECTION_DESCRIPTION);
-      setAlignment(add(description), alignment).row();
+      setAlignment(add(description), description, alignment).width(100f).row();
       this.levelProgress = new Label(playerProgress.getPointRecord() + "/" + playerProgress.getMetadata().getNumberOfBytes(), Styles.LABEL_SELECTION_LEVEL_PROGRESS);
-      setAlignment(add(levelProgress), alignment).row();
+      setAlignment(add(levelProgress), levelProgress, alignment).width(100f).row();
       invalidatePosition();
       this.selection = GraphicsFactory.createNinePatch(SharedAssetManager.getInstance().get(Assets.Textures.SELECTION_NINEPATCH, Texture.class), 3);
       getColor().a = 0;
@@ -81,6 +92,10 @@ public class LevelOverviewUI extends Table {
          normalParticleCounts.put(emitter, emitter.getMaxParticleCount());
       }
       lightingManager.addPointLight(UUID.randomUUID().toString(), reference.getLeft(), reference.getTop(), 12f, Color.WHITE);
+
+      labelRandomizer = new StringRandomizer(label.getText().toString(), MASK);
+      descriptionRandomizer = new StringRandomizer(description.getText().toString(), MASK);
+      progressRandomizer = new StringRandomizer(levelProgress.getText().toString(), MASK);
    }
 
    public void show() {
@@ -91,10 +106,27 @@ public class LevelOverviewUI extends Table {
          emitter.setMaxParticleCount(0);
       }
       SharedTweenManager.getInstance().killTarget(this);
+      SharedTweenManager.getInstance().killTarget(labelRandomizer);
+      SharedTweenManager.getInstance().killTarget(descriptionRandomizer);
+      SharedTweenManager.getInstance().killTarget(progressRandomizer);
       Tween.to(this, ActorTween.ALPHA, 0.4f)
             .target(1f)
             .start(SharedTweenManager.getInstance());
+      labelRandomizer.setFactor(1f);
+      descriptionRandomizer.setFactor(1f);
+      progressRandomizer.setFactor(1f);
+      Tween.to(labelRandomizer, StringRandomizerTween.FACTOR, 1f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(descriptionRandomizer, StringRandomizerTween.FACTOR, 1f).delay(0.1f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(progressRandomizer, StringRandomizerTween.FACTOR, 1f).delay(0.3f)
+            .target(0f)
+            .start(SharedTweenManager.getInstance());
    }
+
+
 
    public void hide() {
       for (ParticleEmitter emitter :selectedParticleEffect.getEmitters()) {
@@ -104,9 +136,37 @@ public class LevelOverviewUI extends Table {
          emitter.setMaxParticleCount(normalParticleCounts.get(emitter));
       }
       SharedTweenManager.getInstance().killTarget(this);
-      Tween.to(this, ActorTween.ALPHA, 0.1f)
+      SharedTweenManager.getInstance().killTarget(labelRandomizer);
+      SharedTweenManager.getInstance().killTarget(descriptionRandomizer);
+      SharedTweenManager.getInstance().killTarget(progressRandomizer);
+      Tween.to(this, ActorTween.ALPHA, 0.8f)
             .target(0f)
+            .ease(TweenEquations.easeOutExpo)
             .start(SharedTweenManager.getInstance());
+      Tween.to(labelRandomizer, StringRandomizerTween.FACTOR, 0.5f).delay(0.3f)
+            .target(1f)
+            .ease(TweenEquations.easeOutExpo)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(descriptionRandomizer, StringRandomizerTween.FACTOR, 0.5f).delay(0.1f)
+            .target(1f)
+            .ease(TweenEquations.easeOutExpo)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(progressRandomizer, StringRandomizerTween.FACTOR, 0.5f)
+            .target(1f)
+            .ease(TweenEquations.easeOutExpo)
+            .start(SharedTweenManager.getInstance());
+   }
+
+   @Override
+   public void act(float delta) {
+      intervalTimer.update(delta);
+      super.act(delta);
+      if (intervalTimer.reached(GLITCH_UPDATE_INTERVAL)) {
+         label.setText(labelRandomizer.randomize());
+         description.setText(descriptionRandomizer.randomize());
+         levelProgress.setText(progressRandomizer.randomize());
+         intervalTimer.reset();
+      }
    }
 
    @Override
@@ -142,11 +202,13 @@ public class LevelOverviewUI extends Table {
       setPosition(reference.getLeft() + offset.x, reference.getTop() + offset.y);
    }
 
-   private Cell<?> setAlignment(Cell<?> cell, int align) {
+   private Cell<?> setAlignment(Cell<?> cell, Label label, int align) {
       if (Align.isRight(align)) {
+         label.setAlignment(Align.left);
          return cell.left();
       }
       if (Align.isLeft(align)) {
+         label.setAlignment(Align.right);
          return cell.right();
       }
       if (Align.isTop(align)) {
