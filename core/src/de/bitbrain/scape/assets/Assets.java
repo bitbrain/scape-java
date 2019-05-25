@@ -11,6 +11,8 @@ public interface Assets {
       String UI_BG = "ui-bg.png";
       String MENU_FOCUS_NINEPATCH = "focus.9.png";
       String MENU_FOCUS_DEFAULT_NINEPATCH = "focus-default.9.png";
+      String SELECTION_NINEPATCH = "selection.9.png";
+      String SELECTION_TARGET = "selection-target.png";
    }
 
    interface TiledMaps {
@@ -29,10 +31,15 @@ public interface Assets {
       String TOUCH_RIGHT = "particles/touch-right.p";
       String COLLECT = "particles/collect.p";
       String BYTE = "particles/byte.p";
+      String STAGE = "particles/stage.p";
    }
 
    interface Fonts {
       String UI_NUMBER = "fonts/visitor.ttf";
+   }
+
+   interface BitmapFonts {
+      String VISITOR_MICRO = "fonts/visitor-micro.fnt";
    }
 
    interface Sounds {

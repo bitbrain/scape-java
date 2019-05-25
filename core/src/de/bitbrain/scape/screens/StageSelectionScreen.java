@@ -113,9 +113,10 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
          setupShaders(context);
       }
       Tween.to(camera, GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-            .target(0.12f)
+            .target(getCameraZoom())
             .start(SharedTweenManager.getInstance());
       if (shouldAutoEnterLevel()) {
+
          exiting = true;
          Tween.call(new TweenCallback() {
             @Override
@@ -133,6 +134,16 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
                .start(context.getTweenManager());
 
       }
+   }
+
+   private float getCameraZoom() {
+      if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
+         return 350000f * (1f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
+      if (Gdx.graphics.getWidth() < 1300) {
+         return 7000f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      }
+      return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupUI(final GameContext context) {
@@ -174,8 +185,6 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
 
    private void setupShaders(final GameContext context) {
       AutoReloadPostProcessorEffect<Bloom> bloom = context.getShaderManager().createBloomEffect();
-      Vignette vignette = new Vignette(Gdx.
-            graphics.getWidth(), Gdx.graphics.getHeight(), false);
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();
       if (manualNavigationMode) {
@@ -183,7 +192,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
       } else {
          zoomer.mutate(DEFAULT_ZOOMER_CONFIG);
       }
-      context.getRenderPipeline().addEffects(RenderPipeIds.WORLD_UI, vignette);
+      context.getRenderPipeline().addEffects(RenderPipeIds.WORLD_UI);
       context.getRenderPipeline().addEffects(RenderPipeIds.UI, zoomer, bloom);
    }
 

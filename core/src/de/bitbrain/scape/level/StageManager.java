@@ -7,6 +7,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.graphics.GameCamera;
@@ -17,8 +18,7 @@ import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StageManager {
 
@@ -26,9 +26,9 @@ public class StageManager {
 
       private final GameObject worldObject;
       private final LevelMetaData metadata;
-      private final Actor uiObject;
+      private final LevelOverviewUI uiObject;
 
-      Level(GameObject worldObject, LevelMetaData metadata, Actor uiObject) {
+      Level(GameObject worldObject, LevelMetaData metadata, LevelOverviewUI uiObject) {
          this.worldObject = worldObject;
          this.metadata = metadata;
          this.uiObject = uiObject;
@@ -42,7 +42,7 @@ public class StageManager {
          return metadata;
       }
 
-      Actor getUiObject() {
+      LevelOverviewUI getUiObject() {
          return uiObject;
       }
    }
@@ -66,7 +66,7 @@ public class StageManager {
       final GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
       final PointLight bgLight = context.getLightingManager().addPointLight("asdf-bg", camera.getPosition().x, camera.getPosition().y, 40f, Colors.PRIMARY_RED);
-      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 110f, Color.WHITE);
+      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 120f, Color.WHITE);
       context.getBehaviorManager().apply(new BehaviorAdapter() {
          @Override
          public void onDetach(GameObject source) {
@@ -98,13 +98,9 @@ public class StageManager {
       prefs.flush();
       selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
       if (previouslySelected != null) {
-         Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-               .target(0f)
-               .start(context.getTweenManager());
+         previouslySelected.getUiObject().hide();
       }
-      Tween.to(currentlySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-            .target(1f)
-            .start(context.getTweenManager());
+      currentlySelected.getUiObject().show();
    }
 
    public void selectNextLevel() {
@@ -121,13 +117,9 @@ public class StageManager {
       prefs.flush();
       selector.setPosition(currentlySelected.getWorldObject().getLeft(), currentlySelected.getWorldObject().getTop());
       if (previouslySelected != null) {
-         Tween.to(previouslySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-               .target(0f)
-               .start(context.getTweenManager());
+         previouslySelected.getUiObject().hide();
       }
-      Tween.to(currentlySelected.getUiObject(), ActorTween.ALPHA, 0.5f)
-            .target(1f)
-            .start(context.getTweenManager());
+      currentlySelected.getUiObject().show();
    }
 
    public LevelMetaData getCurrentMetaData() {
@@ -153,17 +145,29 @@ public class StageManager {
 
    private void populateLevelMapping() {
       levelMapping.clear();
-      for (GameObject o : context.getGameWorld()) {
+      List<GameObject> levelsHorizontallyOrdered = context.getGameWorld().getObjects(new Comparator<GameObject>() {
+         @Override
+         public int compare(GameObject o1, GameObject o2) {
+            return (int) (o1.getLeft() - o2.getLeft());
+         }
+      });
+      int levelNumber = 1;
+      for (GameObject o : levelsHorizontallyOrdered) {
          if ("LEVEL".equals(o.getType())) {
-            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties((MapProperties)o.getAttribute(MapProperties.class));
+            MapProperties properties = (MapProperties)o.getAttribute(MapProperties.class);
+            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(levelNumber++, properties);
             PlayerProgress progress = new PlayerProgress(metadata);
             if (progress.getMaximumLevel() < metadata.getLevelNumber()) {
                break;
             }
-            LevelOverviewUI levelUI = new LevelOverviewUI(metadata);
-            levelUI.setPosition(o.getLeft(), o.getTop());
-            levelUI.setScale(0.2f);
-            levelUI.getColor().a = 0f;
+            String tooltipAlignment = properties.get("tooltip", "left", String.class);
+            LevelOverviewUI levelUI = new LevelOverviewUI(
+                  context.getLightingManager(),
+                  context.getParticleManager(),
+                  metadata,
+                  resolveAlignment(tooltipAlignment),
+                  o
+            );
             context.getWorldStage().addActor(levelUI);
 
             levelMapping.put(metadata.getLevelNumber(), new Level(
@@ -171,6 +175,25 @@ public class StageManager {
             ));
          }
       }
+   }
+
+   private int resolveAlignment(String tooltipAlignment) {
+      if (tooltipAlignment.equals("right")) {
+         return Align.right;
+      } else if (tooltipAlignment.equals("top")) {
+         return Align.top;
+      } else if (tooltipAlignment.equals("bottom")) {
+         return Align.bottom;
+      } else if (tooltipAlignment.equals("bottomLeft")) {
+         return Align.bottomLeft;
+      } else if (tooltipAlignment.equals("bottomRight")) {
+         return Align.bottomRight;
+      } else if (tooltipAlignment.equals("topLeft")) {
+         return Align.topLeft;
+      } else if (tooltipAlignment.equals("topRight")) {
+         return Align.topRight;
+      }
+      return Align.left;
    }
 
    private Level getLevel(int level) {

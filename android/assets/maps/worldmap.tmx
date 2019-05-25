@@ -1,74 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="10">
- <tileset firstgid="1" source="worldmap.tsx"/>
- <tileset firstgid="257" source="tileset-virus.tsx"/>
- <tileset firstgid="353" source="tileset-horizontal.tsx"/>
- <tileset firstgid="545" source="tileset-vertical.tsx"/>
- <tileset firstgid="673" source="tileset-misc.tsx"/>
- <tileset firstgid="793" source="tileset-misc-large.tsx"/>
- <layer id="1" name="base" width="32" height="32">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="24">
+ <tileset firstgid="1" source="tileset-virus.tsx"/>
+ <tileset firstgid="97" source="tileset-horizontal.tsx"/>
+ <tileset firstgid="289" source="tileset-vertical.tsx"/>
+ <tileset firstgid="417" source="tileset-misc.tsx"/>
+ <tileset firstgid="537" source="tileset-misc-large.tsx"/>
+ <tileset firstgid="601" source="worldmap.tsx"/>
+ <layer id="12" name="base" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+4GCkgaEkAIEBtn8UjIKBBBp40r8EHfKGAR47FOiYNz2YMcXwhQ09AL6woRX4wER/OykFokA3iwGxOBa3HyDgnwto8jD/E9I30OAHE3aaAZqOV0D5Owj45wYBfdhABJJcBZCdQeewSmBC+LcBSBcw4fY/jI/LPy9wxD+1AK3KEFzxfwJKr4TSpJYhxKZ/SaC81CDIIzD3ckDjWQBWjqPRK4h0KzHpnxKggaWeoQQQG1/EpuvBXv6jl9fExhcHjnCXYEalN9DY/xYUxv8NtHxOa/cONvBgmPmX1DY2en1FKQC1sYl1AwAWlSpk
+   eJztks0KQEAURqd5Swr5z//axsqKlcIKz+pTFqOEbFx1T53u4m7OTFcIhmEYhrnGlUJ48uuK9yRoT3/cr6G9gjqxNxjoMaF10xXJ46SCj54AhhddnaTbn6Enh4XStd1KrLjdjbPvbcwGtsq+3udXlCe9PRzgSOy/nzKhe4YL4f4VnMAUbw==
   </data>
  </layer>
- <layer id="2" name="Tile Layer 2" width="32" height="32">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B2QINpYO03GCD7EwbY3xkDbD8IeAywGwIGQRiMgsEHCgY4XVTQ0P6IAfbbQJd7xAAJxoG1S4FK9ssBw1oeLbzFkfggu7HZpUEn/4PsxmaXAZ3sB9lNK7uISUMguzloZD+xaUiARvbTKw3hAvRKQ+QCCWA+lARiKSCWHqAycbCH0SgYeAAA8uQG0A==
-  </data>
- </layer>
- <objectgroup id="3" name="levels">
-  <object id="1" type="LEVEL" x="16.2728" y="226.715">
+ <objectgroup id="7" name="levels">
+  <object id="13" name="Databus" type="LEVEL" x="19.4543" y="116.333">
    <properties>
     <property name="description" value="level.databus.description"/>
-    <property name="level" value="1"/>
     <property name="name" value="level.databus.name"/>
     <property name="path" value="maps/001_databus.tmx"/>
+    <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
   </object>
-  <object id="3" type="LEVEL" x="47.7614" y="200.182">
+  <object id="19" name="Kernel IO" type="LEVEL" x="51.4091" y="116.602">
    <properties>
     <property name="description" value="level.kernelio.description"/>
-    <property name="level" value="2"/>
     <property name="name" value="level.kernelio.name"/>
     <property name="path" value="maps/002_kernelio.tmx"/>
+    <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
   </object>
-  <object id="4" type="LEVEL" x="87.9167" y="140.667">
+  <object id="20" name="RAM" type="LEVEL" x="83.3295" y="108.295">
    <properties>
     <property name="description" value="level.ram.description"/>
-    <property name="level" value="3"/>
     <property name="name" value="level.ram.name"/>
     <property name="path" value="maps/003_ram.tmx"/>
+    <property name="tooltip" value="bottomRight"/>
    </properties>
    <point/>
   </object>
-  <object id="5" type="LEVEL" x="152.333" y="204.333">
+  <object id="21" name="Subroutine" type="LEVEL" x="99.0914" y="84.392">
    <properties>
     <property name="description" value="level.subroutine.description"/>
-    <property name="level" value="4"/>
     <property name="name" value="level.subroutine.name"/>
     <property name="path" value="maps/004_subroutine.tmx"/>
+    <property name="tooltip" value="left"/>
    </properties>
    <point/>
   </object>
-  <object id="6" type="LEVEL" x="174.06" y="132.727">
+  <object id="22" name="Northbridge" type="LEVEL" x="123.125" y="108.477">
    <properties>
     <property name="description" value="level.northbridge.description"/>
-    <property name="level" value="5"/>
     <property name="name" value="level.northbridge.name"/>
     <property name="path" value="maps/005_northbridge.tmx"/>
+    <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
   </object>
-  <object id="7" type="LEVEL" x="193" y="56.25">
+  <object id="23" name="Security Controller" type="LEVEL" x="147.194" y="108.33">
    <properties>
     <property name="description" value="level.securitycontroller.description"/>
-    <property name="level" value="6"/>
     <property name="name" value="level.securitycontroller.name"/>
     <property name="path" value="maps/006_securitycontroller.tmx"/>
+    <property name="tooltip" value="bottom"/>
    </properties>
    <point/>
   </object>
