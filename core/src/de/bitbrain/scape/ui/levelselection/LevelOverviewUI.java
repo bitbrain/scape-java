@@ -115,13 +115,13 @@ public class LevelOverviewUI extends Table {
       labelRandomizer.setFactor(1f);
       descriptionRandomizer.setFactor(1f);
       progressRandomizer.setFactor(1f);
-      Tween.to(labelRandomizer, StringRandomizerTween.FACTOR, 1f)
+      Tween.to(labelRandomizer, StringRandomizerTween.FACTOR, 0.6f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
-      Tween.to(descriptionRandomizer, StringRandomizerTween.FACTOR, 1f).delay(0.1f)
+      Tween.to(descriptionRandomizer, StringRandomizerTween.FACTOR, 0.6f).delay(0.1f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
-      Tween.to(progressRandomizer, StringRandomizerTween.FACTOR, 1f).delay(0.3f)
+      Tween.to(progressRandomizer, StringRandomizerTween.FACTOR, 0.4f).delay(0.3f)
             .target(0f)
             .start(SharedTweenManager.getInstance());
    }

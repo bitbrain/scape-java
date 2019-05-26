@@ -50,22 +50,4 @@ public class Animator {
             .repeatYoyo(Tween.INFINITY, 0)
             .start(context.getTweenManager());
    }
-
-   public static void animatePlayerBounce(final GameObject o) {
-      SharedTweenManager.getInstance().killTarget(o, GameObjectTween.SCALE_Y);
-      Tween.to(o, GameObjectTween.SCALE_Y, 0.04f)
-            .target(o.getScaleY() > 0f ? 0.78f : -0.78f)
-            .ease(TweenEquations.easeOutCubic)
-            .setCallback(new TweenCallback() {
-               @Override
-               public void onEvent(int type, BaseTween<?> t) {
-                  Tween.to(o, GameObjectTween.SCALE_Y, 0.05f)
-                        .target(o.getScaleY() > 0f ? 1f : -1f)
-                        .ease(TweenEquations.easeInCubic)
-                        .start(SharedTweenManager.getInstance());
-               }
-            })
-            .setCallbackTriggers(TweenCallback.COMPLETE)
-            .start(SharedTweenManager.getInstance());
-   }
 }

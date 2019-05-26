@@ -20,6 +20,9 @@ public class PlayerAnimationTypeResolver implements AnimationTypeResolver<GameOb
       if (playerMovement.hasHorizontalCollisionInFront()) {
          return AnimationTypes.PLAYER_WALL_CLIMBING;
       }
-      return AnimationTypes.PLAYER_DEFAULT;
+      if (playerMovement.hasVerticalCollision()) {
+         return AnimationTypes.PLAYER_DEFAULT;
+      }
+      return AnimationTypes.PLAYER_JUMPING;
    }
 }

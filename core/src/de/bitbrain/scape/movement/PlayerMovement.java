@@ -100,7 +100,6 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
 
       if (!flipping && lastFlipping) {
-         Animator.animatePlayerBounce(source);
          SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
                .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
       }
@@ -162,7 +161,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       SharedTweenManager.getInstance().killTarget(source);
       source.setScaleX(1f);
       final float targetScaleX = 1.0f - strength;
-      final float targetScaleY_A = 1.1f - strength;
+      final float targetScaleY_A = 1.2f - strength;
       final float targetScaleY_B = 1.0f + strength;
       Tween.to(source, GameObjectTween.SCALE_X, time).delay(0.05f)
             .target(targetScaleX)

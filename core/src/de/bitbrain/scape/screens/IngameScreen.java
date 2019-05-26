@@ -256,6 +256,14 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
                         .playMode(Animation.PlayMode.LOOP_REVERSED)
                         .frames(8)
                         .build())
+                  .registerFrames(AnimationTypes.PLAYER_JUMPING, AnimationFrames.builder()
+                        .resetIndex(0)
+                        .duration(0.1f)
+                        .origin(0, 3)
+                        .direction(AnimationFrames.Direction.HORIZONTAL)
+                        .playMode(Animation.PlayMode.LOOP)
+                        .frames(8)
+                        .build())
                   .build(), new PlayerAnimationTypeResolver(movement)
       ));
       context.getRenderManager().register(CharacterType.BYTE.name(), new AnimationRenderer(byteSheet,
