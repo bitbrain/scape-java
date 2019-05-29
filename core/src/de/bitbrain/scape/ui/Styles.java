@@ -39,7 +39,7 @@ public final class Styles {
    public static final Label.LabelStyle LABEL_SELECTION_COMPLETE = new Label.LabelStyle();;
    public static final Label.LabelStyle LABEL_SELECTION_DESCRIPTION = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INTRO_COMMAND = new Label.LabelStyle();
-   public static final Label.LabelStyle LABEL_INTRO_BITBRAIN = new Label.LabelStyle();
+   public static final GlitchLabel.GlitchLabelStyle LABEL_INTRO_BITBRAIN = new GlitchLabel.GlitchLabelStyle();
    public static final Label.LabelStyle LABEL_CREDITS = new Label.LabelStyle();
 
    public static final TextButton.TextButtonStyle BUTTON_MENU = new TextButton.TextButtonStyle();
@@ -92,6 +92,7 @@ public final class Styles {
 
       LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
+      LABEL_INTRO_BITBRAIN.glitchPool = "01";
 
       LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 50 : 20);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;

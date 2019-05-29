@@ -16,6 +16,9 @@ public interface GameConfig {
    float LEVEL_START_SCROLLING_SPEED = 35f;
    float BOOT_SEQUENCE_DURATION = 3.6f;
 
+   float PLAYER_LANDING_DURATION = 0.25f;
+   float PLAYER_JUMPING_DURATION = 0.3f;
+
    String PLAYER_PREFERENCES_PATH = "scape.player.config";
    String PLAYER_LEVEL_POINT_RECORD = "point_record";
    String PLAYER_LEVEL_TIME_RECORD = "time_record";

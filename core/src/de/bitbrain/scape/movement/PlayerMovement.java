@@ -3,15 +3,12 @@ package de.bitbrain.scape.movement;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
-import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.animation.Animator;
@@ -32,6 +29,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    private boolean jumpRequested = false;
 
    private boolean enabled = false;
+
+   private boolean landing = false;
 
    private long timestamp = 0;
 
@@ -86,7 +85,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       } else{
          lastHorizontalCollision = false;
          if (!hadVerticalCollision && !flipping) {
-            animate(source, 0.08f, 0.15f);
+            Animator.animateJumping(source);
             flipping = true;
          }
       }
@@ -100,9 +99,23 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
 
       if (!flipping && lastFlipping) {
+         landing = true;
+         Animator.animateLanding(source);
          SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
                .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
+         Tween.call(new TweenCallback() {
+            @Override
+            public void onEvent(int type, BaseTween<?> source) {
+               landing = false;
+            }
+         })
+         .delay(GameConfig.PLAYER_LANDING_DURATION)
+         .start(SharedTweenManager.getInstance());
       }
+   }
+
+   public boolean isLanding() {
+      return landing;
    }
 
    public boolean hasHorizontalCollisionInFront() {
@@ -127,13 +140,17 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          source.setOffset(0f, 0f);
       }
       flipping = true;
-      animate(source, 0.1f, 0.3f);
+      Animator.animateJumping(source);
       jumpRequested = false;
    }
 
    @Override
    public void move(Integer influencer) {
 
+   }
+
+   public boolean isJumping() {
+      return flipping;
    }
 
    @Override
@@ -155,36 +172,5 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    public boolean hasHorizontalCollision() {
       return horizontalCollision != null;
-   }
-
-   private void animate(final GameObject source, final float time, float strength) {
-      SharedTweenManager.getInstance().killTarget(source);
-      source.setScaleX(1f);
-      final float targetScaleX = 1.0f - strength;
-      final float targetScaleY_A = 1.2f - strength;
-      final float targetScaleY_B = 1.0f + strength;
-      Tween.to(source, GameObjectTween.SCALE_X, time).delay(0.05f)
-            .target(targetScaleX)
-            .repeatYoyo(1, 0f)
-            .ease(TweenEquations.easeInOutCubic)
-            .start(SharedTweenManager.getInstance());
-      Tween.to(source, GameObjectTween.SCALE_Y, time / 2f).delay(0.05f)
-            .target(source.getScaleY() < 0 ? -targetScaleY_A : targetScaleY_A)
-            .repeatYoyo(1, 0f)
-            .ease(TweenEquations.easeInOutCubic)
-            .setCallbackTriggers(TweenCallback.COMPLETE)
-            .setCallback(new TweenCallback() {
-               @Override
-               public void onEvent(int type, BaseTween<?> t) {
-                  source.setScaleY(source.getScaleY() < 0 ? -1f : 1f);
-                  Tween.to(source, GameObjectTween.SCALE_Y, time / 2f)
-                        .target(source.getScaleY() < 0 ? -targetScaleY_B : targetScaleY_B)
-                        .repeatYoyo(1, 0f)
-                        .ease(TweenEquations.easeInOutCubic)
-                        .start(SharedTweenManager.getInstance());
-               }
-            })
-            .start(SharedTweenManager.getInstance());
-
    }
 }

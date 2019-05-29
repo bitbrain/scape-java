@@ -32,6 +32,7 @@ import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.ui.GlitchLabel;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
@@ -93,16 +94,30 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
       style.vertical = !isMobile;
       buttonMenu = new NavigationMenu<TextButton>(style);
-      buttonMenu.add(new TextButton(get(MENU_MAIN_CONTINUE), Styles.BUTTON_MENU), new ClickListener() {
+      TextButton continueButton = new TextButton(get(MENU_MAIN_CONTINUE), Styles.BUTTON_MENU);
+      GlitchLabel.GlitchLabelStyle glStyle = new GlitchLabel.GlitchLabelStyle();
+      glStyle.fadeInDuration = 0.5f;
+      glStyle.font =  Styles.BUTTON_MENU.font;
+      glStyle.fontColor =  Styles.BUTTON_MENU.fontColor;
+      final GlitchLabel label = new GlitchLabel(get(MENU_MAIN_CONTINUE), glStyle);
+      label.setAlignment(Align.center);
+      continueButton.setLabel(label);
+      buttonMenu.add(continueButton, new ClickListener() {
 
          @Override
-               public void clicked(InputEvent event, float x, float y) {
-                  context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 0.5f);
-                  Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
-                        .target(0.001f)
-                        .ease(TweenEquations.easeInExpo)
-                        .start(SharedTweenManager.getInstance());
-               }
+         public void clicked(InputEvent event, float x, float y) {
+            context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 0.5f);
+            Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 0.7f)
+                  .target(0.001f)
+                  .ease(TweenEquations.easeInExpo)
+                  .start(SharedTweenManager.getInstance());
+         }
+
+         @Override
+         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+            super.enter(event, x, y, pointer, fromActor);
+            label.glitchIn();
+         }
       }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
         .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
       buttonMenu.add(new TextButton(get(MENU_MAIN_NEWGAME), Styles.BUTTON_MENU), new ClickListener() {

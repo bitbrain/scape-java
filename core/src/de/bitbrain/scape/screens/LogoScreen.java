@@ -42,6 +42,7 @@ import de.bitbrain.scape.input.logo.LogoControllerInputAdapter;
 import de.bitbrain.scape.input.logo.LogoKeyboardInputAdapter;
 import de.bitbrain.scape.input.logo.LogoMobileInputAdapter;
 import de.bitbrain.scape.progress.PlayerProgress;
+import de.bitbrain.scape.ui.GlitchLabel;
 import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
@@ -52,10 +53,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    private PlayerProgress progress;
 
    private boolean exiting = false;
-   private Label slogan;
-
-   private StringRandomizer randomizer;
-   private DeltaTimer updateTimer = new DeltaTimer();
+   private GlitchLabel slogan;
 
    public LogoScreen(ScapeGame game) {
       super(game);
@@ -98,31 +96,15 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
       Image image = new Image(drawable);
       layout.add(image).width(90f).height(90f).padBottom(40f).row();
 
-      slogan = new Label(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
+      slogan = new GlitchLabel(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
       slogan.setAlignment(Align.center);
       layout.add(slogan).width(Gdx.graphics.getWidth());
-
-      randomizer = new StringRandomizer(slogan.getText().toString(), "01");
-      randomizer.setFactor(1f);
-      Tween.to(randomizer, StringRandomizerTween.FACTOR, 1.1f)
-            .target(0f)
-            .start(SharedTweenManager.getInstance());
 
       context.getStage().addActor(layout);
 
       setupInput(context);
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
          setupShaders();
-      }
-   }
-
-   @Override
-   protected void onUpdate(float delta) {
-      super.onUpdate(delta);
-      updateTimer.update(delta);
-      if (updateTimer.reached(0.1f)) {
-         slogan.setText(randomizer.randomize());
-         updateTimer.reset();
       }
    }
 

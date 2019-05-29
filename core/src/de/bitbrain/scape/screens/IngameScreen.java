@@ -32,13 +32,13 @@ import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.animation.AnimationTypes;
 import de.bitbrain.scape.animation.Animator;
+import de.bitbrain.scape.animation.PlayerAnimationEnabler;
 import de.bitbrain.scape.animation.PlayerAnimationTypeResolver;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.camera.LevelScrollingBounds;
@@ -52,8 +52,6 @@ import de.bitbrain.scape.input.ingame.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.movement.*;
 import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.ui.Styles;
-import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 import de.bitbrain.scape.ui.ingame.PointsLabel;
 import de.bitbrain.scape.ui.ingame.IngameLevelDescriptionUI;
 
@@ -264,7 +262,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
                         .playMode(Animation.PlayMode.LOOP)
                         .frames(8)
                         .build())
-                  .build(), new PlayerAnimationTypeResolver(movement)
+                  .build(), new PlayerAnimationTypeResolver(movement), new PlayerAnimationEnabler(movement)
       ));
       context.getRenderManager().register(CharacterType.BYTE.name(), new AnimationRenderer(byteSheet,
             AnimationConfig.builder()
