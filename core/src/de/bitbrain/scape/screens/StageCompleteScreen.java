@@ -70,7 +70,9 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
 
       setupUI(context);
       setupInput(context);
-      setupShaders(context);
+      if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
+         setupShaders(context);
+      }
    }
 
    private void setupUI(final GameContext context) {
