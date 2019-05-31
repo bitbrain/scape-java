@@ -54,7 +54,7 @@ public class PlayerProgress {
    }
 
    public long getTimeRecord() {
-      return preferences.getInteger(GameConfig.PLAYER_LEVEL_TIME_RECORD + metadata.getPath(), 0);
+      return preferences.getLong(GameConfig.PLAYER_LEVEL_TIME_RECORD + metadata.getPath(), 0);
    }
 
    public int getCurrentLevel() {

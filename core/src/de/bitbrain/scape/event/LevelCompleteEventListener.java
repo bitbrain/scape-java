@@ -1,6 +1,8 @@
 package de.bitbrain.scape.event;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
@@ -63,35 +65,34 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
       if (screen.getStartTime() != 0) {
          this.progress.setCurrentTime(System.currentTimeMillis() - screen.getStartTime());
       }
+      game.setScreen(new StageCompleteScreen(game, progress));
+      /*
+      context.getScreenTransitions().out(1f);
       Gdx.app.postRunnable(new Runnable() {
          @Override
          public void run() {
             context.getBehaviorManager().clear();
             context.getStage().clear();
             context.getWorldStage().clear();
-            context.getScreenTransitions().out(new StageCompleteScreen(game, progress), 0.5f);
             for (GameObject powercell : powerCells) {
                SharedTweenManager.getInstance().killTarget(powercell);
-               Tween.to(powercell, GameObjectTween.SCALE, 1f)
+               Tween.to(powercell, GameObjectTween.SCALE, 0.5f)
                      .target(8f)
                      .start(SharedTweenManager.getInstance());
-               Tween.to(powercell, GameObjectTween.ALPHA, 1f)
+               Tween.to(powercell, GameObjectTween.ALPHA, 0.5f)
                      .target(0f)
                      .start(SharedTweenManager.getInstance());
             }
             SharedTweenManager.getInstance().killTarget(player);
             player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
-            Tween.to(player, GameObjectTween.SCALE, 0.8f)
+            Tween.to(player, GameObjectTween.SCALE, 0.5f)
                   .target(0f)
                   .ease(TweenEquations.easeOutQuad)
                   .start(context.getTweenManager());
-            Tween.to(player, GameObjectTween.ALPHA, 0.8f)
+            Tween.to(player, GameObjectTween.ALPHA, 0.5f)
                   .target(0f)
                   .ease(TweenEquations.easeOutQuad)
                   .start(context.getTweenManager());
-            context.getGameCamera().setTrackingTarget(null);
-            context.getGameCamera().focusCentered(player);
-            context.getGameCamera().setStickToWorldBounds(false);
             if (zoomerEffect != null) {
                zoomerEffect.mutate(new Mutator<Zoomer>() {
                   @Override
@@ -121,12 +122,19 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
                   }
                });
             }
-            Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 2f)
+            Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
                   .target(1.5f)
                   .ease(TweenEquations.easeInExpo)
+                  .setCallback(new TweenCallback() {
+                     @Override
+                     public void onEvent(int type, BaseTween<?> source) {
+                        game.setScreen(new StageCompleteScreen(game, progress));
+                     }
+                  })
+                  .setCallbackTriggers(TweenCallback.COMPLETE)
                   .start(SharedTweenManager.getInstance());
          }
-      });
+      });*/
 
    }
 }

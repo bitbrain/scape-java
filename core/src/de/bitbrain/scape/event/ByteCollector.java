@@ -40,7 +40,11 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       float centerY = object.getTop() + object.getHeight() / 2f;
       particleManager.spawnEffect(Assets.Particles.COLLECT, centerX, centerY);
       event.getByteObject().setActive(false);
-      Tween.to(event.getByteObject(), GameObjectTween.ALPHA, 0.3f)
+      Tween.to(event.getByteObject(), GameObjectTween.SCALE, 0.5f)
+            .target(2.5f)
+            .ease(TweenEquations.easeOutExpo)
+            .start(SharedTweenManager.getInstance());
+      Tween.to(event.getByteObject(), GameObjectTween.ALPHA, 0.5f)
             .target(0f)
             .ease(TweenEquations.easeOutExpo)
             .setCallback(new TweenCallback() {

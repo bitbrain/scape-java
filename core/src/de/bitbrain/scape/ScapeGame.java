@@ -79,6 +79,7 @@ public class ScapeGame extends BrainGdxGame {
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.Low);
          Gdx.input.setCatchBackKey(true);
          graphicsSettings.setRenderScale(0.05f);
+         graphicsSettings.setParticleMultiplier(0.1f);
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
          if (gifMode) {
@@ -91,6 +92,7 @@ public class ScapeGame extends BrainGdxGame {
          }
          graphicsSettings.setRadialBlurQuality(RadialBlur.Quality.High);
          graphicsSettings.setRenderScale(0.3f);
+         graphicsSettings.setParticleMultiplier(0.5f);
          graphicsSettings.save();
       }
    }

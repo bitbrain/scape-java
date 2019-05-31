@@ -123,7 +123,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    }
 
    private void flip(GameObject source) {
-      if (isJumping()) {
+      if (flipping || (hasHorizontalCollisionInFront() && !hasVerticalCollision())) {
          return;
       }
       SharedAssetManager.getInstance().get(Assets.Sounds.JUMP, Sound.class)
