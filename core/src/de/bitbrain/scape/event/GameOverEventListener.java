@@ -4,8 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
-import com.badlogic.gdx.Gdx;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -17,9 +16,9 @@ import de.bitbrain.scape.screens.IngameScreen;
 public class GameOverEventListener implements GameEventListener<GameOverEvent> {
 
    private final IngameScreen ingameScreen;
-   private final GameContext context;
+   private final GameContext2D context;
 
-   public GameOverEventListener(IngameScreen screen, GameContext context) {
+   public GameOverEventListener(IngameScreen screen, GameContext2D context) {
       this.ingameScreen = screen;
       this.context = context;
    }
@@ -40,7 +39,7 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
       Tween.call(new TweenCallback() {
          @Override
          public void onEvent(int type, BaseTween<?> source) {
-            for (GameObject o : context.getGameWorld()) {
+            for (GameObject o : context.getGameWorld().getObjects()) {
                if (CharacterType.BYTE.name().equals(o.getType())) {
                   context.getGameWorld().remove(o);
                }

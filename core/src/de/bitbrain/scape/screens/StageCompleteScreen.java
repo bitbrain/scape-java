@@ -8,14 +8,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
-import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ValueTween;
@@ -30,13 +30,13 @@ import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
 import static de.bitbrain.scape.GameConfig.*;
 
-public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
+public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private final boolean stageCompletedForTheFirstTime;
    private final boolean newPointRecord;
    private final boolean newTimeRecord;
    private boolean exiting = false;
-   private GameContext context;
+   private GameContext2D context;
    private PlayerProgress progress;
    private NavigationMenu<TextButton> buttonMenu;
 
@@ -63,10 +63,10 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected void onCreate(GameContext context) {
+   protected void onCreate(GameContext2D context) {
       this.context = context;
       context.getScreenTransitions().in(0.3f);
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
 
       setupUI(context);
       setupInput(context);
@@ -75,7 +75,7 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
       }
    }
 
-   private void setupUI(final GameContext context) {
+   private void setupUI(final GameContext2D context) {
 
       boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
 
@@ -181,12 +181,12 @@ public class StageCompleteScreen extends AbstractScreen<ScapeGame> {
       context.getStage().addActor(layout);
    }
 
-   private void setupInput(GameContext context) {
+   private void setupInput(GameContext2D context) {
       context.getInputManager().register(new NavigateableControllerInput(buttonMenu));
       context.getInputManager().register(new NavigateableKeyboardInput(buttonMenu));
    }
 
-   private void setupShaders(GameContext context) {
+   private void setupShaders(GameContext2D context) {
       AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
       AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
       bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);

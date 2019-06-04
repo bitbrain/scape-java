@@ -3,7 +3,6 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.*;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,10 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
@@ -27,6 +26,7 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
@@ -63,7 +63,7 @@ import java.util.Set;
 import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 import static de.bitbrain.scape.animation.Animator.animatePowercell;
 
-public class IngameScreen extends AbstractScreen<ScapeGame> {
+public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private final LevelMetaData levelMetaData;
 
@@ -73,7 +73,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    private GameObject player;
    private LevelScrollingBounds levelScroller;
    private OutOfBoundsManager outOfBoundsManager;
-   private GameContext context;
+   private GameContext2D context;
 
    private List<GameObject> powerCells = new ArrayList<GameObject>();
 
@@ -98,10 +98,10 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected void onCreate(final GameContext context) {
+   protected void onCreate(final GameContext2D context) {
       context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       progress = new PlayerProgress(levelMetaData);
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
       context.getTiledMapManager().getAPI().setDebug(false);
 
@@ -200,11 +200,11 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected Viewport getViewport(int width, int height, Camera camera) {
+   public Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
    }
 
-   private void setupEvents(GameContext context) {
+   private void setupEvents(GameContext2D context) {
       context.getEventManager().register(
             new GameOverEventListener(this, context),
             GameOverEvent.class
@@ -219,7 +219,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       );
    }
 
-   private void setupRendering(GameContext context) {
+   private void setupRendering(GameContext2D context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
       final Texture playerOverlayTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER_CHARGED);
@@ -290,12 +290,12 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       ));
    }
 
-   private void setupWorld(GameContext context) {
+   private void setupWorld(GameContext2D context) {
       this.context = context;
       levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
       context.getGameWorld().setBounds(levelScroller);
 
-      for (GameObject o : context.getGameWorld()) {
+      for (GameObject o : context.getGameWorld().getObjects()) {
          if (CharacterType.PLAYER.name().equals(o.getType())) {
             o.setDimensions(8f, 8f);
             float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
@@ -340,7 +340,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       outOfBoundsManager = new OutOfBoundsManager(context.getEventManager(), levelScroller, player);
    }
 
-   private void setupUI(GameContext context) {
+   private void setupUI(GameContext2D context) {
       Table layout = new Table();
       layout.setFillParent(true);
       layout.right().top().padRight(130).padTop(80).add(new PointsLabel(progress, levelMetaData));
@@ -356,7 +356,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       descriptionUI.show(2f);
    }
 
-   private void setupShaders(GameContext context) {
+   private void setupShaders(GameContext2D context) {
       zoomerEffect = context.getShaderManager().createZoomerEffect();
       zoomerEffect.mutate(GameConfig.DEFAULT_ZOOMER_CONFIG);
       context.getRenderPipeline().addEffects(RenderPipeIds.UI, zoomerEffect);
@@ -376,7 +376,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
-   private void setupPlayer(GameContext context) {
+   private void setupPlayer(GameContext2D context) {
       CollisionDetector collisionDetector = new CollisionDetector(context);
       movement = new PlayerMovement(collisionDetector);
       context.getBehaviorManager().apply(movement, player);
@@ -390,7 +390,7 @@ public class IngameScreen extends AbstractScreen<ScapeGame> {
       context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 140f, context.getLightingManager()), player);
    }
 
-   private void setupInput(GameContext context, PlayerControls playerControls) {
+   private void setupInput(GameContext2D context, PlayerControls playerControls) {
       context.getInputManager().register(new IngameKeyboardInputAdapter(playerControls, this));
       context.getInputManager().register(new GestureDetector(new IngameMobileInputAdapter(playerControls, this)));
       context.getInputManager().register(new IngameControllerInputAdapter(playerControls, this));

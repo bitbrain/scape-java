@@ -1,15 +1,15 @@
 package de.bitbrain.scape.movement;
 
 import com.badlogic.gdx.math.Vector2;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.world.GameObject;
 
 public class CollisionDetector {
 
-   private final GameContext context;
+   private final GameContext2D context;
 
-   public CollisionDetector(GameContext context) {
+   public CollisionDetector(GameContext2D context) {
       this.context = context;
    }
 

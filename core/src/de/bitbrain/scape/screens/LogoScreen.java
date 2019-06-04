@@ -3,23 +3,19 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
@@ -27,12 +23,10 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.StringRandomizerTween;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
-import de.bitbrain.braingdx.util.DeltaTimer;
-import de.bitbrain.braingdx.util.StringRandomizer;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
@@ -47,9 +41,9 @@ import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 
-public class LogoScreen extends AbstractScreen<ScapeGame> {
+public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
 
-   private GameContext context;
+   private GameContext2D context;
    private PlayerProgress progress;
 
    private boolean exiting = false;
@@ -60,11 +54,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected void onCreate(final GameContext context) {
+   protected void onCreate(final GameContext2D context) {
       this.context = context;
       this.progress = new PlayerProgress(null);
       context.getScreenTransitions().in(0.3f);
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 16);
       AnimationDrawable drawable = new AnimationDrawable(sheet,
@@ -82,7 +76,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
          @Override
          public void onEvent(int i, BaseTween<?> baseTween) {
             if (!exiting) {
-               AbstractScreen<?> nextScreen = progress.isNewGame()
+               AbstractScreen<?, ?> nextScreen = progress.isNewGame()
                      ? new IntroScreen(getGame())
                      : new MainMenuScreen(getGame());
                context.getScreenTransitions().out(nextScreen, 2f);
@@ -110,7 +104,7 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
 
    public void exit() {
       if (!exiting) {
-         AbstractScreen<?> nextScreen = progress.isNewGame()
+         AbstractScreen<?, ?> nextScreen = progress.isNewGame()
                ? new IntroScreen(getGame())
                : new MainMenuScreen(getGame());
          context.getScreenTransitions().out(nextScreen, 1f);
@@ -124,11 +118,11 @@ public class LogoScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected Viewport getViewport(int width, int height, Camera camera) {
+   public Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
    }
 
-   private void setupInput(GameContext context) {
+   private void setupInput(GameContext2D context) {
       context.getInputManager().register(new LogoKeyboardInputAdapter(this));
       context.getInputManager().register(new GestureDetector(new LogoMobileInputAdapter(this)));
       context.getInputManager().register(new LogoControllerInputAdapter(this));

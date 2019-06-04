@@ -1,17 +1,14 @@
 package de.bitbrain.scape.level;
 
-import aurelienribon.tweenengine.Tween;
 import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
-import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
@@ -50,11 +47,11 @@ public class StageManager {
    private final Map<Integer, Level> levelMapping = new HashMap<Integer, Level>();
    private Integer currentlySelectedLevel;
    private GameObject selector;
-   private final GameContext context;
+   private final GameContext2D context;
    private Preferences prefs;
    private final LevelMetaDataLoader metaDataLoader = new LevelMetaDataLoader();
 
-   public StageManager(final GameContext context) {
+   public StageManager(final GameContext2D context) {
       this.context = context;
       populateLevelMapping();
       selector = context.getGameWorld().addObject();

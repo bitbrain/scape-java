@@ -17,9 +17,6 @@ import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.i18n.Bundle;
-import de.bitbrain.scape.level.LevelMetaData;
-import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.screens.StageCompleteScreen;
 import de.bitbrain.scape.screens.StageSelectionScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
@@ -59,7 +56,7 @@ public class ScapeGame extends BrainGdxGame {
    }
 
    @Override
-   protected AbstractScreen<?> getInitialScreen() {
+   protected AbstractScreen<?, ?> getInitialScreen() {
       Bundle.load();
       Styles.init();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());

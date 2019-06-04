@@ -15,14 +15,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
@@ -39,7 +40,7 @@ import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 
-public class MainMenuScreen extends AbstractScreen<ScapeGame> {
+public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private NavigationMenu<TextButton> buttonMenu;
 
@@ -47,15 +48,15 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       super(game);
    }
 
-   private GameContext context;
+   private GameContext2D context;
 
    private boolean exiting = false;
 
    @Override
-   protected void onCreate(GameContext context) {
+   protected void onCreate(GameContext2D context) {
       this.context = context;
       context.getScreenTransitions().in(1.5f);
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
          setupShaders();
@@ -78,7 +79,7 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
       }
    }
 
-   private void setupUI(final GameContext context) {
+   private void setupUI(final GameContext2D context) {
 
       boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
 
@@ -148,11 +149,11 @@ public class MainMenuScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected Viewport getViewport(int width, int height, Camera camera) {
+   public Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
    }
 
-   private void setupInput(GameContext context) {
+   private void setupInput(GameContext2D context) {
       context.getInputManager().register(new NavigateableControllerInput(buttonMenu));
       context.getInputManager().register(new NavigateableKeyboardInput(buttonMenu));
    }

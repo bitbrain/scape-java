@@ -16,8 +16,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import de.bitbrain.braingdx.GameContext;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
@@ -28,6 +28,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffec
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
@@ -46,13 +47,13 @@ import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
 
-public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
+public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private PlayerProgress progress;
 
    private boolean exiting = false;
-   private GameContext context;
+   private GameContext2D context;
    private boolean manualNavigationMode;
    private StageManager stageManager;
 
@@ -87,10 +88,10 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected void onCreate(GameContext context) {
+   protected void onCreate(GameContext2D context) {
       this.context = context;
       context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),
             context.getGameCamera().getInternalCamera(),
@@ -146,7 +147,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
       return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
-   private void setupUI(final GameContext context) {
+   private void setupUI(final GameContext2D context) {
       Table layout = new Table();
       layout.setFillParent(true);
 
@@ -175,7 +176,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
       context.getStage().addActor(layout);
    }
 
-   private void setupInput(GameContext context) {
+   private void setupInput(GameContext2D context) {
       GestureDetector detector = new GestureDetector(new LevelSelectionMobileInputAdapter(stageManager, this));
       detector.setLongPressSeconds(0.1f);
       context.getInputManager().register(detector);
@@ -183,7 +184,7 @@ public class StageSelectionScreen extends AbstractScreen<ScapeGame> {
       context.getInputManager().register(new LevelSelectionControllerInputAdapter(stageManager, this));
    }
 
-   private void setupShaders(final GameContext context) {
+   private void setupShaders(final GameContext2D context) {
       AutoReloadPostProcessorEffect<Bloom> bloom = context.getShaderManager().createBloomEffect();
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();

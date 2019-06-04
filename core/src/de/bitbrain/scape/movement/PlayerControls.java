@@ -1,14 +1,14 @@
 package de.bitbrain.scape.movement;
 
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.scape.event.GameOverEvent;
 
 public class PlayerControls {
 
    private final PlayerMovement playerMovement;
-   private final GameContext context;
+   private final GameContext2D context;
 
-   public PlayerControls(PlayerMovement playerMovement, GameContext context) {
+   public PlayerControls(PlayerMovement playerMovement, GameContext2D context) {
       this.playerMovement = playerMovement;
       this.context = context;
    }

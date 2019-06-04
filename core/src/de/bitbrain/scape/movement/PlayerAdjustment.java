@@ -1,7 +1,7 @@
 package de.bitbrain.scape.movement;
 
 import aurelienribon.tweenengine.Tween;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.tmx.TiledMapAPI;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -9,12 +9,10 @@ import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.model.Direction;
 
 import static de.bitbrain.braingdx.tmx.IndexCalculator.calculateIndex;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 public class PlayerAdjustment {
 
-   public static void adjust(GameObject player, GameContext context) {
+   public static void adjust(GameObject player, GameContext2D context) {
       float targetScaleY = getTargetScale(player, context);
       SharedTweenManager.getInstance().killTarget(player, GameObjectTween.SCALE);
       SharedTweenManager.getInstance().killTarget(player, GameObjectTween.SCALE_X);
@@ -28,7 +26,7 @@ public class PlayerAdjustment {
             .start(SharedTweenManager.getInstance());
    }
 
-   private static float getTargetScale(GameObject player, GameContext context) {
+   private static float getTargetScale(GameObject player, GameContext2D context) {
       TiledMapAPI api = context.getTiledMapManager().getAPI();
 
       int indexX = (int) (calculateIndex(

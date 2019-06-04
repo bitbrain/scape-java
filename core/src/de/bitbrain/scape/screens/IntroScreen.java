@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tweens.BloomShaderTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -34,9 +34,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroScreen extends AbstractScreen<ScapeGame> {
+public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
-   private GameContext context;
+   private GameContext2D context;
    private List<String> commands;
 
    private boolean bootSequence = false;
@@ -54,8 +54,8 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected void onCreate(GameContext context) {
-      setBackgroundColor(Colors.BACKGROUND_VIOLET);
+   protected void onCreate(GameContext2D context) {
+      context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
       this.context  = context;
       ui = new TerminalUI(commands);
@@ -74,7 +74,7 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
    }
 
    @Override
-   protected Viewport getViewport(int width, int height, Camera camera) {
+   public Viewport getViewport(int width, int height, Camera camera) {
       return new ExtendViewport(width, height, camera);
    }
 
@@ -125,14 +125,14 @@ public class IntroScreen extends AbstractScreen<ScapeGame> {
       }
    }
 
-   private void setupInput(GameContext context) {
+   private void setupInput(GameContext2D context) {
       GestureDetector gestureDetector = new GestureDetector(new IntroMobileInputAdapter(this));
       context.getInputManager().register(gestureDetector);
       context.getInputManager().register(new IntroKeyboardInputAdapter(this));
       context.getInputManager().register(new IntroControllerInputAdapter(this));
    }
 
-   private void setupShaders(GameContext context) {
+   private void setupShaders(GameContext2D context) {
       bloom = context.getShaderManager().createBloomEffect();
       bloom.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       zoomer = context.getShaderManager().createZoomerEffect();

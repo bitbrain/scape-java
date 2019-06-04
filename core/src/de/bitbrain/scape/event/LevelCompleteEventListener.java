@@ -1,35 +1,22 @@
 package de.bitbrain.scape.event;
 
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquations;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector3;
-import de.bitbrain.braingdx.GameContext;
+import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.tweens.GameCameraTween;
-import de.bitbrain.braingdx.tweens.GameObjectTween;
-import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
-import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.StageCompleteScreen;
-import de.bitbrain.scape.screens.StageSelectionScreen;
 
 import java.util.List;
 
-import static de.bitbrain.braingdx.world.GameObjectUtils.distanceBetween;
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
 
    private final ScapeGame game;
-   private final GameContext context;
+   private final GameContext2D context;
    private final PlayerProgress progress;
    private final List<GameObject> powerCells;
    private final GameObject player;
@@ -39,7 +26,7 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
    public LevelCompleteEventListener(
          ScapeGame game,
          IngameScreen screen,
-         GameContext context,
+         GameContext2D context,
          PlayerProgress progress,
          List<GameObject> powerCells,
          GameObject player,
