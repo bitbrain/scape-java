@@ -1,6 +1,7 @@
 package de.bitbrain.scape.screens;
 
-import aurelienribon.tweenengine.*;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -27,7 +28,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffec
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
-import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
@@ -52,8 +53,8 @@ import de.bitbrain.scape.input.ingame.IngameMobileInputAdapter;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.movement.*;
 import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.ui.ingame.PointsLabel;
 import de.bitbrain.scape.ui.ingame.IngameLevelDescriptionUI;
+import de.bitbrain.scape.ui.ingame.PointsLabel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -91,6 +92,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    private long startTime = 0;
 
    private Set<GameObject> bytes = new HashSet<GameObject>();
+   private TiledMapContext tiledMapContext;
 
    public IngameScreen(ScapeGame game, LevelMetaData levelMetaData) {
       super(game);
@@ -102,14 +104,14 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
       context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       progress = new PlayerProgress(levelMetaData);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
-      context.getTiledMapManager().getAPI().setEventFactory(new ScopeEventFactory());
-      context.getTiledMapManager().getAPI().setDebug(false);
 
-      context.getTiledMapManager().load(
+      this.tiledMapContext = context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(levelMetaData.getPath(), TiledMap.class),
             context.getGameCamera().getInternalCamera(),
             TiledMapType.ORTHOGONAL
       );
+      tiledMapContext.setEventFactory(new ScopeEventFactory());
+      tiledMapContext.setDebug(true);
 
       setupWorld(context);
       setupUI(context);
@@ -165,7 +167,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
          levelScroller.reset();
          movement.reset();
          descriptionUI.show(1f);
-         PlayerAdjustment.adjust(player, context);
+         PlayerAdjustment.adjust(player, tiledMapContext);
          movement.setEnabled(false);
          anyKeyPressedToStartlevel = false;
          Tween.to(descriptionUI, ActorTween.ALPHA, 0.6f)
@@ -292,14 +294,14 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private void setupWorld(GameContext2D context) {
       this.context = context;
-      levelScroller = new LevelScrollingBounds(context.getTiledMapManager().getAPI(), context.getGameCamera());
+      levelScroller = new LevelScrollingBounds(tiledMapContext, context.getGameCamera());
       context.getGameWorld().setBounds(levelScroller);
 
       for (GameObject o : context.getGameWorld().getObjects()) {
          if (CharacterType.PLAYER.name().equals(o.getType())) {
             o.setDimensions(8f, 8f);
-            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
-            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            float correctX = (float) (Math.floor(o.getLeft() / tiledMapContext.getCellWidth()) * tiledMapContext.getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / tiledMapContext.getCellHeight()) * tiledMapContext.getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
             context.getGameCamera().setDefaultZoomFactor(getCameraZoom());
@@ -318,8 +320,8 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
          if (CharacterType.BYTE.name().equals(o.getType())) {
             o.setDimensions(8f, 8f);
             context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
-            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
-            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            float correctX = (float) (Math.floor(o.getLeft() / tiledMapContext.getCellWidth()) * tiledMapContext.getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / tiledMapContext.getCellHeight()) * tiledMapContext.getCellHeight());
             o.setPosition(correctX, correctY);
             o.setOrigin(4f, 4f);
             // Create a copy to not interfere with object pooling!
@@ -328,8 +330,8 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
          }
          if (CharacterType.POWERCELL.name().equals(o.getType())) {
             o.setDimensions(16f, 16f);
-            float correctX = (float) (Math.floor(o.getLeft() / context.getTiledMapManager().getAPI().getCellWidth()) * context.getTiledMapManager().getAPI().getCellWidth());
-            float correctY = (float) (Math.floor(o.getTop() / context.getTiledMapManager().getAPI().getCellHeight()) * context.getTiledMapManager().getAPI().getCellHeight());
+            float correctX = (float) (Math.floor(o.getLeft() / tiledMapContext.getCellWidth()) * tiledMapContext.getCellWidth());
+            float correctY = (float) (Math.floor(o.getTop() / tiledMapContext.getCellHeight()) * tiledMapContext.getCellHeight());
             o.setPosition(correctX, correctY);
             o.setOrigin(8f, 8f);
             context.getBehaviorManager().apply(new PowerCellMovement(), o);
@@ -368,23 +370,23 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private float getCameraZoom() {
       if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
-         return 350000f * (1f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+         return 350000f * (1f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
       }
       if (Gdx.graphics.getWidth() < 1300) {
-         return 5400f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+         return 5400f * (20f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
       }
-      return 9800f * (20f/(Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
+      return 9800f * (20f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupPlayer(GameContext2D context) {
-      CollisionDetector collisionDetector = new CollisionDetector(context);
+      CollisionDetector collisionDetector = new CollisionDetector(tiledMapContext);
       movement = new PlayerMovement(collisionDetector);
       context.getBehaviorManager().apply(movement, player);
       player.setAttribute(Movement.class, movement);
       player.setAttribute(Orientation.class, Orientation.RIGHT);
       player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
       context.getBehaviorManager().apply(new PlayerParticleSpawner(context.getParticleManager(), movement), player);
-      PlayerAdjustment.adjust(player, context);
+      PlayerAdjustment.adjust(player, tiledMapContext);
       PlayerControls controls = new PlayerControls(movement, context);
       setupInput(context, controls);
       context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 140f, context.getLightingManager()), player);

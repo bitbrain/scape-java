@@ -2,7 +2,7 @@ package de.bitbrain.scape.movement;
 
 import aurelienribon.tweenengine.Tween;
 import de.bitbrain.braingdx.context.GameContext2D;
-import de.bitbrain.braingdx.tmx.TiledMapAPI;
+import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
@@ -12,7 +12,7 @@ import static de.bitbrain.braingdx.tmx.IndexCalculator.calculateIndex;
 
 public class PlayerAdjustment {
 
-   public static void adjust(GameObject player, GameContext2D context) {
+   public static void adjust(GameObject player, TiledMapContext context) {
       float targetScaleY = getTargetScale(player, context);
       SharedTweenManager.getInstance().killTarget(player, GameObjectTween.SCALE);
       SharedTweenManager.getInstance().killTarget(player, GameObjectTween.SCALE_X);
@@ -26,31 +26,29 @@ public class PlayerAdjustment {
             .start(SharedTweenManager.getInstance());
    }
 
-   private static float getTargetScale(GameObject player, GameContext2D context) {
-      TiledMapAPI api = context.getTiledMapManager().getAPI();
-
+   private static float getTargetScale(GameObject player, TiledMapContext context) {
       int indexX = (int) (calculateIndex(
-            player.getLeft(), api.getCellWidth()) * api.getCellWidth());
+            player.getLeft(), context.getCellWidth()) * context.getCellWidth());
 
       player.setAttribute(Direction.class, Direction.UP);
 
       player.setPosition(
             indexX,
             calculateIndex(
-                  player.getTop(), api.getCellHeight()) * api.getCellHeight());
+                  player.getTop(), context.getCellHeight()) * context.getCellHeight());
 
       int count = 0;
-      for (int indexY = calculateIndex(player.getTop(), api.getCellWidth());
+      for (int indexY = calculateIndex(player.getTop(), context.getCellWidth());
            indexY >= 0; indexY--) {
          count--;
-         if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
+         if (context.isExclusiveCollision(indexX, indexY, context.layerIndexOf(player), player)) {
             break;
          }
       }
-      for (int indexY = calculateIndex(player.getTop(), api.getCellWidth());
-           indexY < api.getNumberOfRows(); indexY++) {
+      for (int indexY = calculateIndex(player.getTop(), context.getCellWidth());
+           indexY < context.getNumberOfRows(); indexY++) {
          count++;
-         if (api.isExclusiveCollision(indexX, indexY, api.layerIndexOf(player), player)) {
+         if (context.isExclusiveCollision(indexX, indexY, context.layerIndexOf(player), player)) {
             break;
          }
       }

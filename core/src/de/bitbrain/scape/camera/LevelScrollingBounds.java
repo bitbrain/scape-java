@@ -1,8 +1,7 @@
 package de.bitbrain.scape.camera;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import de.bitbrain.braingdx.graphics.GameCamera;
-import de.bitbrain.braingdx.tmx.TiledMapAPI;
+import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
 import de.bitbrain.scape.GameConfig;
@@ -10,11 +9,11 @@ import de.bitbrain.scape.GameConfig;
 public class LevelScrollingBounds implements GameWorld.WorldBounds {
 
    private float levelProgress;
-   private TiledMapAPI tiledMapAPI;
+   private TiledMapContext context;
    private final GameCamera gameCamera;
 
-   public LevelScrollingBounds(TiledMapAPI api, GameCamera gameCamera) {
-      this.tiledMapAPI = api;
+   public LevelScrollingBounds(TiledMapContext context, GameCamera gameCamera) {
+      this.context = context;
       this.gameCamera = gameCamera;
    }
 
@@ -47,15 +46,15 @@ public class LevelScrollingBounds implements GameWorld.WorldBounds {
 
    @Override
    public float getWorldWidth() {
-      return tiledMapAPI.getWorldWidth() - getLevelProgress();
+      return context.getWorldWidth() - getLevelProgress();
    }
 
    @Override
    public float getWorldHeight() {
-      return tiledMapAPI.getWorldHeight();
+      return context.getWorldHeight();
    }
 
    private float getLevelProgress() {
-      return Math.min(levelProgress, tiledMapAPI.getWorldWidth());
+      return Math.min(levelProgress, context.getWorldWidth());
    }
 }

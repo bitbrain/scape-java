@@ -1,24 +1,22 @@
 package de.bitbrain.scape.movement;
 
 import com.badlogic.gdx.math.Vector2;
-import de.bitbrain.braingdx.context.GameContext2D;
-import de.bitbrain.braingdx.tmx.TiledMapAPI;
+import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.world.GameObject;
 
 public class CollisionDetector {
 
-   private final GameContext2D context;
+   private final TiledMapContext context;
 
-   public CollisionDetector(GameContext2D context) {
+   public CollisionDetector(TiledMapContext context) {
       this.context = context;
    }
 
    public Vector2 getCollisionAbove(GameObject object) {
-      TiledMapAPI api = context.getTiledMapManager().getAPI();
-      boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
-      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
+      boolean collisionBottomLeft = context.isExclusiveCollision(object.getLeft(), object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionBottomRight = context.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionTopLeft = context.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
+      boolean collisionTopRight = context.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionTopRight) {
          return null;
       }
@@ -26,18 +24,17 @@ public class CollisionDetector {
          return null;
       }
       if (collisionTopLeft || collisionTopRight) {
-         float correction = (float)Math.floor((object.getTop())/ api.getCellHeight()) * api.getCellHeight();
+         float correction = (float)Math.floor((object.getTop())/ context.getCellHeight()) * context.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
       return null;
    }
 
    public Vector2 getCollisionBelow(GameObject object) {
-      TiledMapAPI api = context.getTiledMapManager().getAPI();
-      boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
-      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
+      boolean collisionBottomLeft = context.isExclusiveCollision(object.getLeft(), object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionBottomRight = context.isExclusiveCollision(object.getLeft() + object.getWidth() - object.getWidth() / 2f, object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionTopLeft = context.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
+      boolean collisionTopRight = context.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
       if (collisionBottomLeft && collisionTopLeft && !collisionBottomRight) {
          return null;
       }
@@ -45,18 +42,17 @@ public class CollisionDetector {
          return null;
       }
       if (collisionBottomLeft || collisionBottomRight) {
-         float correction = (float)Math.floor((object.getTop() + object.getHeight())/ api.getCellHeight()) * api.getCellHeight();
+         float correction = (float)Math.floor((object.getTop() + object.getHeight())/ context.getCellHeight()) * context.getCellHeight();
          return new Vector2(object.getLeft(), correction);
       }
       return null;
    }
 
    public Vector2 getCollisionInFront(GameObject object) {
-      TiledMapAPI api = context.getTiledMapManager().getAPI();
-      boolean collisionBottomLeft = api.isExclusiveCollision(object.getLeft(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionTopLeft = api.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
-      boolean collisionBottomRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), api.layerIndexOf(object), object);
-      boolean collisionTopRight = api.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), api.layerIndexOf(object), object);
+      boolean collisionBottomLeft = context.isExclusiveCollision(object.getLeft(), object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionTopLeft = context.isExclusiveCollision(object.getLeft(), object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
+      boolean collisionBottomRight = context.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop(), context.layerIndexOf(object), object);
+      boolean collisionTopRight = context.isExclusiveCollision(object.getLeft() + object.getWidth(), object.getTop() + object.getHeight(), context.layerIndexOf(object), object);
       if (collisionTopRight && collisionTopLeft && !collisionBottomRight) {
          return null;
       }
@@ -65,7 +61,7 @@ public class CollisionDetector {
       }
 
       if (collisionBottomRight || collisionTopRight) {
-         float correction = (float)Math.floor((object.getLeft())/ api.getCellWidth()) * api.getCellWidth();
+         float correction = (float)Math.floor((object.getLeft())/ context.getCellWidth()) * context.getCellWidth();
          if (correction < object.getLastPosition().x && (getCollisionBelow(object) == null || getCollisionAbove(object) == null)) {
             return null;
          }
