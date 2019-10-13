@@ -1,14 +1,11 @@
 package de.bitbrain.scape.movement;
 
 import aurelienribon.tweenengine.Tween;
-import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.model.Direction;
-
-import static de.bitbrain.braingdx.tmx.IndexCalculator.calculateIndex;
 
 public class PlayerAdjustment {
 
@@ -27,25 +24,24 @@ public class PlayerAdjustment {
    }
 
    private static float getTargetScale(GameObject player, TiledMapContext context) {
-      int indexX = (int) (calculateIndex(
-            player.getLeft(), context.getCellWidth()) * context.getCellWidth());
+      int indexX = (int) (context.getPositionTranslator().toIndexX(player.getLeft()) * context.getCellWidth());
 
       player.setAttribute(Direction.class, Direction.UP);
 
       player.setPosition(
             indexX,
-            calculateIndex(
-                  player.getTop(), context.getCellHeight()) * context.getCellHeight());
+            context.getPositionTranslator().toIndexY(
+                  player.getTop()) * context.getCellHeight());
 
       int count = 0;
-      for (int indexY = calculateIndex(player.getTop(), context.getCellWidth());
+      for (int indexY = context.getPositionTranslator().toIndexY(player.getTop());
            indexY >= 0; indexY--) {
          count--;
          if (context.isExclusiveCollision(indexX, indexY, context.layerIndexOf(player), player)) {
             break;
          }
       }
-      for (int indexY = calculateIndex(player.getTop(), context.getCellWidth());
+      for (int indexY = context.getPositionTranslator().toIndexY(player.getTop());
            indexY < context.getNumberOfRows(); indexY++) {
          count++;
          if (context.isExclusiveCollision(indexX, indexY, context.layerIndexOf(player), player)) {

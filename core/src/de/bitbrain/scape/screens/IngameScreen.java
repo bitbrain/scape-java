@@ -29,7 +29,6 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.tmx.TiledMapContext;
-import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -107,11 +106,9 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
       this.tiledMapContext = context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(levelMetaData.getPath(), TiledMap.class),
-            context.getGameCamera().getInternalCamera(),
-            TiledMapType.ORTHOGONAL
+            context.getGameCamera().getInternalCamera()
       );
       tiledMapContext.setEventFactory(new ScopeEventFactory());
-      tiledMapContext.setDebug(true);
 
       setupWorld(context);
       setupUI(context);
@@ -168,7 +165,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
          movement.reset();
          descriptionUI.show(1f);
          PlayerAdjustment.adjust(player, tiledMapContext);
-         movement.setEnabled(false);
+         context.setPaused(true);
          anyKeyPressedToStartlevel = false;
          Tween.to(descriptionUI, ActorTween.ALPHA, 0.6f)
                .target(1f)
@@ -179,6 +176,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    public void startLevel() {
       if (!anyKeyPressedToStartlevel) {
          anyKeyPressedToStartlevel = true;
+         context.setPaused(false);
          descriptionUI.hide(1f);
          Tween.to(descriptionUI, ActorTween.ALPHA, 0.5f).delay(0.2f)
                .target(0f)

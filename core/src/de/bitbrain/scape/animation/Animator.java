@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenEquations;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
+import de.bitbrain.braingdx.tweens.PointLight2DTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
@@ -34,7 +35,13 @@ public class Animator {
 
    public static void animateByte(GameContext2D context, GameObject o) {
       context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
-      context.getBehaviorManager().apply(new PointLightBehavior(Colors.PRIMARY_RED, 16f, context.getLightingManager()), o);
+      PointLightBehavior pointLightBehavior = new PointLightBehavior(Colors.PRIMARY_RED, 16f, context.getLightingManager());
+      Tween.to(pointLightBehavior.getLight(), PointLight2DTween.DISTANCE, 2f)
+            .target(30f)
+            .repeatYoyo(Tween.INFINITY, 0f)
+            .start(SharedTweenManager.getInstance());
+
+      context.getBehaviorManager().apply(pointLightBehavior, o);
       float delay = (float) Math.random() * 2f;
       Tween.to(o, GameObjectTween.SCALE, 0.5f)
             .delay(delay)

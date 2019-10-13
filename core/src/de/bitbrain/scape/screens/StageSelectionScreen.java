@@ -30,7 +30,6 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
-import de.bitbrain.braingdx.tmx.TiledMapType;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
@@ -94,8 +93,7 @@ public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(
             SharedAssetManager.getInstance().get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),
-            context.getGameCamera().getInternalCamera(),
-            TiledMapType.ORTHOGONAL
+            context.getGameCamera().getInternalCamera()
       );
       this.progress = new PlayerProgress(null);
       stageManager = new StageManager(context);
