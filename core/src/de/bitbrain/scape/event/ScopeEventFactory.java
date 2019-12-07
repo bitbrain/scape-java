@@ -1,6 +1,5 @@
 package de.bitbrain.scape.event;
 
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.braingdx.event.GameEvent;
 import de.bitbrain.braingdx.event.GameEventFactory;
@@ -14,12 +13,11 @@ public class ScopeEventFactory implements GameEventFactory {
          return new GameOverEvent();
       }
       if (eventObject.getType().equals("POWERCELL")) {
-         MapProperties properties = (MapProperties)eventObject.getAttribute(MapProperties.class);
          Vector2 position = new Vector2(
                eventObject.getLeft() + eventObject.getWidth() / 2f,
                eventObject.getTop() + eventObject.getHeight() / 2f
          );
-         return new LevelCompleteEvent((String)properties.get("next"), position);
+         return new LevelCompleteEvent(eventObject.getAttribute("next", String.class), position);
       }
       if (eventObject.getType().equals("BYTE")) {
          return new ByteCollectedEvent(eventObject);

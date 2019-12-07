@@ -91,7 +91,7 @@ public class LevelOverviewUI extends Table {
       for (ParticleEmitter emitter :normalParticleEffect.getEmitters()) {
          normalParticleCounts.put(emitter, emitter.getMaxParticleCount());
       }
-      lightingManager.addPointLight(UUID.randomUUID().toString(), reference.getLeft(), reference.getTop(), 12f, Color.WHITE);
+      lightingManager.createPointLight(reference.getLeft(), reference.getTop(), 12f, Color.WHITE);
 
       labelRandomizer = new StringRandomizer(label.getText().toString(), MASK);
       descriptionRandomizer = new StringRandomizer(description.getText().toString(), MASK);

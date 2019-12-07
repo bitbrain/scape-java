@@ -62,14 +62,14 @@ public class StageManager {
       selector.setPosition(currentlySelected.getLeft(), currentlySelected.getTop());
       final GameCamera camera = context.getGameCamera();
       camera.setTrackingTarget(selector, true);
-      final PointLight bgLight = context.getLightingManager().addPointLight("asdf-bg", camera.getPosition().x, camera.getPosition().y, 40f, Colors.PRIMARY_RED);
-      final PointLight light = context.getLightingManager().addPointLight("asdf", camera.getPosition().x, camera.getPosition().y, 120f, Color.WHITE);
+      final PointLight bgLight = context.getLightingManager().createPointLight(camera.getPosition().x, camera.getPosition().y, 40f, Colors.PRIMARY_RED);
+      final PointLight light = context.getLightingManager().createPointLight(camera.getPosition().x, camera.getPosition().y, 120f, Color.WHITE);
       context.getBehaviorManager().apply(new BehaviorAdapter() {
          @Override
          public void onDetach(GameObject source) {
             super.onDetach(source);
-            context.getLightingManager().removePointLight("asdf-bg");
-            context.getLightingManager().removePointLight("asdf");
+            context.getLightingManager().destroyLight(bgLight);
+            context.getLightingManager().destroyLight(light);
          }
 
          @Override
@@ -151,13 +151,12 @@ public class StageManager {
       int levelNumber = 1;
       for (GameObject o : levelsHorizontallyOrdered) {
          if ("LEVEL".equals(o.getType())) {
-            MapProperties properties = (MapProperties)o.getAttribute(MapProperties.class);
-            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(levelNumber++, properties);
+            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(levelNumber++, o);
             PlayerProgress progress = new PlayerProgress(metadata);
             if (progress.getMaximumLevel() < metadata.getLevelNumber()) {
                break;
             }
-            String tooltipAlignment = properties.get("tooltip", "left", String.class);
+            String tooltipAlignment = o.getAttribute("tooltip", "left");
             LevelOverviewUI levelUI = new LevelOverviewUI(
                   context.getLightingManager(),
                   context.getParticleManager(),

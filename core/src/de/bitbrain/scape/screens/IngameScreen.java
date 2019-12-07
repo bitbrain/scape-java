@@ -22,7 +22,6 @@ import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
-import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -387,7 +386,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
       PlayerAdjustment.adjust(player, tiledMapContext);
       PlayerControls controls = new PlayerControls(movement, context);
       setupInput(context, controls);
-      context.getBehaviorManager().apply(new PointLightBehavior(Color.WHITE, 140f, context.getLightingManager()), player);
+      context.getLightingManager().attach(context.getLightingManager().createPointLight(140f, Color.WHITE), player);
    }
 
    private void setupInput(GameContext2D context, PlayerControls playerControls) {

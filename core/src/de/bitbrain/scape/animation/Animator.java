@@ -2,9 +2,8 @@ package de.bitbrain.scape.animation;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
-
+import box2dLight.Light;
 import de.bitbrain.braingdx.context.GameContext2D;
-import de.bitbrain.braingdx.graphics.lighting.PointLightBehavior;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.PointLight2DTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -19,7 +18,7 @@ public class Animator {
 
    public static void animatePowercell(GameContext2D context, GameObject o) {
       context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 8f, 8f);
-      context.getBehaviorManager().apply(new PointLightBehavior(Colors.PRIMARY_RED, 140f, context.getLightingManager()), o);
+      context.getLightingManager().attach(context.getLightingManager().createPointLight(140f, Colors.PRIMARY_RED), o);
       Tween.to(o, GameObjectTween.SCALE, 0.5f)
             .target(1.3f)
             .ease(TweenEquations.easeInQuad)
@@ -35,13 +34,14 @@ public class Animator {
 
    public static void animateByte(GameContext2D context, GameObject o) {
       context.getParticleManager().attachEffect(Assets.Particles.BYTE, o, 4f, 4f);
-      PointLightBehavior pointLightBehavior = new PointLightBehavior(Colors.PRIMARY_RED, 16f, context.getLightingManager());
-      Tween.to(pointLightBehavior.getLight(), PointLight2DTween.DISTANCE, 2f)
+      Light light = context.getLightingManager().createPointLight(16f, Colors.PRIMARY_RED);
+      context.getLightingManager().attach(light, o);
+
+      Tween.to(light, PointLight2DTween.DISTANCE, 2f)
             .target(30f)
             .repeatYoyo(Tween.INFINITY, 0f)
             .start(SharedTweenManager.getInstance());
 
-      context.getBehaviorManager().apply(pointLightBehavior, o);
       float delay = (float) Math.random() * 2f;
       Tween.to(o, GameObjectTween.SCALE, 0.5f)
             .delay(delay)
@@ -57,7 +57,6 @@ public class Animator {
             .repeatYoyo(Tween.INFINITY, 0)
             .start(context.getTweenManager());
    }
-
 
 
    public static void animateJumping(final GameObject o) {
