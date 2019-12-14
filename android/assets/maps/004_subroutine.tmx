@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="160" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="143">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="160" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="143">
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="129" source="tileset-horizontal.tsx"/>
  <tileset firstgid="321" source="tileset-virus.tsx"/>
@@ -8,7 +7,7 @@
  <tileset firstgid="537" source="tileset-block.tsx"/>
  <layer id="3" name="base" width="160" height="60">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
@@ -23,7 +22,6 @@
   </object>
   <object id="88" name="game_over_event" type="game_over_event" x="-9.377" y="12.083" width="598.254" height="85.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -51,7 +49,6 @@
   </object>
   <object id="109" name="game_over_event" type="game_over_event" x="-3.2105" y="283.583" width="584.921" height="85.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -107,7 +104,6 @@
   </object>
   <object id="117" name="game_over_event" type="game_over_event" x="338.789" y="259.583" width="81.421" height="24.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -121,7 +117,6 @@
   </object>
   <object id="119" name="game_over_event" type="game_over_event" x="421.789" y="220.083" width="116.421" height="66.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -163,21 +158,18 @@
   </object>
   <object id="125" name="game_over_event" type="game_over_event" x="501.289" y="98.0832" width="92.421" height="66.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="126" name="game_over_event" type="game_over_event" x="592.789" y="112.083" width="128.921" height="68.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="127" name="game_over_event" type="game_over_event" x="582.039" y="344.083" width="133.421" height="68.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -205,21 +197,18 @@
   </object>
   <object id="133" name="game_over_event" type="game_over_event" x="719.539" y="176.583" width="226.921" height="68.8337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="135" name="game_over_event" type="game_over_event" x="715.039" y="359.583" width="360.921" height="69.3337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="136" name="game_over_event" type="game_over_event" x="1022.71" y="151.833" width="71.7543" height="213.834">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
@@ -247,21 +236,18 @@
   </object>
   <object id="140" name="game_over_event" type="game_over_event" x="916.206" y="-13.3335" width="316.921" height="69.3337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="141" name="game_over_event" type="game_over_event" x="1095.54" y="174" width="135.588" height="69.3337">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
   <object id="142" name="game_over_event" type="game_over_event" x="1210.87" y="56.6665" width="38.9213" height="118.667">
    <properties>
-    <property name="collision" value="false"/>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
