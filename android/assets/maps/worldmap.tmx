@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="24">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="48" height="16" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="28">
  <tileset firstgid="1" source="tileset-virus.tsx"/>
  <tileset firstgid="97" source="tileset-horizontal.tsx"/>
  <tileset firstgid="289" source="tileset-vertical.tsx"/>
@@ -9,7 +8,7 @@
  <tileset firstgid="601" source="worldmap.tsx"/>
  <layer id="12" name="base" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eJztks0KQEAURqd5Swr5z//axsqKlcIKz+pTFqOEbFx1T53u4m7OTFcIhmEYhrnGlUJ48uuK9yRoT3/cr6G9gjqxNxjoMaF10xXJ46SCj54AhhddnaTbn6Enh4XStd1KrLjdjbPvbcwGtsq+3udXlCe9PRzgSOy/nzKhe4YL4f4VnMAUbw==
+   eAHtlMsKwkAMRQf/UkHFN77RnS7cuNOVoK7Ub/UEGghh6K52ihO43DyGciYMDSFH3kDewL9vYNcKYWG0J29SzB2vr1O/i+f1dQr8I3Y8dntWrrPr+1rP1elLGFeOU3lS3LeyqbdhP6FO5A518nfh6aF+hEvZxZVRPTazvV/lE7inaFbCf2Om3OqWL9az8yrzNWwbtDX88lbs/1zezbCYD/ALuiI9cyxmVXKWfftgWIRJeO/ogZ6oifGC+40+CfN/AadkGoY=
   </data>
  </layer>
  <objectgroup id="7" name="levels">
@@ -40,30 +39,66 @@
    </properties>
    <point/>
   </object>
-  <object id="21" name="Subroutine" type="LEVEL" x="99.0914" y="84.392">
+  <object id="21" name="Subroutine" type="LEVEL" x="179.66" y="44.5625">
    <properties>
     <property name="description" value="level.subroutine.description"/>
     <property name="name" value="level.subroutine.name"/>
-    <property name="path" value="maps/004_subroutine.tmx"/>
+    <property name="path" value="maps/009_subroutine.tmx"/>
     <property name="tooltip" value="left"/>
    </properties>
    <point/>
   </object>
-  <object id="22" name="Northbridge" type="LEVEL" x="123.125" y="108.477">
+  <object id="22" name="L2 Queue" type="LEVEL" x="147.205" y="68.7043">
    <properties>
-    <property name="description" value="level.northbridge.description"/>
-    <property name="name" value="level.northbridge.name"/>
-    <property name="path" value="maps/005_northbridge.tmx"/>
+    <property name="description" value="level.l2queue.description"/>
+    <property name="name" value="level.l2queue.name"/>
+    <property name="path" value="maps/007_l2queue.tmx"/>
     <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
   </object>
-  <object id="23" name="Security Controller" type="LEVEL" x="147.194" y="108.33">
+  <object id="23" name="Security Controller" type="LEVEL" x="179.274" y="69.08">
    <properties>
     <property name="description" value="level.securitycontroller.description"/>
     <property name="name" value="level.securitycontroller.name"/>
-    <property name="path" value="maps/006_securitycontroller.tmx"/>
+    <property name="path" value="maps/010_securitycontroller.tmx"/>
     <property name="tooltip" value="bottom"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="24" name="Threadpool" type="LEVEL" x="99.3636" y="71.4545">
+   <properties>
+    <property name="description" value="level.threadpool.description"/>
+    <property name="name" value="level.threadpool.name"/>
+    <property name="path" value="maps/004_threadpool.tmx"/>
+    <property name="tooltip" value="right"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="25" name="Cache Array" type="LEVEL" x="123.625" y="108.25">
+   <properties>
+    <property name="description" value="level.cachearray.description"/>
+    <property name="name" value="level.cachearray.name"/>
+    <property name="path" value="maps/005_cachearray.tmx"/>
+    <property name="tooltip" value="right"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="26" name="RISC Unit" type="LEVEL" x="147.386" y="44.6705">
+   <properties>
+    <property name="description" value="level.riscunit.description"/>
+    <property name="name" value="level.riscunit.name"/>
+    <property name="path" value="maps/008_riscunit.tmx"/>
+    <property name="tooltip" value="topRight"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="27" name="Northbridge" type="LEVEL" x="147.273" y="108.455">
+   <properties>
+    <property name="description" value="level.northbridge.description"/>
+    <property name="name" value="level.northbridge.name"/>
+    <property name="path" value="maps/006_northbridge.tmx"/>
+    <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
   </object>

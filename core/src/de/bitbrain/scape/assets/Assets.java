@@ -17,12 +17,16 @@ public interface Assets {
 
    interface TiledMaps {
       String WORLD_MAP = "maps/worldmap.tmx";
-      String LEVEL_1 = "maps/001_databus.tmx";
-      String LEVEL_2 = "maps/002_kernelio.tmx";
-      String LEVEL_3 = "maps/003_ram.tmx";
-      String LEVEL_4 = "maps/004_subroutine.tmx";
-      String LEVEL_5 = "maps/005_northbridge.tmx";
-      String LEVEL_6 = "maps/006_securitycontroller.tmx";
+      String LEVEL_01 = "maps/001_databus.tmx";
+      String LEVEL_02 = "maps/002_kernelio.tmx";
+      String LEVEL_03 = "maps/003_ram.tmx";
+      String LEVEL_04 = "maps/004_threadpool.tmx";
+      String LEVEL_05 = "maps/005_cachearray.tmx";
+      String LEVEL_06 = "maps/006_northbridge.tmx";
+      String LEVEL_07 = "maps/007_l2queue.tmx";
+      String LEVEL_08 = "maps/008_riscunit.tmx";
+      String LEVEL_09 = "maps/009_subroutine.tmx";
+      String LEVEL_10 = "maps/010_securitycontroller.tmx";
    }
 
    interface Particles {
