@@ -145,13 +145,12 @@ public class StageManager {
       List<GameObject> levelsHorizontallyOrdered = context.getGameWorld().getObjects(new Comparator<GameObject>() {
          @Override
          public int compare(GameObject o1, GameObject o2) {
-            return (int) (o1.getLeft() - o2.getLeft());
+            return (o1.getAttribute("order", 0) - o2.getAttribute("order", 0));
          }
       });
-      int levelNumber = 1;
       for (GameObject o : levelsHorizontallyOrdered) {
          if ("LEVEL".equals(o.getType())) {
-            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(levelNumber++, o);
+            LevelMetaData metadata = metaDataLoader.loadFromWorldMapProperties(o.getAttribute("order", Integer.class), o);
             PlayerProgress progress = new PlayerProgress(metadata);
             if (progress.getMaximumLevel() < metadata.getLevelNumber()) {
                break;
