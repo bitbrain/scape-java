@@ -3,12 +3,12 @@
  <tileset firstgid="1" source="tileset-virus.tsx"/>
  <tileset firstgid="97" source="tileset-horizontal.tsx"/>
  <tileset firstgid="289" source="tileset-vertical.tsx"/>
- <tileset firstgid="417" source="tileset-misc.tsx"/>
- <tileset firstgid="537" source="tileset-misc-large.tsx"/>
- <tileset firstgid="601" source="worldmap.tsx"/>
+ <tileset firstgid="499" source="tileset-misc.tsx"/>
+ <tileset firstgid="619" source="tileset-misc-large.tsx"/>
+ <tileset firstgid="683" source="worldmap.tsx"/>
  <layer id="12" name="base" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eAHtlMsKwkAMRQf/UkHFN77RnS7cuNOVoK7Ub/UEGghh6K52ihO43DyGciYMDSFH3kDewL9vYNcKYWG0J29SzB2vr1O/i+f1dQr8I3Y8dntWrrPr+1rP1elLGFeOU3lS3LeyqbdhP6FO5A518nfh6aF+hEvZxZVRPTazvV/lE7inaFbCf2Om3OqWL9az8yrzNWwbtDX88lbs/1zezbCYD/ALuiI9cyxmVXKWfftgWIRJeO/ogZ6oifGC+40+CfN/AadkGoY=
+   eAHtlMsKwkAMRQf//08UVHzjG93pwo07XQnqSv0ET6CBEIbuaqc4gcvNYyhnwtAQcuQN5A38+wZ2rRAWRnvyJsXc8fo69bt4Xl+nwD9ix2O3Z+U6u76v9VydvoRx5TiVJ8V9K5t6G/YT6kTuUCd/F54e6ke4lF1cGdVjM9v7VT6Be4pmJfw3ZsqtbvliPTuvMl/DtkFbwy9vxf7P5d0Mi/kAv6Ar0jPHYlYlZ9m3D4ZFmIT3jh7oiZoYL7jf6JMw/xeBIS1s
   </data>
  </layer>
  <objectgroup id="7" name="levels">
