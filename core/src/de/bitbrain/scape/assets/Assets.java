@@ -54,4 +54,8 @@ public interface Assets {
       String SELECT = "sounds/select.ogg";
       String SUBMIT = "sounds/submit.ogg";
    }
+
+   interface Musics {
+      String INTRO = "music/scape-intro.ogg";
+   }
 }

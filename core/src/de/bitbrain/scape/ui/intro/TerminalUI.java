@@ -1,5 +1,6 @@
 package de.bitbrain.scape.ui.intro;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -42,7 +43,8 @@ public class TerminalUI extends Table {
       terminal = new Label(CURSOR, style);
       terminal.setWrap(true);
       setFillParent(true);
-      left().top().padLeft(10f).padTop(20f).add(terminal);
+      add(terminal);
+      add(new Label("                                                ", style));
    }
 
    public TerminalUI(List<String> commands) {
@@ -82,9 +84,9 @@ public class TerminalUI extends Table {
          if (!nextLineTriggered && cursorPosition < commands.get(0).length()) {
             text = commands.get(0).substring(0, ++cursorPosition);
             if (!text.equals("\n")) {
-               if (soundTimer.reached(0.05f)) {
+               if (soundTimer.reached(0.06f)) {
                   soundTimer.reset();
-                  SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.05f);
+                  SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.005f);
                }
             }
          } else if (lineTimer.reached(randomLineInterval)) {

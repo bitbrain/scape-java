@@ -10,15 +10,25 @@ EVIL CORP. SYSTEMS, 1984-2003 ALL RIGHTS RESERVED.
 VERSION 1.1
 
 robot@cluster.ecorp.com> ./load-scape.sh
-Downloading VIRUS.PK...
-Downloading CORRUPT.PK...
-Downloading SCAPE.EXE...
+Downloading VIRUS.PK...   ####################### 100% DONE.
+Downloading CORRUPT.PK... ####################### 100% DONE.
+Downloading SCAPE.EXE...  ####################### 100% DONE.
 All attack sectors loaded!
 Preparing corruption of main frame...
+10%
 20%
+30%
 40%
+50%
 60%
+70%
 80%
+85%
+89%
+92%
+94%
+98%
+99%
 100%
 COMPLETE!
 

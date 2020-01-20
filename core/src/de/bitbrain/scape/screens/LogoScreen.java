@@ -77,7 +77,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
          public void onEvent(int i, BaseTween<?> baseTween) {
             if (!exiting) {
                AbstractScreen<?, ?> nextScreen = progress.isNewGame()
-                     ? new MainMenuScreen(getGame())
+                     ? new IntroScreen(getGame())
                      : new MainMenuScreen(getGame());
                context.getScreenTransitions().out(nextScreen, 2f);
             }

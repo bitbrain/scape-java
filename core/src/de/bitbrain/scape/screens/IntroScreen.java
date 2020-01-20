@@ -3,11 +3,15 @@ package de.bitbrain.scape.screens;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -21,6 +25,7 @@ import de.bitbrain.braingdx.util.Mutator;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
 import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
 import de.bitbrain.scape.input.intro.IntroMobileInputAdapter;
@@ -55,6 +60,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
+      SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).play();
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
       this.context  = context;
@@ -75,11 +81,12 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    public Viewport getViewport(int width, int height, Camera camera) {
-      return new ExtendViewport(width, height, camera);
+      return new ScreenViewport();
    }
 
    public void exit() {
       if (!exiting) {
+         SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).stop();
          exiting = true;
          context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 1f);
       }
