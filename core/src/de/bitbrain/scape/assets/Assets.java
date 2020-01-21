@@ -57,6 +57,7 @@ public interface Assets {
    }
 
    interface Musics {
+      String BITBRAIN = "music/bitbrain-intro.ogg";
       String INTRO = "music/scape-intro.ogg";
    }
 }

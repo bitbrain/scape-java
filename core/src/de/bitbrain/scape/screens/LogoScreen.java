@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -55,6 +56,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(final GameContext2D context) {
+      SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).play();
       this.context = context;
       this.progress = new PlayerProgress(null);
       context.getScreenTransitions().in(0.3f);
@@ -79,10 +81,10 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
                AbstractScreen<?, ?> nextScreen = progress.isNewGame()
                      ? new IntroScreen(getGame())
                      : new MainMenuScreen(getGame());
-               context.getScreenTransitions().out(nextScreen, 2f);
+               context.getScreenTransitions().out(nextScreen, 2.8f);
             }
          }
-      }).delay(1.3f).start(SharedTweenManager.getInstance());
+      }).delay(1.6f).start(SharedTweenManager.getInstance());
 
       Table layout = new Table();
       layout.setFillParent(true);
@@ -109,6 +111,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
                : new MainMenuScreen(getGame());
          context.getScreenTransitions().out(nextScreen, 1f);
          exiting = true;
+         SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).stop();
       }
    }
 

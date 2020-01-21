@@ -61,6 +61,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
+      context.getScreenTransitions().in(1.5f);
       SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).play();
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
