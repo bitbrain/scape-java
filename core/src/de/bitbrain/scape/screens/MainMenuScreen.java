@@ -126,7 +126,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
                public void clicked(InputEvent event, float x, float y) {
                   PlayerProgress progress = new PlayerProgress(null);
                   progress.reset();
-                  context.getScreenTransitions().out(new StageSelectionScreen(getGame()), 0.5f);
+                  context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
                }
       }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
         .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
