@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.input.GestureDetector;
@@ -101,6 +102,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onUpdate(float delta) {
       if (!bootSequence && commands != null && commands.isEmpty() && proceedWithBootSequence) {
+         SharedAssetManager.getInstance().get(Assets.Sounds.ENTER, Sound.class).play();
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();

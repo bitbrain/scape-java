@@ -53,6 +53,7 @@ public interface Assets {
       String STEP = "sounds/step.ogg";
       String SELECT = "sounds/select.ogg";
       String SUBMIT = "sounds/submit.ogg";
+      String ENTER = "sounds/enter.ogg";
    }
 
    interface Musics {
