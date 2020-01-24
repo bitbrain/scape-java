@@ -61,7 +61,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
-      context.getScreenTransitions().in(1.5f);
+      context.getScreenTransitions().in(1.3f);
       SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).play();
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
@@ -76,9 +76,8 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    @Override
-   public void dispose() {
+   public void dispose() 
       super.dispose();
-      Controllers.clearListeners();
    }
 
    @Override
