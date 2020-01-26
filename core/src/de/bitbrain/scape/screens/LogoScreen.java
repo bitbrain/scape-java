@@ -57,14 +57,10 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(final GameContext2D context) {
-      SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).play();
-      SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).play(0.6f);
-      SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setLooping(true);
-      SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setVolume(0.2f);
-      SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).play();
-      this.context = context;
       this.progress = new PlayerProgress(null);
-      context.getScreenTransitions().in(0.3f);
+      SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).play();
+      this.context = context;
+      context.getScreenTransitions().in(0.5f);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 16);

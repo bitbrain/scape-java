@@ -5,9 +5,11 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
@@ -23,6 +25,7 @@ import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
@@ -153,6 +156,8 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
       style.vertical = false;
       style.padding = 100;
+      style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
+      style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
       buttonMenu = new NavigationMenu<TextButton>(style);
       buttonMenu.add(new TextButton("Retry", Styles.BUTTON_MENU), new ClickListener() {
 

@@ -30,6 +30,7 @@ import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.input.intro.IntroControllerInputAdapter;
 import de.bitbrain.scape.input.intro.IntroKeyboardInputAdapter;
 import de.bitbrain.scape.input.intro.IntroMobileInputAdapter;
+import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.effects.TextGlitchRandomizer;
 import de.bitbrain.scape.ui.intro.TerminalUI;
 
@@ -61,8 +62,15 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
-      context.getScreenTransitions().in(1.3f);
+      context.getScreenTransitions().in(0.4f);
       SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).play();
+      PlayerProgress progress = new PlayerProgress(null);
+      if (progress.isNewGame()) {
+         SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).play(0.6f);
+         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setLooping(true);
+         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setVolume(0.2f);
+         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).play();
+      }
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
       this.context  = context;

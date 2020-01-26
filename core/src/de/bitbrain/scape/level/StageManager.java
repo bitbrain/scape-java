@@ -3,15 +3,18 @@ package de.bitbrain.scape.level;
 import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.utils.Align;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
@@ -82,6 +85,7 @@ public class StageManager {
    }
 
    public void selectPreviousLevel() {
+      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play();
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);
@@ -101,6 +105,7 @@ public class StageManager {
    }
 
    public void selectNextLevel() {
+      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play();
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);

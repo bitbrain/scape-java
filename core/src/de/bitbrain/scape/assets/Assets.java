@@ -55,6 +55,8 @@ public interface Assets {
       String SUBMIT = "sounds/submit.ogg";
       String ENTER = "sounds/enter.ogg";
       String STARTUP = "sounds/computer-startup.ogg";
+      String LEVEL_COMPLETE = "sounds/level-complete.ogg";
+      String LEVEL_SELECT = "sounds/level-select.ogg";
    }
 
    interface Musics {

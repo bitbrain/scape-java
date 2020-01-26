@@ -7,6 +7,8 @@ import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -88,6 +90,8 @@ public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
+      SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).stop();
+      SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
       this.context = context;
       context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);

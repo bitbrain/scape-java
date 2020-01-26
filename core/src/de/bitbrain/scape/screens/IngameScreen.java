@@ -4,6 +4,8 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -140,6 +142,9 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    public void setGameComplete(boolean gameComplete) {
+      if (gameComplete && !this.gameComplete) {
+         SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_COMPLETE, Sound.class).play(0.5f);
+      }
       this.gameComplete = gameComplete;
    }
 
