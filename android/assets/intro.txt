@@ -1,3 +1,9 @@
+PXHCD 0xffffff81613e2000:UIMInitialize HCSParams = 0x14
+W836x: found Winbond W83667HG
+
+EVIL CORP. SYSTEMS, 1984-2003 ALL RIGHTS RESERVED.
+VERSION 1.1
+
 > scp load-scape.sh robot@cluster.ecorp.com:/home/robot/
 > ssh robot@cluster.ecorp.com
 
@@ -5,9 +11,6 @@ Enter password:
 > **********
 
 Login successful!
-
-EVIL CORP. SYSTEMS, 1984-2003 ALL RIGHTS RESERVED.
-VERSION 1.1
 
 robot@cluster.ecorp.com> ./load-scape.sh
 Downloading VIRUS.PK...   ####################### 100% DONE.
@@ -25,10 +28,8 @@ Preparing corruption of main frame...
 80%
 85%
 89%
-92%
 94%
 98%
-99%
 100%
 COMPLETE!
 

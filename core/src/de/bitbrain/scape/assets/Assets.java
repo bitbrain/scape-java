@@ -54,10 +54,12 @@ public interface Assets {
       String SELECT = "sounds/select.ogg";
       String SUBMIT = "sounds/submit.ogg";
       String ENTER = "sounds/enter.ogg";
+      String STARTUP = "sounds/computer-startup.ogg";
    }
 
    interface Musics {
       String BITBRAIN = "music/bitbrain-intro.ogg";
       String INTRO = "music/scape-intro.ogg";
+      String COMPUTER_NOISE = "music/computer-noise.ogg";
    }
 }

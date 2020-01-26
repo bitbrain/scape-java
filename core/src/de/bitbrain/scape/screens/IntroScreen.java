@@ -76,7 +76,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    @Override
-   public void dispose() 
+   public void dispose() {
       super.dispose();
    }
 
@@ -88,6 +88,8 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    public void exit() {
       if (!exiting) {
          SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).stop();
+         SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).stop();
+         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
          exiting = true;
          context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 1f);
       }
@@ -103,6 +105,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    protected void onUpdate(float delta) {
       if (!bootSequence && commands != null && commands.isEmpty() && proceedWithBootSequence) {
          SharedAssetManager.getInstance().get(Assets.Sounds.ENTER, Sound.class).play();
+         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();
