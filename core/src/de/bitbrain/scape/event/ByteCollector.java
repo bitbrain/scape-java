@@ -33,7 +33,7 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       if (!object.isActive()) {
          return;
       }
-      final float soundPitch = 0.6f + 0.7f * (float)playerContext.getPoints() / playerContext.getMetadata().getNumberOfBytes();
+      final float soundPitch = 0.5f + 0.5f * (float)playerContext.getPoints() / playerContext.getMetadata().getNumberOfBytes();
       SharedAssetManager.getInstance().get(Assets.Sounds.COLLECT, Sound.class)
             .play(0.63f, soundPitch, 0f);
       playerContext.addPoint();
