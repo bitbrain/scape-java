@@ -1159,7 +1159,7 @@
  <tileset firstgid="635" source="tileset-block-virus.tsx"/>
  <layer id="3" name="base" width="200" height="50">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
@@ -1199,7 +1199,7 @@
    </properties>
    <point/>
   </object>
-  <object id="96" type="BYTE" x="252.375" y="172.375">
+  <object id="96" type="BYTE" x="251.284" y="179.648">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -1220,42 +1220,42 @@
    </properties>
    <point/>
   </object>
-  <object id="106" type="BYTE" x="923.25" y="164.25">
+  <object id="106" type="BYTE" x="955.432" y="108.432">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="107" type="BYTE" x="989" y="181.25">
+  <object id="107" type="BYTE" x="1004.09" y="117.25">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="108" type="BYTE" x="1053.25" y="165.5">
+  <object id="108" type="BYTE" x="1137.61" y="149.5">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="109" type="BYTE" x="764.5" y="188.5">
+  <object id="109" type="BYTE" x="779.409" y="85.5909">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="110" type="BYTE" x="604.5" y="165.25">
+  <object id="110" type="BYTE" x="618.5" y="101.25">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
-  <object id="112" type="BYTE" x="1155.75" y="204">
+  <object id="112" type="BYTE" x="1171.2" y="165.636">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
