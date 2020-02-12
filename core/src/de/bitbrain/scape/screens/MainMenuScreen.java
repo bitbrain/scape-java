@@ -24,7 +24,6 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
-import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;

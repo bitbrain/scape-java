@@ -90,7 +90,7 @@ public final class Styles {
       LABEL_SELECTION_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 24);
       LABEL_SELECTION_COMPLETE.fontColor = Colors.BACKGROUND_VIOLET;
 
-      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, 20);
+      LABEL_INTRO_BITBRAIN.font = bake(Assets.Fonts.UI_NUMBER, Gdx.graphics.getWidth() / 64);
       LABEL_INTRO_BITBRAIN.fontColor = Colors.BITBRAIN;
       LABEL_INTRO_BITBRAIN.glitchPool = "01";
 

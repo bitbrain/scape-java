@@ -58,10 +58,10 @@ public class ScapeGame extends BrainGdxGame {
    @Override
    protected AbstractScreen<?, ?> getInitialScreen() {
       Bundle.load();
-      Styles.init();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       Tween.registerAccessor(ValueProvider.class, new ValueTween());
       configureSettings();
+      Styles.init();
       if (isDebugMode()) {
          return new StageSelectionScreen(this);
       } else {
