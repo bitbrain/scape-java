@@ -38,3 +38,4 @@ This project is inspired by [hacker stories and TV series](https://en.wikipedia.
 
 - code @ [bitbrain](https://twitter.com/bitbrain_)
 - art @ [bitbrain](https://twitter.com/bitbrain_)
+- music @ [k0stnix](https://twitter.com/LasloJott)
