@@ -6,11 +6,15 @@ import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -31,9 +35,12 @@ import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
-import static de.bitbrain.scape.GameConfig.*;
+import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
+import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
+import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
+import static java.lang.String.format;
 
 public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
 
@@ -87,20 +94,21 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       final LevelMetaData metaData = progress.getMetadata();
 
       // 1. Complete message
-      Label completeLabel = new Label("Stage complete:", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      Label completeLabel = new Label(get(MENU_STAGE_COMPLETE), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      completeLabel.setFontScale(3f);
       layout.center().add(completeLabel).padBottom(10).row();
       // 2. Level Caption
-      Label captionLevel = new Label(metaData.getName(), Styles.LABEL_INGAME_CAPTION);
+      Actor captionLevel = createAnimatedLogo(metaData.getName(), Styles.LABEL_INGAME_CAPTION, context.getTweenManager());
       layout.center().add(captionLevel).padBottom(50).row();
 
       // 3. Collected
-      final Label byteDescription = new Label("bytes", Styles.LABEL_INGAME_DESCRIPTION);
+      final Label byteDescription = new Label(get(MENU_STAGE_COMPLETE_BYTES), Styles.LABEL_INGAME_DESCRIPTION);
       layout.add(byteDescription).row();
-      Label collectedBytesLabel = new Label( progress.getPoints() + " out of " + metaData.getNumberOfBytes() + "", Styles.LABEL_SELECTION_TOTAL_PROGRESS);
+      Actor collectedBytesLabel = createAnimatedLogo(progress.getPoints() + " out of " + metaData.getNumberOfBytes(), Styles.LABEL_SELECTION_TOTAL_PROGRESS, context.getTweenManager());
       layout.add(collectedBytesLabel).row();
 
       float blinkDuration = 1;
-      final Label pointRecordLabel = new Label("new record!", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      final Label pointRecordLabel = new Label(get(MENU_STAGE_COMPLETE_RECORD), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
       if (newPointRecord) {
          Tween.to(pointRecordLabel, ActorTween.ALPHA, blinkDuration / 3)
                .setCallback(new TweenCallback() {
@@ -121,18 +129,15 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       layout.add(pointRecordLabel).padBottom(60).row();
 
       // 4. Current time
-      final Label timeDescription = new Label("time", Styles.LABEL_INGAME_DESCRIPTION);
+      final Label timeDescription = new Label(get(MENU_STAGE_COMPLETE_TIME), Styles.LABEL_INGAME_DESCRIPTION);
       layout.add(timeDescription).row();
-      ValueProvider valueProvider = new ValueProvider();
-      Label currentTime = new CurrentTimeLabel(valueProvider, Styles.LABEL_SELECTION_TOTAL_PROGRESS);
+      int minutes = (int) (progress.getCurrentTime() /(1000 * 60));
+      int seconds = (int) (progress.getCurrentTime() / 1000 % 60);
+      int millis  = (int) (progress.getCurrentTime() % 1000);
+      Actor currentTime = createAnimatedLogo(format("%02d:%02d.%03d", minutes, seconds, millis), Styles.LABEL_SELECTION_TOTAL_PROGRESS, context.getTweenManager());
       layout.add(currentTime).row();
-      // Animate time
-      Tween.to(valueProvider, ValueTween.VALUE, 2f)
-            .delay(1f)
-            .target(progress.getCurrentTime())
-            .start(SharedTweenManager.getInstance());
 
-      final Label timeRecordLabel = new Label("new record!", Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
+      final Label timeRecordLabel = new Label(get(MENU_STAGE_COMPLETE_RECORD), Styles.LABEL_SELECTION_PROGRESS_DESCRIPTION);
       layout.add(timeRecordLabel).padBottom(60).row();
       if (newTimeRecord) {
          Tween.to(timeRecordLabel, ActorTween.ALPHA, blinkDuration / 3)
@@ -177,8 +182,11 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
          buttonMenu.next();
       }
 
+      context.getWorldStage().addActor(layout);
+      context.getGameCamera().setStickToWorldBounds(false);
+      context.getGameCamera().setZoom(1500, GameCamera.ZoomMode.TO_WIDTH);
+      context.getGameCamera().getInternalCamera().update();
 
-      context.getStage().addActor(layout);
    }
 
    private void setupInput(GameContext2D context) {

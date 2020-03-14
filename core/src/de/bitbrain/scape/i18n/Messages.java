@@ -21,7 +21,14 @@ public enum Messages {
 
    // INGAME
 
-   MENU_INGAME_PRESS_ANY_KEY("menu.ingame.pressanykey");
+   MENU_INGAME_PRESS_ANY_KEY("menu.ingame.pressanykey"),
+
+   // LEVEL COMPLETE
+   MENU_STAGE_COMPLETE("menu.stage.complete"),
+   MENU_STAGE_COMPLETE_BYTES("menu.stage.complete.bytes"),
+   MENU_STAGE_COMPLETE_RECORD("menu.stage.complete.record"),
+   MENU_STAGE_COMPLETE_TIME("menu.stage.complete.time");
+
 
    private final String key;
 

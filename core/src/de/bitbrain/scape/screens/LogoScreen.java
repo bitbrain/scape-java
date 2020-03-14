@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
@@ -92,13 +93,17 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
       layout.setFillParent(true);
 
       Image image = new Image(drawable);
-      layout.add(image).width(Gdx.graphics.getWidth() / 15f).height(Gdx.graphics.getWidth() / 15f).padBottom(Gdx.graphics.getWidth() / 64f).row();
+      layout.add(image).width(256).height(256).padBottom(40).row();
 
       slogan = new GlitchLabel(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
       slogan.setAlignment(Align.center);
       layout.add(slogan).width(Gdx.graphics.getWidth());
 
-      context.getStage().addActor(layout);
+      context.getWorldStage().addActor(layout);
+
+      context.getGameCamera().setStickToWorldBounds(false);
+      context.getGameCamera().setZoom(1500, GameCamera.ZoomMode.TO_HEIGHT);
+      context.getGameCamera().getInternalCamera().update();
 
       setupInput(context);
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {

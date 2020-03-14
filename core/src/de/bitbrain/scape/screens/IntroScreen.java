@@ -76,7 +76,7 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
       context.getWorldStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
       context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setZoom(1300, GameCamera.ZoomMode.TO_WIDTH);
+      context.getGameCamera().setZoom(1300, GameCamera.ZoomMode.TO_HEIGHT);
       context.getGameCamera().setPosition(context.getGameCamera().getPosition().x + (context.getGameCamera().getDefaultZoomFactor() * Gdx.graphics.getWidth()) / 3f, context.getGameCamera().getPosition().y - Gdx.graphics.getHeight() / 6f * context.getGameCamera().getDefaultZoomFactor());
       context.getGameCamera().getInternalCamera().update();
       setupInput(context);

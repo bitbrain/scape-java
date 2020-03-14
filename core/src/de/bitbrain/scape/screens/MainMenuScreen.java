@@ -43,6 +43,7 @@ import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
+import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 
 public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
@@ -90,7 +91,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
       Table layout = new Table();
       layout.setFillParent(true);
 
-      Actor logo = createAnimatedLogo("scape");
+      Actor logo = createAnimatedLogo("scape", Styles.LABEL_LOGO, context.getTweenManager());
       layout.add(logo).padBottom(60f).row();
 
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
@@ -152,22 +153,5 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
       AutoReloadPostProcessorEffect<Vignette> vignetteEffect = context.getShaderManager().createVignetteEffect();
       bloomEffect.mutate(DEFAULT_BLOOM_CONFIG);
       context.getRenderPipeline().addEffects(RenderPipeIds.UI, vignetteEffect, bloomEffect);
-   }
-
-   private Actor createAnimatedLogo(String text) {
-      HorizontalGroup logoGroup = new HorizontalGroup();
-      for (int i = 0; i < text.length(); ++i) {
-         Label character = new Label(text.charAt(i) + "", Styles.LABEL_LOGO);
-         character.getColor().a = 0.3f;
-         Tween.to(character, ActorTween.ALPHA, 1.9f)
-               .delay(0.35f * i)
-               .target(1f)
-               .repeatYoyo(Tween.INFINITY, 0f)
-               .ease(TweenEquations.easeInOutSine)
-               .start(context.getTweenManager());
-         logoGroup.addActor(character);
-      }
-
-      return logoGroup;
    }
 }
