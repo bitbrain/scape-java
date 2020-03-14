@@ -28,6 +28,7 @@ import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
+import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
@@ -139,12 +140,15 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
       buttonMenu.next();
 
-      layout.padTop(100f).add(buttonMenu).padBottom(100f).row();
-      Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2019", Styles.LABEL_CREDITS);
+      layout.padTop(100f).add(buttonMenu).padBottom(80f).row();
+      Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2020", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
       layout.add(credits);
-      context.getStage().addActor(layout);
+      context.getWorldStage().addActor(layout);
+      context.getGameCamera().setStickToWorldBounds(false);
+      context.getGameCamera().zoom(0.4f);
+      context.getGameCamera().getInternalCamera().update();
    }
 
    @Override

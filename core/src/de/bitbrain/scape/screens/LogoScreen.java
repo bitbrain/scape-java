@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
@@ -75,7 +76,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
                   .build())
                   .build());
 
-      Tween.call(new TweenCallback() {
+     Tween.call(new TweenCallback() {
          @Override
          public void onEvent(int i, BaseTween<?> baseTween) {
             if (!exiting) {
@@ -123,7 +124,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    public Viewport getViewport(int width, int height, Camera camera) {
-      return new ExtendViewport(width, height, camera);
+      return new ScreenViewport();
    }
 
    private void setupInput(GameContext2D context) {

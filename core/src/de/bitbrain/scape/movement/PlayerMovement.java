@@ -20,9 +20,11 @@ import static java.lang.Math.min;
 
 public class PlayerMovement extends BehaviorAdapter implements Movement<Integer> {
 
-   private static final long INPUT_LAG_BUFFER_IN_MS = 450;
+   private static final long INPUT_LAG_BUFFER_IN_MS = 220;
 
    private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
+
+   private float increaseRatio = 1f;
 
    private boolean flipping = false;
 
@@ -46,6 +48,10 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       this.enabled = enabled;
    }
 
+   public void increaseSpeed(float percentage) {
+      this.increaseRatio += percentage;
+   }
+
    public void jumpIfUpAgain() {
       jumpRequested = true;
       timestamp = System.currentTimeMillis();
@@ -61,6 +67,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
       velocity.x = GameConfig.PLAYER_START_SPEED * delta;
       velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier() * delta;
+
+      velocity.scl(increaseRatio);
 
       source.setPosition(source.getLeft() + velocity.x, source.getTop() + velocity.y);
       horizontalCollision = collisionDetector.getCollisionInFront(source);
@@ -164,6 +172,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       verticalCollision = null;
       jumpRequested = false;
       enabled = true;
+      increaseRatio = 1f;
    }
 
    public boolean hasVerticalCollision() {

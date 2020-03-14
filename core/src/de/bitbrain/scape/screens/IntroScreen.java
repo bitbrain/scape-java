@@ -5,15 +5,13 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -73,10 +71,14 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
       }
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
-      this.context  = context;
+      this.context = context;
       ui = new TerminalUI(commands);
-      context.getStage().addActor(ui);
+      context.getWorldStage().addActor(ui);
       randomizer = new TextGlitchRandomizer(ui);
+      context.getGameCamera().setStickToWorldBounds(false);
+      context.getGameCamera().setZoom(1300, GameCamera.ZoomMode.TO_WIDTH);
+      context.getGameCamera().setPosition(context.getGameCamera().getPosition().x + (context.getGameCamera().getDefaultZoomFactor() * Gdx.graphics.getWidth()) / 3f, context.getGameCamera().getPosition().y - Gdx.graphics.getHeight() / 6f * context.getGameCamera().getDefaultZoomFactor());
+      context.getGameCamera().getInternalCamera().update();
       setupInput(context);
       if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
          setupShaders(context);

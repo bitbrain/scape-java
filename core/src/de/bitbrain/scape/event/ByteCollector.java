@@ -13,18 +13,23 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.progress.PlayerProgress;
+
+import static de.bitbrain.scape.GameConfig.PLAYER_SPEED_INCREASE_PER_BYTE_PERCENTAGE;
 
 public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
 
    private final GameWorld gameWorld;
    private final ParticleManager particleManager;
    private final PlayerProgress playerContext;
+   private final PlayerMovement playerMovement;
 
-   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager, PlayerProgress playerContext) {
+   public ByteCollector(GameWorld gameWorld, ParticleManager particleManager, PlayerProgress playerContext, PlayerMovement playerMovement) {
       this.gameWorld = gameWorld;
       this.particleManager = particleManager;
       this.playerContext = playerContext;
+      this.playerMovement = playerMovement;
    }
 
    @Override
@@ -33,6 +38,7 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       if (!object.isActive()) {
          return;
       }
+      playerMovement.increaseSpeed(PLAYER_SPEED_INCREASE_PER_BYTE_PERCENTAGE);
       final float soundPitch = 0.5f + 0.5f * (float)playerContext.getPoints() / playerContext.getMetadata().getNumberOfBytes();
       SharedAssetManager.getInstance().get(Assets.Sounds.COLLECT, Sound.class)
             .play(0.63f, soundPitch, 0f);

@@ -24,6 +24,7 @@ import org.apache.commons.lang.SystemUtils;
 
 public class ScapeGame extends BrainGdxGame {
 
+   private boolean screenshots;
    private boolean devMode;
    private boolean debugMode;
    private boolean gifMode;
@@ -38,6 +39,9 @@ public class ScapeGame extends BrainGdxGame {
          }
          if ("gif".equalsIgnoreCase(arg)) {
             gifMode = true;
+         }
+         if ("screenshots".equalsIgnoreCase(arg)) {
+            screenshots = true;
          }
       }
    }
@@ -79,7 +83,9 @@ public class ScapeGame extends BrainGdxGame {
          graphicsSettings.setParticleMultiplier(0.1f);
          graphicsSettings.save();
       } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-         if (gifMode) {
+         if (screenshots) {
+            Gdx.graphics.setWindowedMode(3840, 2160);
+         } else if (gifMode) {
             Gdx.graphics.setWindowedMode(1248, 770);
          } else if (SystemUtils.IS_OS_WINDOWS) {
             Gdx.graphics.setUndecorated(true);

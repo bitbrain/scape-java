@@ -12,9 +12,10 @@ import de.bitbrain.braingdx.util.Mutator;
 
 public interface GameConfig {
 
-   float PLAYER_START_SPEED = 50f;
+   float PLAYER_START_SPEED = 45f;
    float LEVEL_START_SCROLLING_SPEED = 25f;
    float BOOT_SEQUENCE_DURATION = 3.6f;
+   float PLAYER_SPEED_INCREASE_PER_BYTE_PERCENTAGE = 0.05f;
 
    float PLAYER_LANDING_DURATION = 0.25f;
    float PLAYER_JUMPING_DURATION = 0.3f;

@@ -4,7 +4,6 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -20,6 +19,7 @@ import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.context.GameContext2D;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
 import de.bitbrain.braingdx.graphics.animation.AnimationFrames;
 import de.bitbrain.braingdx.graphics.animation.AnimationRenderer;
@@ -218,7 +218,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
-            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress),
+            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress, movement),
             ByteCollectedEvent.class
       );
    }
@@ -306,7 +306,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
             float correctY = (float) (Math.floor(o.getTop() / tiledMapContext.getCellHeight()) * tiledMapContext.getCellHeight());
             o.setPosition(correctX, correctY);
             context.getGameCamera().setStickToWorldBounds(true);
-            context.getGameCamera().setDefaultZoomFactor(getCameraZoom());
+            context.getGameCamera().setZoom(200, GameCamera.ZoomMode.TO_WIDTH);
             context.getGameCamera().setZoomScalingFactor(0.0000001f);
             context.getGameCamera().setTrackingTarget(o);
             context.getGameCamera().setTargetTrackingSpeed(0.15f, 0.1f);
@@ -368,16 +368,6 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
       AutoReloadPostProcessorEffect<Bloom> bloomEffect = context.getShaderManager().createBloomEffect();
       bloomEffect.mutate(GameConfig.DEFAULT_BLOOM_CONFIG);
       context.getRenderPipeline().addEffects(RenderPipeIds.UI, bloomEffect);
-   }
-
-   private float getCameraZoom() {
-      if (Gdx.graphics.getWidth() > 3000 || Gdx.graphics.getHeight() > 2000) {
-         return 420000f * (1f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
-      }
-      if (Gdx.graphics.getWidth() < 1300) {
-         return 5400f * (20f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
-      }
-      return 9800f * (20f / (Gdx.graphics.getWidth() * Gdx.graphics.getHeight()));
    }
 
    private void setupPlayer(GameContext2D context) {

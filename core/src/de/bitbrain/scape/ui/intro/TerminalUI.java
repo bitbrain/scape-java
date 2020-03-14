@@ -44,7 +44,6 @@ public class TerminalUI extends Table {
       terminal.setWrap(true);
       setFillParent(true);
       add(terminal);
-      add(new Label("                                                ", style));
    }
 
    public TerminalUI(List<String> commands) {
