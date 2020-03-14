@@ -103,8 +103,4 @@ public interface GameConfig {
    float MENU_BUTTON_WIDTH = 300f;
    float MENU_BUTTON_HEIGHT = 80f;
    float MENU_BUTTON_PADDING = 30f;
-   float MENU_BUTTON_WIDTH_MOBILE = 400f;
-   float MENU_BUTTON_HEIGHT_MOBILE = 120f;
-   float MENU_BUTTON_PADDING_MOBILE = 30f;
-   float MENU_BUTTON_ALPHA = 0.8f;
 }

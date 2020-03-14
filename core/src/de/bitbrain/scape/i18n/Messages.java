@@ -10,6 +10,9 @@ public enum Messages {
    MENU_MAIN_EXIT("menu.main.exit"),
    MENU_MAIN_CREDITS("menu.main.credits"),
    MENU_INGAME_LEVEL("menu.ingame.level"),
+   MENU_STAGE_RETRY("menu.stage.retry"),
+   MENU_STAGE_SELECTION("menu.stage.selection"),
+   MENU_STAGE_NEXT("menu.stage.next"),
 
    // LEVEL SELECTION
 

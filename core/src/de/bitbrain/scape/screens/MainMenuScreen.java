@@ -10,13 +10,17 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
+import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
@@ -28,7 +32,6 @@ import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
-import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
@@ -39,6 +42,7 @@ import de.bitbrain.scape.ui.Styles;
 import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
+import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 
 public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
@@ -87,24 +91,15 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
       layout.setFillParent(true);
 
       Actor logo = createAnimatedLogo("scape");
-      layout.add(logo).padBottom(80f).row();
+      layout.add(logo).padBottom(60f).row();
 
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
-      style.padding = isMobile ? MENU_BUTTON_PADDING_MOBILE : MENU_BUTTON_PADDING;
+      style.padding = MENU_BUTTON_PADDING;
       style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
       style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
       style.vertical = !isMobile;
       buttonMenu = new NavigationMenu<TextButton>(style);
-      TextButton continueButton = new TextButton(get(MENU_MAIN_CONTINUE), Styles.BUTTON_MENU);
-      GlitchLabel.GlitchLabelStyle glStyle = new GlitchLabel.GlitchLabelStyle();
-      glStyle.fadeInDuration = 0.5f;
-      glStyle.font =  Styles.BUTTON_MENU.font;
-      glStyle.fontColor =  Styles.BUTTON_MENU.fontColor;
-      final GlitchLabel label = new GlitchLabel(get(MENU_MAIN_CONTINUE), glStyle);
-      label.setAlignment(Align.center);
-      continueButton.setLabel(label);
-      buttonMenu.add(continueButton, new ClickListener() {
-
+      addMenuButton(MENU_MAIN_CONTINUE, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 0.5f);
@@ -113,41 +108,32 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
                   .ease(TweenEquations.easeInExpo)
                   .start(SharedTweenManager.getInstance());
          }
-
+      });
+      addMenuButton(MENU_MAIN_NEWGAME, buttonMenu, new ClickListener() {
          @Override
-         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-            super.enter(event, x, y, pointer, fromActor);
-            label.glitchIn();
+         public void clicked(InputEvent event, float x, float y) {
+            PlayerProgress progress = new PlayerProgress(null);
+            progress.reset();
+            context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
          }
-      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
-        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
-      buttonMenu.add(new TextButton(get(MENU_MAIN_NEWGAME), Styles.BUTTON_MENU), new ClickListener() {
-               @Override
-               public void clicked(InputEvent event, float x, float y) {
-                  PlayerProgress progress = new PlayerProgress(null);
-                  progress.reset();
-                  context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
-               }
-      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
-        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
-      buttonMenu.add(new TextButton(get(MENU_MAIN_EXIT), Styles.BUTTON_MENU), new ClickListener() {
-               @Override
-               public void clicked(InputEvent event, float x, float y) {
-                  Gdx.app.exit();
-               }
-      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
-        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
+      });
+      addMenuButton(MENU_MAIN_EXIT, buttonMenu, new ClickListener() {
+         @Override
+         public void clicked(InputEvent event, float x, float y) {
+            Gdx.app.exit();
+         }
+      });
 
       buttonMenu.next();
 
-      layout.padTop(100f).add(buttonMenu).padBottom(80f).row();
+      layout.padTop(50f).add(buttonMenu).padBottom(80f).row();
       Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2020", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
       layout.add(credits);
       context.getWorldStage().addActor(layout);
       context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().zoom(0.4f);
+      context.getGameCamera().setZoom(1300, GameCamera.ZoomMode.TO_WIDTH);
       context.getGameCamera().getInternalCamera().update();
    }
 

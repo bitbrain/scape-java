@@ -32,6 +32,8 @@ import de.bitbrain.scape.ui.Styles;
 import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
 import static de.bitbrain.scape.GameConfig.*;
+import static de.bitbrain.scape.i18n.Messages.*;
+import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 
 public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
 
@@ -79,9 +81,6 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    private void setupUI(final GameContext2D context) {
-
-      boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
-
       Table layout = new Table();
       layout.setFillParent(true);
 
@@ -159,22 +158,18 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
       style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
       buttonMenu = new NavigationMenu<TextButton>(style);
-      buttonMenu.add(new TextButton("Retry", Styles.BUTTON_MENU), new ClickListener() {
-
+      addMenuButton(MENU_STAGE_RETRY, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             context.getScreenTransitions().out(new IngameScreen(getGame(), metaData), 0.5f);
          }
-      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
-        .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
-      String text = stageCompletedForTheFirstTime ? "Next Stage" : "Stage selection";
-      buttonMenu.add(new TextButton(text, Styles.BUTTON_MENU), new ClickListener() {
+      });
+      addMenuButton(stageCompletedForTheFirstTime ? MENU_STAGE_NEXT : MENU_STAGE_SELECTION, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             context.getScreenTransitions().out(new StageSelectionScreen(getGame(), !stageCompletedForTheFirstTime), 0.5f);
          }
-      }).width(isMobile ? MENU_BUTTON_WIDTH_MOBILE : MENU_BUTTON_WIDTH)
-            .height(isMobile ? MENU_BUTTON_HEIGHT_MOBILE : MENU_BUTTON_HEIGHT);
+      });
 
       layout.add(buttonMenu).padTop(40).row();
       buttonMenu.next();
