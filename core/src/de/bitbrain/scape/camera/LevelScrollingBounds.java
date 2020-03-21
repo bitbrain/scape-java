@@ -11,14 +11,16 @@ public class LevelScrollingBounds implements GameWorld.WorldBounds {
    private float levelProgress;
    private TiledMapContext context;
    private final GameCamera gameCamera;
+   private final float scrollingSpeed;
 
-   public LevelScrollingBounds(TiledMapContext context, GameCamera gameCamera) {
+   public LevelScrollingBounds(float scrollingSpeed, TiledMapContext context, GameCamera gameCamera) {
+      this.scrollingSpeed = scrollingSpeed;
       this.context = context;
       this.gameCamera = gameCamera;
    }
 
    public void update(float delta) {
-      levelProgress += GameConfig.LEVEL_START_SCROLLING_SPEED * delta;
+      levelProgress += scrollingSpeed * delta;
       float cameraLeft = gameCamera.getInternalCamera().position.x - gameCamera.getScaledCameraWidth() / 2f;
       if (cameraLeft > levelProgress) {
          levelProgress = cameraLeft;

@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.world.GameObject;
+import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.i18n.Bundle;
 
 public class LevelMetaDataLoader {
@@ -13,17 +14,31 @@ public class LevelMetaDataLoader {
       String translatedName = Bundle.get(object.getAttribute("name", String.class));
       String translatedDescription = Bundle.get(object.getAttribute("description", String.class));
       String path = object.getAttribute("path", String.class);
+      TiledMap map = SharedAssetManager.getInstance().get(path, TiledMap.class);
       return new LevelMetaData(
             number,
             path,
             translatedName,
             translatedDescription,
-            getNumberOfBytesInLevel(path)
-      );
+            getNumberOfBytesInLevel(map),
+            getBaseScrollingSpeed(map),
+            getPlayerSpeed(map),
+            getPlayerSpeedIncrease(map));
    }
 
-   private int getNumberOfBytesInLevel(String path) {
-      TiledMap map = SharedAssetManager.getInstance().get(path, TiledMap.class);
+   private float getBaseScrollingSpeed(TiledMap map) {
+      return map.getProperties().get("baseSpeed", GameConfig.LEVEL_START_DEFAULT_SCROLLING_SPEED, Float.class);
+   }
+
+   private float getPlayerSpeed(TiledMap map) {
+      return map.getProperties().get("playerSpeed", GameConfig.PLAYER_START_DEFAULT_SPEED, Float.class);
+   }
+
+   private float getPlayerSpeedIncrease(TiledMap map) {
+      return map.getProperties().get("playerSpeedIncrease", GameConfig.PLAYER_SPEED_DEFAULT_INCREASE, Float.class);
+   }
+
+   private int getNumberOfBytesInLevel(TiledMap map) {
       MapLayers mapLayers = map.getLayers();
       int totalNumberOfBytes = 0;
       for (int i = 0; i < mapLayers.getCount(); ++i) {

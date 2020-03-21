@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="140" height="60" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="115">
+ <properties>
+  <property name="baseSpeed" type="float" value="25"/>
+  <property name="playerSpeed" type="float" value="65"/>
+ </properties>
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="211" source="tileset-horizontal.tsx"/>
  <tileset firstgid="403" source="tileset-virus.tsx"/>

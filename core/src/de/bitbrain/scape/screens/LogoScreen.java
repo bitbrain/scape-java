@@ -93,7 +93,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
       layout.setFillParent(true);
 
       Image image = new Image(drawable);
-      layout.add(image).width(256).height(256).padBottom(40).row();
+      layout.add(image).width(256).height(256).padBottom(65).row();
 
       slogan = new GlitchLabel(Bundle.get(Messages.MENU_LOGO_CREDITS), Styles.LABEL_INTRO_BITBRAIN);
       slogan.setAlignment(Align.center);

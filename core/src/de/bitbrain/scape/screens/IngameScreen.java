@@ -218,7 +218,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
-            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress, movement),
+            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress, movement, levelMetaData.getPlayerSpeedIncrease()),
             ByteCollectedEvent.class
       );
    }
@@ -296,7 +296,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private void setupWorld(GameContext2D context) {
       this.context = context;
-      levelScroller = new LevelScrollingBounds(tiledMapContext, context.getGameCamera());
+      levelScroller = new LevelScrollingBounds(levelMetaData.getBaseScrollingSpeed(), tiledMapContext, context.getGameCamera());
       context.getGameWorld().setBounds(levelScroller);
 
       for (GameObject o : context.getGameWorld().getObjects()) {
@@ -372,7 +372,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private void setupPlayer(GameContext2D context) {
       CollisionDetector collisionDetector = new CollisionDetector(tiledMapContext);
-      movement = new PlayerMovement(collisionDetector);
+      movement = new PlayerMovement(collisionDetector, levelMetaData.getPlayerSpeed());
       context.getBehaviorManager().apply(movement, player);
       player.setAttribute(Movement.class, movement);
       player.setAttribute(Orientation.class, Orientation.RIGHT);

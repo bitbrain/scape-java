@@ -22,7 +22,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private static final long INPUT_LAG_BUFFER_IN_MS = 220;
 
-   private Vector2 velocity = new Vector2(GameConfig.PLAYER_START_SPEED, 0f);
+   private Vector2 velocity;
 
    private float increaseRatio = 1f;
 
@@ -36,12 +36,16 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
    private long timestamp = 0;
 
+   private final float playerSpeed;
+
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
    private boolean lastHorizontalCollision;
 
-   public PlayerMovement(CollisionDetector collisionDetector) {
+   public PlayerMovement(CollisionDetector collisionDetector, float playerSpeed) {
       this.collisionDetector = collisionDetector;
+      this.playerSpeed = playerSpeed;
+      this.velocity  = new Vector2(playerSpeed, 0);
    }
 
    public void setEnabled(boolean enabled) {
@@ -65,8 +69,8 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
 
       Direction direction = ((Direction) source.getAttribute(Direction.class));
 
-      velocity.x = GameConfig.PLAYER_START_SPEED * delta;
-      velocity.y = GameConfig.PLAYER_START_SPEED * direction.getMultiplier() * delta;
+      velocity.x = playerSpeed * delta;
+      velocity.y = playerSpeed * direction.getMultiplier() * delta;
 
       velocity.scl(increaseRatio);
 
