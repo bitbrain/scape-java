@@ -78,7 +78,7 @@ public interface GameConfig {
                .ease(TweenEquations.easeOutExpo)
                .start(SharedTweenManager.getInstance());
          Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
-               .target(1f)
+               .target(0.5f)
                .ease(TweenEquations.easeOutExpo)
                .start(SharedTweenManager.getInstance());
       }
@@ -94,7 +94,7 @@ public interface GameConfig {
                .ease(TweenEquations.easeOutExpo)
                .start(SharedTweenManager.getInstance());
          Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 1f)
-               .target(0f)
+               .target(0.0f)
                .ease(TweenEquations.easeOutExpo)
                .start(SharedTweenManager.getInstance());
       }
