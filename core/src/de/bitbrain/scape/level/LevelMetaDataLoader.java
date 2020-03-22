@@ -23,7 +23,8 @@ public class LevelMetaDataLoader {
             getNumberOfBytesInLevel(map),
             getBaseScrollingSpeed(map),
             getPlayerSpeed(map),
-            getPlayerSpeedIncrease(map));
+            getPlayerSpeedIncrease(map),
+            getBackgroundMusicPath(map));
    }
 
    private float getBaseScrollingSpeed(TiledMap map) {
@@ -36,6 +37,10 @@ public class LevelMetaDataLoader {
 
    private float getPlayerSpeedIncrease(TiledMap map) {
       return map.getProperties().get("playerSpeedIncrease", GameConfig.PLAYER_SPEED_DEFAULT_INCREASE, Float.class);
+   }
+
+   private String getBackgroundMusicPath(TiledMap map) {
+      return map.getProperties().get("music", null, String.class);
    }
 
    private int getNumberOfBytesInLevel(TiledMap map) {

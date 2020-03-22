@@ -39,9 +39,12 @@ import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.GlitchLabel;
 import de.bitbrain.scape.ui.Styles;
 
+import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.HORIZONTAL;
+import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.VERTICAL;
 import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
+import static de.bitbrain.scape.ui.Styles.MENU_STYLE;
 import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 
@@ -94,12 +97,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
       Actor logo = createAnimatedLogo("scape", Styles.LABEL_LOGO, context.getTweenManager());
       layout.add(logo).padBottom(60f).row();
 
-      NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
-      style.padding = MENU_BUTTON_PADDING;
-      style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
-      style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
-      style.vertical = !isMobile;
-      buttonMenu = new NavigationMenu<TextButton>(style);
+      buttonMenu = new NavigationMenu<TextButton>(MENU_STYLE);
       addMenuButton(MENU_MAIN_CONTINUE, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {

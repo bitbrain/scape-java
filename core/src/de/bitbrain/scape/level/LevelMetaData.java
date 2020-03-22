@@ -10,6 +10,7 @@ public class LevelMetaData {
    private final float baseScrollingSpeed;
    private final float playerSpeed;
    private final float playerSpeedIncrease;
+   private final String backgroundMusic;
 
    public LevelMetaData(
          int number,
@@ -19,7 +20,8 @@ public class LevelMetaData {
          int numberOfBytes,
          float baseScrollingSpeed,
          float playerSpeed,
-         float playerSpeedIncrease) {
+         float playerSpeedIncrease,
+         String backgroundMusic) {
       this.number = number;
       this.path = path;
       this.name = name;
@@ -28,6 +30,7 @@ public class LevelMetaData {
       this.baseScrollingSpeed = baseScrollingSpeed;
       this.playerSpeed = playerSpeed;
       this.playerSpeedIncrease = playerSpeedIncrease;
+      this.backgroundMusic = backgroundMusic;
    }
 
    public int getLevelNumber() {
@@ -60,5 +63,9 @@ public class LevelMetaData {
 
    public float getPlayerSpeedIncrease() {
       return playerSpeedIncrease;
+   }
+
+   public String getBackgroundMusicPath() {
+      return backgroundMusic;
    }
 }

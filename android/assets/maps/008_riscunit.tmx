@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="200" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="139">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="200" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="140">
+ <properties>
+  <property name="baseSpeed" type="float" value="25"/>
+  <property name="music" value="music/bgm_02.ogg"/>
+  <property name="playerSpeed" type="float" value="70"/>
+ </properties>
  <tileset firstgid="1" source="tileset-vertical.tsx"/>
  <tileset firstgid="211" name="tileset-horizontal" tilewidth="8" tileheight="8" tilecount="192" columns="24">
   <image source="tileset-horizontal.png" width="192" height="64"/>
@@ -1160,7 +1165,7 @@
  <tileset firstgid="707" source="tileset-block-virus.tsx"/>
  <layer id="5" name="base" width="200" height="50">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="2" name="spawn">
@@ -1194,7 +1199,7 @@
     <property name="sticky" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="135" type="BYTE" x="733.375" y="132.75">
+  <object id="135" type="BYTE" x="700.102" y="299.295">
    <properties>
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
@@ -1221,6 +1226,13 @@
     <property name="producer" value="PLAYER"/>
     <property name="sticky" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="139" type="BYTE" x="1138.5" y="198">
+   <properties>
+    <property name="producer" value="PLAYER"/>
+    <property name="sticky" type="bool" value="true"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

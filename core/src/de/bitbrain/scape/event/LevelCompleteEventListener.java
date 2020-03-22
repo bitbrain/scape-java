@@ -1,43 +1,31 @@
 package de.bitbrain.scape.event;
 
-import de.bitbrain.braingdx.context.GameContext2D;
+import com.badlogic.gdx.audio.Music;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.event.GameEventListener;
-import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
-import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.IngameScreen;
 import de.bitbrain.scape.screens.StageCompleteScreen;
-
-import java.util.List;
 
 
 public class LevelCompleteEventListener implements GameEventListener<LevelCompleteEvent> {
 
    private final ScapeGame game;
-   private final GameContext2D context;
    private final PlayerProgress progress;
-   private final List<GameObject> powerCells;
-   private final GameObject player;
-   private final AutoReloadPostProcessorEffect<Zoomer> zoomerEffect;
    private final IngameScreen screen;
+   private final LevelMetaData levelMetaData;
 
    public LevelCompleteEventListener(
          ScapeGame game,
          IngameScreen screen,
-         GameContext2D context,
          PlayerProgress progress,
-         List<GameObject> powerCells,
-         GameObject player,
-         AutoReloadPostProcessorEffect<Zoomer> zoomerEffect) {
+         LevelMetaData levelMetaData) {
       this.game = game;
       this.screen = screen;
-      this.context = context;
       this.progress = progress;
-      this.powerCells = powerCells;
-      this.player = player;
-      this.zoomerEffect = zoomerEffect;
+      this.levelMetaData = levelMetaData;
    }
 
    @Override
@@ -52,76 +40,9 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
       if (screen.getStartTime() != 0) {
          this.progress.setCurrentTime(System.currentTimeMillis() - screen.getStartTime());
       }
+      if (levelMetaData.getBackgroundMusicPath() != null) {
+         SharedAssetManager.getInstance().get(levelMetaData.getBackgroundMusicPath(), Music.class).stop();
+      }
       game.setScreen(new StageCompleteScreen(game, progress));
-      /*
-      context.getScreenTransitions().out(1f);
-      Gdx.app.postRunnable(new Runnable() {
-         @Override
-         public void run() {
-            context.getBehaviorManager().clear();
-            context.getStage().clear();
-            context.getWorldStage().clear();
-            for (GameObject powercell : powerCells) {
-               SharedTweenManager.getInstance().killTarget(powercell);
-               Tween.to(powercell, GameObjectTween.SCALE, 0.5f)
-                     .target(8f)
-                     .start(SharedTweenManager.getInstance());
-               Tween.to(powercell, GameObjectTween.ALPHA, 0.5f)
-                     .target(0f)
-                     .start(SharedTweenManager.getInstance());
-            }
-            SharedTweenManager.getInstance().killTarget(player);
-            player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
-            Tween.to(player, GameObjectTween.SCALE, 0.5f)
-                  .target(0f)
-                  .ease(TweenEquations.easeOutQuad)
-                  .start(context.getTweenManager());
-            Tween.to(player, GameObjectTween.ALPHA, 0.5f)
-                  .target(0f)
-                  .ease(TweenEquations.easeOutQuad)
-                  .start(context.getTweenManager());
-            if (zoomerEffect != null) {
-               zoomerEffect.mutate(new Mutator<Zoomer>() {
-                  @Override
-                  public void mutate(Zoomer target) {
-                     Tween.to(target, ZoomerShaderTween.ZOOM_AMOUNT, 2f)
-                           .target(3f)
-                           .ease(TweenEquations.easeInOutCubic)
-                           .start(SharedTweenManager.getInstance());
-                     Tween.to(target, ZoomerShaderTween.BLUR_STRENGTH, 2f)
-                           .target(4f)
-                           .ease(TweenEquations.easeInOutCubic)
-                           .start(SharedTweenManager.getInstance());
-                     GameObject closestPowerCell = null;
-                     for (GameObject powercell : powerCells) {
-                        if (closestPowerCell == null || distanceBetween(powercell, player) < distanceBetween(closestPowerCell, player)) {
-                           closestPowerCell = powercell;
-                        }
-                     }
-                     if (closestPowerCell != null) {
-                        Vector3 worldCoords = new Vector3(
-                              closestPowerCell.getLeft() + closestPowerCell.getWidth() / 2f,
-                              closestPowerCell.getTop() + closestPowerCell.getHeight() / 2f,
-                              0f);
-                        Vector3 screenCoords = context.getGameCamera().getInternalCamera().project(worldCoords);
-                        target.setOrigin(screenCoords.x, screenCoords.y);
-                     }
-                  }
-               });
-            }
-            Tween.to(context.getGameCamera(), GameCameraTween.DEFAULT_ZOOM_FACTOR, 1f)
-                  .target(1.5f)
-                  .ease(TweenEquations.easeInExpo)
-                  .setCallback(new TweenCallback() {
-                     @Override
-                     public void onEvent(int type, BaseTween<?> source) {
-                        game.setScreen(new StageCompleteScreen(game, progress));
-                     }
-                  })
-                  .setCallbackTriggers(TweenCallback.COMPLETE)
-                  .start(SharedTweenManager.getInstance());
-         }
-      });*/
-
    }
 }

@@ -30,7 +30,6 @@ public class UiFactory {
       glitchLabel.setAlignment(Align.center);
       button.setLabel(glitchLabel);
       target.add(button, new ClickListener() {
-
          @Override
          public void clicked(InputEvent event, float x, float y) {
             listener.clicked(event, x, y);
@@ -39,6 +38,11 @@ public class UiFactory {
          @Override
          public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
             glitchLabel.glitchIn();
+         }
+
+         @Override
+         public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+            super.exit(event, x, y, pointer, toActor);
          }
       }).width(MENU_BUTTON_WIDTH)
         .height(MENU_BUTTON_HEIGHT);

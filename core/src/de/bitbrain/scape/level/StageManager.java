@@ -85,7 +85,7 @@ public class StageManager {
    }
 
    public void selectPreviousLevel() {
-      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play();
+      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);
@@ -105,7 +105,7 @@ public class StageManager {
    }
 
    public void selectNextLevel() {
-      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play();
+      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);

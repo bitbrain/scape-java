@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -127,6 +128,9 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    public void exitIngame() {
+      if (levelMetaData.getBackgroundMusicPath() != null) {
+         context.getAudioManager().fadeOutMusic(levelMetaData.getBackgroundMusicPath(), 0.3f);
+      }
       context.getLightingManager().setAmbientLight(Color.WHITE, 0.3f, TweenEquations.easeOutCubic);
       context.getStage().clear();
       context.getBehaviorManager().clear();
@@ -179,6 +183,12 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    public void startLevel() {
       if (!anyKeyPressedToStartlevel) {
+         if (levelMetaData.getBackgroundMusicPath() != null) {
+            Music backgroundMusic = SharedAssetManager.getInstance().get(levelMetaData.getBackgroundMusicPath(), Music.class);
+            backgroundMusic.setLooping(true);
+            backgroundMusic.setVolume(0.02f);
+            backgroundMusic.play();
+         }
          anyKeyPressedToStartlevel = true;
          context.setPaused(false);
          descriptionUI.hide(1f);
@@ -214,7 +224,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
             GameOverEvent.class
       );
       context.getEventManager().register(
-            new LevelCompleteEventListener(getGame(), this, context, progress, powerCells, player, zoomerEffect),
+            new LevelCompleteEventListener(getGame(), this, progress, levelMetaData),
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
@@ -226,7 +236,6 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    private void setupRendering(GameContext2D context) {
       final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
-      final Texture playerOverlayTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER_CHARGED);
       final Texture byteTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
       AnimationSpriteSheet byteSheet = new AnimationSpriteSheet(byteTexture, 8);
       final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);

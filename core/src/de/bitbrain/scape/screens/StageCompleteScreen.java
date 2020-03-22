@@ -35,9 +35,12 @@ import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
+import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.HORIZONTAL;
+import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.VERTICAL;
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
+import static de.bitbrain.scape.ui.Styles.MENU_STYLE;
 import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 import static java.lang.String.format;
@@ -157,11 +160,9 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
          timeRecordLabel.getColor().a = 0f;
       }
 
-      NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle();
-      style.vertical = false;
+      NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle(MENU_STYLE);
+      style.alignment = HORIZONTAL;
       style.padding = 100;
-      style.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
-      style.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
       buttonMenu = new NavigationMenu<TextButton>(style);
       addMenuButton(MENU_STAGE_RETRY, buttonMenu, new ClickListener() {
          @Override
