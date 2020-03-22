@@ -55,22 +55,22 @@ public final class Styles {
    public static void init() {
       boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
 
-      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, 140);
+      LABEL_INGAME_POINTS.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(160));
       LABEL_INGAME_POINTS.fontColor = Colors.PRIMARY_RED;
-      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, 96);
+      LABEL_INGAME_POINTS_ALL.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(120));
       LABEL_INGAME_POINTS_ALL.fontColor = Colors.PRIMARY_RED;
-      LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 140);
+      LABEL_INGAME_POINTS_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(140));
       LABEL_INGAME_POINTS_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
-      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, 96);
+      LABEL_INGAME_POINTS_ALL_COMPLETE.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(120));
       LABEL_INGAME_POINTS_ALL_COMPLETE.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, 128);
+      LABEL_INGAME_CAPTION.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(190));
       LABEL_INGAME_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, 66);
+      LABEL_INGAME_DESCRIPTION.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(110));
       LABEL_INGAME_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, 46);
+      LABEL_INGAME_INTERACTION.font = bake(Assets.Fonts.UI_NUMBER, getScaledFontSize(60));
       LABEL_INGAME_INTERACTION.fontColor = Colors.PRIMARY_BLUE;
 
       LABEL_INTRO_COMMAND.font = bake(Assets.Fonts.UI_NUMBER, 35);
@@ -129,5 +129,9 @@ public final class Styles {
       param.size = size;
       param.mono = true;
       return generator.generateFont(param);
+   }
+
+   private static int getScaledFontSize(int fontSize) {
+      return (int) (fontSize / (1900f / (float) Gdx.graphics.getWidth()));
    }
 }
