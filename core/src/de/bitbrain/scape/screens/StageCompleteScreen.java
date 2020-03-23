@@ -185,7 +185,7 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
 
       context.getWorldStage().addActor(layout);
       context.getGameCamera().setStickToWorldBounds(false);
-      context.getGameCamera().setZoom(1500, GameCamera.ZoomMode.TO_WIDTH);
+      context.getGameCamera().setZoom(1300, GameCamera.ZoomMode.TO_HEIGHT);
       context.getGameCamera().getInternalCamera().update();
 
    }
