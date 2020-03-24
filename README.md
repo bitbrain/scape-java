@@ -1,4 +1,4 @@
-![scape](scape.png)
+![scape](android/src/main/play/listings/en-GB/graphics/feature-graphic/1.png)
 
 A fast-paced platformer with vibrant neon colours, initially inspired by [Yoo Ninja](https://yoo-ninja-free.en.uptodown.com/android).
 >  The grid. A digital frontier. I tried to picture clusters of information as they moved through the computer. What did they look like? Ships, motorcycles. With the circuits like freeways. I kept dreaming of a world I thought I'd never see. And then one day, I got in.
