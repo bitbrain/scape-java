@@ -25,6 +25,9 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         braingdxVersion = '0.6.14'
+        gamesvcsVersion = '1.0.2'
+        android_min_sdk_version = 14
+        android_compile_version = 28
     }
 
     repositories {
@@ -50,7 +53,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
+        compile "de.golfgl.gdxgamesvcs:gdx-gamesvcs-desktop-gpgs:$gamesvcsVersion"
     }
 }
 
@@ -75,6 +78,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
+        compile "de.golfgl.gdxgamesvcs:gdx-gamesvcs-android-gpgs:$gamesvcsVersion"
     }
 }
 
@@ -92,6 +96,7 @@ project(":core") {
         compile "io.github.bitbrain:braingdx-2d:$braingdxVersion:sources"
         compile "io.github.bitbrain:braingdx-2d:$braingdxVersion:javadoc"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile "de.golfgl.gdxgamesvcs:gdx-gamesvcs-core:$gamesvcsVersion"
 
     }
 }
