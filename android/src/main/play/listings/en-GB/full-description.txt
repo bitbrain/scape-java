@@ -1,0 +1,3 @@
+The little subroutine SC-9809.asm has to witness the brutal deletion of its other half. They spent millions of computation cycles together. Now our little hero seeks revenge for whoever initiated the deletion process. On its way, SC-9809.asm discovers byte fragments and has the plan to recompile the love of its life, just to be together for another million computation cycles.
+
+You have to follow a journey of love, willingness and hate. You might think loaded programs are simply a collection of bytes. This little program though will travel to the end of the motherboard, just to find answers.
