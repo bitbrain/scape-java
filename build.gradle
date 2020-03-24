@@ -9,14 +9,11 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-        
-
+        classpath 'com.android.tools.build:gradle:3.6.1'
     }
 }
 
 allprojects {
-    apply plugin: "eclipse"
     apply plugin: "idea"
 
     version = '1.0'
@@ -24,7 +21,7 @@ allprojects {
     ext {
         appName = "scape"
         gdxVersion = '1.9.9'
-        roboVMVersion = '2.3.3'
+        roboVMVersion = '2.R3.3'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         braingdxVersion = '0.6.14'
@@ -78,7 +75,6 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-        
     }
 }
 
@@ -96,10 +92,6 @@ project(":core") {
         compile "io.github.bitbrain:braingdx-2d:$braingdxVersion:sources"
         compile "io.github.bitbrain:braingdx-2d:$braingdxVersion:javadoc"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        
-    }
-}
 
-tasks.eclipse.doLast {
-    delete ".project"
+    }
 }
