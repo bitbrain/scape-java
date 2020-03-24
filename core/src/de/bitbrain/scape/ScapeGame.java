@@ -16,10 +16,13 @@ import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.gsv.GameServiceFactory;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.screens.StageSelectionScreen;
 import de.bitbrain.scape.screens.LogoScreen;
 import de.bitbrain.scape.ui.Styles;
+import de.golfgl.gdxgamesvcs.IGameServiceClient;
+import de.golfgl.gdxgamesvcs.NoGameServiceClient;
 import org.apache.commons.lang.SystemUtils;
 
 public class ScapeGame extends BrainGdxGame {
@@ -28,8 +31,11 @@ public class ScapeGame extends BrainGdxGame {
    private boolean devMode;
    private boolean debugMode;
    private boolean gifMode;
+   private final GameServiceFactory gameServiceFactory;
+   private IGameServiceClient gameServiceClient;
 
-   public ScapeGame(String ... args) {
+   public ScapeGame(GameServiceFactory gameServiceFactory, String ... args) {
+      this.gameServiceFactory = gameServiceFactory;
       for (String arg : args) {
          if ("dev".equalsIgnoreCase(arg)) {
             devMode = true;
@@ -44,6 +50,10 @@ public class ScapeGame extends BrainGdxGame {
             screenshots = true;
          }
       }
+   }
+
+   public IGameServiceClient getGameServiceClient() {
+      return gameServiceClient;
    }
 
    public boolean isDevMode() {
@@ -61,6 +71,11 @@ public class ScapeGame extends BrainGdxGame {
 
    @Override
    protected AbstractScreen<?, ?> getInitialScreen() {
+      this.gameServiceClient = initialiseGameClient();
+
+      // establish a connection to the game service without error messages or login screens
+      gameServiceClient.resumeSession();
+
       Bundle.load();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());
       Tween.registerAccessor(ValueProvider.class, new ValueTween());
@@ -70,6 +85,15 @@ public class ScapeGame extends BrainGdxGame {
          return new StageSelectionScreen(this);
       } else {
          return new LogoScreen(this);
+      }
+   }
+
+   private IGameServiceClient initialiseGameClient() {
+      try {
+         return  gameServiceFactory != null ? gameServiceFactory.create() : new NoGameServiceClient();
+      } catch (Exception e) {
+         Gdx.app.error("GameClient", "Unable to initialise game client: " + e.getMessage());
+         return new NoGameServiceClient();
       }
    }
 

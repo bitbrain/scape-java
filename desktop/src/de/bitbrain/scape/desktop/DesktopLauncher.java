@@ -6,6 +6,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.gsv.GameServiceFactory;
+import de.golfgl.gdxgamesvcs.GpgsClient;
+import de.golfgl.gdxgamesvcs.IGameServiceClient;
 
 import javax.swing.*;
 
@@ -17,7 +20,17 @@ public class DesktopLauncher {
 		config.resizable = true;
 		config.title = "scape (Evil Corp. Edition)";
 		setApplicationIcon(config);
-		new LwjglApplication(new ScapeGame(arg), config);
+
+		final GameServiceFactory gameServiceFactory = new GameServiceFactory() {
+			@Override
+			public IGameServiceClient create() {
+				// TODO setup client secret
+				return new GpgsClient().initialize("scape",
+						Gdx.files.internal("gpgs-client_secret.json"), true);
+			}
+		};
+
+		new LwjglApplication(new ScapeGame(gameServiceFactory, arg), config);
 	}
 
 	private static void setApplicationIcon(LwjglApplicationConfiguration config) {

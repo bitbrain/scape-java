@@ -26,7 +26,7 @@ allprojects {
         aiVersion = '1.8.0'
         braingdxVersion = '0.6.14'
         gamesvcsVersion = '1.0.2'
-        android_min_sdk_version = 14
+        android_min_sdk_version = 15
         android_compile_version = 28
     }
 
