@@ -5,10 +5,10 @@ jdk:
 android:
   components:
     # The BuildTools version used by your project
-    - build-tools-26.0.2
+    - build-tools-28.0.3
 
     # The SDK version used to compile your project
-    - android-26
+    - android-28
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -18,6 +18,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 before_install:
+  - yes | sdkmanager "platforms;android-28"
   - openssl aes-256-cbc -K $encrypted_0b7020476dfc_key -iv $encrypted_0b7020476dfc_iv -in android/scape-keystore.jks.enc -out android/scape-keystore.jks -d
   - openssl aes-256-cbc -K $encrypted_31846b4652e9_key -iv $encrypted_31846b4652e9_iv -in android/api-6619918169594173534-901203-6581d1868a0a.json.enc -out android/api-6619918169594173534-901203-6581d1868a0a.json -d
 
