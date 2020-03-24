@@ -22,7 +22,7 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_31846b4652e9_key -iv $encrypted_31846b4652e9_iv -in android/api-6619918169594173534-901203-6581d1868a0a.json.enc -out android/api-6619918169594173534-901203-6581d1868a0a.json -d
 
 script: 
-  - chmod +x gradlew && ./gradlew desktop:dist  && ./gradle android:assembleRelease
+  - chmod +x gradlew && ./gradlew desktop:dist  && ./gradlew android:assembleRelease
 
 after_script:
   chmod +x deployment/desktop/deploy.sh && ./deployment/desktop/deploy.sh && ./gradlew android:publishBundle
