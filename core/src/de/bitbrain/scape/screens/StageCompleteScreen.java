@@ -5,14 +5,12 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -24,19 +22,14 @@ import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.ui.NavigationMenu;
-import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
-import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
-import de.bitbrain.scape.ui.ingame.CurrentTimeLabel;
 
 import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.HORIZONTAL;
-import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.VERTICAL;
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
@@ -53,7 +46,7 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
    private boolean exiting = false;
    private GameContext2D context;
    private PlayerProgress progress;
-   private NavigationMenu<TextButton> buttonMenu;
+   private NavigationMenu<Button> buttonMenu;
 
    public StageCompleteScreen(ScapeGame game, PlayerProgress progress) {
       super(game);
@@ -134,9 +127,9 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       // 4. Current time
       final Label timeDescription = new Label(get(MENU_STAGE_COMPLETE_TIME), Styles.LABEL_INGAME_DESCRIPTION);
       layout.add(timeDescription).row();
-      int minutes = (int) (progress.getCurrentTime() /(1000 * 60));
+      int minutes = (int) (progress.getCurrentTime() / (1000 * 60));
       int seconds = (int) (progress.getCurrentTime() / 1000 % 60);
-      int millis  = (int) (progress.getCurrentTime() % 1000);
+      int millis = (int) (progress.getCurrentTime() % 1000);
       Actor currentTime = createAnimatedLogo(format("%02d:%02d.%03d", minutes, seconds, millis), Styles.LABEL_SELECTION_TOTAL_PROGRESS, context.getTweenManager());
       layout.add(currentTime).row();
 
@@ -163,7 +156,7 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       NavigationMenu.NavigationMenuStyle style = new NavigationMenu.NavigationMenuStyle(MENU_STYLE);
       style.alignment = HORIZONTAL;
       style.padding = 100;
-      buttonMenu = new NavigationMenu<TextButton>(style);
+      buttonMenu = new NavigationMenu<Button>(style);
       addMenuButton(MENU_STAGE_RETRY, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {

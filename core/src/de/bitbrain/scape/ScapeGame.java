@@ -3,6 +3,7 @@ package de.bitbrain.scape;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.ControllerManager;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameSettings;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
@@ -16,7 +17,7 @@ import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.gsv.GameServiceFactory;
+import de.bitbrain.scape.googleplay.GameServiceFactory;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.screens.StageSelectionScreen;
 import de.bitbrain.scape.screens.LogoScreen;
@@ -72,7 +73,6 @@ public class ScapeGame extends BrainGdxGame {
    @Override
    protected AbstractScreen<?, ?> getInitialScreen() {
       this.gameServiceClient = initialiseGameClient();
-
       // establish a connection to the game service without error messages or login screens
       gameServiceClient.resumeSession();
 

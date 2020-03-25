@@ -105,7 +105,7 @@ public final class Styles {
       LABEL_CREDITS.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 50 : 20);
       LABEL_CREDITS.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_LOGO.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 260 : 120);
+      LABEL_LOGO.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 260 : 145);
       LABEL_LOGO.fontColor = Colors.PRIMARY_BLUE;
 
       BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 48 : 36);
@@ -118,7 +118,9 @@ public final class Styles {
       MENU_STYLE.alignment = isMobile ? HORIZONTAL : VERTICAL;
       MENU_STYLE.fadeOutColor = Colors.PRIMARY_BLUE;
       MENU_STYLE.fadeInColor = Colors.PRIMARY_RED;
-      MENU_STYLE.fadeOutEquation = TweenEquations.easeOutCubic;
+      MENU_STYLE.fadeOutDuration = 1.1f;
+      MENU_STYLE.fadeOutAlpha = 0.9f;
+      MENU_STYLE.fadeOutEquation = TweenEquations.easeOutCirc;
       MENU_STYLE.fadeInEquation = TweenEquations.easeInCubic;
    }
 

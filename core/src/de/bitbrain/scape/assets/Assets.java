@@ -13,6 +13,7 @@ public interface Assets {
       String MENU_FOCUS_DEFAULT_NINEPATCH = "focus-default.9.png";
       String SELECTION_NINEPATCH = "selection.9.png";
       String SELECTION_TARGET = "selection-target.png";
+      String LOGO_PLAYER = "logo-player.png";
    }
 
    interface TiledMaps {

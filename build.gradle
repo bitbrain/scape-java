@@ -3,6 +3,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
@@ -24,7 +25,7 @@ allprojects {
         roboVMVersion = '2.R3.3'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
-        braingdxVersion = '0.6.14'
+        braingdxVersion = '0.6.15'
         gamesvcsVersion = '1.0.2'
         android_min_sdk_version = 15
         android_compile_version = 28
@@ -33,6 +34,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         jcenter()

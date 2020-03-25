@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import de.bitbrain.scape.gsv.GameServiceFactory;
+import de.bitbrain.scape.googleplay.GameServiceFactory;
 import de.golfgl.gdxgamesvcs.GpgsClient;
 import de.golfgl.gdxgamesvcs.IGameServiceClient;
 

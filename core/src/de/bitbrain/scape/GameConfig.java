@@ -100,7 +100,7 @@ public interface GameConfig {
       }
    };
 
-   float MENU_BUTTON_WIDTH = 300f;
+   float MENU_BUTTON_WIDTH = 332f;
    float MENU_BUTTON_HEIGHT = 80f;
    float MENU_BUTTON_PADDING = 30f;
 }

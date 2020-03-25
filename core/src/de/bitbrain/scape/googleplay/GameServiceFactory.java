@@ -1,4 +1,4 @@
-package de.bitbrain.scape.gsv;
+package de.bitbrain.scape.googleplay;
 
 import de.golfgl.gdxgamesvcs.IGameServiceClient;
 

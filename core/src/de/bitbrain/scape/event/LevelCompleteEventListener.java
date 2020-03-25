@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.googleplay.Achievements;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.screens.IngameScreen;
@@ -42,6 +43,9 @@ public class LevelCompleteEventListener implements GameEventListener<LevelComple
       }
       if (levelMetaData.getBackgroundMusicPath() != null) {
          SharedAssetManager.getInstance().get(levelMetaData.getBackgroundMusicPath(), Music.class).stop();
+      }
+      if (levelMetaData.getNumberOfBytes() == progress.getPointRecord()) {
+         game.getGameServiceClient().unlockAchievement(Achievements.FULL_HOUSE);
       }
       game.setScreen(new StageCompleteScreen(game, progress));
    }

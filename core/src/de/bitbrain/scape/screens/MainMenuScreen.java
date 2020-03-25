@@ -5,20 +5,17 @@ import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -28,19 +25,14 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
 import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
-import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
-import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
-import de.bitbrain.scape.ui.GlitchLabel;
 import de.bitbrain.scape.ui.Styles;
 
-import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.HORIZONTAL;
-import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.VERTICAL;
 import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
@@ -50,7 +42,7 @@ import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 
 public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
-   private NavigationMenu<TextButton> buttonMenu;
+   private NavigationMenu<Button> buttonMenu;
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -88,16 +80,13 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    private void setupUI(final GameContext2D context) {
-
-      boolean isMobile = Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
-
       Table layout = new Table();
       layout.setFillParent(true);
 
-      Actor logo = createAnimatedLogo("scape", Styles.LABEL_LOGO, context.getTweenManager());
-      layout.add(logo).padBottom(60f).row();
+      Actor logo = createAnimatedLogo("sc pe", Styles.LABEL_LOGO, context.getTweenManager());
+      layout.add(logo).padTop(20f).padBottom(30f).row();
 
-      buttonMenu = new NavigationMenu<TextButton>(MENU_STYLE);
+      buttonMenu = new NavigationMenu<Button>(MENU_STYLE);
       addMenuButton(MENU_MAIN_CONTINUE, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
@@ -108,6 +97,12 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
                   .start(SharedTweenManager.getInstance());
          }
       });
+      addMenuButton(MENU_MAIN_PLAY_LOGIN, buttonMenu, new ClickListener() {
+         @Override
+         public void clicked(InputEvent event, float x, float y) {
+            getGame().getGameServiceClient().logIn();
+         }
+      });
       addMenuButton(MENU_MAIN_NEWGAME, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
@@ -116,6 +111,28 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
             context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
          }
       });
+      /*addMenuButton(MENU_MAIN_PLAY_ACHIEVEMENTS, buttonMenu, new ClickListener() {
+         @Override
+         public void clicked(InputEvent event, float x, float y) {
+            try {
+               getGame().getGameServiceClient().showAchievements();
+            } catch (GameServiceException e) {
+               e.printStackTrace();
+               Gdx.app.error("GooglePlay", "Unable to login");
+            }
+         }
+      }, false).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).left().padLeft(0f).padTop(MENU_BUTTON_PADDING);
+      addMenuButton(MENU_MAIN_PLAY_LEADERBOARDS, buttonMenu, new ClickListener() {
+         @Override
+         public void clicked(InputEvent event, float x, float y) {
+            try {
+               getGame().getGameServiceClient().showLeaderboards(Leaderboards.BYTE_COLLECTORS);
+            } catch (GameServiceException e) {
+               e.printStackTrace();
+               Gdx.app.error("GooglePlay", "Unable to login");
+            }
+         }
+      }).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).padLeft(-MENU_BUTTON_WIDTH / 2f + MENU_BUTTON_PADDING / 2f).padTop(MENU_BUTTON_PADDING);*/
       addMenuButton(MENU_MAIN_EXIT, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
@@ -123,10 +140,11 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
          }
       });
 
+
       buttonMenu.next();
 
-      layout.padTop(50f).add(buttonMenu).padBottom(80f).row();
-      Label credits = new Label(get(MENU_MAIN_CREDITS) + "\n© 2020", Styles.LABEL_CREDITS);
+      layout.add(buttonMenu).padBottom(40f).row();
+      Label credits = new Label(get(MENU_MAIN_CREDITS) + " © 2020", Styles.LABEL_CREDITS);
       credits.setAlignment(Align.center);
       credits.getColor().a = 0.3f;
       layout.add(credits);

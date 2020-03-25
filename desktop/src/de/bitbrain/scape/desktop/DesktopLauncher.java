@@ -6,7 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import de.bitbrain.scape.ScapeGame;
-import de.bitbrain.scape.gsv.GameServiceFactory;
+import de.bitbrain.scape.googleplay.GameServiceFactory;
 import de.golfgl.gdxgamesvcs.GpgsClient;
 import de.golfgl.gdxgamesvcs.IGameServiceClient;
 
