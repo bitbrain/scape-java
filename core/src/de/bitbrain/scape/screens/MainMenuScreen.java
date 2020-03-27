@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.bitbrain.braingdx.assets.SharedAssetManager;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -30,6 +32,7 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 
@@ -43,6 +46,7 @@ import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private NavigationMenu<Button> buttonMenu;
+   private Music music;
 
    public MainMenuScreen(ScapeGame game) {
       super(game);
@@ -55,6 +59,10 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onCreate(GameContext2D context) {
       this.context = context;
+      music = SharedAssetManager.getInstance().get(Assets.Musics.BACKGROUND_MAIN_MENU, Music.class);
+      music.setLooping(true);
+      music.setVolume(0.2f);
+      music.play();
       context.getScreenTransitions().in(1.5f);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       setupUI(context);
@@ -67,7 +75,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    public void dispose() {
       super.dispose();
-      Controllers.clearListeners();
+      music.stop();
    }
 
    @Override

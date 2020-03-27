@@ -65,6 +65,7 @@ public interface Assets {
       String INTRO = "music/scape-intro.ogg";
       String COMPUTER_NOISE = "music/computer-noise.ogg";
 
+      String BACKGROUND_MAIN_MENU = "music/bgm_00.ogg";
       String BACKGROUND_01 = "music/bgm_01.ogg";
       String BACKGROUND_02 = "music/bgm_02.ogg";
       String BACKGROUND_03 = "music/bgm_03.ogg";
