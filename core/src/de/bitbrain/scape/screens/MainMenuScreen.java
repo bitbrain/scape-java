@@ -33,8 +33,10 @@ import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.googleplay.Leaderboards;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
+import de.golfgl.gdxgamesvcs.GameServiceException;
 
 import static de.bitbrain.scape.GameConfig.*;
 import static de.bitbrain.scape.i18n.Bundle.get;
@@ -119,7 +121,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
             context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
          }
       });
-      /*addMenuButton(MENU_MAIN_PLAY_ACHIEVEMENTS, buttonMenu, new ClickListener() {
+      addMenuButton(MENU_MAIN_PLAY_ACHIEVEMENTS, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             try {
@@ -140,7 +142,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
                Gdx.app.error("GooglePlay", "Unable to login");
             }
          }
-      }).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).padLeft(-MENU_BUTTON_WIDTH / 2f + MENU_BUTTON_PADDING / 2f).padTop(MENU_BUTTON_PADDING);*/
+      }).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).padLeft(-MENU_BUTTON_WIDTH / 2f + MENU_BUTTON_PADDING / 2f).padTop(MENU_BUTTON_PADDING);
       addMenuButton(MENU_MAIN_EXIT, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
