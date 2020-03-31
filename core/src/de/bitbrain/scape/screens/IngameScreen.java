@@ -220,7 +220,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private void setupEvents(GameContext2D context) {
       context.getEventManager().register(
-            new GameOverEventListener(this, context),
+            new GameOverEventListener(levelMetaData, this, context),
             GameOverEvent.class
       );
       context.getEventManager().register(
@@ -228,7 +228,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
             LevelCompleteEvent.class
       );
       context.getEventManager().register(
-            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress, movement, levelMetaData.getPlayerSpeedIncrease()),
+            new ByteCollector(context.getGameWorld(), context.getParticleManager(), progress, movement, getGame(), levelMetaData.getPlayerSpeedIncrease()),
             ByteCollectedEvent.class
       );
    }
@@ -381,7 +381,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    private void setupPlayer(GameContext2D context) {
       CollisionDetector collisionDetector = new CollisionDetector(tiledMapContext);
-      movement = new PlayerMovement(collisionDetector, levelMetaData.getPlayerSpeed());
+      movement = new PlayerMovement(collisionDetector, levelMetaData.getPlayerSpeed(), getGame());
       context.getBehaviorManager().apply(movement, player);
       player.setAttribute(Movement.class, movement);
       player.setAttribute(Orientation.class, Orientation.RIGHT);

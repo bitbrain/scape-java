@@ -12,7 +12,9 @@ import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.googleplay.Achievements;
 import de.bitbrain.scape.movement.PlayerMovement;
 import de.bitbrain.scape.progress.PlayerProgress;
 
@@ -22,17 +24,19 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
    private final ParticleManager particleManager;
    private final PlayerProgress playerContext;
    private final PlayerMovement playerMovement;
+   private final ScapeGame scapeGame;
    private final float speedIncrease;
 
    public ByteCollector(GameWorld gameWorld,
                         ParticleManager particleManager,
                         PlayerProgress playerContext,
                         PlayerMovement playerMovement,
-                        float speedIncrease) {
+                        ScapeGame scapeGame, float speedIncrease) {
       this.gameWorld = gameWorld;
       this.particleManager = particleManager;
       this.playerContext = playerContext;
       this.playerMovement = playerMovement;
+      this.scapeGame = scapeGame;
       this.speedIncrease = speedIncrease;
    }
 
@@ -47,6 +51,8 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       SharedAssetManager.getInstance().get(Assets.Sounds.COLLECT, Sound.class)
             .play(0.63f, soundPitch, 0f);
       playerContext.addPoint();
+      scapeGame.getPlayAchievementManager().incrementAchievement(Achievements.BYTE_HUNTER);
+      scapeGame.getPlayAchievementManager().incrementAchievement(Achievements.BYTE_HOARDER);
       float centerX = object.getLeft() + object.getWidth() / 2f;
       float centerY = object.getTop() + object.getHeight() / 2f;
       particleManager.spawnEffect(Assets.Particles.COLLECT, centerX, centerY);

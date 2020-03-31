@@ -1,0 +1,35 @@
+package de.bitbrain.scape.googleplay;
+
+public enum Events {
+
+   NUMBER_OF_DEATHS_LEVEL_1("CgkIwair0J0PEAIQDQ"),
+   NUMBER_OF_DEATHS_LEVEL_2("CgkIwair0J0PEAIQDg"),
+   NUMBER_OF_DEATHS_LEVEL_3("CgkIwair0J0PEAIQDw"),
+   NUMBER_OF_DEATHS_LEVEL_4("CgkIwair0J0PEAIQEA"),
+   NUMBER_OF_DEATHS_LEVEL_5("CgkIwair0J0PEAIQEQ"),
+   NUMBER_OF_DEATHS_LEVEL_6("CgkIwair0J0PEAIQEg"),
+   NUMBER_OF_DEATHS_LEVEL_7("CgkIwair0J0PEAIQEw"),
+   NUMBER_OF_DEATHS_LEVEL_8("CgkIwair0J0PEAIQFA"),
+   NUMBER_OF_DEATHS_LEVEL_9("CgkIwair0J0PEAIQFQ"),
+   NUMBER_OF_DEATHS_LEVEL_10("CgkIwair0J0PEAIQFg"),
+   LEVEL_COMPLETED_LEVEL_1("CgkIwair0J0PEAIQFw"),
+   LEVEL_COMPLETED_LEVEL_2("CgkIwair0J0PEAIQGA"),
+   LEVEL_COMPLETED_LEVEL_3("CgkIwair0J0PEAIQGQ"),
+   LEVEL_COMPLETED_LEVEL_4("CgkIwair0J0PEAIQGg"),
+   LEVEL_COMPLETED_LEVEL_5("CgkIwair0J0PEAIQGw"),
+   LEVEL_COMPLETED_LEVEL_6("CgkIwair0J0PEAIQHA"),
+   LEVEL_COMPLETED_LEVEL_7("CgkIwair0J0PEAIQHQ"),
+   LEVEL_COMPLETED_LEVEL_8("CgkIwair0J0PEAIQHg"),
+   LEVEL_COMPLETED_LEVEL_9("CgkIwair0J0PEAIQHw"),
+   LEVEL_COMPLETED_LEVEL_10("CgkIwair0J0PEAIQIA");
+
+   private final String googlePlayId;
+
+   Events(String googlePlayId) {
+      this.googlePlayId = googlePlayId;
+   }
+
+   public String getGooglePlayId() {
+      return googlePlayId;
+   }
+}

@@ -11,8 +11,10 @@ import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
+import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.animation.Animator;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.googleplay.Achievements;
 import de.bitbrain.scape.model.Direction;
 
 import static java.lang.Math.max;
@@ -41,11 +43,13 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
    private final CollisionDetector collisionDetector;
    private Vector2 horizontalCollision, verticalCollision;
    private boolean lastHorizontalCollision;
+   private final ScapeGame scapeGame;
 
-   public PlayerMovement(CollisionDetector collisionDetector, float playerSpeed) {
+   public PlayerMovement(CollisionDetector collisionDetector, float playerSpeed, ScapeGame scapeGame) {
       this.collisionDetector = collisionDetector;
       this.playerSpeed = playerSpeed;
       this.velocity  = new Vector2(playerSpeed, 0);
+      this.scapeGame = scapeGame;
    }
 
    public void setEnabled(boolean enabled) {
@@ -138,6 +142,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (flipping || (hasHorizontalCollisionInFront() && !hasVerticalCollision())) {
          return;
       }
+      scapeGame.getPlayAchievementManager().incrementAchievement(Achievements.THE_JUMPER);
       SharedAssetManager.getInstance().get(Assets.Sounds.JUMP, Sound.class)
             .play(0.3f, (float) (1f + Math.random() * 0.3f), 0f);
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {

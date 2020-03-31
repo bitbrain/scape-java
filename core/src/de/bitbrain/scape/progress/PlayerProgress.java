@@ -65,9 +65,11 @@ public class PlayerProgress {
       return preferences.getInteger(GameConfig.PLAYER_MAXIMUM_LEVEL, 1);
    }
 
-   public void increaseMaxLevel() {
-      preferences.putInteger(GameConfig.PLAYER_MAXIMUM_LEVEL, getMaximumLevel() + 1);
-      preferences.flush();
+   public void setMaxLevel(int maxLevel) {
+      if (maxLevel > getMaximumLevel()) {
+         preferences.putInteger(GameConfig.PLAYER_MAXIMUM_LEVEL, maxLevel);
+         preferences.flush();
+      }
    }
 
    public void setCurrentLevel(int level) {

@@ -6,7 +6,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -107,12 +106,14 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
                   .start(SharedTweenManager.getInstance());
          }
       });
-      addMenuButton(MENU_MAIN_PLAY_LOGIN, buttonMenu, new ClickListener() {
-         @Override
-         public void clicked(InputEvent event, float x, float y) {
-            getGame().getGameServiceClient().logIn();
-         }
-      });
+      if (!getGame().getGameServiceClient().isSessionActive()) {
+         addMenuButton(MENU_MAIN_PLAY_LOGIN, buttonMenu, new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               getGame().getGameServiceClient().logIn();
+            }
+         });
+      }
       addMenuButton(MENU_MAIN_NEWGAME, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
@@ -120,37 +121,26 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
             progress.reset();
             context.getScreenTransitions().out(new IntroScreen(getGame()), 0.5f);
          }
-      });
-      addMenuButton(MENU_MAIN_PLAY_ACHIEVEMENTS, buttonMenu, new ClickListener() {
-         @Override
-         public void clicked(InputEvent event, float x, float y) {
-            try {
-               getGame().getGameServiceClient().showAchievements();
-            } catch (GameServiceException e) {
-               e.printStackTrace();
-               Gdx.app.error("GooglePlay", "Unable to login");
+      }, true);
+      if (getGame().getGameServiceClient().isSessionActive()) {
+         addMenuButton(MENU_MAIN_PLAY_ACHIEVEMENTS, buttonMenu, new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               try {
+                  getGame().getGameServiceClient().showAchievements();
+               } catch (GameServiceException e) {
+                  e.printStackTrace();
+                  Gdx.app.error("GooglePlay", "Unable to login");
+               }
             }
-         }
-      }, false).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).left().padLeft(0f).padTop(MENU_BUTTON_PADDING);
-      addMenuButton(MENU_MAIN_PLAY_LEADERBOARDS, buttonMenu, new ClickListener() {
-         @Override
-         public void clicked(InputEvent event, float x, float y) {
-            try {
-               getGame().getGameServiceClient().showLeaderboards(Leaderboards.BYTE_COLLECTORS);
-            } catch (GameServiceException e) {
-               e.printStackTrace();
-               Gdx.app.error("GooglePlay", "Unable to login");
-            }
-         }
-      }).width(MENU_BUTTON_WIDTH / 2 - MENU_BUTTON_PADDING / 2f).padLeft(-MENU_BUTTON_WIDTH / 2f + MENU_BUTTON_PADDING / 2f).padTop(MENU_BUTTON_PADDING);
+         }).padLeft(0f);
+      }
       addMenuButton(MENU_MAIN_EXIT, buttonMenu, new ClickListener() {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             Gdx.app.exit();
          }
       });
-
-
       buttonMenu.next();
 
       layout.add(buttonMenu).padBottom(40f).row();

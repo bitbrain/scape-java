@@ -10,15 +10,20 @@ import de.bitbrain.braingdx.tweens.GameObjectTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.animation.Animator;
+import de.bitbrain.scape.googleplay.Achievements;
+import de.bitbrain.scape.googleplay.Events;
 import de.bitbrain.scape.graphics.CharacterType;
+import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.screens.IngameScreen;
 
 public class GameOverEventListener implements GameEventListener<GameOverEvent> {
 
+   private final LevelMetaData levelMetaData;
    private final IngameScreen ingameScreen;
    private final GameContext2D context;
 
-   public GameOverEventListener(IngameScreen screen, GameContext2D context) {
+   public GameOverEventListener(LevelMetaData levelMetaData, IngameScreen screen, GameContext2D context) {
+      this.levelMetaData = levelMetaData;
       this.ingameScreen = screen;
       this.context = context;
    }
@@ -28,7 +33,11 @@ public class GameOverEventListener implements GameEventListener<GameOverEvent> {
       if (ingameScreen.isGameOver()) {
          return;
       }
+      final Events playEvent = Events.valueOf("NUMBER_OF_DEATHS_LEVEL_" + levelMetaData.getLevelNumber());
+      ingameScreen.getGame().getPlayEventManager().submitEvent(playEvent);
       ingameScreen.setGameOver(true);
+      ingameScreen.getGame().getPlayAchievementManager().incrementAchievement(Achievements.THE_CHOSEN_UNDEAD);
+      ingameScreen.getGame().getPlayAchievementManager().unlockAchievement(Achievements.YOU_DIED);
       SharedTweenManager.getInstance().killTarget(ingameScreen.getPlayer());
       Tween.to(ingameScreen.getPlayer(), GameObjectTween.SCALE_X, 0.2f)
             .target(0f)

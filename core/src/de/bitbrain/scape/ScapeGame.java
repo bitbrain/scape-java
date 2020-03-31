@@ -3,7 +3,6 @@ package de.bitbrain.scape;
 import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.ControllerManager;
 import de.bitbrain.braingdx.BrainGdxGame;
 import de.bitbrain.braingdx.GameSettings;
 import de.bitbrain.braingdx.assets.GameAssetLoader;
@@ -17,6 +16,8 @@ import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.ValueTween;
 import de.bitbrain.braingdx.util.ValueProvider;
 import de.bitbrain.scape.assets.Assets;
+import de.bitbrain.scape.googleplay.PlayAchievementManager;
+import de.bitbrain.scape.googleplay.PlayEventManager;
 import de.bitbrain.scape.googleplay.GameServiceFactory;
 import de.bitbrain.scape.i18n.Bundle;
 import de.bitbrain.scape.screens.StageSelectionScreen;
@@ -34,6 +35,8 @@ public class ScapeGame extends BrainGdxGame {
    private boolean gifMode;
    private final GameServiceFactory gameServiceFactory;
    private IGameServiceClient gameServiceClient;
+   private PlayAchievementManager achievementManager;
+   private PlayEventManager eventManager;
 
    public ScapeGame(GameServiceFactory gameServiceFactory, String ... args) {
       this.gameServiceFactory = gameServiceFactory;
@@ -65,6 +68,14 @@ public class ScapeGame extends BrainGdxGame {
       return debugMode;
    }
 
+   public PlayAchievementManager getPlayAchievementManager() {
+      return achievementManager;
+   }
+
+   public PlayEventManager getPlayEventManager() {
+      return eventManager;
+   }
+
    @Override
    protected GameAssetLoader getAssetLoader() {
       return new SmartAssetLoader(Assets.class);
@@ -75,6 +86,9 @@ public class ScapeGame extends BrainGdxGame {
       this.gameServiceClient = initialiseGameClient();
       // establish a connection to the game service without error messages or login screens
       gameServiceClient.resumeSession();
+
+      achievementManager = new PlayAchievementManager(gameServiceClient);
+      eventManager = new PlayEventManager(gameServiceClient);
 
       Bundle.load();
       Tween.registerAccessor(VectorGameCamera.class, new GameCameraTween());

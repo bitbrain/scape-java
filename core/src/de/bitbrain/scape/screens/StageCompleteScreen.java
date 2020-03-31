@@ -25,9 +25,11 @@ import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
+import de.bitbrain.scape.googleplay.Leaderboards;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
+import de.golfgl.gdxgamesvcs.GameServiceException;
 
 import static de.bitbrain.braingdx.ui.NavigationMenu.NavigationMenuStyle.Alignment.HORIZONTAL;
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
@@ -53,7 +55,7 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
       this.progress = progress;
       this.stageCompletedForTheFirstTime = progress.getTimeRecord() == 0;
       if (stageCompletedForTheFirstTime) {
-         progress.increaseMaxLevel();
+         progress.setMaxLevel(progress.getMetadata().getLevelNumber() + 1);
          newPointRecord = false;
          newTimeRecord = false;
       } else {
@@ -161,6 +163,18 @@ public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
          @Override
          public void clicked(InputEvent event, float x, float y) {
             context.getScreenTransitions().out(new IngameScreen(getGame(), metaData), 0.5f);
+         }
+      });
+      addMenuButton(MENU_MAIN_PLAY_LEADERBOARDS, buttonMenu, new ClickListener() {
+         @Override
+         public void clicked(InputEvent event, float x, float y) {
+            try {
+               final String leaderboardId = Leaderboards.valueOf("QUICKEST_PLAYERS_LEVEL_" + progress.getMetadata().getLevelNumber()).getGooglePlayId();
+               getGame().getGameServiceClient().showLeaderboards(leaderboardId);
+            } catch (GameServiceException e) {
+               e.printStackTrace();
+               Gdx.app.error("GooglePlay", "Unable to show leaderboard");
+            }
          }
       });
       addMenuButton(stageCompletedForTheFirstTime ? MENU_STAGE_NEXT : MENU_STAGE_SELECTION, buttonMenu, new ClickListener() {
