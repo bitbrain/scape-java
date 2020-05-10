@@ -7,10 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
-import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.level.LevelMetaData;
 import de.bitbrain.scape.progress.PlayerProgress;
@@ -38,7 +37,7 @@ public class PointsLabel extends Actor {
       this.context = context;
       this.metadata = metadata;
       getColor().a =TRANSPARENCY;
-      background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
+      background = Asset.get(Assets.Textures.UI_BG, Texture.class);
    }
 
    @Override

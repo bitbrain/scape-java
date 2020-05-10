@@ -5,7 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.audio.Sound;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.event.GameEventListener;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
@@ -48,7 +48,7 @@ public class ByteCollector implements GameEventListener<ByteCollectedEvent> {
       }
       playerMovement.increaseSpeed(speedIncrease);
       final float soundPitch = 0.5f + 0.5f * (float)playerContext.getPoints() / playerContext.getMetadata().getNumberOfBytes();
-      SharedAssetManager.getInstance().get(Assets.Sounds.COLLECT, Sound.class)
+      Asset.get(Assets.Sounds.COLLECT, Sound.class)
             .play(0.63f, soundPitch, 0f);
       playerContext.addPoint();
       scapeGame.getPlayAchievementManager().incrementAchievement(Achievements.BYTE_HUNTER);

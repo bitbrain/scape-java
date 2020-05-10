@@ -17,7 +17,7 @@
     <property name="description" value="level.databus.description"/>
     <property name="name" value="level.databus.name"/>
     <property name="order" type="int" value="1"/>
-    <property name="path" value="maps/001_databus.tmx"/>
+    <property name="path" value="001_databus.tmx"/>
     <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
@@ -27,7 +27,7 @@
     <property name="description" value="level.kernelio.description"/>
     <property name="name" value="level.kernelio.name"/>
     <property name="order" type="int" value="2"/>
-    <property name="path" value="maps/002_kernelio.tmx"/>
+    <property name="path" value="002_kernelio.tmx"/>
     <property name="tooltip" value="bottomLeft"/>
    </properties>
    <point/>
@@ -37,7 +37,7 @@
     <property name="description" value="level.ram.description"/>
     <property name="name" value="level.ram.name"/>
     <property name="order" type="int" value="3"/>
-    <property name="path" value="maps/003_ram.tmx"/>
+    <property name="path" value="003_ram.tmx"/>
     <property name="tooltip" value="bottomRight"/>
    </properties>
    <point/>
@@ -47,7 +47,7 @@
     <property name="description" value="level.subroutine.description"/>
     <property name="name" value="level.subroutine.name"/>
     <property name="order" type="int" value="9"/>
-    <property name="path" value="maps/009_subroutine.tmx"/>
+    <property name="path" value="009_subroutine.tmx"/>
     <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
@@ -57,7 +57,7 @@
     <property name="description" value="level.l2queue.description"/>
     <property name="name" value="level.l2queue.name"/>
     <property name="order" type="int" value="7"/>
-    <property name="path" value="maps/007_l2queue.tmx"/>
+    <property name="path" value="007_l2queue.tmx"/>
     <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
@@ -67,7 +67,7 @@
     <property name="description" value="level.securitycontroller.description"/>
     <property name="name" value="level.securitycontroller.name"/>
     <property name="order" type="int" value="10"/>
-    <property name="path" value="maps/010_securitycontroller.tmx"/>
+    <property name="path" value="010_securitycontroller.tmx"/>
     <property name="tooltip" value="topRight"/>
    </properties>
    <point/>
@@ -77,7 +77,7 @@
     <property name="description" value="level.threadpool.description"/>
     <property name="name" value="level.threadpool.name"/>
     <property name="order" type="int" value="4"/>
-    <property name="path" value="maps/004_threadpool.tmx"/>
+    <property name="path" value="004_threadpool.tmx"/>
     <property name="tooltip" value="right"/>
    </properties>
    <point/>
@@ -87,7 +87,7 @@
     <property name="description" value="level.cachearray.description"/>
     <property name="name" value="level.cachearray.name"/>
     <property name="order" type="int" value="5"/>
-    <property name="path" value="maps/005_cachearray.tmx"/>
+    <property name="path" value="005_cachearray.tmx"/>
     <property name="tooltip" value="bottomRight"/>
    </properties>
    <point/>
@@ -97,7 +97,7 @@
     <property name="description" value="level.riscunit.description"/>
     <property name="name" value="level.riscunit.name"/>
     <property name="order" type="int" value="8"/>
-    <property name="path" value="maps/008_riscunit.tmx"/>
+    <property name="path" value="008_riscunit.tmx"/>
     <property name="tooltip" value="topLeft"/>
    </properties>
    <point/>
@@ -107,7 +107,7 @@
     <property name="description" value="level.northbridge.description"/>
     <property name="name" value="level.northbridge.name"/>
     <property name="order" type="int" value="6"/>
-    <property name="path" value="maps/006_northbridge.tmx"/>
+    <property name="path" value="006_northbridge.tmx"/>
     <property name="tooltip" value="bottomRight"/>
    </properties>
    <point/>

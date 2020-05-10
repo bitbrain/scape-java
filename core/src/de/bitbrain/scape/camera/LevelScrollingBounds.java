@@ -4,7 +4,6 @@ import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.braingdx.world.GameWorld;
-import de.bitbrain.scape.GameConfig;
 
 public class LevelScrollingBounds implements GameWorld.WorldBounds {
 

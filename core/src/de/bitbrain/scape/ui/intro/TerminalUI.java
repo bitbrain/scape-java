@@ -1,10 +1,9 @@
 package de.bitbrain.scape.ui.intro;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.util.DeltaTimer;
 import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.ui.Styles;
@@ -85,7 +84,7 @@ public class TerminalUI extends Table {
             if (!text.equals("\n")) {
                if (soundTimer.reached(0.06f)) {
                   soundTimer.reset();
-                  SharedAssetManager.getInstance().get(Assets.Sounds.BEEP, Sound.class).play(0.005f);
+                  Asset.get(Assets.Sounds.BEEP, Sound.class).play(0.005f);
                }
             }
          } else if (lineTimer.reached(randomLineInterval)) {

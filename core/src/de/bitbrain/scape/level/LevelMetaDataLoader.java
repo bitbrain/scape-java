@@ -3,7 +3,7 @@ package de.bitbrain.scape.level;
 import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.world.GameObject;
 import de.bitbrain.scape.GameConfig;
 import de.bitbrain.scape.i18n.Bundle;
@@ -14,7 +14,7 @@ public class LevelMetaDataLoader {
       String translatedName = Bundle.get(object.getAttribute("name", String.class));
       String translatedDescription = Bundle.get(object.getAttribute("description", String.class));
       String path = object.getAttribute("path", String.class);
-      TiledMap map = SharedAssetManager.getInstance().get(path, TiledMap.class);
+      TiledMap map = Asset.get(path, TiledMap.class);
       return new LevelMetaData(
             number,
             path,

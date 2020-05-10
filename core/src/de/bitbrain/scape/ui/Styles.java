@@ -3,7 +3,6 @@ package de.bitbrain.scape.ui;
 import aurelienribon.tweenengine.TweenEquations;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
@@ -24,8 +23,6 @@ import static de.bitbrain.scape.GameConfig.MENU_BUTTON_PADDING;
 import static de.bitbrain.scape.assets.Assets.Textures.MENU_FOCUS_DEFAULT_NINEPATCH;
 
 public final class Styles {
-
-   private static final AssetManager m = SharedAssetManager.getInstance();
 
    public static final Label.LabelStyle LABEL_LOGO = new Label.LabelStyle();
    public static final Label.LabelStyle LABEL_INGAME_POINTS_ALL = new Label.LabelStyle();
@@ -79,16 +76,16 @@ public final class Styles {
       LABEL_SELECTION_TOTAL_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 90);
       LABEL_SELECTION_TOTAL_PROGRESS.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_CAPTION.font = SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
+      LABEL_SELECTION_CAPTION.font = Asset.get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_CAPTION.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_DESCRIPTION.font = SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
+      LABEL_SELECTION_DESCRIPTION.font = Asset.get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
 
-      LABEL_SELECTION_LEVEL_PROGRESS.font = SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
+      LABEL_SELECTION_LEVEL_PROGRESS.font = Asset.get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_LEVEL_PROGRESS.fontColor = Colors.PRIMARY_RED;
 
-      LABEL_SELECTION_PROGRESS_DESCRIPTION.font = SharedAssetManager.getInstance().get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
+      LABEL_SELECTION_PROGRESS_DESCRIPTION.font = Asset.get(Assets.BitmapFonts.VISITOR_MICRO, BitmapFont.class);
       LABEL_SELECTION_PROGRESS_DESCRIPTION.fontColor = Colors.PRIMARY_BLUE;
       LABEL_SELECTION_PROGRESS.font = bake(Assets.Fonts.UI_NUMBER, 30);
       LABEL_SELECTION_PROGRESS.fontColor = Colors.PRIMARY_RED;
@@ -109,12 +106,12 @@ public final class Styles {
       LABEL_LOGO.fontColor = Colors.PRIMARY_BLUE;
 
       BUTTON_MENU.font = bake(Assets.Fonts.UI_NUMBER, isMobile ? 48 : 36);
-      Texture ninePatchTexture = SharedAssetManager.getInstance().get(MENU_FOCUS_DEFAULT_NINEPATCH, Texture.class);
+      Texture ninePatchTexture = Asset.get(MENU_FOCUS_DEFAULT_NINEPATCH, Texture.class);
       BUTTON_MENU.up = new NinePatchDrawable(GraphicsFactory.createNinePatch(ninePatchTexture, 22));
 
       MENU_STYLE.padding = MENU_BUTTON_PADDING;
-      MENU_STYLE.hoverSound = SharedAssetManager.getInstance().get(Assets.Sounds.SELECT, Sound.class);
-      MENU_STYLE.enterSound = SharedAssetManager.getInstance().get(Assets.Sounds.SUBMIT, Sound.class);
+      MENU_STYLE.hoverSound = Asset.get(Assets.Sounds.SELECT, Sound.class);
+      MENU_STYLE.enterSound = Asset.get(Assets.Sounds.SUBMIT, Sound.class);
       MENU_STYLE.alignment = isMobile ? HORIZONTAL : VERTICAL;
       MENU_STYLE.fadeOutColor = Colors.PRIMARY_BLUE;
       MENU_STYLE.fadeInColor = Colors.PRIMARY_RED;
@@ -125,7 +122,7 @@ public final class Styles {
    }
 
    public static BitmapFont bake(String fontPath, int size) {
-      FreeTypeFontGenerator generator = SharedAssetManager.getInstance().get(fontPath, FreeTypeFontGenerator.class);
+      FreeTypeFontGenerator generator = Asset.get(fontPath, FreeTypeFontGenerator.class);
       FreeTypeFontGenerator.FreeTypeFontParameter param = new FreeTypeFontGenerator.FreeTypeFontParameter();
       param.color = Color.WHITE;
       param.size = size;

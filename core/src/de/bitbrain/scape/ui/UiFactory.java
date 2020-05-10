@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.assets.Assets;
@@ -74,7 +74,7 @@ public class UiFactory {
 
    private static Actor getLogoActor(char character, Label.LabelStyle style) {
       if (character == ' ') {
-         Sprite sprite = new Sprite(SharedAssetManager.getInstance().get(Assets.Textures.LOGO_PLAYER, Texture.class));
+         Sprite sprite = new Sprite(Asset.get(Assets.Textures.LOGO_PLAYER, Texture.class));
          sprite.setSize(56f, 56f);
          return new Image(new SpriteDrawable(sprite));
       } else {

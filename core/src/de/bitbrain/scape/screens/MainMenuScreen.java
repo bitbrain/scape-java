@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
@@ -25,26 +25,25 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
 import de.bitbrain.scape.Colors;
 import de.bitbrain.scape.ScapeGame;
 import de.bitbrain.scape.assets.Assets;
-import de.bitbrain.scape.googleplay.Leaderboards;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.Styles;
 import de.golfgl.gdxgamesvcs.GameServiceException;
 
-import static de.bitbrain.scape.GameConfig.*;
+import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 import static de.bitbrain.scape.i18n.Bundle.get;
 import static de.bitbrain.scape.i18n.Messages.*;
 import static de.bitbrain.scape.ui.Styles.MENU_STYLE;
 import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 
-public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
+public class MainMenuScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private NavigationMenu<Button> buttonMenu;
    private Music music;
@@ -60,7 +59,7 @@ public class MainMenuScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onCreate(GameContext2D context) {
       this.context = context;
-      music = SharedAssetManager.getInstance().get(Assets.Musics.BACKGROUND_MAIN_MENU, Music.class);
+      music = Asset.get(Assets.Musics.BACKGROUND_MAIN_MENU, Music.class);
       music.setLooping(true);
       music.setVolume(0.2f);
       music.play();

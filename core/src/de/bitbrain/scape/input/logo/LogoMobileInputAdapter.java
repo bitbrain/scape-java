@@ -1,7 +1,6 @@
 package de.bitbrain.scape.input.logo;
 
 import com.badlogic.gdx.input.GestureDetector;
-import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.scape.screens.LogoScreen;
 
 public class LogoMobileInputAdapter extends GestureDetector.GestureAdapter {

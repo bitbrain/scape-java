@@ -18,7 +18,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.VectorGameCamera;
@@ -28,10 +28,8 @@ import de.bitbrain.braingdx.graphics.animation.AnimationSpriteSheet;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
-import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
-import de.bitbrain.braingdx.screens.AbstractScreen;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.tweens.GameCameraTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
@@ -48,7 +46,7 @@ import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.*;
 
-public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
+public class StageSelectionScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private AutoReloadPostProcessorEffect<Zoomer> zoomer;
    private PlayerProgress progress;
@@ -90,13 +88,13 @@ public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
 
    @Override
    protected void onCreate(GameContext2D context) {
-      SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).stop();
-      SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
+      Asset.get(Assets.Sounds.STARTUP, Sound.class).stop();
+      Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
       this.context = context;
       context.getLightingManager().setAmbientLight(Colors.BACKGROUND_VIOLET);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       context.getTiledMapManager().load(
-            SharedAssetManager.getInstance().get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),
+            Asset.get(Assets.TiledMaps.WORLD_MAP, TiledMap.class),
             context.getGameCamera().getInternalCamera()
       );
       this.progress = new PlayerProgress(null);
@@ -153,7 +151,7 @@ public class StageSelectionScreen extends BrainGdxScreen2D<ScapeGame> {
       Table layout = new Table();
       layout.setFillParent(true);
 
-      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
+      final Texture playerTexture = Asset.get(Assets.Textures.BYTE, Texture.class);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
       Image image = new Image(new AnimationDrawable(sheet,
             AnimationConfig.builder()

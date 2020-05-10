@@ -5,7 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -93,7 +93,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       }
       if (hasHorizontalCollision()) {
          if (!lastHorizontalCollision) {
-            SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
+            Asset.get(Assets.Sounds.STEP, Sound.class)
                   .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
          }
          lastHorizontalCollision = true;
@@ -117,7 +117,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
       if (!flipping && lastFlipping) {
          landing = true;
          Animator.animateLanding(source);
-         SharedAssetManager.getInstance().get(Assets.Sounds.STEP, Sound.class)
+         Asset.get(Assets.Sounds.STEP, Sound.class)
                .play(0.1f, (float) (0.6f + Math.random() * 0.3f), 0f);
          Tween.call(new TweenCallback() {
             @Override
@@ -143,7 +143,7 @@ public class PlayerMovement extends BehaviorAdapter implements Movement<Integer>
          return;
       }
       scapeGame.getPlayAchievementManager().incrementAchievement(Achievements.THE_JUMPER);
-      SharedAssetManager.getInstance().get(Assets.Sounds.JUMP, Sound.class)
+      Asset.get(Assets.Sounds.JUMP, Sound.class)
             .play(0.3f, (float) (1f + Math.random() * 0.3f), 0f);
       if (Direction.DOWN.equals(source.getAttribute(Direction.class))) {
          source.setAttribute(Direction.class, Direction.UP);

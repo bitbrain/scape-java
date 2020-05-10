@@ -6,7 +6,6 @@ import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,10 +13,9 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.animation.AnimationConfig;
@@ -27,7 +25,7 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.AbstractScreen;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.AnimationDrawable;
@@ -45,7 +43,7 @@ import de.bitbrain.scape.ui.Styles;
 
 import static de.bitbrain.scape.GameConfig.DEFAULT_BLOOM_CONFIG;
 
-public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
+public class LogoScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private GameContext2D context;
    private PlayerProgress progress;
@@ -60,11 +58,11 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onCreate(final GameContext2D context) {
       this.progress = new PlayerProgress(null);
-      SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).play();
+      Asset.get(Assets.Musics.BITBRAIN, Music.class).play();
       this.context = context;
       context.getScreenTransitions().in(0.5f);
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
-      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.LOGO);
+      final Texture playerTexture = Asset.get(Assets.Textures.LOGO, Texture.class);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 16);
       AnimationDrawable drawable = new AnimationDrawable(sheet,
             AnimationConfig.builder()
@@ -118,7 +116,7 @@ public class LogoScreen extends BrainGdxScreen2D<ScapeGame> {
                : new MainMenuScreen(getGame());
          context.getScreenTransitions().out(nextScreen, 1f);
          exiting = true;
-         SharedAssetManager.getInstance().get(Assets.Musics.BITBRAIN, Music.class).stop();
+         Asset.get(Assets.Musics.BITBRAIN, Music.class).stop();
       }
    }
 

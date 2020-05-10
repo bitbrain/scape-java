@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.behavior.movement.Movement;
 import de.bitbrain.braingdx.behavior.movement.Orientation;
 import de.bitbrain.braingdx.context.GameContext2D;
@@ -29,7 +29,7 @@ import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.tmx.TiledMapContext;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.GameObjectTween;
@@ -65,7 +65,7 @@ import java.util.Set;
 import static de.bitbrain.scape.GameConfig.EXIT_ZOOMER_CONFIG_INGAME;
 import static de.bitbrain.scape.animation.Animator.animatePowercell;
 
-public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
+public class IngameScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private final LevelMetaData levelMetaData;
 
@@ -107,7 +107,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
 
       this.tiledMapContext = context.getTiledMapManager().load(
-            SharedAssetManager.getInstance().get(levelMetaData.getPath(), TiledMap.class),
+            Asset.get(levelMetaData.getPath(), TiledMap.class),
             context.getGameCamera().getInternalCamera()
       );
       tiledMapContext.setEventFactory(new ScopeEventFactory());
@@ -147,7 +147,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
 
    public void setGameComplete(boolean gameComplete) {
       if (gameComplete && !this.gameComplete) {
-         SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_COMPLETE, Sound.class).play(0.5f);
+         Asset.get(Assets.Sounds.LEVEL_COMPLETE, Sound.class).play(0.5f);
       }
       this.gameComplete = gameComplete;
    }
@@ -184,7 +184,7 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    public void startLevel() {
       if (!anyKeyPressedToStartlevel) {
          if (levelMetaData.getBackgroundMusicPath() != null) {
-            Music backgroundMusic = SharedAssetManager.getInstance().get(levelMetaData.getBackgroundMusicPath(), Music.class);
+            Music backgroundMusic = Asset.get(levelMetaData.getBackgroundMusicPath(), Music.class);
             backgroundMusic.setLooping(true);
             backgroundMusic.setVolume(0.02f);
             backgroundMusic.play();
@@ -234,11 +234,11 @@ public class IngameScreen extends BrainGdxScreen2D<ScapeGame> {
    }
 
    private void setupRendering(GameContext2D context) {
-      final Texture playerTexture = SharedAssetManager.getInstance().get(Assets.Textures.PLAYER);
+      final Texture playerTexture = Asset.get(Assets.Textures.PLAYER, Texture.class);
       AnimationSpriteSheet sheet = new AnimationSpriteSheet(playerTexture, 8);
-      final Texture byteTexture = SharedAssetManager.getInstance().get(Assets.Textures.BYTE);
+      final Texture byteTexture = Asset.get(Assets.Textures.BYTE, Texture.class);
       AnimationSpriteSheet byteSheet = new AnimationSpriteSheet(byteTexture, 8);
-      final Texture powercellTexture = SharedAssetManager.getInstance().get(Assets.Textures.POWERCELL);
+      final Texture powercellTexture = Asset.get(Assets.Textures.POWERCELL, Texture.class);
       AnimationSpriteSheet powercellSheet = new AnimationSpriteSheet(powercellTexture, 16);
 
       context.getRenderManager().register(CharacterType.PLAYER.name(), new AnimationRenderer(sheet,

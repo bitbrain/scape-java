@@ -19,7 +19,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Vignette;
 import de.bitbrain.braingdx.input.controller.NavigateableControllerInput;
 import de.bitbrain.braingdx.input.keyboard.NavigateableKeyboardInput;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.tweens.ActorTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.ui.NavigationMenu;
@@ -40,7 +40,7 @@ import static de.bitbrain.scape.ui.UiFactory.addMenuButton;
 import static de.bitbrain.scape.ui.UiFactory.createAnimatedLogo;
 import static java.lang.String.format;
 
-public class StageCompleteScreen extends BrainGdxScreen2D<ScapeGame> {
+public class StageCompleteScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private final boolean stageCompletedForTheFirstTime;
    private final boolean newPointRecord;

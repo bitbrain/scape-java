@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.utils.Align;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import com.badlogic.gdx.utils.Array;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.behavior.BehaviorAdapter;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
@@ -18,7 +18,9 @@ import de.bitbrain.scape.assets.Assets;
 import de.bitbrain.scape.progress.PlayerProgress;
 import de.bitbrain.scape.ui.levelselection.LevelOverviewUI;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StageManager {
 
@@ -85,7 +87,7 @@ public class StageManager {
    }
 
    public void selectPreviousLevel() {
-      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
+      Asset.get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);
@@ -105,7 +107,7 @@ public class StageManager {
    }
 
    public void selectNextLevel() {
-      SharedAssetManager.getInstance().get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
+      Asset.get(Assets.Sounds.LEVEL_SELECT, Sound.class).play(0.1f);
       Level previouslySelected = getLevel(currentlySelectedLevel);
       if (previouslySelected != null) {
          context.getTweenManager().killTarget(previouslySelected.uiObject);
@@ -147,7 +149,7 @@ public class StageManager {
 
    private void populateLevelMapping() {
       levelMapping.clear();
-      List<GameObject> levelsHorizontallyOrdered = context.getGameWorld().getObjects(new Comparator<GameObject>() {
+      Array<GameObject> levelsHorizontallyOrdered = context.getGameWorld().getObjects(new Comparator<GameObject>() {
          @Override
          public int compare(GameObject o1, GameObject o2) {
             return (o1.getAttribute("order", 0) - o2.getAttribute("order", 0));

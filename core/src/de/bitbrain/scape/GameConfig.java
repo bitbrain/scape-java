@@ -9,6 +9,7 @@ import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
 import de.bitbrain.braingdx.tweens.ZoomerShaderTween;
 import de.bitbrain.braingdx.util.Mutator;
+import de.bitbrain.scape.i18n.Bundle;
 
 public interface GameConfig {
 

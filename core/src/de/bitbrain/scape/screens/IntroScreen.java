@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.context.GameContext2D;
 import de.bitbrain.braingdx.graphics.GameCamera;
 import de.bitbrain.braingdx.graphics.pipeline.layers.RenderPipeIds;
 import de.bitbrain.braingdx.graphics.postprocessing.AutoReloadPostProcessorEffect;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Bloom;
 import de.bitbrain.braingdx.graphics.postprocessing.effects.Zoomer;
-import de.bitbrain.braingdx.screen.BrainGdxScreen2D;
+import de.bitbrain.braingdx.screen.AbstractBrainGdxScreen2D;
 import de.bitbrain.braingdx.screens.ColorTransition;
 import de.bitbrain.braingdx.tweens.BloomShaderTween;
 import de.bitbrain.braingdx.tweens.SharedTweenManager;
@@ -39,7 +39,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
+public class IntroScreen extends AbstractBrainGdxScreen2D<ScapeGame, GameContext2D> {
 
    private GameContext2D context;
    private List<String> commands;
@@ -61,13 +61,13 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onCreate(GameContext2D context) {
       context.getScreenTransitions().in(0.4f);
-      SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).play();
+      Asset.get(Assets.Musics.INTRO, Music.class).play();
       PlayerProgress progress = new PlayerProgress(null);
       if (progress.isNewGame()) {
-         SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).play(0.6f);
-         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setLooping(true);
-         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).setVolume(0.2f);
-         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).play();
+         Asset.get(Assets.Sounds.STARTUP, Sound.class).play(0.6f);
+         Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).setLooping(true);
+         Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).setVolume(0.2f);
+         Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).play();
       }
       context.setBackgroundColor(Colors.BACKGROUND_VIOLET);
       commands = loadIntroCommands();
@@ -97,9 +97,9 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
 
    public void exit() {
       if (!exiting) {
-         SharedAssetManager.getInstance().get(Assets.Musics.INTRO, Music.class).stop();
-         SharedAssetManager.getInstance().get(Assets.Sounds.STARTUP, Sound.class).stop();
-         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
+         Asset.get(Assets.Musics.INTRO, Music.class).stop();
+         Asset.get(Assets.Sounds.STARTUP, Sound.class).stop();
+         Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
          exiting = true;
          context.getScreenTransitions().out(new StageSelectionScreen(getGame(), true), 1f);
       }
@@ -114,8 +114,8 @@ public class IntroScreen extends BrainGdxScreen2D<ScapeGame> {
    @Override
    protected void onUpdate(float delta) {
       if (!bootSequence && commands != null && commands.isEmpty() && proceedWithBootSequence) {
-         SharedAssetManager.getInstance().get(Assets.Sounds.ENTER, Sound.class).play();
-         SharedAssetManager.getInstance().get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
+         Asset.get(Assets.Sounds.ENTER, Sound.class).play();
+         Asset.get(Assets.Musics.COMPUTER_NOISE, Music.class).stop();
          bootSequence = true;
          ui.setPaused(true);
          randomizer.start();

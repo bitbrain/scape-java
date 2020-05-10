@@ -9,12 +9,11 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import de.bitbrain.braingdx.assets.SharedAssetManager;
+import de.bitbrain.braingdx.assets.Asset;
 import de.bitbrain.braingdx.graphics.GraphicsFactory;
 import de.bitbrain.braingdx.graphics.lighting.LightingManager;
 import de.bitbrain.braingdx.graphics.particles.ParticleManager;
@@ -35,7 +34,6 @@ import de.bitbrain.scape.ui.Styles;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class LevelOverviewUI extends Table {
 
@@ -74,7 +72,7 @@ public class LevelOverviewUI extends Table {
       this.levelProgress = new Label(playerProgress.getPointRecord() + "/" + playerProgress.getMetadata().getNumberOfBytes(), Styles.LABEL_SELECTION_LEVEL_PROGRESS);
       setAlignment(add(levelProgress), levelProgress, alignment).width(100f).row();
       invalidatePosition();
-      this.selection = GraphicsFactory.createNinePatch(SharedAssetManager.getInstance().get(Assets.Textures.SELECTION_NINEPATCH, Texture.class), 3);
+      this.selection = GraphicsFactory.createNinePatch(Asset.get(Assets.Textures.SELECTION_NINEPATCH, Texture.class), 3);
       getColor().a = 0;
       spacing.setValue(1f);
       Tween.to(spacing, ValueTween.VALUE, 0.2f)
@@ -174,13 +172,13 @@ public class LevelOverviewUI extends Table {
       Color shadowColor = getColor().cpy();
       shadowColor.a *= 0.3f;
       batch.setColor(shadowColor);
-      Texture background = SharedAssetManager.getInstance().get(Assets.Textures.UI_BG, Texture.class);
+      Texture background = Asset.get(Assets.Textures.UI_BG, Texture.class);
       batch.draw(background, reference.getLeft() - BG_RADIUS, reference.getTop() - BG_RADIUS, BG_RADIUS * 2, BG_RADIUS * 2);
       batch.setColor(getColor());
       float left = (float) (Math.floor(reference.getLeft() / 8) * 8);
       float top = (float) (Math.floor(reference.getTop() / 8) * 8);
       selection.draw(batch, left - spacing.getValue(), top - spacing.getValue(), 7 + spacing.getValue() * 2, 7 + spacing.getValue() * 2);
-      Texture selectionFill = SharedAssetManager.getInstance().get(Assets.Textures.SELECTION_TARGET, Texture.class);
+      Texture selectionFill = Asset.get(Assets.Textures.SELECTION_TARGET, Texture.class);
       batch.draw(selectionFill, left + 2, top + 2);
       super.draw(batch, parentAlpha);
    }
