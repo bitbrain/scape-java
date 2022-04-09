@@ -19,8 +19,6 @@ You have to follow a journey of love, willingness and hate. You might think load
 
 This project is inspired by [hacker stories and TV series](https://en.wikipedia.org/wiki/Mr._Robot), board repair videos on Youtube and my passion for [Software Engineering](https://en.wikipedia.org/wiki/Software_engineering).
 
-This project is a rewrite of [scape-java](https://github.com/bitbrain/scape-java) which is the original game. However, that one is difficult to maintain. As a result, this project has been ported over to Godot Engine.
-
 # Technologies
 
 * [libgdx](https://libgdx.badlogicgames.com)
